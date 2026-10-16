@@ -1,0 +1,29 @@
+{
+  "release": "0.2.0-alpha.2",
+  "date": "2026-10-16",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.262",
+  "java": 21,
+  "mods": 30,
+  "junit": 64,
+  "gametest": 16,
+  "gateway_tests": 9,
+  "packaging_tests": 13,
+  "dev_clients_clean": 1,
+  "server_boots_exit_zero": 3,
+  "active_ticks_preserved": 602,
+  "tools": 7,
+  "catalog": [
+    "warning_beacon_v1"
+  ],
+  "signal_count": 1,
+  "cancelled_effect_count": 0,
+  "duplicate_preserved": true,
+  "old_epoch_rejected": true,
+  "user_saves_modified": false,
+  "prism_import_launch_confirmed": false,
+  "six_player_load_tested": false,
+  "final_jar_server_retest": true,
+  "fresh_archive_gateway_install": true,
+  "fresh_archive_gateway_live_snapshot": true
+}

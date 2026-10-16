@@ -21,3 +21,8 @@ JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчер
 - [Applied Energistics 2](https://appliedenergistics.org/)
 
 Точные URL файлов остальных компонентов находятся в lock-файле.
+
+MCP gateway использует [официальный Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+версии 2.3.0 (MIT). Python-зависимости перечислены с SHA-256 в
+`director/requirements-windows-py312.lock`; установщик получает их с PyPI.
+Готовая среда Python и пакеты третьих сторон в ZIP и Git не включены.
