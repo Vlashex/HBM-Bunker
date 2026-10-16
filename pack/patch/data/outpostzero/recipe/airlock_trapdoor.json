@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "GIS"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "I": {
+      "item": "minecraft:iron_trapdoor"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "outpostzero:airlock_trapdoor"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "PCP",
+    " R "
+  ],
+  "key": {
+    "M": {
+      "item": "justhammers:reinforced_impact_core"
+    },
+    "P": {
+      "item": "hbm:plate_dura_steel"
+    },
+    "C": {
+      "item": "hbm:circuit_advanced"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "justhammers:destructor_core",
+    "count": 1
+  }
+}

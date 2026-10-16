@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "CUC",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "hbm:plate_dura_steel"
+    },
+    "C": {
+      "item": "hbm:circuit_advanced"
+    },
+    "U": {
+      "item": "mininggadgets:upgrade_size_2"
+    },
+    "R": {
+      "item": "hbm:ingot_tungsten"
+    }
+  },
+  "result": {
+    "id": "mininggadgets:upgrade_size_3",
+    "count": 1
+  }
+}

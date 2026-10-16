@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "RUR",
+    " C "
+  ],
+  "key": {
+    "P": {
+      "item": "hbm:plate_aluminium"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "hbm:circuit_basic"
+    },
+    "U": {
+      "item": "mininggadgets:upgrade_efficiency_1"
+    }
+  },
+  "result": {
+    "id": "mininggadgets:upgrade_efficiency_2",
+    "count": 1
+  }
+}

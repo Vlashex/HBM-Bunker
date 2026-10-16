@@ -1,0 +1,12 @@
+{
+  "name": "HBM Bunker",
+  "version": "0.1.0-mvp",
+  "release_date": "2026-10-16",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.262",
+  "java": 21,
+  "memory_mb": 6144,
+  "patch_version": "1.2.0",
+  "patch_filename": "hbm-easy-balance-1.2.0-neoforge-1.21.1.jar",
+  "legacy_pack_version": "1.2"
+}

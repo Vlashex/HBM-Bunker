@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " L ",
+    "PBP",
+    " K "
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "P": {
+      "item": "hbm:plate_steel"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "K": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "levels": {
+          "minecraft:efficiency": 4
+        }
+      }
+    }
+  }
+}

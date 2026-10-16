@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " S ",
+    "PUP",
+    " B "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:slime_ball"
+    },
+    "P": {
+      "item": "hbm:plate_steel"
+    },
+    "U": {
+      "item": "mininggadgets:upgrade_empty"
+    },
+    "B": {
+      "type": "neoforge:components",
+      "items": "minecraft:enchanted_book",
+      "components": {
+        "minecraft:stored_enchantments": {
+          "levels": {
+            "minecraft:silk_touch": 1
+          }
+        }
+      },
+      "strict": true
+    }
+  },
+  "result": {
+    "id": "mininggadgets:upgrade_silk",
+    "count": 1
+  }
+}

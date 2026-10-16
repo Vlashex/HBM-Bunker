@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "mutationcraft:putrid_heart"
+    },
+    "1": {
+      "tag": "c:plates/steel"
+    },
+    "2": {
+      "item": "mutationcraft:putrid_brain"
+    },
+    "3": {
+      "tag": "c:plates/steel"
+    },
+    "4": {
+      "item": "hbm:tank_steel"
+    },
+    "5": {
+      "tag": "c:plates/steel"
+    },
+    "6": {
+      "item": "mutationcraft:putrid_brain"
+    },
+    "7": {
+      "tag": "c:plates/steel"
+    },
+    "8": {
+      "item": "mutationcraft:putrid_heart"
+    }
+  },
+  "result": {
+    "id": "mutationcraft:flamethrower",
+    "count": 1
+  }
+}

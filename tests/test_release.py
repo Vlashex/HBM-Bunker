@@ -1,0 +1,90 @@
+"""Tests of the release tooling, independent of a Minecraft installation."""
+import hashlib
+import importlib.util
+import json
+from pathlib import Path
+import posixpath
+import re
+import tempfile
+import unittest
+import zipfile
+
+ROOT = Path(__file__).resolve().parents[1]
+SPEC = importlib.util.spec_from_file_location("pack_release", ROOT / "tools/release.py")
+release = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(release)
+
+
+class ReleaseTests(unittest.TestCase):
+    def row(self, name="example.jar", data=b"external-mod"):
+        return dict(filename=name, size=len(data), sha256=hashlib.sha256(data).hexdigest(),
+                    url="https://example.org/example.jar")
+
+    def test_manifest_rejects_duplicate_names_and_unsafe_paths(self):
+        row = self.row()
+        release.validate_lock([row])
+        for rows in ([row, row], [self.row("../escape.jar")],
+                     [self.row("C:\\escape.jar")], [self.row("nested/mod.jar")]):
+            with self.subTest(rows=rows), self.assertRaises(ValueError):
+                release.validate_lock(rows)
+
+    def test_cached_file_with_wrong_bytes_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "example.jar"
+            path.write_bytes(b"tampered-mod")
+            with self.assertRaises(ValueError):
+                release.verify_file(path, self.row())
+
+    def test_zip_is_reproducible_and_rejects_escape(self):
+        entries = {"pack.mcmeta": b"{}", "data/example/recipe/test.json": b"{}"}
+        with tempfile.TemporaryDirectory() as tmp:
+            first, second = Path(tmp) / "first.jar", Path(tmp) / "second.jar"
+            release.write_zip(first, entries)
+            release.write_zip(second, dict(reversed(list(entries.items()))))
+            self.assertEqual(first.read_bytes(), second.read_bytes())
+            with self.assertRaises(ValueError):
+                release.write_zip(Path(tmp) / "unsafe.zip", {"../escape": b"x"})
+
+    def test_import_only_verified_locked_files_and_no_account_data(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "source.zip"
+            data = b"external-mod"
+            with zipfile.ZipFile(source, "w") as archive:
+                archive.writestr(".minecraft/mods/example.jar", data)
+                archive.writestr(".minecraft/mods/pack-recipe-probe.jar", b"probe")
+                archive.writestr("accounts.json", b"secret")
+            cache = root / "cache"
+            release.import_cache(source, cache, [self.row()])
+            self.assertEqual([p.name for p in cache.iterdir()], ["example.jar"])
+            self.assertEqual((cache / "example.jar").read_bytes(), data)
+
+    def test_repository_source_and_recorded_evidence_validate(self):
+        summary = release.check(ROOT)
+        self.assertGreater(summary["external_mods"], 0)
+        self.assertGreater(summary["patch_files"], 0)
+        release.check_evidence(ROOT)
+
+    def test_failed_recorded_report_is_not_accepted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            evidence = root / "verification/mvp"
+            evidence.mkdir(parents=True)
+            (evidence / "crafting-results.json").write_text(json.dumps({"failures": 1}))
+            with self.assertRaises(ValueError):
+                release.check_evidence(root)
+
+    def test_release_docs_include_local_markdown_link_targets(self):
+        self.assertTrue(hasattr(release, "release_documents"), "Release document selector missing")
+        documents = release.release_documents(ROOT)
+        for name, data in documents.items():
+            for target in re.findall(r"\]\(([^)]+)\)", data.decode("utf-8")):
+                if target.startswith(("https://", "http://", "#", "mailto:")):
+                    continue
+                target = target.split("#")[0]
+                resolved = posixpath.normpath(posixpath.join(posixpath.dirname(name), target))
+                self.assertIn(resolved, documents, f"Broken packaged link in {name}: {target}")
+
+
+if __name__ == "__main__":
+    unittest.main()

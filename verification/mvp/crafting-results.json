@@ -1,0 +1,194 @@
+{
+  "failures": 0,
+  "tests": 47,
+  "results": [
+    {
+      "name": "overgrown_vegetation:steel_plate new",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:steel_plate rejects old",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:airlock_door new",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:airlock_door rejects old",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:airlock_trapdoor new",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:airlock_trapdoor rejects old",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:damaged_airlock_door new",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:damaged_airlock_door rejects old",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:steel_generator new",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:steel_generator rejects old",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:spore_purifier new",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:spore_purifier rejects old",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:factor_extractor new",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:factor_extractor rejects old",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:powered_armor_table new",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:powered_armor_table rejects old",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:gun_turret new",
+      "pass": true
+    },
+    {
+      "name": "overgrown_vegetation:gun_turret rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl1 new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl1 rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl2 new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl2 rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl3 new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:universal_block_reinforcer_lvl3 rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:security_camera new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:security_camera rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:portable_radar new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:portable_radar rejects old",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:sentry new",
+      "pass": true
+    },
+    {
+      "name": "securitycraft:sentry rejects old",
+      "pass": true
+    },
+    {
+      "name": "mutationcraft:flamethrower new",
+      "pass": true
+    },
+    {
+      "name": "mutationcraft:flamethrower rejects old",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:light_vest new",
+      "pass": true
+    },
+    {
+      "name": "outpostzero:spec_ops_vest new",
+      "pass": true
+    },
+    {
+      "name": "iron plus coal no steel",
+      "pass": true
+    },
+    {
+      "name": "iron plus charcoal no steel",
+      "pass": true
+    },
+    {
+      "name": "no simple workbench steel plates",
+      "pass": true
+    },
+    {
+      "name": "plate reverse 1:1",
+      "pass": true
+    },
+    {
+      "name": "outpost nuggets no multiplication",
+      "pass": true
+    },
+    {
+      "name": "outpost ingot from nine nuggets",
+      "pass": true
+    },
+    {
+      "name": "unified plate accepted by purifier",
+      "pass": true
+    },
+    {
+      "name": "starter preserved spore_filter",
+      "pass": true
+    },
+    {
+      "name": "starter preserved research_table",
+      "pass": true
+    },
+    {
+      "name": "craftable AE2 calculation_processor_press",
+      "pass": true
+    },
+    {
+      "name": "craftable AE2 engineering_processor_press",
+      "pass": true
+    },
+    {
+      "name": "craftable AE2 logic_processor_press",
+      "pass": true
+    },
+    {
+      "name": "craftable AE2 silicon_press",
+      "pass": true
+    }
+  ]
+}

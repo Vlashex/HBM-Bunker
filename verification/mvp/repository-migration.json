@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-16",
+  "release": "0.1.0-mvp",
+  "external_mods_byte_identical": 28,
+  "config_files_identical_except_line_endings": 4,
+  "patch_entries_identical_except_line_endings": 120,
+  "prism_components_unchanged": true,
+  "runtime_private_data_excluded": true,
+  "unit_tests_passed": 7,
+  "clean_checkout_reproducible": true,
+  "archive_sha256": "d4873bf743087cfa96ecfd51baf6e04ef26e685b1d2c4dbf1b06e82effb61e53",
+  "fresh_game_launch": false
+}

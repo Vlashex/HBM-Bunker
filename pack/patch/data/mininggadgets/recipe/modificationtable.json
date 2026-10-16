@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SSS",
+    "RUR",
+    "III"
+  ],
+  "key": {
+    "S": {
+      "item": "hbm:plate_steel"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "U": {
+      "item": "mininggadgets:upgrade_empty"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "mininggadgets:modificationtable",
+    "count": 1
+  }
+}

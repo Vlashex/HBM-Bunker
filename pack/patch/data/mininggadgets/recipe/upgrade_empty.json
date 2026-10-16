@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " R ",
+    "GCG",
+    " S "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "C": {
+      "item": "hbm:circuit_basic"
+    },
+    "S": {
+      "item": "hbm:plate_steel"
+    }
+  },
+  "result": {
+    "id": "mininggadgets:upgrade_empty",
+    "count": 1
+  }
+}

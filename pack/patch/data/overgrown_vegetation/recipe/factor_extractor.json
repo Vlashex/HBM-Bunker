@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:plates/steel"
+    },
+    "B": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "overgrown_vegetation:phloemite"
+    },
+    "D": {
+      "item": "hbm:motor"
+    }
+  },
+  "result": {
+    "id": "overgrown_vegetation:factor_extractor",
+    "count": 1
+  }
+}

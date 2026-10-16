@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "securitycraft:universal_block_reinforcer",
+  "key": {
+    "E": {
+      "item": "securitycraft:reinforced_emerald_block"
+    },
+    "G": {
+      "item": "securitycraft:reinforced_pink_stained_glass"
+    },
+    "N": {
+      "tag": "c:nether_stars"
+    },
+    "R": {
+      "item": "securitycraft:reinforced_redstone_block"
+    },
+    "S": {
+      "item": "securitycraft:universal_block_reinforcer_lvl2"
+    }
+  },
+  "pattern": [
+    " EG",
+    "RNE",
+    "SR "
+  ],
+  "result": {
+    "count": 1,
+    "id": "securitycraft:universal_block_reinforcer_lvl3"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ADA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:plates/steel"
+    },
+    "B": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "minecraft:hopper"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "overgrown_vegetation:spore_purifier",
+    "count": 1
+  }
+}

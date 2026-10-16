@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": "#c:ingots/steel"
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 4,
+    "id": "hbm:plate_steel"
+  }
+}

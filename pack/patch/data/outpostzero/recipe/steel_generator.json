@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS",
+    "SFS",
+    "SRS"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "outpostzero:steel_generator"
+  }
+}

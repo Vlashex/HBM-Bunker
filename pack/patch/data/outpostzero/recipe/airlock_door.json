@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " G ",
+    " I ",
+    " S "
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass_pane"
+    },
+    "I": {
+      "item": "minecraft:iron_door"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "result": {
+    "count": 1,
+    "id": "outpostzero:airlock_door"
+  }
+}

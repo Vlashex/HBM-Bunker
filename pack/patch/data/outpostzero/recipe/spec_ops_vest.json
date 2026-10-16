@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "SBS",
+    "SLS",
+    "   "
+  ],
+  "key": {
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "L": {
+      "item": "outpostzero:light_vest"
+    }
+  },
+  "result": {
+    "id": "outpostzero:spec_ops_vest"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "PCP",
+    " R "
+  ],
+  "key": {
+    "M": {
+      "item": "justhammers:reinforced_core"
+    },
+    "P": {
+      "item": "hbm:ingot_tungsten"
+    },
+    "C": {
+      "item": "hbm:circuit_advanced"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "justhammers:reinforced_impact_core",
+    "count": 1
+  }
+}

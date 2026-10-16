@@ -1,0 +1,1 @@
+Private recipe compatibility patch for this modpack. Contains adapted recipe data from the required mods. Original mod code and assets are not included. No claim to ownership of the original mods.

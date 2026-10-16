@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "LLL",
+    "ISI",
+    "LGL"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "tag": "c:ingots/steel"
+    },
+    "G": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "result": {
+    "id": "outpostzero:light_vest"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "CUC",
+    " R "
+  ],
+  "key": {
+    "P": {
+      "item": "hbm:plate_titanium"
+    },
+    "C": {
+      "item": "hbm:circuit_advanced"
+    },
+    "U": {
+      "item": "mininggadgets:upgrade_size_1"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "mininggadgets:upgrade_size_2",
+    "count": 1
+  }
+}

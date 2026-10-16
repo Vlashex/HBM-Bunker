@@ -1,0 +1,240 @@
+[
+  {
+    "filename": "jei-1.21.1-neoforge-19.51.0.418.jar",
+    "size": 1804792,
+    "sha256": "8bc3936d869e4040a5649c58b7e8be1c78c82a245c0dc07bdd68ab49121a222c",
+    "url": "https://cdn.modrinth.com/data/u6dRKJwZ/versions/ufHUqt9b/jei-1.21.1-neoforge-19.51.0.418.jar",
+    "project_id": "u6dRKJwZ",
+    "version": "19.51.0.418"
+  },
+  {
+    "filename": "[1.21.1] SecurityCraft v1.10.2.1.jar",
+    "size": 5193371,
+    "sha256": "75ac9e73c60caf58df7069f167dbacc00a640e1418207dff654f56a5fdb5f229",
+    "url": "https://cdn.modrinth.com/data/v8jzRtAt/versions/X9nq0PvS/%5B1.21.1%5D%20SecurityCraft%20v1.10.2.1.jar",
+    "project_id": "v8jzRtAt",
+    "version": "v1.10.2.1"
+  },
+  {
+    "filename": "appliedenergistics2-19.2.18.jar",
+    "size": 8236552,
+    "sha256": "df15a07f86ca1ca93aa66373f9d5d84dd3d4586631fceb38f4fbc85dad591e39",
+    "url": "https://cdn.modrinth.com/data/XxWD5pD3/versions/KDnFUmMm/appliedenergistics2-19.2.18.jar",
+    "project_id": "XxWD5pD3",
+    "version": "19.2.18",
+    "version_id": "KDnFUmMm"
+  },
+  {
+    "filename": "bookshelf-neoforge-1.21.1-21.1.81.jar",
+    "size": 328813,
+    "sha256": "19e88d40da2b6a114c2b808f7fb469d96e66a5379df0a8a43fcb7834498b3e76",
+    "url": "https://cdn.modrinth.com/data/uy4Cnpcm/versions/1sdJl7J1/bookshelf-neoforge-1.21.1-21.1.81.jar",
+    "project_id": "uy4Cnpcm",
+    "version": "21.1.81",
+    "version_id": "1sdJl7J1"
+  },
+  {
+    "filename": "botanypots-neoforge-1.21.1-21.1.44.jar",
+    "size": 1068816,
+    "sha256": "45b23ac195511f724f62ab5f0c2d7a1c2c2403ff324a7403a1142e28a7d65edd",
+    "url": "https://cdn.modrinth.com/data/U6BUTZ7K/versions/RjHfHgSn/botanypots-neoforge-1.21.1-21.1.44.jar",
+    "project_id": "U6BUTZ7K",
+    "version": "21.1.44",
+    "version_id": "RjHfHgSn"
+  },
+  {
+    "filename": "botanypotsmystical-neoforge-1.21.1-21.1.12.jar",
+    "size": 89696,
+    "sha256": "f7c67bb0fce976b8dfdd1c07e499fbdc472e1e97305ca7ae5e57ccba780f293e",
+    "url": "https://maven.blamejared.com/net/darkhax/botanypotsmystical/botanypotsmystical-neoforge-1.21.1/21.1.12/botanypotsmystical-neoforge-1.21.1-21.1.12.jar",
+    "project_url": "https://github.com/Darkhax-Minecraft/Botany-Pots-Mystical-Agriculture"
+  },
+  {
+    "filename": "charginggadgets-1.14.1.jar",
+    "size": 67206,
+    "sha256": "411bae6c95c1c4ab19e0431785341dabe39b6eaf5f132abd00514264243ba2ac",
+    "url": "https://edge.forgecdn.net/files/5615/790/charginggadgets-1.14.1.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/charging-gadgets",
+    "version": "1.14.1"
+  },
+  {
+    "filename": "Cucumber-1.21.1-8.0.16.jar",
+    "size": 275588,
+    "sha256": "371f9551c676b76a39d5580be28f5cfeff364e131ad138fbf7108aeb2712f43f",
+    "url": "https://cdn.modrinth.com/data/Rw1NrDzF/versions/8421rqFF/Cucumber-1.21.1-8.0.16.jar",
+    "project_id": "Rw1NrDzF",
+    "version": "8.0.16",
+    "version_id": "8421rqFF"
+  },
+  {
+    "filename": "exdeorum-3.12.jar",
+    "size": 2123067,
+    "sha256": "c77f59ecac64b147250e217d8fcda58899d07c62088bdc3a2a135514561215b4",
+    "url": "https://cdn.modrinth.com/data/WP0FLyzv/versions/NOZ1Zbbu/exdeorum-3.12.jar",
+    "project_id": "WP0FLyzv",
+    "version": "3.12",
+    "version_id": "NOZ1Zbbu"
+  },
+  {
+    "filename": "geckolib-neoforge-1.21.1-4.9.3.jar",
+    "size": 634531,
+    "sha256": "20a1995e4074f387ff549e2c57ea79dd7d41ee83c6afb9dd6a6e840e592d1c47",
+    "url": "https://cdn.modrinth.com/data/8BmcQJ2H/versions/Grwn5rUB/geckolib-neoforge-1.21.1-4.9.3.jar",
+    "project_id": "8BmcQJ2H",
+    "version": "4.9.3"
+  },
+  {
+    "filename": "guideme-21.1.19.jar",
+    "size": 9311992,
+    "sha256": "2ce254edb931c3c3cf81d69abaf8f4ce5b871bf85e64984f366bf044173bd66a",
+    "url": "https://cdn.modrinth.com/data/Ck4E7v7R/versions/hFpGwC6q/guideme-21.1.19.jar",
+    "project_id": "Ck4E7v7R",
+    "version": "21.1.19",
+    "version_id": "hFpGwC6q"
+  },
+  {
+    "filename": "improvedmobs-1.21.1-1.16.0.b-neoforge.jar",
+    "size": 409406,
+    "sha256": "696e1c29b89c7008616eee02baab5df66d8d87a9c0d31b595e53f23346a5c947",
+    "url": "https://cdn.modrinth.com/data/23MovWyi/versions/bgyn3PYl/improvedmobs-1.21.1-1.16.0.b-neoforge.jar",
+    "project_id": "23MovWyi",
+    "version": "1.21.1-1.16.0.b-neoforge"
+  },
+  {
+    "filename": "just-hammers-neoforge-21.1.4.jar",
+    "size": 102133,
+    "sha256": "59487c8758fd762fcddc58e3b5e8a956de3f6a2115cd1c6f9a915939f5f985d8",
+    "url": "https://cdn.modrinth.com/data/edU0NbZZ/versions/SobtrAG5/just-hammers-neoforge-21.1.4.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/justhammers",
+    "version": "21.1.4"
+  },
+  {
+    "filename": "mcjtylib-1.21-9.0.21.jar",
+    "size": 699982,
+    "sha256": "b8eca900d4fe77a495c74137bd6be79c67281e5d7ae67ca55f59980c64960a0e",
+    "url": "https://cdn.modrinth.com/data/1Zu0uTEE/versions/9B2CiAN5/mcjtylib-1.21-9.0.21.jar",
+    "project_id": "1Zu0uTEE",
+    "version": "1.21-9.0.21",
+    "version_id": "9B2CiAN5"
+  },
+  {
+    "filename": "mininggadgets-1.18.8.jar",
+    "size": 664111,
+    "sha256": "01e1b6064959074388485e03828cffaec3f9a702436efe66c0faa296dde54f91",
+    "url": "https://edge.forgecdn.net/files/8860/674/mininggadgets-1.18.8.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/mining-gadgets",
+    "version": "1.18.8"
+  },
+  {
+    "filename": "mutationcraft-legacy-neoforge-1.1-1.21.1.jar",
+    "size": 2670390,
+    "sha256": "61bf476b66fbb6822bf5b15b815e17e1585c0695ffa363aa8c14e97488cce2d7",
+    "url": "https://cdn.modrinth.com/data/SBkd4mrC/versions/W9aovG7d/mutationcraft-legacy-neoforge-1.1-1.21.1.jar",
+    "project_id": "SBkd4mrC",
+    "version": "1.1"
+  },
+  {
+    "filename": "MysticalAgriculture-1.21.1-8.0.28.jar",
+    "size": 2324648,
+    "sha256": "49c2d56c4100618c35c6885487a39aa47e7364ca32ae9f96bcf24f5756347d1a",
+    "url": "https://cdn.modrinth.com/data/C95ReXie/versions/PLakgT6X/MysticalAgriculture-1.21.1-8.0.28.jar",
+    "project_id": "C95ReXie",
+    "version": "8.0.28",
+    "version_id": "PLakgT6X"
+  },
+  {
+    "filename": "ntm-decentralized-neoforge-1.21.1-1.0.0-beta.10.jar",
+    "size": 65408193,
+    "sha256": "df38bfbf1a0b16be7491357c5d2908706a62cfff9ef91cf403a29a72fb762dab",
+    "url": "https://edge.forgecdn.net/files/9150/232/ntm-decentralized-neoforge-1.21.1-1.0.0-beta.10.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/ntm-decentralized-edition",
+    "version": "1.0.0-beta.10",
+    "curseforge_file_id": 9150232
+  },
+  {
+    "filename": "outpostzero-neoforge-1.21.1-1.0.20.jar",
+    "size": 5075479,
+    "sha256": "16d746a476cf9680df33dd09c1f0a412ebd8f2833d5971d941e13413bf3e559c",
+    "url": "https://edge.forgecdn.net/files/9107/217/outpostzero-neoforge-1.21.1-1.0.20.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/outpostzero",
+    "version": "1.0.20",
+    "curseforge_file_id": 9107217
+  },
+  {
+    "filename": "overgrown_vegetation-0.1.9.jar",
+    "size": 8963780,
+    "sha256": "8124f29815f70d0c4c1e2afcb53410ae0c057b26d552a713fd67ac89943d4213",
+    "url": "https://edge.forgecdn.net/files/9116/284/overgrown_vegetation-0.1.9.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/overgrown-vegetation",
+    "version": "0.1.9",
+    "curseforge_file_id": 9116284
+  },
+  {
+    "filename": "pipez-neoforge-1.21.1-1.2.31.jar",
+    "size": 456599,
+    "sha256": "9b37e922443ea3452daeacbfba4bcf69de07692183c4ee09f1d1e82c9fc5cc5f",
+    "url": "https://cdn.modrinth.com/data/iRmWy6ga/versions/BPGKb8pi/pipez-neoforge-1.21.1-1.2.31.jar",
+    "project_id": "iRmWy6ga",
+    "version": "neoforge-1.21.1-1.2.31",
+    "version_id": "BPGKb8pi"
+  },
+  {
+    "filename": "PlayerAnimationLibNeoforge-1.1.6+mc.1.21.1.jar",
+    "size": 1156673,
+    "sha256": "e41ee06000fc95444a482018ec24b3f1e79eb111ca6b8ca119e61ceabf9136c5",
+    "url": "https://cdn.modrinth.com/data/ha1mEyJS/versions/yjxtkvnD/PlayerAnimationLibNeoforge-1.1.6%2Bmc.1.21.1.jar",
+    "project_id": "ha1mEyJS",
+    "version": "1.1.6"
+  },
+  {
+    "filename": "prickle-neoforge-1.21.1-21.1.11.jar",
+    "size": 84812,
+    "sha256": "ccf46c442ed3c7fe41ad056f0940560829ec4dd88360985dfacd78f4614eb167",
+    "url": "https://cdn.modrinth.com/data/aaRl8GiW/versions/EE1FHDyD/prickle-neoforge-1.21.1-21.1.11.jar",
+    "project_id": "aaRl8GiW",
+    "version": "21.1.11",
+    "version_id": "EE1FHDyD"
+  },
+  {
+    "filename": "ProjectE-1.21.1-PE1.1.0.jar",
+    "size": 2426228,
+    "sha256": "fec9389d8b70fcf87331a0bcc41b78ada79c1e6326ef02a7bb6db9a1d5a4c48b",
+    "url": "https://edge.forgecdn.net/files/6611/984/ProjectE-1.21.1-PE1.1.0.jar",
+    "project_url": "https://www.curseforge.com/minecraft/mc-mods/projecte/files/6611984",
+    "curseforge_file_id": 6611984
+  },
+  {
+    "filename": "rftoolsbase-1.21-6.0.11.jar",
+    "size": 463973,
+    "sha256": "5195ba530e6cf9ba61c9954a3297679e6d29aa1b6182e27ae14ea43463dd4b00",
+    "url": "https://cdn.modrinth.com/data/hIO8IsD8/versions/f8Tk2cfj/rftoolsbase-1.21-6.0.11.jar",
+    "project_id": "hIO8IsD8",
+    "version": "1.21-6.0.11",
+    "version_id": "f8Tk2cfj"
+  },
+  {
+    "filename": "rftoolspower-1.21-7.0.6.jar",
+    "size": 579975,
+    "sha256": "259ebd617cc48e82bf0f1384ab661584829c6bcf0296273e338ceaa38a11f5d8",
+    "url": "https://cdn.modrinth.com/data/YWbLuPa1/versions/Ujyiiyqz/rftoolspower-1.21-7.0.6.jar",
+    "project_id": "YWbLuPa1",
+    "version": "1.21-7.0.6"
+  },
+  {
+    "filename": "rftoolsutility-1.21-7.0.12.jar",
+    "size": 1434987,
+    "sha256": "1fdbf7505c6d6f4ef93b8b15961c9c1a6a4d35a5d676297f8f647916238f4d2a",
+    "url": "https://cdn.modrinth.com/data/7n3HbHSE/versions/xOoMr4zS/rftoolsutility-1.21-7.0.12.jar",
+    "project_id": "7n3HbHSE",
+    "version": "1.21-7.0.12",
+    "version_id": "xOoMr4zS"
+  },
+  {
+    "filename": "tenshilib-1.21.1-2.3.1-neoforge.jar",
+    "size": 762843,
+    "sha256": "44f44b2769b2aa3dafde835284a39d3b71c0c1735c6cdc79615505a052e48499",
+    "url": "https://cdn.modrinth.com/data/P2rffivS/versions/fcNC0Ok0/tenshilib-1.21.1-2.3.1-neoforge.jar",
+    "project_id": "P2rffivS",
+    "version": "1.21.1-2.3.1-neoforge"
+  }
+]

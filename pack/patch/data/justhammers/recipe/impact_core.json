@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " M ",
+    "PCP",
+    " R "
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:iron_pickaxe"
+    },
+    "P": {
+      "item": "hbm:plate_steel"
+    },
+    "C": {
+      "item": "hbm:circuit_basic"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "justhammers:impact_core",
+    "count": 1
+  }
+}

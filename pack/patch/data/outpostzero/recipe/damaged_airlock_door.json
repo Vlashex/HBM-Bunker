@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_door"
+    },
+    {
+      "item": "minecraft:red_dye"
+    },
+    {
+      "item": "minecraft:glass_pane"
+    },
+    {
+      "item": "hbm:plate_steel"
+    }
+  ],
+  "result": {
+    "id": "outpostzero:damaged_airlock_door",
+    "count": 1
+  }
+}

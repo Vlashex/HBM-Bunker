@@ -1,0 +1,467 @@
+{
+  "comment": "Explicit raw-material EMC whitelist. ProjectE own items retain standard mappings. Crafted tech and biology stay outside transmutation.",
+  "values": {
+    "after": [
+      {
+        "type": "projecte:item",
+        "id": "ae2:certus_quartz_crystal",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "ae2:certus_quartz_dust",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "ae2:charged_certus_quartz_crystal",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "ae2:fluix_crystal",
+        "emc_value": 288
+      },
+      {
+        "type": "projecte:item",
+        "id": "ae2:fluix_dust",
+        "emc_value": 288
+      },
+      {
+        "type": "projecte:item",
+        "id": "ae2:silicon",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:fluorite",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_aluminium",
+        "emc_value": 128
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_beryllium",
+        "emc_value": 1024
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_bismuth",
+        "emc_value": 512
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_boron",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_cobalt",
+        "emc_value": 1024
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_graphite",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_lead",
+        "emc_value": 512
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_silicon",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_th232",
+        "emc_value": 4096
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_titanium",
+        "emc_value": 1024
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_tungsten",
+        "emc_value": 2048
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:ingot_uranium",
+        "emc_value": 4096
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:lithium",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:niter",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "hbm:sulfur",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:acacia_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:acacia_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:amethyst_shard",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:andesite",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:apple",
+        "emc_value": 128
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:beetroot",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:birch_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:birch_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:blaze_powder",
+        "emc_value": 768
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:blaze_rod",
+        "emc_value": 1536
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:bone",
+        "emc_value": 144
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:bone_meal",
+        "emc_value": 48
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:bread",
+        "emc_value": 72
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:cactus",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:carrot",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:charcoal",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:cherry_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:cherry_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:clay_ball",
+        "emc_value": 16
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:coal",
+        "emc_value": 128
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:cobbled_deepslate",
+        "emc_value": 2
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:cobblestone",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:copper_ingot",
+        "emc_value": 128
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:dark_oak_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:dark_oak_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:deepslate",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:diamond",
+        "emc_value": 8192
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:diorite",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:dirt",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:egg",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:emerald",
+        "emc_value": 16384
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:end_stone",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:ender_pearl",
+        "emc_value": 1024
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:flint",
+        "emc_value": 4
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:glass",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:glowstone_dust",
+        "emc_value": 384
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:gold_ingot",
+        "emc_value": 2048
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:granite",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:grass_block",
+        "emc_value": 2
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:gravel",
+        "emc_value": 4
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:gunpowder",
+        "emc_value": 192
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:iron_ingot",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:jungle_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:jungle_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:kelp",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:lapis_lazuli",
+        "emc_value": 864
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:leather",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:mangrove_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:mangrove_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:netherrack",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:oak_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:oak_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:obsidian",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:potato",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:quartz",
+        "emc_value": 256
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:red_sand",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:redstone",
+        "emc_value": 64
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:rotten_flesh",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:sand",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:slime_ball",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:soul_sand",
+        "emc_value": 49
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:spruce_log",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:spruce_planks",
+        "emc_value": 8
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:stick",
+        "emc_value": 4
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:stone",
+        "emc_value": 1
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:string",
+        "emc_value": 12
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:sugar",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:sugar_cane",
+        "emc_value": 32
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:wheat",
+        "emc_value": 24
+      },
+      {
+        "type": "projecte:item",
+        "id": "minecraft:wheat_seeds",
+        "emc_value": 16
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+# Generated downloads and release binaries
+/.cache/
+/dist/
+/work/
+*.jar
+*.zip
+*.mrpack
+*.download
+
+# Runtime/user data
+.minecraft/
+saves/
+world/
+logs/
+crash-reports/
+assets/
+libraries/
+accounts.json
+usercache.json
+ops.json
+eula.txt
+.env
+.env.*
+*.log
+*.pid
+*.lck
+
+# Editor/runtime caches
+__pycache__/
+*.py[cod]
+.venv/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

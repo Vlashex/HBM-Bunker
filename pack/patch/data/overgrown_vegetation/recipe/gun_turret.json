@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:plates/steel"
+    },
+    "B": {
+      "item": "overgrown_vegetation:chlorophyllite_alloy"
+    },
+    "C": {
+      "item": "overgrown_vegetation:hardened_bark"
+    },
+    "D": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "overgrown_vegetation:gun_turret",
+    "count": 1
+  }
+}

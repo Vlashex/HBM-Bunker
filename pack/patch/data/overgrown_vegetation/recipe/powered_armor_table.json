@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "CDC",
+    "E E"
+  ],
+  "key": {
+    "A": {
+      "item": "overgrown_vegetation:phloemite"
+    },
+    "B": {
+      "item": "overgrown_vegetation:phloemite_alloy_base"
+    },
+    "C": {
+      "item": "overgrown_vegetation:chlorophyllite_alloy"
+    },
+    "D": {
+      "item": "minecraft:smithing_table"
+    },
+    "E": {
+      "tag": "c:plates/titanium"
+    }
+  },
+  "result": {
+    "id": "overgrown_vegetation:powered_armor_table",
+    "count": 1
+  }
+}

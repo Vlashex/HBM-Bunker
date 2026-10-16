@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "hbm:plate_steel"
+    }
+  ],
+  "result": {
+    "id": "overgrown_vegetation:steel_plate",
+    "count": 1
+  }
+}

@@ -1,0 +1,1715 @@
+[
+  {
+    "ore": "hbm:ore_alexandrite",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:gem_alexandrite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 407,
+      "drops": {
+        "hbm:gem_alexandrite": 407
+      }
+    },
+    "fortune_5": {
+      "total": 450,
+      "drops": {
+        "hbm:gem_alexandrite": 450
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_aluminium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_aluminium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 532,
+      "drops": {
+        "hbm:raw_aluminium": 532
+      }
+    },
+    "fortune_5": {
+      "total": 779,
+      "drops": {
+        "hbm:raw_aluminium": 779
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_aluminium_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_aluminium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 557,
+      "drops": {
+        "hbm:raw_aluminium": 557
+      }
+    },
+    "fortune_5": {
+      "total": 785,
+      "drops": {
+        "hbm:raw_aluminium": 785
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_asbestos",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    },
+    "fortune_3": {
+      "total": 543,
+      "drops": {
+        "hbm:ingot_asbestos": 543
+      }
+    },
+    "fortune_5": {
+      "total": 775,
+      "drops": {
+        "hbm:ingot_asbestos": 775
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_asbestos_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    },
+    "fortune_3": {
+      "total": 558,
+      "drops": {
+        "hbm:ingot_asbestos": 558
+      }
+    },
+    "fortune_5": {
+      "total": 821,
+      "drops": {
+        "hbm:ingot_asbestos": 821
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_australium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_australium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_australium": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_australium": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_basalt_asbestos",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_basalt_fluorite",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:fluorite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:fluorite": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:fluorite": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_basalt_gem",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:gem_volcanic": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:gem_volcanic": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:gem_volcanic": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_basalt_molysite",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_molysite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_molysite": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_molysite": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_basalt_sulfur",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:sulfur": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:sulfur": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:sulfur": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_bedrock",
+    "fortune_0": {
+      "total": 0,
+      "drops": {}
+    },
+    "fortune_3": {
+      "total": 0,
+      "drops": {}
+    },
+    "fortune_5": {
+      "total": 0,
+      "drops": {}
+    }
+  },
+  {
+    "ore": "hbm:ore_beryllium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_beryllium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 591,
+      "drops": {
+        "hbm:raw_beryllium": 591
+      }
+    },
+    "fortune_5": {
+      "total": 847,
+      "drops": {
+        "hbm:raw_beryllium": 847
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_beryllium_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_beryllium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 535,
+      "drops": {
+        "hbm:raw_beryllium": 535
+      }
+    },
+    "fortune_5": {
+      "total": 832,
+      "drops": {
+        "hbm:raw_beryllium": 832
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_cinnabar",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:cinnabar": 256
+      }
+    },
+    "fortune_3": {
+      "total": 555,
+      "drops": {
+        "hbm:cinnabar": 555
+      }
+    },
+    "fortune_5": {
+      "total": 841,
+      "drops": {
+        "hbm:cinnabar": 841
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_cinnabar_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:cinnabar": 256
+      }
+    },
+    "fortune_3": {
+      "total": 583,
+      "drops": {
+        "hbm:cinnabar": 583
+      }
+    },
+    "fortune_5": {
+      "total": 786,
+      "drops": {
+        "hbm:cinnabar": 786
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_cobalt",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_cobalt": 256
+      }
+    },
+    "fortune_3": {
+      "total": 533,
+      "drops": {
+        "hbm:raw_cobalt": 533
+      }
+    },
+    "fortune_5": {
+      "total": 764,
+      "drops": {
+        "hbm:raw_cobalt": 764
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_cobalt_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_cobalt": 256
+      }
+    },
+    "fortune_3": {
+      "total": 548,
+      "drops": {
+        "hbm:raw_cobalt": 548
+      }
+    },
+    "fortune_5": {
+      "total": 850,
+      "drops": {
+        "hbm:raw_cobalt": 850
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_coltan",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:fragment_coltan": 256
+      }
+    },
+    "fortune_3": {
+      "total": 573,
+      "drops": {
+        "hbm:fragment_coltan": 573
+      }
+    },
+    "fortune_5": {
+      "total": 832,
+      "drops": {
+        "hbm:fragment_coltan": 832
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_coltan_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:fragment_coltan": 256
+      }
+    },
+    "fortune_3": {
+      "total": 553,
+      "drops": {
+        "hbm:fragment_coltan": 553
+      }
+    },
+    "fortune_5": {
+      "total": 825,
+      "drops": {
+        "hbm:fragment_coltan": 825
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_depth_borax",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_borax": 256
+      }
+    },
+    "fortune_3": {
+      "total": 593,
+      "drops": {
+        "hbm:powder_borax": 593
+      }
+    },
+    "fortune_5": {
+      "total": 834,
+      "drops": {
+        "hbm:powder_borax": 834
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_depth_cinnabar",
+    "fortune_0": {
+      "total": 761,
+      "drops": {
+        "hbm:cinnabar": 761
+      }
+    },
+    "fortune_3": {
+      "total": 1668,
+      "drops": {
+        "hbm:cinnabar": 1668
+      }
+    },
+    "fortune_5": {
+      "total": 2398,
+      "drops": {
+        "hbm:cinnabar": 2398
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_depth_nether_neodymium",
+    "fortune_0": {
+      "total": 656,
+      "drops": {
+        "hbm:fragment_neodymium": 656
+      }
+    },
+    "fortune_3": {
+      "total": 1374,
+      "drops": {
+        "hbm:fragment_neodymium": 1374
+      }
+    },
+    "fortune_5": {
+      "total": 1972,
+      "drops": {
+        "hbm:fragment_neodymium": 1972
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_depth_zirconium",
+    "fortune_0": {
+      "total": 639,
+      "drops": {
+        "hbm:nugget_zirconium": 639
+      }
+    },
+    "fortune_3": {
+      "total": 1417,
+      "drops": {
+        "hbm:nugget_zirconium": 1417
+      }
+    },
+    "fortune_5": {
+      "total": 1993,
+      "drops": {
+        "hbm:nugget_zirconium": 1993
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_fluorite",
+    "fortune_0": {
+      "total": 772,
+      "drops": {
+        "hbm:fluorite": 772
+      }
+    },
+    "fortune_3": {
+      "total": 1681,
+      "drops": {
+        "hbm:fluorite": 1681
+      }
+    },
+    "fortune_5": {
+      "total": 2448,
+      "drops": {
+        "hbm:fluorite": 2448
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_fluorite_deepslate",
+    "fortune_0": {
+      "total": 785,
+      "drops": {
+        "hbm:fluorite": 785
+      }
+    },
+    "fortune_3": {
+      "total": 1720,
+      "drops": {
+        "hbm:fluorite": 1720
+      }
+    },
+    "fortune_5": {
+      "total": 2490,
+      "drops": {
+        "hbm:fluorite": 2490
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_asbestos",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ingot_asbestos": 256
+      }
+    },
+    "fortune_3": {
+      "total": 588,
+      "drops": {
+        "hbm:ingot_asbestos": 588
+      }
+    },
+    "fortune_5": {
+      "total": 776,
+      "drops": {
+        "hbm:ingot_asbestos": 776
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_copper",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "minecraft:raw_copper": 256
+      }
+    },
+    "fortune_3": {
+      "total": 549,
+      "drops": {
+        "minecraft:raw_copper": 549
+      }
+    },
+    "fortune_5": {
+      "total": 847,
+      "drops": {
+        "minecraft:raw_copper": 847
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_gas",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_gas": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_gas": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_gas": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_gold",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "minecraft:raw_gold": 256
+      }
+    },
+    "fortune_3": {
+      "total": 571,
+      "drops": {
+        "minecraft:raw_gold": 571
+      }
+    },
+    "fortune_5": {
+      "total": 804,
+      "drops": {
+        "minecraft:raw_gold": 804
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_iron",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "minecraft:raw_iron": 256
+      }
+    },
+    "fortune_3": {
+      "total": 565,
+      "drops": {
+        "minecraft:raw_iron": 565
+      }
+    },
+    "fortune_5": {
+      "total": 864,
+      "drops": {
+        "minecraft:raw_iron": 864
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_lithium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_lithium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 542,
+      "drops": {
+        "hbm:raw_lithium": 542
+      }
+    },
+    "fortune_5": {
+      "total": 790,
+      "drops": {
+        "hbm:raw_lithium": 790
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_rare",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:chunk_ore_rare": 256
+      }
+    },
+    "fortune_3": {
+      "total": 553,
+      "drops": {
+        "hbm:chunk_ore_rare": 553
+      }
+    },
+    "fortune_5": {
+      "total": 830,
+      "drops": {
+        "hbm:chunk_ore_rare": 830
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_schrabidium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_schrabidium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 593,
+      "drops": {
+        "hbm:raw_schrabidium": 593
+      }
+    },
+    "fortune_5": {
+      "total": 795,
+      "drops": {
+        "hbm:raw_schrabidium": 795
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_uranium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_uranium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 548,
+      "drops": {
+        "hbm:raw_uranium": 548
+      }
+    },
+    "fortune_5": {
+      "total": 796,
+      "drops": {
+        "hbm:raw_uranium": 796
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_gneiss_uranium_scorched",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_uranium_scorched": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_uranium_scorched": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_gneiss_uranium_scorched": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_lead",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_lead": 256
+      }
+    },
+    "fortune_3": {
+      "total": 554,
+      "drops": {
+        "hbm:raw_lead": 554
+      }
+    },
+    "fortune_5": {
+      "total": 742,
+      "drops": {
+        "hbm:raw_lead": 742
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_lead_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_lead": 256
+      }
+    },
+    "fortune_3": {
+      "total": 564,
+      "drops": {
+        "hbm:raw_lead": 564
+      }
+    },
+    "fortune_5": {
+      "total": 834,
+      "drops": {
+        "hbm:raw_lead": 834
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_lignite",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:lignite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 574,
+      "drops": {
+        "hbm:lignite": 574
+      }
+    },
+    "fortune_5": {
+      "total": 815,
+      "drops": {
+        "hbm:lignite": 815
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_lignite_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:lignite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 565,
+      "drops": {
+        "hbm:lignite": 565
+      }
+    },
+    "fortune_5": {
+      "total": 824,
+      "drops": {
+        "hbm:lignite": 824
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_meteor_aluminium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_aluminium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_aluminium": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_aluminium": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_meteor_cobalt",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_cobalt": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_cobalt": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_cobalt": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_meteor_copper",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_copper": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_copper": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_copper": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_meteor_iron",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_iron": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_iron": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_iron": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_meteor_rareearth",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_rareearth": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_rareearth": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_meteor_rareearth": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_coal",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:coal_infernal": 256
+      }
+    },
+    "fortune_3": {
+      "total": 587,
+      "drops": {
+        "hbm:coal_infernal": 587
+      }
+    },
+    "fortune_5": {
+      "total": 783,
+      "drops": {
+        "hbm:coal_infernal": 783
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_cobalt",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_cobalt": 256
+      }
+    },
+    "fortune_3": {
+      "total": 585,
+      "drops": {
+        "hbm:raw_cobalt": 585
+      }
+    },
+    "fortune_5": {
+      "total": 834,
+      "drops": {
+        "hbm:raw_cobalt": 834
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_fire",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_fire": 228,
+        "hbm:ingot_phosphorus": 28
+      }
+    },
+    "fortune_3": {
+      "total": 584,
+      "drops": {
+        "hbm:powder_fire": 516,
+        "hbm:ingot_phosphorus": 68
+      }
+    },
+    "fortune_5": {
+      "total": 822,
+      "drops": {
+        "hbm:powder_fire": 747,
+        "hbm:ingot_phosphorus": 75
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_plutonium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_plutonium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 574,
+      "drops": {
+        "hbm:raw_plutonium": 574
+      }
+    },
+    "fortune_5": {
+      "total": 818,
+      "drops": {
+        "hbm:raw_plutonium": 818
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_schrabidium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_schrabidium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 575,
+      "drops": {
+        "hbm:raw_schrabidium": 575
+      }
+    },
+    "fortune_5": {
+      "total": 806,
+      "drops": {
+        "hbm:raw_schrabidium": 806
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_smoldering",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_fire": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_fire": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:powder_fire": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_sulfur",
+    "fortune_0": {
+      "total": 759,
+      "drops": {
+        "hbm:sulfur": 759
+      }
+    },
+    "fortune_3": {
+      "total": 1760,
+      "drops": {
+        "hbm:sulfur": 1760
+      }
+    },
+    "fortune_5": {
+      "total": 2367,
+      "drops": {
+        "hbm:sulfur": 2367
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_tungsten",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_tungsten": 256
+      }
+    },
+    "fortune_3": {
+      "total": 556,
+      "drops": {
+        "hbm:raw_tungsten": 556
+      }
+    },
+    "fortune_5": {
+      "total": 809,
+      "drops": {
+        "hbm:raw_tungsten": 809
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_uranium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_uranium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 568,
+      "drops": {
+        "hbm:raw_uranium": 568
+      }
+    },
+    "fortune_5": {
+      "total": 776,
+      "drops": {
+        "hbm:raw_uranium": 776
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_nether_uranium_scorched",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_nether_uranium_scorched": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_nether_uranium_scorched": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_nether_uranium_scorched": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_niter",
+    "fortune_0": {
+      "total": 758,
+      "drops": {
+        "hbm:niter": 758
+      }
+    },
+    "fortune_3": {
+      "total": 1677,
+      "drops": {
+        "hbm:niter": 1677
+      }
+    },
+    "fortune_5": {
+      "total": 2435,
+      "drops": {
+        "hbm:niter": 2435
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_niter_deepslate",
+    "fortune_0": {
+      "total": 787,
+      "drops": {
+        "hbm:niter": 787
+      }
+    },
+    "fortune_3": {
+      "total": 1671,
+      "drops": {
+        "hbm:niter": 1671
+      }
+    },
+    "fortune_5": {
+      "total": 2347,
+      "drops": {
+        "hbm:niter": 2347
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_oil",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:oil_tar_crude": 256
+      }
+    },
+    "fortune_3": {
+      "total": 557,
+      "drops": {
+        "hbm:oil_tar_crude": 557
+      }
+    },
+    "fortune_5": {
+      "total": 825,
+      "drops": {
+        "hbm:oil_tar_crude": 825
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_oil_empty",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_empty": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_empty": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_empty": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_oil_sand",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_sand": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_sand": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_oil_sand": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_rare",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:chunk_ore_rare": 256
+      }
+    },
+    "fortune_3": {
+      "total": 593,
+      "drops": {
+        "hbm:chunk_ore_rare": 593
+      }
+    },
+    "fortune_5": {
+      "total": 795,
+      "drops": {
+        "hbm:chunk_ore_rare": 795
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_rare_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:chunk_ore_rare": 256
+      }
+    },
+    "fortune_3": {
+      "total": 567,
+      "drops": {
+        "hbm:chunk_ore_rare": 567
+      }
+    },
+    "fortune_5": {
+      "total": 801,
+      "drops": {
+        "hbm:chunk_ore_rare": 801
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_schrabidium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_schrabidium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 581,
+      "drops": {
+        "hbm:raw_schrabidium": 581
+      }
+    },
+    "fortune_5": {
+      "total": 791,
+      "drops": {
+        "hbm:raw_schrabidium": 791
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sellafield_diamond",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "minecraft:diamond": 256
+      }
+    },
+    "fortune_3": {
+      "total": 573,
+      "drops": {
+        "minecraft:diamond": 573
+      }
+    },
+    "fortune_5": {
+      "total": 789,
+      "drops": {
+        "minecraft:diamond": 789
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sellafield_emerald",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "minecraft:emerald": 256
+      }
+    },
+    "fortune_3": {
+      "total": 551,
+      "drops": {
+        "minecraft:emerald": 551
+      }
+    },
+    "fortune_5": {
+      "total": 820,
+      "drops": {
+        "minecraft:emerald": 820
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sellafield_radgem",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:gem_rad": 256
+      }
+    },
+    "fortune_3": {
+      "total": 580,
+      "drops": {
+        "hbm:gem_rad": 580
+      }
+    },
+    "fortune_5": {
+      "total": 886,
+      "drops": {
+        "hbm:gem_rad": 886
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sellafield_schrabidium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_schrabidium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_schrabidium": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_schrabidium": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sellafield_uranium_scorched",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_uranium_scorched": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_uranium_scorched": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_sellafield_uranium_scorched": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sulfur",
+    "fortune_0": {
+      "total": 753,
+      "drops": {
+        "hbm:sulfur": 753
+      }
+    },
+    "fortune_3": {
+      "total": 1557,
+      "drops": {
+        "hbm:sulfur": 1557
+      }
+    },
+    "fortune_5": {
+      "total": 2384,
+      "drops": {
+        "hbm:sulfur": 2384
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_sulfur_deepslate",
+    "fortune_0": {
+      "total": 772,
+      "drops": {
+        "hbm:sulfur": 772
+      }
+    },
+    "fortune_3": {
+      "total": 1762,
+      "drops": {
+        "hbm:sulfur": 1762
+      }
+    },
+    "fortune_5": {
+      "total": 2419,
+      "drops": {
+        "hbm:sulfur": 2419
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_tektite_osmiridium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tektite_osmiridium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tektite_osmiridium": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tektite_osmiridium": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_thorium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_thorium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 548,
+      "drops": {
+        "hbm:raw_thorium": 548
+      }
+    },
+    "fortune_5": {
+      "total": 830,
+      "drops": {
+        "hbm:raw_thorium": 830
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_thorium_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_thorium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 577,
+      "drops": {
+        "hbm:raw_thorium": 577
+      }
+    },
+    "fortune_5": {
+      "total": 851,
+      "drops": {
+        "hbm:raw_thorium": 851
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_tikite",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tikite": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tikite": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_tikite": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_titanium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_titanium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 580,
+      "drops": {
+        "hbm:raw_titanium": 580
+      }
+    },
+    "fortune_5": {
+      "total": 818,
+      "drops": {
+        "hbm:raw_titanium": 818
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_titanium_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_titanium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 558,
+      "drops": {
+        "hbm:raw_titanium": 558
+      }
+    },
+    "fortune_5": {
+      "total": 797,
+      "drops": {
+        "hbm:raw_titanium": 797
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_tungsten",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_tungsten": 256
+      }
+    },
+    "fortune_3": {
+      "total": 567,
+      "drops": {
+        "hbm:raw_tungsten": 567
+      }
+    },
+    "fortune_5": {
+      "total": 886,
+      "drops": {
+        "hbm:raw_tungsten": 886
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_tungsten_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_tungsten": 256
+      }
+    },
+    "fortune_3": {
+      "total": 571,
+      "drops": {
+        "hbm:raw_tungsten": 571
+      }
+    },
+    "fortune_5": {
+      "total": 819,
+      "drops": {
+        "hbm:raw_tungsten": 819
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_uranium",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_uranium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 555,
+      "drops": {
+        "hbm:raw_uranium": 555
+      }
+    },
+    "fortune_5": {
+      "total": 795,
+      "drops": {
+        "hbm:raw_uranium": 795
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_uranium_deepslate",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:raw_uranium": 256
+      }
+    },
+    "fortune_3": {
+      "total": 577,
+      "drops": {
+        "hbm:raw_uranium": 577
+      }
+    },
+    "fortune_5": {
+      "total": 833,
+      "drops": {
+        "hbm:raw_uranium": 833
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_uranium_scorched",
+    "fortune_0": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_uranium_scorched": 256
+      }
+    },
+    "fortune_3": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_uranium_scorched": 256
+      }
+    },
+    "fortune_5": {
+      "total": 256,
+      "drops": {
+        "hbm:ore_uranium_scorched": 256
+      }
+    }
+  },
+  {
+    "ore": "hbm:ore_volcano",
+    "fortune_0": {
+      "total": 0,
+      "drops": {}
+    },
+    "fortune_3": {
+      "total": 0,
+      "drops": {}
+    },
+    "fortune_5": {
+      "total": 0,
+      "drops": {}
+    }
+  }
+]

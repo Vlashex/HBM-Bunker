@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " L ",
+    "PBP",
+    " S "
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:lapis_block"
+    },
+    "P": {
+      "item": "hbm:plate_steel"
+    },
+    "B": {
+      "item": "minecraft:book"
+    },
+    "S": {
+      "item": "minecraft:slime_ball"
+    }
+  },
+  "result": {
+    "id": "minecraft:enchanted_book",
+    "count": 1,
+    "components": {
+      "minecraft:stored_enchantments": {
+        "levels": {
+          "minecraft:silk_touch": 1
+        }
+      }
+    }
+  }
+}

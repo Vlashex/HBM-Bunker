@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "securitycraft:universal_block_reinforcer",
+  "key": {
+    "D": {
+      "item": "securitycraft:reinforced_diamond_block"
+    },
+    "G": {
+      "item": "securitycraft:reinforced_black_stained_glass"
+    },
+    "L": {
+      "item": "securitycraft:laser_block"
+    },
+    "R": {
+      "tag": "c:dusts/redstone"
+    },
+    "S": {
+      "item": "securitycraft:universal_block_reinforcer_lvl1"
+    }
+  },
+  "pattern": [
+    " DG",
+    "RLD",
+    "SR "
+  ],
+  "result": {
+    "count": 1,
+    "id": "securitycraft:universal_block_reinforcer_lvl2"
+  }
+}

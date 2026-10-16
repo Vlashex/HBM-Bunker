@@ -1,0 +1,338 @@
+[
+  {
+    "id": "hbm_pack_balance:sieve/raw_aluminium/iron",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:raw_aluminium",
+    "probability": 0.06
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_aluminium/golden",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:raw_aluminium",
+    "probability": 0.075
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_aluminium/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_aluminium",
+    "probability": 0.09
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_aluminium/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_aluminium",
+    "probability": 0.105
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lead/iron",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:raw_lead",
+    "probability": 0.05
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lead/golden",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:raw_lead",
+    "probability": 0.0625
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lead/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_lead",
+    "probability": 0.075
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lead/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_lead",
+    "probability": 0.0875
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_titanium/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_titanium",
+    "probability": 0.04
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_titanium/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_titanium",
+    "probability": 0.05
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_tungsten/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_tungsten",
+    "probability": 0.04
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_tungsten/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_tungsten",
+    "probability": 0.05
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_beryllium/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_beryllium",
+    "probability": 0.03
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_beryllium/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_beryllium",
+    "probability": 0.0375
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_cobalt/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_cobalt",
+    "probability": 0.03
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_cobalt/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_cobalt",
+    "probability": 0.0375
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lithium/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:raw_lithium",
+    "probability": 0.04
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lithium/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:raw_lithium",
+    "probability": 0.05
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lithium/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_lithium",
+    "probability": 0.06
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_lithium/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_lithium",
+    "probability": 0.07
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_uranium/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_uranium",
+    "probability": 0.015
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_uranium/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_uranium",
+    "probability": 0.0187
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_thorium/diamond",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:raw_thorium",
+    "probability": 0.015
+  },
+  {
+    "id": "hbm_pack_balance:sieve/raw_thorium/netherite",
+    "input": "minecraft:gravel",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:raw_thorium",
+    "probability": 0.0187
+  },
+  {
+    "id": "hbm_pack_balance:sieve/sulfur/flint",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:flint_mesh",
+    "output": "hbm:sulfur",
+    "probability": 0.08
+  },
+  {
+    "id": "hbm_pack_balance:sieve/sulfur/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:sulfur",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/sulfur/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:sulfur",
+    "probability": 0.12
+  },
+  {
+    "id": "hbm_pack_balance:sieve/sulfur/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:sulfur",
+    "probability": 0.14
+  },
+  {
+    "id": "hbm_pack_balance:sieve/sulfur/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:sulfur",
+    "probability": 0.16
+  },
+  {
+    "id": "hbm_pack_balance:sieve/niter/flint",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:flint_mesh",
+    "output": "hbm:niter",
+    "probability": 0.06
+  },
+  {
+    "id": "hbm_pack_balance:sieve/niter/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:niter",
+    "probability": 0.075
+  },
+  {
+    "id": "hbm_pack_balance:sieve/niter/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:niter",
+    "probability": 0.09
+  },
+  {
+    "id": "hbm_pack_balance:sieve/niter/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:niter",
+    "probability": 0.105
+  },
+  {
+    "id": "hbm_pack_balance:sieve/niter/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:niter",
+    "probability": 0.12
+  },
+  {
+    "id": "hbm_pack_balance:sieve/fluorite/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "hbm:fluorite",
+    "probability": 0.06
+  },
+  {
+    "id": "hbm_pack_balance:sieve/fluorite/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "hbm:fluorite",
+    "probability": 0.075
+  },
+  {
+    "id": "hbm_pack_balance:sieve/fluorite/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "hbm:fluorite",
+    "probability": 0.09
+  },
+  {
+    "id": "hbm_pack_balance:sieve/fluorite/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "hbm:fluorite",
+    "probability": 0.105
+  },
+  {
+    "id": "hbm_pack_balance:sieve/inferium_essence/flint",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:flint_mesh",
+    "output": "mysticalagriculture:inferium_essence",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/inferium_essence/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "mysticalagriculture:inferium_essence",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/inferium_essence/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "mysticalagriculture:inferium_essence",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/inferium_essence/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "mysticalagriculture:inferium_essence",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/inferium_essence/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "mysticalagriculture:inferium_essence",
+    "probability": 0.1
+  },
+  {
+    "id": "hbm_pack_balance:sieve/prosperity_shard/flint",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:flint_mesh",
+    "output": "mysticalagriculture:prosperity_shard",
+    "probability": 0.08
+  },
+  {
+    "id": "hbm_pack_balance:sieve/prosperity_shard/iron",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:iron_mesh",
+    "output": "mysticalagriculture:prosperity_shard",
+    "probability": 0.08
+  },
+  {
+    "id": "hbm_pack_balance:sieve/prosperity_shard/golden",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:golden_mesh",
+    "output": "mysticalagriculture:prosperity_shard",
+    "probability": 0.08
+  },
+  {
+    "id": "hbm_pack_balance:sieve/prosperity_shard/diamond",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:diamond_mesh",
+    "output": "mysticalagriculture:prosperity_shard",
+    "probability": 0.08
+  },
+  {
+    "id": "hbm_pack_balance:sieve/prosperity_shard/netherite",
+    "input": "exdeorum:dust",
+    "mesh": "exdeorum:netherite_mesh",
+    "output": "mysticalagriculture:prosperity_shard",
+    "probability": 0.08
+  }
+]

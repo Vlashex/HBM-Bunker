@@ -1,0 +1,309 @@
+{
+  "failures": 0,
+  "checks": 75,
+  "results": [
+    {
+      "name": "craft justhammers:stone_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:iron_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:gold_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:diamond_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:netherite_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:impact_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:reinforced_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:reinforced_impact_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:destructor_core",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget_simple",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget_fancy",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_empty",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:modificationtable",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_1",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_2",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_3",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_1",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_2",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_3",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_4",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_5",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_silk",
+      "pass": true
+    },
+    {
+      "name": "craft charginggadgets:charging_station",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_6",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_7",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_8",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_9",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_10",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_3",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_3",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/silk_touch_1",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:stone_hammer",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:iron_hammer",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:gold_hammer",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:diamond_hammer",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:netherite_hammer",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:impact_core",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:reinforced_core",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:reinforced_impact_core",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe justhammers:destructor_core",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:mininggadget",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:mininggadget_simple",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:mininggadget_fancy",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_empty",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:modificationtable",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_size_1",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_size_2",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_size_3",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_efficiency_1",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_efficiency_2",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_efficiency_3",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_efficiency_4",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_efficiency_5",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe mininggadgets:upgrade_silk",
+      "pass": true
+    },
+    {
+      "name": "reject original recipe charginggadgets:charging_station",
+      "pass": true
+    },
+    {
+      "name": "Mining Gadgets size, speed and silk upgrades install",
+      "pass": true
+    },
+    {
+      "name": "coal charging station charges Mining Gadget",
+      "pass": true
+    },
+    {
+      "name": "maximum unbreaking",
+      "pass": true
+    },
+    {
+      "name": "maximum efficiency",
+      "pass": true
+    },
+    {
+      "name": "maximum fortune",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer unbreaking 5",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer efficiency 10",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer fortune 5",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane unbreaking 5",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane efficiency 10",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane fortune 5",
+      "pass": true
+    },
+    {
+      "name": "recipes and anvil suite",
+      "pass": true
+    },
+    {
+      "name": "HBM loot audit",
+      "pass": true
+    }
+  ],
+  "ore_types": 0,
+  "samples_per_plane": 32,
+  "real_plane_results": []
+}

@@ -1,0 +1,1530 @@
+{
+  "failures": 0,
+  "checks": 52,
+  "results": [
+    {
+      "name": "craft justhammers:stone_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:iron_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:gold_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:diamond_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:netherite_hammer",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:impact_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:reinforced_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:reinforced_impact_core",
+      "pass": true
+    },
+    {
+      "name": "craft justhammers:destructor_core",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget_simple",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:mininggadget_fancy",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_empty",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:modificationtable",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_1",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_2",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_size_3",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_1",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_2",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_3",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_4",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_efficiency_5",
+      "pass": true
+    },
+    {
+      "name": "craft mininggadgets:upgrade_silk",
+      "pass": true
+    },
+    {
+      "name": "craft charginggadgets:charging_station",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_6",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_7",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_8",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_9",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/efficiency_10",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_3",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/fortune_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_3",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_4",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/unbreaking_5",
+      "pass": true
+    },
+    {
+      "name": "craft hbm_pack_balance:books/silk_touch_1",
+      "pass": true
+    },
+    {
+      "name": "Mining Gadgets size, speed and silk upgrades install",
+      "pass": true
+    },
+    {
+      "name": "coal charging station charges Mining Gadget",
+      "pass": true
+    },
+    {
+      "name": "maximum fortune",
+      "pass": true
+    },
+    {
+      "name": "maximum unbreaking",
+      "pass": true
+    },
+    {
+      "name": "maximum efficiency",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer fortune 5",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer unbreaking 5",
+      "pass": true
+    },
+    {
+      "name": "anvil justhammers:iron_hammer efficiency 10",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane fortune 5",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane unbreaking 5",
+      "pass": true
+    },
+    {
+      "name": "anvil ae2:annihilation_plane efficiency 10",
+      "pass": true
+    },
+    {
+      "name": "recipes and anvil suite",
+      "pass": true
+    },
+    {
+      "name": "HBM loot audit",
+      "pass": true
+    },
+    {
+      "name": "create real AE2 rigs",
+      "pass": true
+    }
+  ],
+  "ore_types": 32,
+  "samples_per_plane": 32,
+  "real_plane_results": [
+    {
+      "ore": "hbm:ore_aluminium",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 54
+          },
+          "total": 54
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 86
+          },
+          "total": 86
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_aluminium": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_aluminium_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 72
+          },
+          "total": 72
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_aluminium": 105
+          },
+          "total": 105
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_aluminium_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_asbestos",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 63
+          },
+          "total": 63
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 113
+          },
+          "total": 113
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_asbestos": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_asbestos_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 71
+          },
+          "total": 71
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:ingot_asbestos": 87
+          },
+          "total": 87
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_asbestos_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_beryllium",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 74
+          },
+          "total": 74
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 95
+          },
+          "total": 95
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_beryllium": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_beryllium_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 74
+          },
+          "total": 74
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_beryllium": 98
+          },
+          "total": 98
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_beryllium_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_cinnabar",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 74
+          },
+          "total": 74
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 107
+          },
+          "total": 107
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_cinnabar": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_cinnabar_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 71
+          },
+          "total": 71
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:cinnabar": 83
+          },
+          "total": 83
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_cinnabar_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_cobalt",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 71
+          },
+          "total": 71
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 85
+          },
+          "total": 85
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_cobalt": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_cobalt_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 75
+          },
+          "total": 75
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_cobalt": 105
+          },
+          "total": 105
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_cobalt_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_coltan",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 71
+          },
+          "total": 71
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 92
+          },
+          "total": 92
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_coltan": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_coltan_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 63
+          },
+          "total": 63
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:fragment_coltan": 107
+          },
+          "total": 107
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_coltan_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_fluorite",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 91
+          },
+          "total": 91
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 213
+          },
+          "total": 213
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 263
+          },
+          "total": 263
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_fluorite": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_fluorite_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 98
+          },
+          "total": 98
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 183
+          },
+          "total": 183
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:fluorite": 248
+          },
+          "total": 248
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_fluorite_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_lead",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 66
+          },
+          "total": 66
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 104
+          },
+          "total": 104
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_lead": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_lead_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 65
+          },
+          "total": 65
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_lead": 95
+          },
+          "total": 95
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_lead_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_lignite",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 67
+          },
+          "total": 67
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 118
+          },
+          "total": 118
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_lignite": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_lignite_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 75
+          },
+          "total": 75
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:lignite": 94
+          },
+          "total": 94
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_lignite_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_niter",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 99
+          },
+          "total": 99
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 158
+          },
+          "total": 158
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 285
+          },
+          "total": 285
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_niter": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_niter_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 105
+          },
+          "total": 105
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 207
+          },
+          "total": 207
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:niter": 356
+          },
+          "total": 356
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_niter_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_rare",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 70
+          },
+          "total": 70
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 84
+          },
+          "total": 84
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_rare": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_rare_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 69
+          },
+          "total": 69
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:chunk_ore_rare": 93
+          },
+          "total": 93
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_rare_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_sulfur",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 104
+          },
+          "total": 104
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 188
+          },
+          "total": 188
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 257
+          },
+          "total": 257
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_sulfur": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_sulfur_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 106
+          },
+          "total": 106
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 212
+          },
+          "total": 212
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:sulfur": 350
+          },
+          "total": 350
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_sulfur_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_thorium",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 82
+          },
+          "total": 82
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 123
+          },
+          "total": 123
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_thorium": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_thorium_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 75
+          },
+          "total": 75
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_thorium": 96
+          },
+          "total": 96
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_thorium_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_titanium",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 62
+          },
+          "total": 62
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 111
+          },
+          "total": 111
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_titanium": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_titanium_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 73
+          },
+          "total": 73
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_titanium": 86
+          },
+          "total": 86
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_titanium_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_tungsten",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 67
+          },
+          "total": 67
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 111
+          },
+          "total": 111
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_tungsten": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_tungsten_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 71
+          },
+          "total": 71
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_tungsten": 98
+          },
+          "total": 98
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_tungsten_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_uranium",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 69
+          },
+          "total": 69
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 104
+          },
+          "total": 104
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_uranium": 32
+          },
+          "total": 32
+        }
+      ]
+    },
+    {
+      "ore": "hbm:ore_uranium_deepslate",
+      "planes": [
+        {
+          "enchantment": "none",
+          "level": 0,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 32
+          },
+          "total": 32
+        },
+        {
+          "enchantment": "fortune",
+          "level": 3,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 73
+          },
+          "total": 73
+        },
+        {
+          "enchantment": "fortune",
+          "level": 5,
+          "blocks": 32,
+          "drops": {
+            "hbm:raw_uranium": 100
+          },
+          "total": 100
+        },
+        {
+          "enchantment": "silk_touch",
+          "level": 1,
+          "blocks": 32,
+          "drops": {
+            "hbm:ore_uranium_deepslate": 32
+          },
+          "total": 32
+        }
+      ]
+    }
+  ]
+}

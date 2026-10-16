@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "tag": "minecraft:coals"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "outpostzero:steel_ingot"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:false"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "securitycraft:reinforced_iron_block"
+    },
+    "D": {
+      "item": "securitycraft:reinforced_dispenser"
+    },
+    "I": {
+      "tag": "c:plates/steel"
+    },
+    "P": {
+      "item": "securitycraft:portable_radar"
+    },
+    "R": {
+      "item": "hbm:circuit_basic"
+    }
+  },
+  "pattern": [
+    "RDR",
+    "IPI",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "securitycraft:sentry"
+  }
+}
