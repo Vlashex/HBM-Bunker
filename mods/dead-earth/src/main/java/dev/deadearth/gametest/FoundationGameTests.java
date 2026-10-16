@@ -139,8 +139,13 @@ public final class FoundationGameTests {
         var profile = new GameProfile(UUID.randomUUID(), "DEProbe" + UUID.randomUUID().toString().substring(0, 6));
         var cookie = CommonListenerCookie.createInitial(profile, false);
         var player = new ServerPlayer(server, helper.getLevel(), profile, cookie.clientInformation());
+        var persisted=player.getPersistentData().getCompound("PlayerPersisted");
+        persisted.putBoolean("outpostzero:first_join_spawn_done",true);
+        persisted.remove("outpostzero:first_join_spawn_pending");
+        player.getPersistentData().put("PlayerPersisted",persisted);
         var connection = new Connection(PacketFlow.SERVERBOUND);
         var channel = new EmbeddedChannel(connection);
+        net.neoforged.neoforge.network.registration.NetworkRegistry.configureMockConnection(connection);
         server.getPlayerList().placeNewPlayer(connection, player, cookie);
         return new AttachedClient(player, channel);
     }

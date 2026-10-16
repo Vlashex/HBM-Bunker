@@ -25,6 +25,8 @@ public final class DeadEarth {
 
     public DeadEarth(IEventBus modBus) {
         ProjectECompatibility.install(modBus);
+        dev.deadearth.content.SeasonBlocks.register(modBus);
+        modBus.addListener(dev.deadearth.climate.SeasonNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::started);
         NeoForge.EVENT_BUS.addListener(this::stopped);
         NeoForge.EVENT_BUS.addListener(this::tick);
@@ -51,6 +53,8 @@ public final class DeadEarth {
     private void stopped(ServerStoppedEvent event) {
         var runtime = RUNTIMES.remove(event.getServer()); if (runtime != null) runtime.close();
         PENDING_DEATHS.remove(event.getServer());
+        dev.deadearth.climate.SeasonState.reset();
+        dev.deadearth.compat.SeasonHooks.reset();
     }
     private void tick(ServerTickEvent.Post event) {
         var runtime = RUNTIMES.get(event.getServer());

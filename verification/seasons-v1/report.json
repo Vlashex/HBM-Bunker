@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0",
+  "date": "2026-10-16",
+  "java_unit": {
+    "tests": 90,
+    "failures": 0
+  },
+  "native_full_pack_gametest": {
+    "tests": 30,
+    "failures": 0,
+    "execution_seconds": 17.47,
+    "cold_run_seconds": 136
+  },
+  "packaging_unit": {
+    "tests": 13,
+    "failures": 0
+  },
+  "client": "Owned NeoForge client and dedicated loopback full-pack server: winter rendered, summer switched, tooltips passed, normal exit",
+  "restart": "Identical campaign and climate; activeTicks=5865 before and after offline restart",
+  "limits": [
+    "No six-player load test",
+    "No import into a user Prism profile",
+    "No full 160-minute real-time weather soak; clock covered deterministically"
+  ]
+}

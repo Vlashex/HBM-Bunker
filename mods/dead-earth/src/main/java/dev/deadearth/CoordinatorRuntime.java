@@ -34,7 +34,15 @@ public final class CoordinatorRuntime {
     private final ObservationStore observations;
     private final SiteStore sites;
     private final BridgeController bridge;
+    private final dev.deadearth.climate.SeasonWeather weather=new dev.deadearth.climate.SeasonWeather();
     private String fault;
+    private ClimateCycle.Phase testSeason;
+    public ClimateCycle.Phase effectiveSeason() { requireReady();return testSeason==null?climateStatus().phase():testSeason; }
+    public void testSeason(ClimateCycle.Phase phase) {
+        requireReady();
+        if(!Boolean.getBoolean("deadearth.testControls")) throw new IllegalArgumentException("Test controls are disabled");
+        testSeason=phase;
+    }
 
     public CoordinatorRuntime(MinecraftServer server) {
         this.server = server;
@@ -71,7 +79,7 @@ public final class CoordinatorRuntime {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
-                climateStatus(),false);
+                climateStatus(),true);
     }
     public ClimateCycle.Snapshot climateStatus() {
         requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());
@@ -160,6 +168,13 @@ public final class CoordinatorRuntime {
         if (!enabled()) { tickBridge(); return; }
         try {
             campaign.advance(server.getPlayerCount() > 0);
+            var season=effectiveSeason();
+            dev.deadearth.climate.SeasonState.update(season,1);
+            weather.tick(server.overworld(),season,server.getPlayerCount()>0);
+            if (server.getPlayerCount()>0 && server.getTickCount()%40==0)
+                for(var player:server.getPlayerList().getPlayers())
+                    if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))
+                        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(season.ordinal(),1));
             var notices=climate.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             if (!notices.isEmpty()) {
                 checkpoint();

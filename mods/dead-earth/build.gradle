@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '0.2.0-alpha.4'
+version = '1.0.0'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 repositories { mavenCentral() }
@@ -14,6 +14,7 @@ neoForge {
             client()
             jvmArgument '-Xmx6G'
             if (providers.gradleProperty('deadEarthClientSmoke').isPresent()) systemProperty 'deadearth.clientSmoke', 'true'
+            if (providers.gradleProperty('deadEarthSeasonScreenshot').isPresent()) systemProperty 'deadearth.seasonScreenshot', 'true'
             if (providers.gradleProperty('deadEarthClientSmokeHoldTicks').isPresent()) {
                 systemProperty 'deadearth.clientSmokeHoldTicks', providers.gradleProperty('deadEarthClientSmokeHoldTicks').get()
             }
@@ -25,8 +26,9 @@ neoForge {
         server { server(); programArgument '--nogui' }
         gameTestServer {
             type = 'gameTestServer'
+            jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', 'dead_earth'
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }

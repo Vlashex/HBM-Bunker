@@ -4,9 +4,12 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="dead_earth"
-version="0.2.0-alpha.4"
+version="1.0.0"
 displayName="Dead Earth Coordinator"
 description='''Campaign clock, bounded observations, expedition sites and controlled scenarios.'''
+
+[[mixins]]
+config="dead_earth.mixins.json"
 
 [[dependencies.dead_earth]]
 modId="neoforge"

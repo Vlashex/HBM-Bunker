@@ -26,6 +26,7 @@ public final class ClientSmokeProbe {
     }
     private void tick(ClientTickEvent.Post event) {
         var client = Minecraft.getInstance();
+        if(Boolean.getBoolean("deadearth.seasonScreenshot")) client.options.hideGui=true;
         if (client.player == null || client.level == null) return;
         if (finished) {
             if (++finishTicks == holdTicks) {
