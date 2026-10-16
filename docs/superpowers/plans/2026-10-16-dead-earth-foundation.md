@@ -15,8 +15,8 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 **Spec:** [DEAD EARTH roadmap](../../DEAD-EARTH-ROADMAP.md),
 [контракт сценариев](../../DEAD-EARTH-MCP.md).
 
-Статус: **план будущей реализации**. Этот документ не означает, что Foundation уже
-собран или испытан. Подробные планы климата, адаптеров и MCP составляются отдельно
+Статус: **реализован и проверен 16 октября 2026**. Результаты и ограничения
+зафиксированы в [отчёте Foundation](../../DEAD-EARTH-VERIFICATION.md). Подробные планы климата, адаптеров и MCP составляются отдельно
 после проверки их предпосылок. Первые три задачи ниже — самостоятельный срез.
 
 ## Global Constraints
@@ -53,7 +53,7 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 | `.../scenario/WarningBeaconExecutor.java` | Безопасное сообщение в игровом чате с ID сценария |
 | `mods/dead-earth/src/test/java/dev/deadearth/` | JUnit для времени, сериализации DTO и движка |
 | `mods/dead-earth/src/main/java/dev/deadearth/gametest/FoundationGameTests.java` | Проверка реального SavedData и серверного исполнителя в dev-стенде |
-| `verification/dead-earth/foundation.md` | Краткие результаты; без сохранения и полных логов |
+| `docs/DEAD-EARTH-VERIFICATION.md`, `verification/dead-earth/foundation.json` | Человеческий отчёт и машинная сводка; без сохранения и полных логов |
 
 Пути с `...` продолжают `mods/dead-earth/src/main/java/dev/deadearth`.
 Исходный шаблон сборки:
@@ -77,7 +77,7 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 - `CampaignStore` читает/пишет это состояние через SavedData и помечает изменения dirty.
   Неизвестная версия даёт диагностическую ошибку и выключает координатор без записи.
 
-- [ ] **Step 1: Создать минимальную конфигурацию сборки и падающий тест.**
+- [x] **Step 1: Создать минимальную конфигурацию сборки и падающий тест.**
 
 ```java
 @Test void advancesOnlyWithOnlinePlayers() {
@@ -88,14 +88,14 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 
   Добавить `rejectsNegativeTicks`, `rejectsUnknownSaveSchemaWithoutWriting`,
   `roundTripsCampaignState`. Входные dayTime и длительность сна не входят в API часов.
-- [ ] **Step 2: Выполнить `./gradlew.bat test` из `mods/dead-earth`.**
+- [x] **Step 2: Выполнить `./gradlew.bat test` из `mods/dead-earth`.**
   Ожидается ошибка отсутствующей реализации, а не скачивания зависимостей.
-- [ ] **Step 3: Реализовать интерфейсы, SavedData и серверный tick hook.**
+- [x] **Step 3: Реализовать интерфейсы, SavedData и серверный tick hook.**
   `advance` вызывается ровно один раз за серверный тик; измерения не создают
   дополнительные часы. Изменения схемы не мигрируются неявно.
-- [ ] **Step 4: Выполнить `./gradlew.bat test build`.**
+- [x] **Step 4: Выполнить `./gradlew.bat test build`.**
   Все тесты задачи проходят. Включить lock/verification Gradle-зависимостей.
-- [ ] **Step 5: Зафиксировать только исходники, проверки и конфигурацию.**
+- [x] **Step 5: Зафиксировать только исходники, проверки и конфигурацию.**
   Коммит `feat: add persistent Dead Earth campaign clock`.
 
 ## Task 2: Ограниченный движок одного сценария
@@ -120,27 +120,27 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 `uncertain`, `rejected`. Сохранённый `running` после перезапуска становится `uncertain`.
 Полная модель состояний основного контракта будет расширена при добавлении предвестников.
 
-- [ ] **Step 1: Написать падающие тесты движка.**
+- [x] **Step 1: Написать падающие тесты движка.**
   `duplicateRequestExecutesOnce` проверяет один вызов fake executor после двух submit;
   `conflictingDuplicateRejected` — тот же ID и другая цель отклонены;
   `wrongEpochRejected` — ни одной резервации;
   `offlineOrUnloadedDefersUntilExpiry` — нет эффекта, затем `expired`;
   `cancelledStepDoesNotRun` — нет вызова исполнителя;
   `restoredRunningBecomesUncertainWithoutRetry` — executor после загрузки не вызывается.
-- [ ] **Step 2: Выполнить `./gradlew.bat test --tests '*ScenarioEngineTest'`.**
+- [x] **Step 2: Выполнить `./gradlew.bat test --tests '*ScenarioEngineTest'`.**
   Ожидается отсутствие реализации либо провал перечисленных утверждений.
-- [ ] **Step 3: Реализовать очередь, проверку и сохраняемые квитанции.**
+- [x] **Step 3: Реализовать очередь, проверку и сохраняемые квитанции.**
   Условия повторно проверяются в `tick`, время берётся только из `WorldView`.
   DTO не содержит команды, произвольного NBT или путей к файлам. Не добавлять
   абстракцию всех будущих HBM-взрывов в этом срезе.
-- [ ] **Step 4: Выполнить `./gradlew.bat test build`.**
+- [x] **Step 4: Выполнить `./gradlew.bat test build`.**
   Все тесты задач 1–2 проходят, сериализация сохраняет ID и ревизии.
-- [ ] **Step 5: Коммит `feat: add bounded scenario queue and receipts`.**
+- [x] **Step 5: Коммит `feat: add bounded scenario queue and receipts`.**
 
 ## Task 3: Проверка в настоящем сервере
 
 **Files:** создать файлы `command/`, `WarningBeaconExecutor.java`,
-`gametest/FoundationGameTests.java`, `verification/dead-earth/foundation.md`;
+`gametest/FoundationGameTests.java`, `docs/DEAD-EARTH-VERIFICATION.md`, `verification/dead-earth/foundation.json`;
 обновить `CHANGELOG.md`, инструкции разработки и `.gitignore` для локального стенда.
 
 **Interfaces:**
@@ -155,28 +155,28 @@ Gradle 9.2.1, JUnit Jupiter 5.11.4, NeoForge GameTest.
 - Исполнитель отправляет одно сообщение `[DEAD EARTH] Тестовый сигнал <scenario_id>`
   онлайн-игрокам; он не изменяет блоки, погоду, инвентари или состояние других модов.
 
-- [ ] **Step 1: Зарегистрировать падающие GameTest-проверки.**
+- [x] **Step 1: Зарегистрировать падающие GameTest-проверки.**
   `savedDataRoundTripPreservesRequest`, `commandsRequireOperator`,
   `warningRunsOnServerThread`, `duplicateSubmitProducesOneSignal`.
   Тесты проверяют реальный серверный адаптер, а не повторяют все unit-тесты движка.
-- [ ] **Step 2: Выполнить `./gradlew.bat runGameTestServer`.**
+- [x] **Step 2: Выполнить `./gradlew.bat runGameTestServer`.**
   Ожидается провал функциональных утверждений до реализации команд/исполнителя.
-- [ ] **Step 3: Реализовать команды и предупреждение; выполнить `test build runGameTestServer`.**
+- [x] **Step 3: Реализовать команды и предупреждение; выполнить `test build runGameTestServer`.**
   Использовать отдельную dev-директорию, не профиль пользователя.
-- [ ] **Step 4: Провести проверку перезапуска в отдельном тестовом мире.**
+- [x] **Step 4: Провести проверку перезапуска в отдельном тестовом мире.**
   Сохранить запланированный шаг, перезапустить — он остаётся в очереди;
   завершить, сохранить, перезапустить — второй сигнал не приходит.
   Смоделировать `running` перед сбоем — он становится `uncertain` и не повторяется.
   Сон, `/time set` и выход всех игроков не приближают активный дедлайн.
-- [ ] **Step 5: Скопировать локально собранный мод только в отдельный стенд с закреплёнными 28 модами.**
+- [x] **Step 5: Скопировать локально собранный мод только в отдельный стенд с закреплёнными 28 модами.**
   Запустить выделенный сервер и клиент; проверить подключение и один сигнал.
   Зафиксировать длительность, RAM, MSPT и наблюдаемый результат; не объявлять
   доказанной нагрузку шести игроков по одному локальному клиенту.
-- [ ] **Step 6: Выполнить проверки репозитория и записать ограничения.**
+- [x] **Step 6: Выполнить проверки репозитория и записать ограничения.**
   Из корня: `python -m unittest discover -s tests -v`, `python tools/release.py check`.
   Сохранить краткую сводку игровых испытаний, версии и хеш локального артефакта;
   не коммитить JAR и тестовый мир. Выпускной ZIP MVP пока не пересобирать новым модом.
-- [ ] **Step 7: Коммит `feat: expose and verify manual Dead Earth warning scenario`.**
+- [x] **Step 7: Коммит `feat: expose and verify manual Dead Earth warning scenario`.**
 
 ## Граница завершения
 

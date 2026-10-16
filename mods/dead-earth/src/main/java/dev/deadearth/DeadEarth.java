@@ -10,6 +10,7 @@ import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import dev.deadearth.command.DeadEarthCommands;
 
 @Mod(DeadEarth.MOD_ID)
 public final class DeadEarth {
@@ -21,6 +22,7 @@ public final class DeadEarth {
         NeoForge.EVENT_BUS.addListener(this::started);
         NeoForge.EVENT_BUS.addListener(this::stopped);
         NeoForge.EVENT_BUS.addListener(this::tick);
+        NeoForge.EVENT_BUS.addListener(DeadEarthCommands::register);
     }
 
     public static CoordinatorRuntime runtime(MinecraftServer server) {

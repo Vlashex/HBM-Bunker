@@ -10,7 +10,14 @@ repositories { mavenCentral() }
 neoForge {
     version = '21.1.262'
     runs {
-        client { client() }
+        client {
+            client()
+            jvmArgument '-Xmx6G'
+            if (providers.gradleProperty('deadEarthSmokeServer').isPresent()) {
+                programArgument '--quickPlayMultiplayer'
+                programArgument providers.gradleProperty('deadEarthSmokeServer').get()
+            }
+        }
         server { server(); programArgument '--nogui' }
         gameTestServer {
             type = 'gameTestServer'
