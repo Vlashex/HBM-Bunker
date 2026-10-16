@@ -9,7 +9,7 @@ public final class ClimateCycle {
     public enum Phase { HEAT, CALM, ASH_WINTER }
     public enum Trend { NONE, WARMING, COOLING }
     public enum NoticeKind { PHASE, FORECAST }
-    public record Snapshot(Phase phase, Trend trend, long cycle, long phaseOrdinal,
+    public record Snapshot(long originTick, Phase phase, Trend trend, long cycle, long phaseOrdinal,
             long enteredTick, long nextTransitionTick, long ticksRemaining,
             Phase nextPhase, Trend nextTrend, long phaseTicks, long observedActiveTick) {}
     public record Window(Phase phase, Trend trend, long startTick, long endTick) {}
@@ -38,7 +38,7 @@ public final class ClimateCycle {
         int slot = (int) (ordinal % 4);
         long entered = Math.addExact(originTick, Math.multiplyExact(ordinal, phaseTicks));
         long next = Math.addExact(entered, phaseTicks);
-        return new Snapshot(phase(slot), trend(slot), ordinal / 4, ordinal, entered, next,
+        return new Snapshot(originTick, phase(slot), trend(slot), ordinal / 4, ordinal, entered, next,
                 next - activeTick, phase((slot + 1) % 4), trend((slot + 1) % 4), phaseTicks, activeTick);
     }
     public List<Window> forecast(long activeTick, int count) {

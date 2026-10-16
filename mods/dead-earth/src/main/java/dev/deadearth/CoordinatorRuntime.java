@@ -1,6 +1,9 @@
 package dev.deadearth;
 
 import dev.deadearth.campaign.CampaignStore;
+import dev.deadearth.climate.ClimateStore;
+import dev.deadearth.climate.ClimateCycle;
+import dev.deadearth.climate.ClimateMessages;
 import dev.deadearth.campaign.SavedDataAccess;
 import java.util.UUID;
 import java.util.Optional;
@@ -26,6 +29,7 @@ public final class CoordinatorRuntime {
     private final MinecraftServer server;
     private final UUID epoch = UUID.randomUUID();
     private final CampaignStore campaign;
+    private final ClimateStore climate;
     private final ScenarioStore scenarios;
     private final ObservationStore observations;
     private final SiteStore sites;
@@ -46,22 +50,34 @@ public final class CoordinatorRuntime {
         sites = campaign.enabled() ? SavedDataAccess.open(server.overworld(), SiteStore.NAME,
                 new SavedData.Factory<>(() -> SiteStore.create(campaign.campaign().campaignId()),
                         (tag, registries) -> SiteStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
+        climate = campaign.enabled() ? SavedDataAccess.open(server.overworld(), ClimateStore.NAME,
+                new SavedData.Factory<>(() -> ClimateStore.create(campaign.campaign().campaignId(),campaign.campaign().activeTicks()),
+                        (tag, registries) -> ClimateStore.load(campaign.campaign().campaignId(),campaign.campaign().activeTicks(),tag,registries))) : null;
         bridge = new BridgeController(server, this);
         if (enabled()) reconcileSites();
     }
 
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
-            && observations != null && observations.enabled() && sites != null && sites.enabled(); }
+            && observations != null && observations.enabled() && sites != null && sites.enabled()
+            && climate != null && climate.enabled(); }
     public UUID epoch() { return epoch; }
     public BridgeController bridge() { requireServerThread(); return bridge; }
     public void close() { requireServerThread(); bridge.close(); }
     public CampaignStore campaign() { requireServerThread(); return campaign; }
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
-            ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites) {}
+            ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites,
+            ClimateCycle.Snapshot climate, boolean climateEffectsEnabled) {}
     public Snapshot snapshot() {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
-                server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList());
+                server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
+                climateStatus(),false);
+    }
+    public ClimateCycle.Snapshot climateStatus() {
+        requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());
+    }
+    public List<ClimateCycle.Window> climateForecast() {
+        requireReady(); return climate.cycle().forecast(campaign.campaign().activeTicks(),4);
     }
     public List<SiteRegistry.Site> sites() { requireReady(); reconcileSites(); return sites.registry().sites(); }
     public RelayPlacement.Preview previewRelay(BlockPos origin) { requireReady(); return RelayPlacement.preview(server.overworld(), origin); }
@@ -144,6 +160,11 @@ public final class CoordinatorRuntime {
         if (!enabled()) { tickBridge(); return; }
         try {
             campaign.advance(server.getPlayerCount() > 0);
+            var notices=climate.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
+            if (!notices.isEmpty()) {
+                checkpoint();
+                for(var notice:notices) server.getPlayerList().broadcastSystemMessage(Component.literal(ClimateMessages.text(notice)),false);
+            }
             if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % 200 == 0) {
                 reconcileSites();
                 for (var player : server.getPlayerList().getPlayers()) {
@@ -210,6 +231,7 @@ public final class CoordinatorRuntime {
     private void checkpoint() {
         try {
             SavedDataAccess.checkpoint(server.overworld(), CampaignStore.NAME, campaign);
+            SavedDataAccess.checkpoint(server.overworld(), ClimateStore.NAME, climate);
             SavedDataAccess.checkpoint(server.overworld(), ScenarioStore.NAME, scenarios);
             SavedDataAccess.checkpoint(server.overworld(), ObservationStore.NAME, observations);
             SavedDataAccess.checkpoint(server.overworld(), SiteStore.NAME, sites);
