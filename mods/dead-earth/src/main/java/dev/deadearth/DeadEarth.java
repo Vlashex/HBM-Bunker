@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import dev.deadearth.command.DeadEarthCommands;
 import dev.deadearth.compat.ProjectECompatibility;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.minecraft.server.level.ServerPlayer;
 
 @Mod(DeadEarth.MOD_ID)
 public final class DeadEarth {
@@ -26,6 +28,7 @@ public final class DeadEarth {
         NeoForge.EVENT_BUS.addListener(this::stopped);
         NeoForge.EVENT_BUS.addListener(this::tick);
         NeoForge.EVENT_BUS.addListener(DeadEarthCommands::register);
+        NeoForge.EVENT_BUS.addListener(this::death);
     }
 
     public static CoordinatorRuntime runtime(MinecraftServer server) {
@@ -48,5 +51,11 @@ public final class DeadEarth {
     private void tick(ServerTickEvent.Post event) {
         var runtime = RUNTIMES.get(event.getServer());
         if (runtime != null) runtime.tick();
+    }
+    private void death(LivingDeathEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            var runtime = RUNTIMES.get(player.getServer());
+            if (runtime != null) runtime.recordDeath(player);
+        }
     }
 }

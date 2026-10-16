@@ -8,6 +8,9 @@ import java.util.List;
 import dev.deadearth.scenario.ScenarioStore;
 import dev.deadearth.scenario.ScenarioTypes.*;
 import dev.deadearth.scenario.WarningBeaconExecutor;
+import dev.deadearth.observation.ObservationLog;
+import dev.deadearth.observation.ObservationStore;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -16,6 +19,7 @@ public final class CoordinatorRuntime {
     private final UUID epoch = UUID.randomUUID();
     private final CampaignStore campaign;
     private final ScenarioStore scenarios;
+    private final ObservationStore observations;
     private String fault;
 
     public CoordinatorRuntime(MinecraftServer server) {
@@ -26,11 +30,32 @@ public final class CoordinatorRuntime {
         scenarios = campaign.enabled() ? SavedDataAccess.open(server.overworld(), ScenarioStore.NAME,
                 new SavedData.Factory<>(() -> ScenarioStore.create(campaign.campaign().campaignId()),
                         (tag, registries) -> ScenarioStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
+        observations = campaign.enabled() ? SavedDataAccess.open(server.overworld(), ObservationStore.NAME,
+                new SavedData.Factory<>(() -> ObservationStore.create(campaign.campaign().campaignId()),
+                        (tag, registries) -> ObservationStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
     }
 
-    public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled(); }
+    public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
+            && observations != null && observations.enabled(); }
     public UUID epoch() { return epoch; }
     public CampaignStore campaign() { requireServerThread(); return campaign; }
+    public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
+            ObservationLog.Snapshot observations) {}
+    public Snapshot snapshot() {
+        requireReady();
+        return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
+                server.getPlayerCount(), observations.log().snapshot());
+    }
+    public void recordDeath(ServerPlayer player) {
+        requireServerThread();
+        if (!enabled()) return;
+        try {
+            var pos = player.blockPosition();
+            observations.log().record(campaign.campaign().activeTicks(), ObservationLog.Kind.DEATH, player.getUUID(),
+                    player.level().dimension().location() + "/" + Math.floorDiv(pos.getX(), 64) + "/" + Math.floorDiv(pos.getZ(), 64));
+            observations.setDirty();
+        } catch (RuntimeException error) { disable(error); }
+    }
     public Decision preview(UUID request) { requireReady(); return scenarios.engine().preview(proposal(request), view()); }
     public Receipt submit(UUID request) {
         requireReady();
@@ -62,6 +87,13 @@ public final class CoordinatorRuntime {
         if (!enabled()) return;
         try {
             campaign.advance(server.getPlayerCount() > 0);
+            if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % 200 == 0) {
+                for (var player : server.getPlayerList().getPlayers()) {
+                    var pos = player.blockPosition();
+                    if (observations.log().sample(player.getUUID(), player.level().dimension().location().toString(),
+                            pos.getX(), pos.getZ(), player.getHealth(), campaign.campaign().activeTicks())) observations.setDirty();
+                }
+            }
             var changed = scenarios.engine().tick(view(), id -> {
                 scenarios.setDirty();
                 checkpoint();
@@ -93,6 +125,7 @@ public final class CoordinatorRuntime {
         try {
             SavedDataAccess.checkpoint(server.overworld(), CampaignStore.NAME, campaign);
             SavedDataAccess.checkpoint(server.overworld(), ScenarioStore.NAME, scenarios);
+            SavedDataAccess.checkpoint(server.overworld(), ObservationStore.NAME, observations);
         } catch (RuntimeException error) { disable(error); throw error; }
     }
     private void disable(RuntimeException error) {

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.LongArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import dev.deadearth.DeadEarth;
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -20,6 +21,13 @@ public final class DeadEarthCommands {
 
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(literal("deadearth").requires(source -> source.hasPermission(2))
+                .then(literal("snapshot").executes(context -> report(context.getSource(),
+                        () -> DeadEarth.runtime(context.getSource().getServer()).snapshot())))
+                .then(literal("history").then(argument("limit", IntegerArgumentType.integer(1, 100))
+                        .executes(context -> report(context.getSource(), () -> {
+                            var history = DeadEarth.runtime(context.getSource().getServer()).snapshot().observations().history();
+                            return history.subList(Math.max(0, history.size() - IntegerArgumentType.getInteger(context, "limit")), history.size());
+                        }))))
                 .then(literal("status").executes(context -> report(context.getSource(), () -> status(context.getSource())))
                         .then(argument("scenario", UuidArgument.uuid()).executes(context -> report(context.getSource(),
                                 () -> DeadEarth.runtime(context.getSource().getServer())
