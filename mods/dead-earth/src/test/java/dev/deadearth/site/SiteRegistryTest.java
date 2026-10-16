@@ -6,6 +6,14 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 class SiteRegistryTest {
+    @Test void restoredReadySiteNeedsPhysicalValidationBeforeDiscovery() {
+        var registry = new SiteRegistry();
+        var site = registry.reserve(UUID.randomUUID(), 0, 70, 0, 0);
+        registry.complete(site.id());
+        var restored = SiteRegistry.restore(registry.sites());
+        assertEquals("VERIFYING", restored.sites().getFirst().state().name());
+        assertTrue(restored.discover(UUID.randomUUID(), 4, 71, 4, 200).isEmpty());
+    }
     @Test void duplicatePlacementKeepsIdentityAndRejectsDifferentCoordinates() {
         var registry = new SiteRegistry(); var request = UUID.randomUUID();
         var site = registry.reserve(request, 10, 70, 10, 200);

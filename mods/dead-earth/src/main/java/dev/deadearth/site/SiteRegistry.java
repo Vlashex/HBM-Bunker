@@ -9,14 +9,14 @@ import java.util.UUID;
 
 public final class SiteRegistry {
     public static final int MAX_SITES = 64;
-    public enum State { PLACING, READY, UNCERTAIN }
+    public enum State { PLACING, VERIFYING, READY, UNCERTAIN }
     public record Site(UUID request, UUID id, int x, int y, int z, long createdTick,
             State state, UUID discoverer, long discoveredTick) {
         public Site {
             Objects.requireNonNull(request); Objects.requireNonNull(id); Objects.requireNonNull(state);
             if (x < -29999984 || x > 29999975 || z < -29999984 || z > 29999975 || y < -63 || y > 314 || createdTick < 0)
                 throw new IllegalArgumentException("Invalid relay origin/time");
-            if (discoverer == null ? discoveredTick != -1 : state != State.READY || discoveredTick < createdTick)
+            if (discoverer == null ? discoveredTick != -1 : state == State.PLACING || discoveredTick < createdTick)
                 throw new IllegalArgumentException("Invalid site discovery");
         }
         Site state(State next) { return new Site(request, id, x, y, z, createdTick, next, discoverer, discoveredTick); }
@@ -44,8 +44,13 @@ public final class SiteRegistry {
     }
     public Site uncertain(UUID id) {
         var site = find(id);
-        if (site.state() != State.PLACING) return site;
+        if (site.state() == State.UNCERTAIN) return site;
         return replace(site.state(State.UNCERTAIN));
+    }
+    public Site verify(UUID id, boolean intact) {
+        var site = find(id);
+        if (site.state() != State.VERIFYING && site.state() != State.READY) throw new IllegalStateException("Site cannot be validated");
+        return replace(site.state(intact ? State.READY : State.UNCERTAIN));
     }
     public List<Site> discover(UUID player, int x, int y, int z, long tick) {
         Objects.requireNonNull(player);
@@ -65,7 +70,11 @@ public final class SiteRegistry {
         var registry = new SiteRegistry(); var ids = new java.util.HashSet<UUID>();
         for (var site : saved) {
             if (!ids.add(site.id()) || registry.sites.containsKey(site.request())) throw new IllegalArgumentException("Duplicate site identity");
-            registry.sites.put(site.request(), site.state() == State.PLACING ? site.state(State.UNCERTAIN) : site);
+            registry.sites.put(site.request(), switch (site.state()) {
+                case PLACING -> site.state(State.UNCERTAIN);
+                case READY -> site.state(State.VERIFYING);
+                default -> site;
+            });
         }
         return registry;
     }

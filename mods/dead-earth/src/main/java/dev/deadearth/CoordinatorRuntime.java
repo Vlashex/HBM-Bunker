@@ -42,6 +42,7 @@ public final class CoordinatorRuntime {
         sites = campaign.enabled() ? SavedDataAccess.open(server.overworld(), SiteStore.NAME,
                 new SavedData.Factory<>(() -> SiteStore.create(campaign.campaign().campaignId()),
                         (tag, registries) -> SiteStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
+        if (enabled()) reconcileSites();
     }
 
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
@@ -55,10 +56,11 @@ public final class CoordinatorRuntime {
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList());
     }
-    public List<SiteRegistry.Site> sites() { requireReady(); return sites.registry().sites(); }
+    public List<SiteRegistry.Site> sites() { requireReady(); reconcileSites(); return sites.registry().sites(); }
     public RelayPlacement.Preview previewRelay(BlockPos origin) { requireReady(); return RelayPlacement.preview(server.overworld(), origin); }
     public SiteRegistry.Site placeRelay(UUID request, BlockPos origin) {
         requireReady();
+        reconcileSites();
         var old = sites.registry().byRequest(request);
         if (old.isPresent()) {
             var site = old.get();
@@ -121,6 +123,7 @@ public final class CoordinatorRuntime {
         try {
             campaign.advance(server.getPlayerCount() > 0);
             if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % 200 == 0) {
+                reconcileSites();
                 for (var player : server.getPlayerList().getPlayers()) {
                     var pos = player.blockPosition();
                     if (observations.log().sample(player.getUUID(), player.level().dimension().location().toString(),
@@ -155,6 +158,15 @@ public final class CoordinatorRuntime {
     private void requireReady() {
         requireServerThread();
         if (!enabled()) throw new IllegalStateException("Dead Earth disabled; inspect server log");
+    }
+    private void reconcileSites() {
+        for (var site : sites.registry().sites()) {
+            if (site.state() != SiteRegistry.State.VERIFYING && site.state() != SiteRegistry.State.READY) continue;
+            var intact = RelayPlacement.intact(server.overworld(), new BlockPos(site.x(), site.y(), site.z()));
+            if (intact.isPresent() && (site.state() == SiteRegistry.State.VERIFYING || !intact.get())) {
+                sites.registry().verify(site.id(), intact.get()); sites.setDirty();
+            }
+        }
     }
     private Proposal proposal(UUID request) {
         long now = campaign.campaign().activeTicks();

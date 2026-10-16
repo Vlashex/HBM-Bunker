@@ -33,7 +33,7 @@ public final class SiteStore extends SavedData {
                         number(row, "discoveredTick")));
             }
             store.campaign = campaign; store.registry = SiteRegistry.restore(sites);
-            if (sites.stream().anyMatch(s -> s.state() == SiteRegistry.State.PLACING)) store.setDirty();
+            if (sites.stream().anyMatch(s -> s.state() == SiteRegistry.State.PLACING || s.state() == SiteRegistry.State.READY)) store.setDirty();
         } catch (IllegalArgumentException error) { store.unsupported = tag.copy(); store.setDirty(false); }
         return store;
     }

@@ -3,6 +3,7 @@ package dev.deadearth.site;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -42,11 +43,18 @@ public final class RelayPlacement {
         int changed = 0;
         for (var block : BLUEPRINT.entrySet()) {
             var pos = origin.offset(block.getKey());
-            if (!level.getBlockState(pos).isAir() || !level.setBlock(pos, block.getValue(), Block.UPDATE_ALL))
+            if (!level.getBlockState(pos).isAir() || !level.setBlock(pos, block.getValue(), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE))
                 throw new IllegalStateException("Relay placement interrupted; partial result retained");
             changed++;
         }
         return changed;
+    }
+    public static Optional<Boolean> intact(ServerLevel level, BlockPos origin) {
+        if (!level.getServer().isSameThread()) throw new IllegalStateException("Validation outside server thread");
+        if (!level.hasChunksAt(origin, origin.offset(8, 5, 8))) return Optional.empty();
+        for (var block : BLUEPRINT.entrySet())
+            if (!level.getBlockState(origin.offset(block.getKey())).is(block.getValue().getBlock())) return Optional.of(false);
+        return Optional.of(true);
     }
     private static Preview denied(String reason) { return new Preview(false, reason, BLUEPRINT.size()); }
     private static Map<BlockPos, BlockState> blueprint() {

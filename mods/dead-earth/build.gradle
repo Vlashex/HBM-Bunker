@@ -22,7 +22,7 @@ neoForge {
         server { server(); programArgument '--nogui' }
         gameTestServer {
             type = 'gameTestServer'
-            gameDirectory = file('run-gametest')
+            gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
             systemProperty 'neoforge.enabledGameTestNamespaces', 'dead_earth'
         }
     }

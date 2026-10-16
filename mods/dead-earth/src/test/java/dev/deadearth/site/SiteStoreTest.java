@@ -13,7 +13,13 @@ class SiteStoreTest {
         store.registry().discover(UUID.randomUUID(), 4, 71, 4, 300);
         var restored = SiteStore.load(campaign, store.save(new CompoundTag(), null), null);
         assertTrue(restored.enabled());
-        assertEquals(store.registry().sites(), restored.registry().sites());
+        var loaded = restored.registry().sites().getFirst();
+        var original = store.registry().sites().getFirst();
+        assertEquals(original.id(), loaded.id()); assertEquals(original.request(), loaded.request());
+        assertEquals(original.discoverer(), loaded.discoverer()); assertEquals(300, loaded.discoveredTick());
+        assertEquals(SiteRegistry.State.VERIFYING, loaded.state());
+        restored.registry().verify(loaded.id(), true);
+        assertEquals(original, restored.registry().sites().getFirst());
     }
     @Test void interruptedPlacementBecomesDirtyUncertainReceipt() {
         var campaign = UUID.randomUUID(); var store = SiteStore.create(campaign);

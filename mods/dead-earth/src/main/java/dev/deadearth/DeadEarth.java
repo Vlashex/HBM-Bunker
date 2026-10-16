@@ -21,6 +21,7 @@ public final class DeadEarth {
     public static final String MOD_ID = "dead_earth";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final Map<MinecraftServer, CoordinatorRuntime> RUNTIMES = new IdentityHashMap<>();
+    private static final Map<MinecraftServer, Map<java.util.UUID, LivingDeathEvent>> PENDING_DEATHS = new IdentityHashMap<>();
 
     public DeadEarth(IEventBus modBus) {
         ProjectECompatibility.install(modBus);
@@ -47,15 +48,23 @@ public final class DeadEarth {
             LOGGER.error("Dead Earth disabled; existing saves will not be replaced", invalid);
         }
     }
-    private void stopped(ServerStoppedEvent event) { RUNTIMES.remove(event.getServer()); }
+    private void stopped(ServerStoppedEvent event) { RUNTIMES.remove(event.getServer()); PENDING_DEATHS.remove(event.getServer()); }
     private void tick(ServerTickEvent.Post event) {
         var runtime = RUNTIMES.get(event.getServer());
-        if (runtime != null) runtime.tick();
+        var deaths = PENDING_DEATHS.remove(event.getServer());
+        if (runtime != null) {
+            if (deaths != null) for (var death : deaths.values())
+                if (!death.isCanceled() && death.getEntity() instanceof ServerPlayer player && player.isDeadOrDying()) runtime.recordDeath(player);
+            runtime.tick();
+        }
     }
     private void death(LivingDeathEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
-            var runtime = RUNTIMES.get(player.getServer());
-            if (runtime != null) runtime.recordDeath(player);
+            var server = player.getServer();
+            if (server.isSameThread() && RUNTIMES.containsKey(server)) {
+                var pending = PENDING_DEATHS.computeIfAbsent(server, ignored -> new java.util.LinkedHashMap<>());
+                if (pending.size() < 64 || pending.containsKey(player.getUUID())) pending.put(player.getUUID(), event);
+            }
         }
     }
 }
