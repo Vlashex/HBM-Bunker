@@ -16,6 +16,26 @@ SPEC.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_director_package_excludes_runtime_credentials_and_tests(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            files = {"director/dead_earth_director/__init__.py": b"", "director/dead_earth_director/__main__.py": b"print('MCP')",
+                     "director/requirements.in": b"mcp==2.3.0", "director/requirements-windows-py312.lock": b"pinned",
+                     "director/README.md": b"setup", "director/setup.ps1": b"setup",
+                     "director/.venv/private.py": b"secret", "director/tests/test.py": b"fixture",
+                     "director/dead_earth_director/token.env": b"secret", "director/dead_earth_bridge.json": b"secret",
+                     "director/dead_earth_director/__pycache__/module.pyc": b"cache"}
+            for name, data in files.items():
+                path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(data)
+            entries = release.director_entries(root, True)
+            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1"))})
+            self.assertEqual(release.director_entries(root, False), {})
+
+    def test_director_enabled_without_entrypoint_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(ValueError):
+                release.director_entries(Path(tmp), True)
+
     def own_jar(self, root, version="0.2.0-alpha.1"):
         data = release.zip_bytes({"META-INF/neoforge.mods.toml":
             f'[[mods]]\nmodId="dead_earth"\nversion="{version}"\n'.encode(),

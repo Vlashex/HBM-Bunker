@@ -206,6 +206,24 @@ def release_documents(root):
     return {path.relative_to(root).as_posix(): path.read_bytes() for path in paths}
 
 
+def director_entries(root, enabled):
+    if not enabled:
+        return {}
+    package = root / "director/dead_earth_director"
+    required = [root / "director" / name for name in ["README.md", "requirements.in", "requirements-windows-py312.lock", "setup.ps1"]]
+    required += [package / "__init__.py", package / "__main__.py"]
+    if package.is_symlink() or not package.resolve().is_relative_to(root.resolve()):
+        raise ValueError("Unsafe director package directory")
+    files = set(required)
+    files.update(path for path in package.rglob("*.py") if "tests" not in path.relative_to(package).parts)
+    entries = {}
+    for path in sorted(files):
+        if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
+            raise ValueError(f"Director source missing or unsafe: {path.name}")
+        entries[path.relative_to(root).as_posix()] = path.read_bytes()
+    return entries
+
+
 def build(root, cache, dist):
     summary = check(root)
     settings = read_json(root / "release.json")
@@ -238,6 +256,7 @@ def build(root, cache, dist):
     if not release_notes.is_file():
         raise ValueError(f"Release notes missing: {release_notes.name}")
     entries.update(release_documents(root))
+    entries.update(director_entries(root, bool(settings.get("director"))))
     entries["mods-manifest.json"] = (json.dumps(sorted(manifest, key=lambda row: row["filename"]), ensure_ascii=False, indent=2) + "\n").encode()
     entries["release.json"] = (root / "release.json").read_bytes()
     dist.mkdir(parents=True, exist_ok=True)
