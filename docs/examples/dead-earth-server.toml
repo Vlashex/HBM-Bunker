@@ -70,9 +70,9 @@
 	forecastSeconds = 300
 
 [weather]
-	# Default: 32
+	# Default: 16
 	# Range: 0 ~ 256
-	columnsPerTick = 32
+	columnsPerTick = 16
 	# Default: 8192
 	# Range: 9 ~ 16384
 	maximumChunks = 8192
@@ -85,8 +85,79 @@
 	summerFire = true
 	winterIce = true
 	winterCrust = true
+	# Default: 24
+	# Range: 1 ~ 256
+	maximumBlockChangesPerTick = 24
+	# Default: 2
+	# Range: 1 ~ 16
+	maximumChangedSectionsPerTick = 2
 	controlWeather = true
 	forceWinterSnow = true
+
+	[weather.coating]
+		# Default: 2
+		# Range: 0 ~ 8
+		topIceBlocks = 2
+		# Default: 1
+		# Range: 0 ~ 8
+		topSnowBlocks = 1
+		# Default: 1
+		# Range: 0 ~ 4
+		sideIceBlocks = 1
+		# Default: 1
+		# Range: 0 ~ 4
+		sideSnowBlocks = 1
+		# Default: 384
+		# Range: 8 ~ 384
+		scanDepth = 384
+		# Default: 2048
+		# Range: 384 ~ 32768
+		maximumCellsPerTick = 2048
+		# Default: 2
+		# Range: 1 ~ 8
+		layersPerPass = 2
+		# Default: 2048
+		# Range: 64 ~ 8192
+		maximumActiveColumns = 2048
+		# Default: 8
+		# Range: 1 ~ 64
+		revisitedColumnsPerTick = 8
+
+	[weather.relief]
+		enabled = true
+		# Default: 24
+		# Range: 8 ~ 128
+		scaleBlocks = 24
+		# Default: 2
+		# Range: 0 ~ 4
+		extraIceBlocks = 2
+		# Default: 1
+		# Range: 0 ~ 2
+		extraSnowBlocks = 1
+		# Default: 1
+		# Range: 0 ~ 2
+		extraSideIceBlocks = 1
+
+	[weather.spikes]
+		# Default: 48
+		# Range: 16 ~ 256
+		cellSizeBlocks = 48
+		# Default: 0.25
+		# Range: 0.0 ~ 1.0
+		chancePerCell = 0.25
+		# Default: 4
+		# Range: 1 ~ 16
+		minimumExtraHeight = 4
+		# Default: 8
+		# Range: 1 ~ 16
+		maximumExtraHeight = 8
+		# Default: 3
+		# Range: 1 ~ 8
+		minimumRadius = 3
+		# Default: 6
+		# Range: 1 ~ 8
+		maximumRadius = 6
+		bareIceTips = true
 
 [exposure]
 	enabled = true

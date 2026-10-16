@@ -30,10 +30,10 @@ public final class SeasonGameTests {
             helper.assertTrue(SeasonWeather.surfaceColumn(level,water.getX(),water.getZ(),Phase.ASH_WINTER),"Water did not freeze");
             helper.assertTrue(level.getBlockState(water).is(SeasonBlocks.ICE.get()),"Native water was not seasonal ice");
             SeasonWeather.surfaceColumn(level,land.getX(),land.getZ(),Phase.ASH_WINTER);
-            helper.assertTrue(level.getBlockState(land.above()).is(SeasonBlocks.CRUST.get()),"No physical ice crust");
+            helper.assertTrue(level.getBlockState(land.above()).is(SeasonBlocks.RIME.get()),"No physical rime");
             helper.assertTrue(!level.getBlockState(land.above()).isViewBlocking(level,land.above()),"Crust unexpectedly blocks view");
             SeasonWeather.surfaceColumn(level,water.getX(),water.getZ(),Phase.CALM);
-            SeasonWeather.surfaceColumn(level,land.getX(),land.getZ(),Phase.CALM);
+            for(int pass=0;pass<40;pass++) SeasonWeather.surfaceColumn(level,land.getX(),land.getZ(),Phase.CALM);
             SeasonWeather.surfaceColumn(level,ordinary.getX(),ordinary.getZ(),Phase.HEAT);
             helper.assertTrue(level.getBlockState(water).is(Blocks.WATER),"Seasonal ice did not thaw");
             helper.assertTrue(level.isEmptyBlock(land.above()),"Crust did not thaw");

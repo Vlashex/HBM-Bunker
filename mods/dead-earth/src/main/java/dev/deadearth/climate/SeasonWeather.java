@@ -22,7 +22,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.Fluids;
 
-/** Bounded loaded-surface work: 32 columns/tick, at most two edits per column. */
+/** Bounded loaded-surface work, including a shared edit and changed-section budget. */
 public final class SeasonWeather {
     private static final TagKey<Item> SUITS=TagKey.create(Registries.ITEM,ResourceLocation.parse("dead_earth:climate_protection"));
     private List<LevelChunk> loaded=List.of();
@@ -30,8 +30,9 @@ public final class SeasonWeather {
     private long lastWeather=-1;
     private ClimateCycle.Phase lastPhase;
 
-    public void tick(ServerLevel level,ClimateCycle.Phase phase,boolean online) {
+    public void tick(ServerLevel level,ClimateCycle.Phase phase,boolean online,long winterNumber) {
         if (!online) return;
+        if(phase==ClimateCycle.Phase.ASH_WINTER)WinterCoating.selectWinter(level,winterNumber);
         long tick=level.getGameTime();
         if (b(WEATHER_CONTROL) && (lastPhase!=phase || tick-lastWeather>=i(WEATHER_REFRESH))) {
             if (phase==ClimateCycle.Phase.HEAT) level.setWeatherParameters(Math.max(i(WEATHER_LOCK),i(WEATHER_REFRESH)*2),0,false,false);
@@ -47,45 +48,43 @@ public final class SeasonWeather {
             }
             loaded=List.copyOf(fresh);
         }
-        if (!loaded.isEmpty()) for(int i=0;i<i(SURFACE_COLUMNS);i++) {
+        var budget=new WinterCoating.Budget(i(WEATHER_EDITS),i(WEATHER_SECTIONS));
+        WinterCoating.drainActive(level,phase==ClimateCycle.Phase.ASH_WINTER&&b(WINTER_CRUST),budget);
+        if (!loaded.isEmpty()) for(int i=0;i<i(SURFACE_COLUMNS)&&!budget.exhausted();i++) {
             if (chunkCursor>=loaded.size()) {chunkCursor=0;column=(column+1)&255;}
             var chunk=loaded.get(chunkCursor++);
             var holder=level.getChunkSource().chunkMap.getVisibleChunkIfPresent(chunk.getPos().toLong());
             if (holder==null || holder.getTickingChunk()!=chunk) continue;
-            int x=chunk.getPos().getMinBlockX()+(column&15),z=chunk.getPos().getMinBlockZ()+(column>>4);
-            surfaceColumn(level,x,z,phase);
+            long key=chunk.getPos().toLong();int offset=(int)(key^(key>>>32));offset^=offset>>>16;offset*=0x45d9f3b;offset^=offset>>>16;
+            int local=(column*73+offset)&255;
+            int x=chunk.getPos().getMinBlockX()+(local&15),z=chunk.getPos().getMinBlockZ()+(local>>4);
+            surfaceColumn(level,x,z,phase,budget);
         }
         if(tick%i(EXPOSURE_TICKS)==0) for(var player:level.getServer().getPlayerList().getPlayers()) expose(player,phase);
     }
     public static boolean surfaceColumn(ServerLevel level,int x,int z,ClimateCycle.Phase phase) {
-        // Check the entire neighbour footprint before any heightmap, shape or block queries.
-        if(!level.hasChunksAt(new BlockPos(x-1,level.getMinBuildHeight(),z-1),
-                new BlockPos(x+1,level.getMinBuildHeight(),z+1))) return false;
+        var budget=new WinterCoating.Budget(i(WEATHER_EDITS),i(WEATHER_SECTIONS));
+        surfaceColumn(level,x,z,phase,budget);return budget.changes()>0;
+    }
+    private static void surfaceColumn(ServerLevel level,int x,int z,ClimateCycle.Phase phase,WinterCoating.Budget budget) {
+        if(!WinterCoating.loaded(level,x,z,WinterCoating.maximumSideReach()+1))return;
+        boolean winter=phase==ClimateCycle.Phase.ASH_WINTER;
+        // Full geometry is anchored on original blocks. It also clears old thin crust.
+        if(!winter||b(WINTER_CRUST))WinterCoating.column(level,x,z,winter,budget);
+        if(budget.exhausted())return;
         var top=level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING,new BlockPos(x,0,z));
-        if (!level.hasChunkAt(top) || !level.canSeeSky(top)) return false;
         var below=top.below();var state=level.getBlockState(below);
-        if(level.getBlockState(top).is(SeasonBlocks.CRUST.get())) {
-            if(phase!=ClimateCycle.Phase.ASH_WINTER) {level.setBlock(top,Blocks.AIR.defaultBlockState(),2|16);return true;}
-            return false;
-        }
-        if (phase==ClimateCycle.Phase.ASH_WINTER) {
-            if (b(WINTER_ICE) && state.getFluidState().getType()==Fluids.WATER && state.getFluidState().isSource() && state.getBlock()==Blocks.WATER) {
-                level.setBlock(below,SeasonBlocks.ICE.get().defaultBlockState(),2|16);return true;
-            }
-            if (b(WINTER_CRUST) && level.isEmptyBlock(top) && !state.hasBlockEntity() && !state.is(SeasonBlocks.CRUST.get())
-                    && state.getFluidState().isEmpty() && SeasonBlocks.CRUST.get().defaultBlockState().canSurvive(level,top)) {
-                level.setBlock(top,SeasonBlocks.CRUST.get().defaultBlockState(),2|16);return true;
-            }
+        if(winter) {
+            if(b(WINTER_ICE)&&state.is(Blocks.WATER)&&state.getFluidState().getType()==Fluids.WATER&&state.getFluidState().isSource())
+                budget.write(level,below,SeasonBlocks.ICE.get().defaultBlockState());
         } else {
-            if (state.is(SeasonBlocks.CRUST.get())) {level.setBlock(below,Blocks.AIR.defaultBlockState(),2|16);return true;}
-            if (state.is(SeasonBlocks.ICE.get())) {level.setBlock(below,Blocks.WATER.defaultBlockState(),2|16);return true;}
-            if (phase==ClimateCycle.Phase.HEAT && b(SUMMER_FIRE) && level.isDay() && level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)
-                    && level.isEmptyBlock(top) && !state.hasBlockEntity() && state.isFlammable(level,below,net.minecraft.core.Direction.UP)) {
+            if(state.is(SeasonBlocks.ICE.get()))budget.write(level,below,Blocks.WATER.defaultBlockState());
+            else if(phase==ClimateCycle.Phase.HEAT&&b(SUMMER_FIRE)&&level.isDay()&&level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)
+                    &&level.isEmptyBlock(top)&&!state.hasBlockEntity()&&state.isFlammable(level,below,net.minecraft.core.Direction.UP)) {
                 var fire=BaseFireBlock.getState(level,top);
-                if (fire.canSurvive(level,top)) {level.setBlock(top,fire,2|16);return true;}
+                if(fire.canSurvive(level,top))budget.write(level,top,fire);
             }
         }
-        return false;
     }
     public static void expose(ServerPlayer player,ClimateCycle.Phase phase) {
         var level=player.serverLevel();

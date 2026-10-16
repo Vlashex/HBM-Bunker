@@ -18,22 +18,23 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 
 public final class SeasonBlocks {
     public static final DeferredRegister.Blocks BLOCKS=DeferredRegister.createBlocks(DeadEarth.MOD_ID);
+    public static final DeferredBlock<Block> RIME=BLOCKS.register("rime_ice",()->new SeasonalCoatingBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).noLootTable().noOcclusion().dynamicShape().randomTicks()));
+    public static final DeferredBlock<Block> SNOW=BLOCKS.register("seasonal_snow",()->new SeasonalCoatingBlock(
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK).noLootTable().noOcclusion().dynamicShape().randomTicks()));
     public static final DeferredBlock<Block> CRUST=BLOCKS.register("ice_crust",()->new CarpetBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CARPET).strength(.2f).friction(.98f)
                     .sound(net.minecraft.world.level.block.SoundType.GLASS).noOcclusion().randomTicks()) {
         @Override protected void randomTick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
-            if (SeasonState.phase()!=ClimateCycle.Phase.ASH_WINTER && neighboursLoaded(level,pos))
-                level.setBlock(pos,Blocks.AIR.defaultBlockState(),2|16);
+            if (SeasonState.phase()!=ClimateCycle.Phase.ASH_WINTER)dev.deadearth.climate.WinterCoating.requestThaw(level,pos);
         }
     });
     public static final DeferredBlock<Block> ICE=BLOCKS.register("seasonal_ice",()->new IceBlock(
             BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).randomTicks()) {
         @Override protected void randomTick(BlockState state,ServerLevel level,BlockPos pos,RandomSource random) {
-            if (SeasonState.phase()!=ClimateCycle.Phase.ASH_WINTER && neighboursLoaded(level,pos))
-                level.setBlock(pos,level.dimensionType().ultraWarm()?Blocks.AIR.defaultBlockState():Blocks.WATER.defaultBlockState(),2|16);
+            if (SeasonState.phase()!=ClimateCycle.Phase.ASH_WINTER)dev.deadearth.climate.WinterCoating.requestThaw(level,pos);
         }
     });
-    private static boolean neighboursLoaded(ServerLevel level,BlockPos pos) {return level.hasChunksAt(pos.offset(-1,0,-1),pos.offset(1,0,1));}
     private SeasonBlocks() {}
     public static void register(IEventBus bus) { BLOCKS.register(bus); }
 }

@@ -1,11 +1,11 @@
 [
   {
-    "filename": "dead-earth-2.0.0.jar",
-    "version": "2.0.0",
+    "filename": "dead-earth-2.0.1.jar",
+    "version": "2.0.1",
     "mod_id": "dead_earth",
-    "artifact": "mods/dead-earth/build/libs/dead-earth-2.0.0.jar",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-2.0.1.jar",
     "entrypoint": "dev/deadearth/DeadEarth.class",
-    "size": 250298,
-    "sha256": "f87ec1747b9c8bc13b6b07f4d7131e8a0790fae895b730ee86336597637665b8"
+    "size": 285764,
+    "sha256": "a4fb5b349ec64550ded05cc960e8b7ce7eeb809d675f73e6069df0ce3e1fda96"
   }
 ]

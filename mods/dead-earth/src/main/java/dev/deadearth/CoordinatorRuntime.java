@@ -189,7 +189,7 @@ public final class CoordinatorRuntime {
             adaptive.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             var season=effectiveSeason();
             dev.deadearth.climate.SeasonState.update(season,adaptive.pressure());
-            weather.tick(server.overworld(),season,server.getPlayerCount()>0);
+            weather.tick(server.overworld(),season,server.getPlayerCount()>0,climate.cycle().view(campaign.campaign().activeTicks()).cycle());
             if (server.getPlayerCount()>0 && server.getTickCount()%i(NETWORK_REFRESH)==0)
                 for(var player:server.getPlayerList().getPlayers())
                     if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))

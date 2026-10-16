@@ -1,0 +1,68 @@
+{
+  "version": "2.0.1",
+  "state": "verified",
+  "java_unit_tests": 103,
+  "external_mods": 28,
+  "own_jar_sha256": "a4fb5b349ec64550ded05cc960e8b7ce7eeb809d675f73e6069df0ce3e1fda96",
+  "default_limits": {
+    "block_changes_per_tick": 24,
+    "changed_sections_per_tick": 2,
+    "maximum_active_columns": 2048,
+    "vertical_cells_per_tick": 2048,
+    "discovery_columns_per_tick": 16,
+    "scan_depth": 384
+  },
+  "winter_height_field": {
+    "algorithm": 1,
+    "seed_source": "world_seed_and_saved_climate_cycle",
+    "eager_world_map": false,
+    "same_winter_stable": true,
+    "new_winter_changes": true,
+    "ice_extra": [
+      0,
+      2
+    ],
+    "snow_extra": [
+      0,
+      1
+    ],
+    "side_ice_extra": [
+      0,
+      1
+    ],
+    "peak_cell_size": 48,
+    "peak_chance_per_cell": 0.25,
+    "peak_extra_height": [
+      4,
+      8
+    ],
+    "peak_radius": [
+      3,
+      6
+    ]
+  },
+  "limitations": [
+    "No six-player load test",
+    "Development client window854x480, FPS cap40",
+    "No import into user Prism profiles",
+    "Only ticking loaded chunks; no catch-up of unloaded seasons",
+    "Ordinary vanilla grass and ferns buried by winter do not auto-regrow"
+  ],
+  "gametests_passed": 49,
+  "gametests_seconds": 17.35,
+  "client": {
+    "connected_final_jar": true,
+    "resolution": [
+      854,
+      480
+    ],
+    "fps_cap": 40,
+    "forest_frame": "forest-canopy.png",
+    "peak_frame": "forest-peak.png"
+  },
+  "performance": {
+    "full_pack_accelerated_9000_ticks_ms_per_tick": 5.54,
+    "controlled_benchmark": false,
+    "latest_full_height_and_cell_budget_in_gametests": true
+  }
+}

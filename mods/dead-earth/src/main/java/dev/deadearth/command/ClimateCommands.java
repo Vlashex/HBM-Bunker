@@ -10,6 +10,21 @@ public final class ClimateCommands {
     private ClimateCommands() {}
     public static LiteralArgumentBuilder<CommandSourceStack> branch() {
         return literal("climate")
+                .then(literal("test-coating").requires(source->Boolean.getBoolean("deadearth.testControls"))
+                    .then(net.minecraft.commands.Commands.argument("x",com.mojang.brigadier.arguments.IntegerArgumentType.integer(-29999900,29999900))
+                    .then(net.minecraft.commands.Commands.argument("z",com.mojang.brigadier.arguments.IntegerArgumentType.integer(-29999900,29999900))
+                    .then(net.minecraft.commands.Commands.argument("radius",com.mojang.brigadier.arguments.IntegerArgumentType.integer(1,12))
+                    .executes(context->{
+                        int x=com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(context,"x"),z=com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(context,"z");
+                        int radius=com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(context,"radius");
+                        var level=context.getSource().getServer().overworld();int queued=0;
+                        for(int dx=-radius;dx<=radius;dx++)for(int dz=-radius;dz<=radius;dz++)
+                            if(dev.deadearth.climate.WinterCoating.loaded(level,x+dx,z+dz,dev.deadearth.climate.WinterCoating.maximumSideReach()+1)) {
+                                dev.deadearth.climate.WinterCoating.prioritizeTestColumn(level,x+dx,z+dz);queued++;
+                            }
+                        final int count=queued;
+                        context.getSource().sendSuccess(()->net.minecraft.network.chat.Component.literal("Dead Earth queued test columns: "+count+" center="+dev.deadearth.climate.WinterCoating.profile(level,x,z)),false);return count;
+                    })))))
                 .then(literal("status").executes(context -> DeadEarthCommands.report(context.getSource(),
                         () -> Map.of("mode","active","climate",DeadEarth.runtime(context.getSource().getServer()).climateStatus(),
                                 "effectiveSeason",DeadEarth.runtime(context.getSource().getServer()).effectiveSeason(),

@@ -29,6 +29,10 @@ public final class ClientSmokeProbe {
         if(Boolean.getBoolean("deadearth.seasonScreenshot")) client.options.hideGui=true;
         if (client.player == null || client.level == null) return;
         if (finished) {
+            if(Boolean.getBoolean("deadearth.seasonScreenshot")&&finishTicks%200==199) {
+                DeadEarth.LOGGER.info("DEAD_EARTH_VISUAL_SMOKE fps={}",client.getFps());
+                Screenshot.grab(client.gameDirectory,client.getMainRenderTarget(),message->DeadEarth.LOGGER.info("Smoke screenshot: {}",message.getString()));
+            }
             if (++finishTicks == holdTicks) {
                 DeadEarth.LOGGER.info("DEAD_EARTH_CLIENT_SMOKE completed; shutting down owned test client");
                 client.stop();

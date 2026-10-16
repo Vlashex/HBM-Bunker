@@ -49,6 +49,23 @@
 - [x] Implement saved statistics/policy and server config; preserve seasonal calendar and native evolutionary carry; verify GREEN.
 - [x] Short native-evolution/config/calendar/restart checks, review, package/release 2.0.0.
 
+## Patch 2.0.1 — thick winter coating (user steering before v3)
+
+Existing weather flow; continuous execution remains authorized. Default top: two
+full rime-ice blocks plus one snow block; sides: one rime-ice plus one snow block.
+Configurable thickness, vertical scan depth and edits per tick. Original blocks
+anchor coating; own coating never anchors another layer. Outdoor floor ignores
+leaves and own seasonal blocks, preserving roofed interiors. Only air/thin snow
+is filled; do not intersect entities or replace containers. Loaded footprint
+checked before reads. New air coating thaws to air, water-origin ice to water.
+
+- [x] RED: actual world checks for thick top/sides, bounded repeated growth,
+  under-canopy floor and roofed interior.
+- [x] Implement bounded coating and thaw, config and full-block assets.
+- [x] GREEN plus no-force-load, collision, old crust and water-thaw regression.
+- [x] Short full-pack server/client run; real forest screenshot requested by user.
+- [x] Review/fix once, package, commit, local release 2.0.1, then continue v3.
+
 ## Task 3 — v3 loader and zone valuation
 
 **Files:** create `zone/ZoneTopology.java`, `zone/ZoneScore.java`, `zone/ZoneScanner.java`, `zone/ZoneCompatibility.java`, loader block/entity/content assets; add commands/snapshot aggregate and unit/GameTests.
@@ -84,3 +101,17 @@
 - Ruling: server-config duration and forecast changes apply at the next phase boundary — preserve current season and notice validity — cost: editing phaseMinutes does not shorten the currently running phase. Explained to user while implementing.
 - Ruling: idle players excluded from statistics by default, configurable — avoid AFK players diluting active group score — cost: stationary passive farming without combat/low health does not count as activity.
 - v2 package selector now includes verification documents/images and TOML examples; fixed historical v1 packaged link without rewriting old release/tag. No v3 product code yet; native audits and work/v3-design-addendum.txt ready.
+
+- Patch2.0.1 RED: two actual full-pack world failures: thin carpet instead of thick top, no under-canopy floor. User additionally requested gradual visual growth and bounded loaded-only work; eight directional shape stages (default two layers/pass), shared24 edits/2 sections per tick. Screenshot after final client check.
+
+- User addition: smooth height relief plus rare ice peaks. Algorithm1 derives a height field from world seed and saved climate cycle number, evaluated lazily, not an allocated global map. Same winter/restart stays stable; next cycle changes seed. Config defaults relief ice+0..2, snow+0..1, side ice+0..1; peak cells48, chance.25/cell, extra height4..8/radius3..6, bare ice tips. No terrain reads/no chunks needed for pure field sampling. Source-only tests verify negative coords, chunk-order independence, smoothness, bounds, rarity and next winter difference. Peak output shares ordinary growth/collision/loaded/budget rules.
+- Natural client forest exposed common grass preventing ground coating: actual-world RED reproduced1 failure. Whitelist ordinary vanilla grass/ferns/dead bush for burial; preserve saplings, other mod plants, containers. Common cover does not regrow automatically at thaw. This changes the earlier blanket plant-preservation assumption to satisfy continuous snow cover in ordinary forest.
+
+- New relief review: snow-only configuration lost snow at peaks; conversion extracted to pure WinterTerrain.thickness and covered by zero-material test.103 unit tests passed;46 full-pack GameTests passed before subsequent scheduler regression.
+- Real maturity check found deferred new-air layer could disappear from active queue after section-budget refusal. Corrected fixture RED:1/10 review tests fails specifically with 'Deferred next layer was dropped instead of retried'. Growth now retains pending work after refused write. Test camera helper can promote its bounded loaded area without changing production FIFO/caps; no MCP exposure.
+
+- Deferred-growth regression is GREEN after pending-write fix. New full47 run exposed a test fixture error: 'east1' crossed a chunk boundary for that random GameTest origin. Budget correctly rejected a different section. Fixture now selects an adjacent block inside the same section; product code unchanged. Re-running full GameTests, keeping passed103 pure tests for the same product logic.
+
+- Tall-tree RED:80-block crown leaves lower trunk and floor uncoated with old48 depth. Default depth now384, skip below exterior floor, reserve at most2048 vertical cells/tick across work,16 discovery columns/tick. Deferred cells stay queued; missing cell-budget API RED then implementation. This covers tall forest without an unbounded vertical scan per tick.
+
+- Patch2.0.1 final:103 Java,49 full-pack GameTests (17.35s),13 release tests; final dedicated server/client passed and stopped cleanly. Real forest and rare peak frames in verification/winter-2.0.1. Local2.0.1 package verified; continue Task3.
