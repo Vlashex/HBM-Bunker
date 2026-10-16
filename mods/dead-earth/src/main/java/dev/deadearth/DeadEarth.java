@@ -48,7 +48,10 @@ public final class DeadEarth {
             LOGGER.error("Dead Earth disabled; existing saves will not be replaced", invalid);
         }
     }
-    private void stopped(ServerStoppedEvent event) { RUNTIMES.remove(event.getServer()); PENDING_DEATHS.remove(event.getServer()); }
+    private void stopped(ServerStoppedEvent event) {
+        var runtime = RUNTIMES.remove(event.getServer()); if (runtime != null) runtime.close();
+        PENDING_DEATHS.remove(event.getServer());
+    }
     private void tick(ServerTickEvent.Post event) {
         var runtime = RUNTIMES.get(event.getServer());
         var deaths = PENDING_DEATHS.remove(event.getServer());

@@ -21,6 +21,8 @@ ops.json
 eula.txt
 .env
 .env.*
+dead_earth_bridge.json
+dead-earth-bridge-*.tmp
 *.log
 *.pid
 *.lck

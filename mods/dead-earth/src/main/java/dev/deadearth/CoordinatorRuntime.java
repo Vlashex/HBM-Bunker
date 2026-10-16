@@ -16,6 +16,7 @@ import dev.deadearth.site.SiteRegistry;
 import dev.deadearth.site.SiteStore;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import dev.deadearth.bridge.BridgeController;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.saveddata.SavedData;
 
@@ -26,6 +27,7 @@ public final class CoordinatorRuntime {
     private final ScenarioStore scenarios;
     private final ObservationStore observations;
     private final SiteStore sites;
+    private final BridgeController bridge;
     private String fault;
 
     public CoordinatorRuntime(MinecraftServer server) {
@@ -42,12 +44,15 @@ public final class CoordinatorRuntime {
         sites = campaign.enabled() ? SavedDataAccess.open(server.overworld(), SiteStore.NAME,
                 new SavedData.Factory<>(() -> SiteStore.create(campaign.campaign().campaignId()),
                         (tag, registries) -> SiteStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
+        bridge = new BridgeController(server, this);
         if (enabled()) reconcileSites();
     }
 
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
             && observations != null && observations.enabled() && sites != null && sites.enabled(); }
     public UUID epoch() { return epoch; }
+    public BridgeController bridge() { requireServerThread(); return bridge; }
+    public void close() { requireServerThread(); bridge.close(); }
     public CampaignStore campaign() { requireServerThread(); return campaign; }
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
             ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites) {}
@@ -119,7 +124,7 @@ public final class CoordinatorRuntime {
 
     public void tick() {
         requireServerThread();
-        if (!enabled()) return;
+        if (!enabled()) { tickBridge(); return; }
         try {
             campaign.advance(server.getPlayerCount() > 0);
             if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % 200 == 0) {
@@ -149,6 +154,14 @@ public final class CoordinatorRuntime {
                     DeadEarth.LOGGER.info("Dead Earth scenario {} -> {}", receipt.scenarioId(), receipt.state());
             }
         } catch (RuntimeException error) { disable(error); }
+        tickBridge();
+    }
+
+    private void tickBridge() {
+        try { bridge.tick(); }
+        catch (RuntimeException error) {
+            bridge.close(); DeadEarth.LOGGER.error("Dead Earth bridge disabled after internal failure; campaign remains autonomous", error);
+        }
     }
 
     public void requireServerThread() {

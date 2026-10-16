@@ -22,6 +22,7 @@ public final class DeadEarthCommands {
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(literal("deadearth").requires(source -> source.hasPermission(2))
                 .then(SiteCommands.branch())
+                .then(BridgeCommands.branch())
                 .then(literal("snapshot").executes(context -> report(context.getSource(),
                         () -> DeadEarth.runtime(context.getSource().getServer()).snapshot())))
                 .then(literal("history").then(argument("limit", IntegerArgumentType.integer(1, 100))
