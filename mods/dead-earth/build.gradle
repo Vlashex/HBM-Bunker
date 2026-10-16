@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '0.1.0-dev'
+version = '0.2.0-alpha.1'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 repositories { mavenCentral() }
@@ -13,6 +13,7 @@ neoForge {
         client {
             client()
             jvmArgument '-Xmx6G'
+            if (providers.gradleProperty('deadEarthClientSmoke').isPresent()) systemProperty 'deadearth.clientSmoke', 'true'
             if (providers.gradleProperty('deadEarthSmokeServer').isPresent()) {
                 programArgument '--quickPlayMultiplayer'
                 programArgument providers.gradleProperty('deadEarthSmokeServer').get()
@@ -33,6 +34,10 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
     testLogging { events 'passed', 'failed', 'skipped' }

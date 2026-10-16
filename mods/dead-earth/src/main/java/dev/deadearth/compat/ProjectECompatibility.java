@@ -9,6 +9,7 @@ public final class ProjectECompatibility {
     private ProjectECompatibility() {}
     public static void install(IEventBus modBus) {
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
+            dev.deadearth.gametest.ClientSmokeProbe.install();
             if (!ModList.get().isLoaded("projecte")) return;
             try {
                 for (var name : new String[] {

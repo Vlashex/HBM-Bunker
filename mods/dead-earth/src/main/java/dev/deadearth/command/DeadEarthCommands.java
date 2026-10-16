@@ -21,6 +21,7 @@ public final class DeadEarthCommands {
 
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(literal("deadearth").requires(source -> source.hasPermission(2))
+                .then(SiteCommands.branch())
                 .then(literal("snapshot").executes(context -> report(context.getSource(),
                         () -> DeadEarth.runtime(context.getSource().getServer()).snapshot())))
                 .then(literal("history").then(argument("limit", IntegerArgumentType.integer(1, 100))
@@ -66,7 +67,7 @@ public final class DeadEarthCommands {
         return status;
     }
 
-    private static int report(CommandSourceStack source, Supplier<?> action) {
+    static int report(CommandSourceStack source, Supplier<?> action) {
         try {
             String message = "[DeadEarth] " + JSON.toJson(action.get());
             source.sendSuccess(() -> Component.literal(message), false);

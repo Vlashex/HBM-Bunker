@@ -134,7 +134,7 @@ public final class FoundationGameTests {
         });
     }
 
-    private static AttachedClient attach(GameTestHelper helper) {
+    static AttachedClient attach(GameTestHelper helper) {
         var server = helper.getLevel().getServer();
         var profile = new GameProfile(UUID.randomUUID(), "DEProbe" + UUID.randomUUID().toString().substring(0, 6));
         var cookie = CommonListenerCookie.createInitial(profile, false);
@@ -145,7 +145,7 @@ public final class FoundationGameTests {
         return new AttachedClient(player, channel);
     }
 
-    private record AttachedClient(ServerPlayer player, EmbeddedChannel channel) implements AutoCloseable {
+    record AttachedClient(ServerPlayer player, EmbeddedChannel channel) implements AutoCloseable {
         List<String> messages() {
             var messages = new ArrayList<String>();
             Object packet;
