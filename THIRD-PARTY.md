@@ -14,7 +14,7 @@ JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчер
 
 Основные страницы:
 
-- [Overgrown Vegetation](https://www.curseforge.com/minecraft/mc-mods/moss-overgrowth)
+- [Overgrown Vegetation](https://www.curseforge.com/minecraft/mc-mods/overgrown-vegetation)
 - [Just Hammers](https://www.curseforge.com/minecraft/mc-mods/justhammers)
 - [Mining Gadgets](https://www.curseforge.com/minecraft/mc-mods/mining-gadgets)
 - [Charging Gadgets](https://www.curseforge.com/minecraft/mc-mods/charging-gadgets)
