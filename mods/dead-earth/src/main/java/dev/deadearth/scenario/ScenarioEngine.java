@@ -15,7 +15,16 @@ public final class ScenarioEngine {
     public Decision preview(Proposal proposal, WorldView view) {
         var reasons = new ArrayList<String>();
         if (!proposal.worldEpoch().equals(view.epoch())) reasons.add("wrong_epoch");
-        if (!proposal.targetId().equals("test_anchor")) reasons.add("unknown_target");
+        try { proposal.choice(); } catch (IllegalArgumentException invalid) { reasons.add("invalid_selection"); }
+        if (!view.knownTargets().contains(proposal.targetId())) reasons.add("unknown_target");
+        if (ScenarioChoice.RADIO.equals(proposal.catalogId()) && !byRequest.containsKey(proposal.requestId())) {
+            var radios = byRequest.values().stream().filter(r -> ScenarioChoice.RADIO.equals(r.proposal().catalogId())).toList();
+            boolean pending = radios.stream().anyMatch(r -> r.proposal().targetId().equals(proposal.targetId()) && pending(r));
+            if (pending) reasons.add("target_pending");
+            else if (radios.stream().anyMatch(r -> r.proposal().targetId().equals(proposal.targetId()) && r.state() != State.CANCELLED
+                    && view.activeTicks() - r.proposal().earliestTick() < 2400)) reasons.add("target_cooldown");
+            if (radios.stream().filter(ScenarioEngine::pending).count() >= 4) reasons.add("radio_capacity");
+        }
         if (proposal.earliestTick() < 0 || proposal.expiresTick() <= proposal.earliestTick()) reasons.add("invalid_window");
         if (proposal.expiresTick() <= view.activeTicks()) reasons.add("expired");
         if (!byRequest.containsKey(proposal.requestId()) && byRequest.size() >= MAX_RECEIPTS) reasons.add("capacity");
@@ -44,7 +53,8 @@ public final class ScenarioEngine {
                 continue;
             }
             if (view.activeTicks() < receipt.proposal().earliestTick()
-                    || view.onlinePlayers() == 0 || !view.anchorLoaded()) continue;
+                    || view.onlinePlayers() == 0 || !view.knownTargets().contains(receipt.proposal().targetId())
+                    || !view.loadedTargets().contains(receipt.proposal().targetId())) continue;
             var running = transition(receipt, State.RUNNING, "");
             try {
                 var result = executor.execute(running.scenarioId());
@@ -76,10 +86,10 @@ public final class ScenarioEngine {
         var engine = new ScenarioEngine();
         var ids = new java.util.HashSet<UUID>();
         for (var receipt : receipts) {
+            receipt.proposal().choice();
             if (receipt.state() == State.REJECTED || receipt.proposal().earliestTick() < 0
                     || receipt.proposal().expiresTick() <= receipt.proposal().earliestTick()
-                    || !receipt.proposal().targetId().equals("test_anchor")
-                    || !ids.add(receipt.scenarioId())
+                                        || !ids.add(receipt.scenarioId())
                     || engine.byRequest.putIfAbsent(receipt.proposal().requestId(), receipt) != null)
                 throw new IllegalArgumentException("Invalid or duplicate saved scenario");
             if (receipt.state() == State.RUNNING)
@@ -87,6 +97,8 @@ public final class ScenarioEngine {
         }
         return engine;
     }
+
+    private static boolean pending(Receipt receipt) { return receipt.state() == State.SCHEDULED || receipt.state() == State.RUNNING; }
 
     private Receipt transition(Receipt receipt, State state, String reason) {
         var updated = new Receipt(receipt.proposal(), receipt.scenarioId(), state,

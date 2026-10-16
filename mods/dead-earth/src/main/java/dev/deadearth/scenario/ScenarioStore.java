@@ -29,7 +29,8 @@ public final class ScenarioStore extends SavedData {
         var store = new ScenarioStore();
         try {
             require(tag, "schemaVersion", Tag.TAG_INT);
-            if (tag.getInt("schemaVersion") != 1) throw new IllegalArgumentException("Unsupported scenario schema");
+            int schema = tag.getInt("schemaVersion");
+            if (schema != 1 && schema != 2) throw new IllegalArgumentException("Unsupported scenario schema");
             store.campaignId = UUID.fromString(string(tag, "campaignId"));
             if (!expectedCampaign.equals(store.campaignId)) throw new IllegalArgumentException("Foreign campaign");
             require(tag, "receipts", Tag.TAG_LIST);
@@ -39,16 +40,17 @@ public final class ScenarioStore extends SavedData {
             var receipts = new ArrayList<Receipt>();
             for (int i = 0; i < raw.size(); i++) {
                 var row = raw.getCompound(i);
-                if (!string(row, "catalogId").equals("warning_beacon_v1"))
+                if (schema == 1 && !string(row, "catalogId").equals(ScenarioChoice.WARNING))
                     throw new IllegalArgumentException("Unknown saved catalog entry");
                 var proposal = new Proposal(UUID.fromString(string(row, "requestId")),
                         UUID.fromString(string(row, "worldEpoch")), string(row, "targetId"),
-                        number(row, "earliestTick"), number(row, "expiresTick"));
+                        number(row, "earliestTick"), number(row, "expiresTick"), string(row,"catalogId"),
+                        schema == 1 ? "standard" : string(row,"variant"), schema == 1 ? 200 : integer(row,"delayTicks"));
                 receipts.add(new Receipt(proposal, UUID.fromString(string(row, "scenarioId")),
                         State.valueOf(string(row, "state")), number(row, "revision"), string(row, "reason")));
             }
             store.engine = ScenarioEngine.restore(receipts);
-            if (receipts.stream().anyMatch(r -> r.state() == State.RUNNING)) store.setDirty();
+            if (schema == 1 || receipts.stream().anyMatch(r -> r.state() == State.RUNNING)) store.setDirty();
         } catch (IllegalArgumentException invalid) {
             store.unsupported = tag.copy();
             store.setDirty(false);
@@ -64,13 +66,15 @@ public final class ScenarioStore extends SavedData {
 
     @Override public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         if (!enabled()) return unsupported.copy();
-        tag.putInt("schemaVersion", 1);
+        tag.putInt("schemaVersion", 2);
         tag.putString("campaignId", campaignId.toString());
         var rows = new ListTag();
         for (var receipt : engine.receipts()) {
             var row = new CompoundTag();
             var proposal = receipt.proposal();
-            row.putString("catalogId", "warning_beacon_v1");
+            row.putString("catalogId", proposal.catalogId());
+            row.putString("variant", proposal.variant());
+            row.putInt("delayTicks", proposal.delayTicks());
             row.putString("requestId", proposal.requestId().toString());
             row.putString("worldEpoch", proposal.worldEpoch().toString());
             row.putString("targetId", proposal.targetId());
@@ -92,6 +96,9 @@ public final class ScenarioStore extends SavedData {
     private static String string(CompoundTag tag, String key) {
         require(tag, key, Tag.TAG_STRING);
         return tag.getString(key);
+    }
+    private static int integer(CompoundTag tag, String key) {
+        require(tag,key,Tag.TAG_INT); return tag.getInt(key);
     }
     private static long number(CompoundTag tag, String key) {
         require(tag, key, Tag.TAG_LONG);

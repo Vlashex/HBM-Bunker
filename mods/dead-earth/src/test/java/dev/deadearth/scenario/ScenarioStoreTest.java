@@ -7,6 +7,28 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScenarioStoreTest {
+    @Test void schemaOneWarningMigratesWithoutLosingIdentityOrTimes() {
+        UUID campaign=UUID.randomUUID(),epoch=UUID.randomUUID(),request=UUID.randomUUID();
+        var store=ScenarioStore.create(campaign);
+        var receipt=store.engine().submit(new Proposal(request,epoch,"test_anchor",200,1200),new WorldView(epoch,0,1,true));
+        var old=store.save(new CompoundTag(),null);old.putInt("schemaVersion",1);
+        var row=old.getList("receipts",10).getCompound(0);row.remove("variant");row.remove("delayTicks");
+        var migrated=ScenarioStore.load(campaign,old,null);
+        assertTrue(migrated.enabled());assertTrue(migrated.isDirty());
+        assertEquals(receipt,migrated.engine().findRequest(request).orElseThrow());
+        assertEquals(2,migrated.save(new CompoundTag(),null).getInt("schemaVersion"));
+    }
+    @Test void radioSelectionRoundTripsAndUnknownSavedVariantIsPreserved() {
+        UUID campaign=UUID.randomUUID(),epoch=UUID.randomUUID(),request=UUID.randomUUID();
+        String target="relay:"+UUID.randomUUID();var store=ScenarioStore.create(campaign);
+        var proposal=new Proposal(request,epoch,target,400,1400,"relay_broadcast_v1","rally",400);
+        var receipt=store.engine().submit(proposal,new WorldView(epoch,0,1,java.util.Set.of(target),java.util.Set.of(target)));
+        var tag=store.save(new CompoundTag(),null);var restored=ScenarioStore.load(campaign,tag,null);
+        assertTrue(restored.enabled());assertEquals(receipt,restored.engine().findRequest(request).orElseThrow());
+        tag.getList("receipts",10).getCompound(0).putString("variant","invented");
+        var invalid=ScenarioStore.load(campaign,tag,null);assertFalse(invalid.enabled());
+        assertEquals(tag,invalid.save(new CompoundTag(),null));
+    }
     @Test void preservesPendingReceiptAndCampaignIdentity() {
         UUID campaign = UUID.randomUUID(), epoch = UUID.randomUUID(), request = UUID.randomUUID();
         var store = ScenarioStore.create(campaign);
