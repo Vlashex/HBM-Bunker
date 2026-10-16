@@ -16,14 +16,14 @@ markers before notices. Read-only API cannot advance clocks or notices.
 Autonomous inline execution authorized; tests per logic change, games per slice.
 
 ### Task 1: pure cycle and persistence
-- [ ] RED/GREEN: boundaries/directions, forecast, notices/offline, restore/invalid NBT.
-- [ ] Implement constant-time cycle and schema1 climate store; focused tests/commit.
+- [x] RED/GREEN: boundaries/directions, forecast, notices/offline, restore/invalid NBT.
+- [x] Implement constant-time cycle and schema1 climate store; focused tests/commit.
 
 ### Task 2: runtime and observation integration
-- [ ] Add runtime/store/checkpoint, read-only operator commands, cached climate.
-- [ ] Add GameTests; focused unit/build checks, then commit.
+- [x] Add runtime/store/checkpoint, read-only operator commands, cached climate.
+- [x] Add GameTests; focused unit/build checks, then commit.
 
 ### Task 3: accumulated checks and local release
-- [ ] Fresh GameTests; full pack server/client/MCP initial notice/pause/restart.
-- [ ] One fresh final reviewer, fix pass and relevant checks.
-- [ ] Notes/pins/ZIP/tag alpha.4; report and continue effects/adapters.
+- [x] Fresh GameTests; full pack server/client/MCP initial notice/pause/restart.
+- [x] One fresh final reviewer, fix pass and relevant checks.
+- [x] Notes/pins/ZIP/tag alpha.4; report and continue effects/adapters.
