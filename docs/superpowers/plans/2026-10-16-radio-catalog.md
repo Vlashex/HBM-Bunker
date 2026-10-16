@@ -16,17 +16,17 @@ loads; validate full footprint at execution. User-authorized autonomous inline
 execution, focused tests per task and game runs only at slice boundary.
 
 ### Task 1: choices, engine gates and save migration
-- [ ] RED: choice bounds, unknown targets, per-site/global limits, cooldown, restore.
-- [ ] Implement catalog selection, extended proposal/view, schema 1→2 migration.
-- [ ] Focused tests and commit.
+- [x] RED: choice bounds, unknown targets, per-site/global limits, cooldown, restore.
+- [x] Implement catalog selection, extended proposal/view, schema 1→2 migration.
+- [x] Focused tests and commit.
 
 ### Task 2: runtime and MCP integration
-- [ ] RED: changed selection cannot reuse UUID; SDK forwarding and invalid choices.
-- [ ] Add final relay executor, runtime view and bridge/gateway optional selection.
-- [ ] Add GameTests; focused tests and commit without launching games yet.
+- [x] RED: changed selection cannot reuse UUID; SDK forwarding and invalid choices.
+- [x] Add final relay executor, runtime view and bridge/gateway optional selection.
+- [x] Add GameTests; focused tests and commit without launching games yet.
 
 ### Task 3: accumulated verification and local release
-- [ ] Full unit/packaging/gateway suites and fresh GameTest world.
-- [ ] Full server + dev client/SDK radio, damaged relay, duplicate/cancel/restart.
-- [ ] One fresh final reviewer and one fix pass with evidence.
-- [ ] Alpha.3 notes/pins/ZIP, local tag/report; continue roadmap.
+- [x] Full unit/packaging/gateway suites and fresh GameTest world.
+- [x] Full server + dev client/SDK radio, damaged relay, duplicate/cancel/restart.
+- [x] One fresh final reviewer and one fix pass with evidence.
+- [x] Alpha.3 notes/pins/ZIP, local tag/report; continue roadmap.
