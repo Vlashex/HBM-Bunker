@@ -4,11 +4,31 @@ from typing import Any
 from mcp.server import MCPServer
 from mcp.types import ToolAnnotations
 from mcp.server.mcpserver.exceptions import ToolError
-from .bridge import BridgeClient, BridgeError
+from .bridge import BridgeClient, BridgeError, _arguments
+
+
+class BoundedMCPServer(MCPServer):
+    async def call_tool(self, name, arguments, context=None):
+        # Validate the raw dict before SDK/Pydantic can discard or coerce fields.
+        raw = {} if arguments is None else arguments
+        if type(raw) is not dict:
+            raise ToolError("invalid_arguments")
+        checked = {"limit": 20} | raw if name == "get_history" else raw
+        try:
+            _arguments(name, checked)
+        except BridgeError as error:
+            raise ToolError(str(error)) from None
+        return await super().call_tool(name, raw, context)
+
+    async def list_tools(self):
+        tools = await super().list_tools()
+        for tool in tools:
+            tool.input_schema["additionalProperties"] = False
+        return tools
 
 
 def create_server(client: BridgeClient) -> MCPServer:
-    server = MCPServer("Dead Earth")
+    server = BoundedMCPServer("Dead Earth")
     read = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
     write = ToolAnnotations(read_only_hint=False, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
 

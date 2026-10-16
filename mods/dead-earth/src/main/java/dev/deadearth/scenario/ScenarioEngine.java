@@ -85,8 +85,14 @@ public final class ScenarioEngine {
         if (receipts.size() > MAX_RECEIPTS) throw new IllegalArgumentException("Oversized scenario save");
         var engine = new ScenarioEngine();
         var ids = new java.util.HashSet<UUID>();
+        var pendingTargets = new java.util.HashSet<String>();
+        int pendingRadios = 0;
         for (var receipt : receipts) {
             receipt.proposal().choice();
+            if (ScenarioChoice.RADIO.equals(receipt.proposal().catalogId()) && pending(receipt)) {
+                if (++pendingRadios > 4 || !pendingTargets.add(receipt.proposal().targetId()))
+                    throw new IllegalArgumentException("Invalid saved radio pending set");
+            }
             if (receipt.state() == State.REJECTED || receipt.proposal().earliestTick() < 0
                     || receipt.proposal().expiresTick() <= receipt.proposal().earliestTick()
                                         || !ids.add(receipt.scenarioId())

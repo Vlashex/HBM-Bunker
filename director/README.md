@@ -33,3 +33,9 @@ cwd: <папка director>
 
 Документация SDK: https://github.com/modelcontextprotocol/python-sdk
 PyPI: https://pypi.org/project/mcp/2.3.0/
+
+В alpha.3 preview/propose поддерживают catalog_id, target_id, variant и delay_ticks.
+Для relay_broadcast_v1 цель — relay:<UUID> обнаруженной станции; варианты check_in,
+survey, rally. Задержка 200..1200 активных тиков, кратно 20. Сначала прочитай каталог
+и снимок; сервер повторно проверяет условия. Повтор request_id сохраняет прежний
+выбор и расписание; изменение параметров с тем же UUID запрещено.

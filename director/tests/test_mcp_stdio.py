@@ -8,6 +8,21 @@ from test_bridge import endpoint, success
 
 
 class McpStdioTests(unittest.TestCase):
+    def test_sdk_rejects_raw_unknown_fields_and_coercible_delays(self):
+        choice=dict(request_id="00000000-0000-4000-8000-000000000003",catalog_id="relay_broadcast_v1",target_id="relay:00000000-0000-4000-8000-000000000004",variant="rally",delay_ticks=400)
+        async def exchange(path):
+            params=StdioServerParameters(command=sys.executable,args=["-m","dead_earth_director","--bridge",str(path)],cwd=Path(__file__).resolve().parents[1],env={"PYTHONUTF8":"1"})
+            async with Client(params,read_timeout_seconds=10) as client:
+                for name in ["preview_scenario","propose_scenario"]:
+                    for changes in [dict(unexpected="text"),dict(delay_tick=1200),dict(delay_ticks="400"),dict(delay_ticks=400.0),dict(delay_ticks=True)]:
+                        result=await client.call_tool(name,choice | changes)
+                        self.assertTrue(result.is_error,(name,changes))
+                self.assertFalse((await client.call_tool("get_history")).is_error)
+        with endpoint(lambda r:success({})) as (path,requests):
+            asyncio.run(exchange(path))
+            self.assertEqual([r["operation"] for r in requests],["get_history"])
+            self.assertEqual(requests[0]["arguments"],{"limit":20})
+
     def test_sdk_forwards_bounded_radio_choice(self):
         choice=dict(request_id="00000000-0000-4000-8000-000000000003",catalog_id="relay_broadcast_v1",target_id="relay:00000000-0000-4000-8000-000000000004",variant="rally",delay_ticks=400)
         async def exchange(path):

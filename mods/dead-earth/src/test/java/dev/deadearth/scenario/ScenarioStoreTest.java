@@ -7,6 +7,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScenarioStoreTest {
+    @Test void malformedRestoredRadioPendingLimitsDisableAndPreserveStore() {
+        for (int count:new int[]{2,5}) {
+            UUID campaign=UUID.randomUUID(),epoch=UUID.randomUUID();String target="relay:"+UUID.randomUUID();
+            var store=ScenarioStore.create(campaign);
+            store.engine().submit(new Proposal(UUID.randomUUID(),epoch,target,200,1200,"relay_broadcast_v1","survey",200),
+                    new WorldView(epoch,0,1,java.util.Set.of(target),java.util.Set.of(target)));
+            var tag=store.save(new CompoundTag(),null);var rows=tag.getList("receipts",10);var first=rows.getCompound(0).copy();
+            rows.clear();
+            for(int i=0;i<count;i++) {
+                var row=first.copy();row.putString("requestId",UUID.randomUUID().toString());row.putString("scenarioId",UUID.randomUUID().toString());
+                if(count==5)row.putString("targetId","relay:"+UUID.randomUUID());rows.add(row);
+            }
+            var restored=ScenarioStore.load(campaign,tag,null);
+            assertFalse(restored.enabled(),"Restored invalid pending set of "+count);assertFalse(restored.isDirty());
+            assertEquals(tag,restored.save(new CompoundTag(),null));
+        }
+    }
     @Test void schemaOneWarningMigratesWithoutLosingIdentityOrTimes() {
         UUID campaign=UUID.randomUUID(),epoch=UUID.randomUUID(),request=UUID.randomUUID();
         var store=ScenarioStore.create(campaign);
