@@ -1,4 +1,5 @@
 package dev.deadearth.scenario;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,7 +23,7 @@ public final class ScenarioEngine {
             boolean pending = radios.stream().anyMatch(r -> r.proposal().targetId().equals(proposal.targetId()) && pending(r));
             if (pending) reasons.add("target_pending");
             else if (radios.stream().anyMatch(r -> r.proposal().targetId().equals(proposal.targetId()) && r.state() != State.CANCELLED
-                    && view.activeTicks() - r.proposal().earliestTick() < 2400)) reasons.add("target_cooldown");
+                    && view.activeTicks() - r.proposal().earliestTick() < i(SCENARIO_COOLDOWN))) reasons.add("target_cooldown");
             if (radios.stream().filter(ScenarioEngine::pending).count() >= 4) reasons.add("radio_capacity");
         }
         if (proposal.earliestTick() < 0 || proposal.expiresTick() <= proposal.earliestTick()) reasons.add("invalid_window");

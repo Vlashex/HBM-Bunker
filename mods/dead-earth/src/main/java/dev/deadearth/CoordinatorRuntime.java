@@ -1,4 +1,5 @@
 package dev.deadearth;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 import dev.deadearth.campaign.CampaignStore;
 import dev.deadearth.climate.ClimateStore;
@@ -30,6 +31,8 @@ public final class CoordinatorRuntime {
     private final UUID epoch = UUID.randomUUID();
     private final CampaignStore campaign;
     private final ClimateStore climate;
+    private final dev.deadearth.difficulty.AdaptiveStore adaptive;
+    private final dev.deadearth.difficulty.PlayerStatistics statistics=new dev.deadearth.difficulty.PlayerStatistics();
     private final ScenarioStore scenarios;
     private final ObservationStore observations;
     private final SiteStore sites;
@@ -58,34 +61,46 @@ public final class CoordinatorRuntime {
         sites = campaign.enabled() ? SavedDataAccess.open(server.overworld(), SiteStore.NAME,
                 new SavedData.Factory<>(() -> SiteStore.create(campaign.campaign().campaignId()),
                         (tag, registries) -> SiteStore.load(campaign.campaign().campaignId(), tag, registries))) : null;
-        climate = campaign.enabled() ? SavedDataAccess.open(server.overworld(), ClimateStore.NAME,
+        adaptive = campaign.enabled() ? SavedDataAccess.open(server.overworld(),dev.deadearth.difficulty.AdaptiveStore.NAME,
+                new SavedData.Factory<>(()->dev.deadearth.difficulty.AdaptiveStore.createForCampaign(campaign),
+                    (tag,registries)->dev.deadearth.difficulty.AdaptiveStore.load(campaign.campaign().campaignId(),campaign.campaign().activeTicks(),tag,registries))) : null;
+        climate = campaign.enabled() && adaptive.enabled() ? SavedDataAccess.open(server.overworld(), ClimateStore.NAME,
                 new SavedData.Factory<>(() -> ClimateStore.create(campaign.campaign().campaignId(),campaign.campaign().activeTicks()),
                         (tag, registries) -> ClimateStore.load(campaign.campaign().campaignId(),campaign.campaign().activeTicks(),tag,registries))) : null;
         bridge = new BridgeController(server, this);
-        if (enabled()) reconcileSites();
+        if (enabled()) {
+            if(!campaign.adaptiveRequired()) {
+                SavedDataAccess.checkpoint(server.overworld(),dev.deadearth.difficulty.AdaptiveStore.NAME,adaptive);
+                campaign.requireAdaptive();SavedDataAccess.checkpoint(server.overworld(),CampaignStore.NAME,campaign);
+            }
+            reconcileSites();
+        }
     }
 
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
             && observations != null && observations.enabled() && sites != null && sites.enabled()
-            && climate != null && climate.enabled(); }
+            && climate != null && climate.enabled() && adaptive != null && adaptive.enabled(); }
     public UUID epoch() { return epoch; }
     public BridgeController bridge() { requireServerThread(); return bridge; }
     public void close() { requireServerThread(); bridge.close(); }
     public CampaignStore campaign() { requireServerThread(); return campaign; }
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
             ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites,
-            ClimateCycle.Snapshot climate, boolean climateEffectsEnabled) {}
+            ClimateCycle.Snapshot climate, boolean climateEffectsEnabled, dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty) {}
     public Snapshot snapshot() {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
-                climateStatus(),true);
+                climateStatus(),true,difficultyStatus());
     }
     public ClimateCycle.Snapshot climateStatus() {
         requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());
     }
+    public dev.deadearth.difficulty.AdaptiveStore.Snapshot difficultyStatus() {requireReady();return adaptive.view(effectiveSeason());}
+    public void playerLeft(UUID player){requireServerThread();statistics.forget(player);}
+    public void testPressure(double value){requireReady();adaptive.testPressure(value);checkpoint();}
     public List<ClimateCycle.Window> climateForecast() {
-        requireReady(); return climate.cycle().forecast(campaign.campaign().activeTicks(),4);
+        requireReady(); return climate.forecast(campaign.campaign().activeTicks(),4);
     }
     public List<SiteRegistry.Site> sites() { requireReady(); reconcileSites(); return sites.registry().sites(); }
     public RelayPlacement.Preview previewRelay(BlockPos origin) { requireReady(); return RelayPlacement.preview(server.overworld(), origin); }
@@ -168,19 +183,23 @@ public final class CoordinatorRuntime {
         if (!enabled()) { tickBridge(); return; }
         try {
             campaign.advance(server.getPlayerCount() > 0);
+            if(server.getPlayerCount()==0)statistics.retain(java.util.Set.of());
+            if(server.getPlayerCount()>0 && campaign.campaign().activeTicks()%i(SAMPLE_TICKS)==0)
+                for(var sample:statistics.collect(server.getPlayerList().getPlayers())) adaptive.observe(sample);
+            adaptive.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             var season=effectiveSeason();
-            dev.deadearth.climate.SeasonState.update(season,1);
+            dev.deadearth.climate.SeasonState.update(season,adaptive.pressure());
             weather.tick(server.overworld(),season,server.getPlayerCount()>0);
-            if (server.getPlayerCount()>0 && server.getTickCount()%40==0)
+            if (server.getPlayerCount()>0 && server.getTickCount()%i(NETWORK_REFRESH)==0)
                 for(var player:server.getPlayerList().getPlayers())
                     if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))
-                        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(season.ordinal(),1));
+                        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(season.ordinal(),adaptive.pressure()));
             var notices=climate.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             if (!notices.isEmpty()) {
                 checkpoint();
                 for(var notice:notices) server.getPlayerList().broadcastSystemMessage(Component.literal(ClimateMessages.text(notice)),false);
             }
-            if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % 200 == 0) {
+            if (server.getPlayerCount() > 0 && campaign.campaign().activeTicks() % i(OBSERVATION_REFRESH) == 0) {
                 reconcileSites();
                 for (var player : server.getPlayerList().getPlayers()) {
                     var pos = player.blockPosition();
@@ -246,6 +265,7 @@ public final class CoordinatorRuntime {
     private void checkpoint() {
         try {
             SavedDataAccess.checkpoint(server.overworld(), CampaignStore.NAME, campaign);
+            SavedDataAccess.checkpoint(server.overworld(), dev.deadearth.difficulty.AdaptiveStore.NAME, adaptive);
             SavedDataAccess.checkpoint(server.overworld(), ClimateStore.NAME, climate);
             SavedDataAccess.checkpoint(server.overworld(), ScenarioStore.NAME, scenarios);
             SavedDataAccess.checkpoint(server.overworld(), ObservationStore.NAME, observations);
@@ -255,6 +275,11 @@ public final class CoordinatorRuntime {
     private void disable(RuntimeException error) {
         if (fault == null) {
             fault = error.getClass().getSimpleName();
+            dev.deadearth.climate.SeasonState.reset();
+            for(var player:server.getPlayerList().getPlayers()) try {
+                if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))
+                    net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(-1,1));
+            } catch(RuntimeException noticeFailure) {DeadEarth.LOGGER.warn("Unable to clear client season after coordinator failure",noticeFailure);}
             DeadEarth.LOGGER.error("Dead Earth paused after persistence/execution failure", error);
         }
     }

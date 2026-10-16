@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "date": "2026-10-16",
+  "java_unit": {
+    "tests": 99,
+    "failures": 0
+  },
+  "native_full_pack_gametest": {
+    "tests": 39,
+    "failures": 0,
+    "execution_seconds": 15.24,
+    "cold_run_seconds": 129
+  },
+  "python_packaging": {
+    "tests": 13,
+    "failures": 0
+  },
+  "native_proof": [
+    "Actual Mutationcraft outbreak tick increases1.5x",
+    "Actual isolated OV PhaseData.addPoints increases1.5x",
+    "Real ServerPlayer stats deltas and logout baseline cleanup",
+    "Server config bounds/combat influence and next-season duration",
+    "Putrid channel and disabled-neutral regressions RED2 to GREEN",
+    "Exposure irregular interval missing-helper RED to GREEN"
+  ],
+  "client": {
+    "normal_exit": true,
+    "synced_phase_minutes": 35,
+    "synced_max_above_base": 0.25,
+    "synced_health_influence": 0.5
+  },
+  "restart": {
+    "same_campaign": true,
+    "same_climate": true,
+    "active_ticks": 6533,
+    "pressure": 1.2,
+    "offline_advance": false
+  },
+  "limits": [
+    "No six-player performance/load test",
+    "No user Prism profile modified",
+    "No real-time multi-hour season soak"
+  ]
+}

@@ -1,4 +1,5 @@
 package dev.deadearth.compat;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 import dev.deadearth.climate.SeasonState;
 import java.util.ArrayDeque;
@@ -29,23 +30,27 @@ public final class BiosphereEvents {
     private BiosphereEvents() {}
     public static boolean mutant(Entity entity) { return entity!=null && entity.getType().is(MUTANTS); }
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void damage(LivingIncomingDamageEvent event) {
-        if(!event.isCanceled() && !event.getEntity().level().isClientSide() && mutant(event.getSource().getEntity()))
-            event.setAmount((float)(event.getAmount()*SeasonState.parasites()));
+        if(!event.isCanceled() && !event.getEntity().level().isClientSide() && event.getSource().getEntity() instanceof LivingEntity attacker
+                && (mutant(attacker)||attacker.getType().getCategory()==MobCategory.MONSTER))
+            event.setAmount((float)(event.getAmount()*(mutant(attacker)?SeasonState.parasiteDamage():SeasonState.damage())));
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void spawn(FinalizeSpawnEvent event) {
         if(addingExtra || event.isSpawnCancelled() || !mutant(event.getEntity())
                 || event.getSpawnType()!=MobSpawnType.NATURAL || !(event.getEntity().level() instanceof ServerLevel level)) return;
         double factor=SeasonState.parasites();
         if(factor<1) {if(level.random.nextDouble()>=factor) event.setSpawnCancelled(true);}
-        else if(factor>1 && EXTRAS.size()<64 && level.random.nextDouble()<factor-1)
-            EXTRAS.addLast(new Extra(level,event.getEntity().getType(),event.getX(),event.getY(),event.getZ()));
+        else if(factor>1) {
+            double bonus=factor-1;int count=(int)bonus+(level.random.nextDouble()<bonus-Math.floor(bonus)?1:0);
+            while(count-->0 && EXTRAS.size()<i(EXTRA_QUEUE)) EXTRAS.addLast(new Extra(level,event.getEntity().getType(),event.getX(),event.getY(),event.getZ()));
+        }
     }
     @SubscribeEvent public static void tick(LevelTickEvent.Post event) {
         if(!(event.getLevel() instanceof ServerLevel level)) return;
-        if(level.getGameTime()%20==0) for(var entity:level.getAllEntities())
-            if(entity instanceof LivingEntity living && mutant(living)) SeasonMobHealth.apply(living,SeasonState.parasites());
+        if(level.getGameTime()%i(HEALTH_REFRESH)==0) for(var entity:level.getAllEntities())
+            if(entity instanceof LivingEntity living && (mutant(living)||living.getType().getCategory()==MobCategory.MONSTER))
+                SeasonMobHealth.apply(living,mutant(living)?SeasonState.parasiteHealth():SeasonState.health());
         if(EXTRAS.isEmpty() || level.players().isEmpty()) return;
-        int budget=2,attempts=EXTRAS.size();
+        int budget=i(EXTRAS_PER_TICK),attempts=EXTRAS.size();
         var reserved=new java.util.EnumMap<MobCategory,Integer>(MobCategory.class);
         while(budget>0 && attempts-->0 && !EXTRAS.isEmpty()) {
             var extra=EXTRAS.removeFirst();if(extra.level()!=level) {EXTRAS.addLast(extra);continue;}
@@ -65,21 +70,21 @@ public final class BiosphereEvents {
     /** The same placement and event checks as native natural spawning, with no forced chunks. */
     public static boolean tryNaturalExtra(ServerLevel level,Mob mob) {
         var pos=mob.blockPosition();
-        if(!level.hasChunksAt(pos.offset(-24,-1,-24),pos.offset(24,2,24))
+        if(!level.hasChunksAt(pos.offset(-i(LOCAL_MOB_RADIUS),-1,-i(LOCAL_MOB_RADIUS)),pos.offset(i(LOCAL_MOB_RADIUS),2,i(LOCAL_MOB_RADIUS)))
                 || !level.getWorldBorder().isWithinBounds(pos)
-                || level.getNearestPlayer(mob,24)!=null) return false;
+                || level.getNearestPlayer(mob,i(PLAYER_SPAWN_DISTANCE))!=null) return false;
         if(!net.minecraft.world.entity.SpawnPlacements.getPlacementType(mob.getType()).isSpawnPositionOk(level,pos,mob.getType())
                 || !net.minecraft.world.entity.SpawnPlacements.checkSpawnRules(mob.getType(),level,MobSpawnType.NATURAL,pos,level.random)
                 || !net.neoforged.neoforge.event.EventHooks.checkSpawnPosition(mob,level,MobSpawnType.NATURAL)
                 || !level.noCollision(mob)
-                || level.getEntitiesOfClass(Mob.class,mob.getBoundingBox().inflate(24),BiosphereEvents::mutant).size()>=32) return false;
+                || level.getEntitiesOfClass(Mob.class,mob.getBoundingBox().inflate(i(LOCAL_MOB_RADIUS)),BiosphereEvents::mutant).size()>=i(LOCAL_MOB_CAP)) return false;
         addingExtra=true;
         try {
             net.neoforged.neoforge.event.EventHooks.finalizeMobSpawn(mob,level,
                     level.getCurrentDifficultyAt(pos),MobSpawnType.NATURAL,null);
             if(mob.isSpawnCancelled()) return false;
             if(!level.addFreshEntity(mob)) return false;
-            SeasonMobHealth.apply(mob,SeasonState.parasites());return true;
+            SeasonMobHealth.apply(mob,SeasonState.parasiteHealth());return true;
         } finally {addingExtra=false;}
     }
     @SubscribeEvent public static void stop(ServerStoppedEvent event) {EXTRAS.clear();addingExtra=false;}

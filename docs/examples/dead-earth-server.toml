@@ -1,0 +1,203 @@
+[adaptive]
+	# Default: 0.25
+	# Range: 0.0 ~ 0.95
+	maxBelowBase = 0.25
+	# Default: 0.5
+	# Range: 0.0 ~ 3.0
+	maxAboveBase = 0.5
+	# Default: 0.05
+	# Range: 0.001 ~ 1.0
+	stepPerWindow = 0.05
+	# Default: 6000
+	# Range: 200 ~ 72000
+	windowTicks = 6000
+	# Default: 200
+	# Range: 20 ~ 1200
+	sampleTicks = 200
+	# Default: 6
+	# Range: 1 ~ 2048
+	minimumSamples = 6
+	# Default: 0.025
+	# Range: 0.0 ~ 1.0
+	killWeight = 0.025
+	# Default: 0.01
+	# Range: 0.0 ~ 1.0
+	damageWeight = 0.01
+	# Default: 0.3
+	# Range: 0.0 ~ 2.0
+	deathWeight = 0.3
+	# Default: 0.3
+	# Range: 0.0 ~ 2.0
+	lowHealthWeight = 0.3
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	healthInfluence = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	damageInfluence = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	parasiteEvolutionInfluence = 1.0
+	# Default: 1.0
+	# Range: 0.0 ~ 1.0
+	forestDevelopmentInfluence = 1.0
+	ignoreInactivePlayers = true
+
+[seasons]
+	# Default: 1.8
+	# Range: 0.05 ~ 4.0
+	winterParasites = 1.8
+	# Default: 0.25
+	# Range: 0.05 ~ 4.0
+	winterForest = 0.25
+	# Default: 0.5
+	# Range: 0.05 ~ 4.0
+	summerParasites = 0.5
+	# Default: 1.5
+	# Range: 0.05 ~ 4.0
+	summerForest = 1.5
+	# Default: 1.0
+	# Range: 0.05 ~ 4.0
+	calmParasites = 1.0
+	# Default: 1.0
+	# Range: 0.05 ~ 4.0
+	calmForest = 1.0
+	# Default: 40
+	# Range: 1 ~ 1600
+	phaseMinutes = 40
+	# Default: 300
+	# Range: 0 ~ 3600
+	forecastSeconds = 300
+
+[weather]
+	# Default: 32
+	# Range: 0 ~ 256
+	columnsPerTick = 32
+	# Default: 8192
+	# Range: 9 ~ 16384
+	maximumChunks = 8192
+	# Default: 200
+	# Range: 20 ~ 2000
+	refreshTicks = 200
+	# Default: 6000
+	# Range: 200 ~ 100000
+	lockTicks = 6000
+	summerFire = true
+	winterIce = true
+	winterCrust = true
+	controlWeather = true
+	forceWinterSnow = true
+
+[exposure]
+	enabled = true
+	# Default: 20
+	# Range: 1 ~ 1200
+	sampleTicks = 20
+	# Default: 60
+	# Range: 20 ~ 1000
+	maximum = 60
+	# Default: 1
+	# Range: 0 ~ 100
+	heatGain = 1
+	# Default: 2
+	# Range: 0 ~ 100
+	coldGain = 2
+	# Default: 3
+	# Range: 0 ~ 100
+	recovery = 3
+	# Default: 20
+	# Range: 1 ~ 1000
+	effectThreshold = 20
+	# Default: 40
+	# Range: 1 ~ 1000
+	harmThreshold = 40
+	# Default: 1.0
+	# Range: 0.0 ~ 20.0
+	coldDamage = 1.0
+	# Default: 100
+	# Range: 20 ~ 2000
+	damageIntervalTicks = 100
+	# Default: 140
+	# Range: 0 ~ 1000
+	freezeTicks = 140
+	# Default: 45
+	# Range: 1 ~ 10000
+	effectDurationTicks = 45
+	# Default: 0
+	# Range: 0 ~ 4
+	effectAmplifier = 0
+	# Default: 3
+	# Range: 0 ~ 60
+	igniteSeconds = 3
+
+[spawning]
+	# Default: 2
+	# Range: 0 ~ 32
+	extrasPerTick = 2
+	# Default: 64
+	# Range: 1 ~ 1024
+	maximumQueuedExtras = 64
+	# Default: 32
+	# Range: 1 ~ 256
+	localMutantCap = 32
+	# Default: 24
+	# Range: 8 ~ 64
+	localRadius = 24
+	# Default: 24
+	# Range: 24 ~ 128
+	minimumPlayerDistance = 24
+	# Default: 20
+	# Range: 1 ~ 1200
+	healthRefreshTicks = 20
+
+[performance]
+	# Default: 40
+	# Range: 1 ~ 200
+	seasonSyncTicks = 40
+	# Default: 200
+	# Range: 20 ~ 1200
+	observationSampleTicks = 200
+
+[visual]
+	# Default: 72
+	# Range: 16 ~ 512
+	winterFogDistance = 72
+	# Default: 160
+	# Range: 16 ~ 512
+	summerFogDistance = 160
+	# Default: 0.015
+	# Range: 0.001 ~ 1.0
+	transitionSpeed = 0.015
+	# Default: 3
+	# Range: 0 ~ 32
+	particleCount = 3
+	# Default: 3
+	# Range: 1 ~ 200
+	particleIntervalTicks = 3
+	# Default: 12.0
+	# Range: 1.0 ~ 64.0
+	particleRadius = 12.0
+	# Default: 10.0
+	# Range: 1.0 ~ 32.0
+	particleHeight = 10.0
+	enabled = true
+	# Default: 0.7
+	# Range: 0.0 ~ 1.0
+	winterTintStrength = 0.7
+	# Default: 0.25
+	# Range: 0.0 ~ 1.0
+	summerTintStrength = 0.25
+	# Default: 7175314
+	# Range: 0 ~ 16777215
+	winterTintColor = 7175314
+	# Default: 16095549
+	# Range: 0 ~ 16777215
+	summerTintColor = 16095549
+
+[scenarios]
+	# Default: 2400
+	# Range: 0 ~ 72000
+	targetCooldownTicks = 2400
+	# Default: 12
+	# Range: 1 ~ 64
+	siteDiscoveryRadius = 12

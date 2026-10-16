@@ -202,8 +202,17 @@ def check_evidence(root):
 
 def release_documents(root):
     paths = [root / name for name in ["README.md", "CHANGELOG.md", "CONTRIBUTING.md", "THIRD-PARTY.md"]]
-    paths += sorted((root / "docs").rglob("*.md"))
-    return {path.relative_to(root).as_posix(): path.read_bytes() for path in paths}
+    allowed = {".md", ".json", ".toml", ".png", ".jpg", ".jpeg", ".svg", ".webp"}
+    for folder in [root / "docs", root / "verification"]:
+        paths += sorted(path for path in folder.rglob("*") if path.is_file() and path.suffix.lower() in allowed)
+    documents = {}
+    for path in paths:
+        if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
+            raise ValueError(f"Unsafe release document: {path.name}")
+        if path.stat().st_size > 10 * 1024 * 1024:
+            raise ValueError(f"Release document too large: {path.name}")
+        documents[path.relative_to(root).as_posix()] = path.read_bytes()
+    return documents
 
 
 def director_entries(root, enabled):

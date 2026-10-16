@@ -148,12 +148,14 @@ class ReleaseTests(unittest.TestCase):
         self.assertTrue(hasattr(release, "release_documents"), "Release document selector missing")
         documents = release.release_documents(ROOT)
         for name, data in documents.items():
+            if not name.endswith(".md"):
+                continue
             for target in re.findall(r"\]\(([^)]+)\)", data.decode("utf-8")):
                 if target.startswith(("https://", "http://", "#", "mailto:")):
                     continue
                 target = target.split("#")[0]
                 resolved = posixpath.normpath(posixpath.join(posixpath.dirname(name), target))
-                self.assertIn(resolved, documents, f"Broken packaged link in {name}: {target}")
+                self.assertTrue(resolved in documents, f"Broken packaged link in {name}: {target}")
 
 
 if __name__ == "__main__":

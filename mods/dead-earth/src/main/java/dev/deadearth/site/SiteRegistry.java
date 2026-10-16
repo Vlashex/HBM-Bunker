@@ -1,4 +1,5 @@
 package dev.deadearth.site;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -59,7 +60,7 @@ public final class SiteRegistry {
         for (var site : sites()) {
             long dx = (long) x - site.x() - 4, dy = (long) y - site.y() - 1, dz = (long) z - site.z() - 4;
             if (site.state() == State.READY && site.discoverer() == null && tick >= site.createdTick()
-                    && Math.abs(dx) <= 12 && Math.abs(dy) <= 12 && Math.abs(dz) <= 12 && dx * dx + dy * dy + dz * dz <= 144)
+                    && Math.abs(dx) <= i(SITE_DISCOVERY_RADIUS) && Math.abs(dy) <= i(SITE_DISCOVERY_RADIUS) && Math.abs(dz) <= i(SITE_DISCOVERY_RADIUS) && dx * dx + dy * dy + dz * dz <= i(SITE_DISCOVERY_RADIUS)*i(SITE_DISCOVERY_RADIUS))
                 found.add(replace(new Site(site.request(), site.id(), site.x(), site.y(), site.z(), site.createdTick(),
                         site.state(), player, tick)));
         }

@@ -14,13 +14,13 @@ public final class SeasonNetwork {
                 (buf,value)->{buf.writeVarInt(value.phase);buf.writeDouble(value.pressure);},
                 buf->new State(buf.readVarInt(),buf.readDouble()));
         public State {
-            if (phase<0 || phase>=ClimateCycle.Phase.values().length || !Double.isFinite(pressure) || pressure<.5 || pressure>2)
+            if (phase< -1 || phase>=ClimateCycle.Phase.values().length || !Double.isFinite(pressure) || pressure<.05 || pressure>4)
                 throw new IllegalArgumentException("Invalid season packet");
         }
         @Override public Type<State> type() { return TYPE; }
     }
     private SeasonNetwork() {}
     public static void register(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToClient(State.TYPE,State.CODEC,(value,context)->SeasonVisuals.receive(value));
+        event.registrar("2").playToClient(State.TYPE,State.CODEC,(value,context)->SeasonVisuals.receive(value));
     }
 }

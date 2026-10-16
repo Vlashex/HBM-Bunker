@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '1.0.0'
+version = '2.0.0'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 repositories { mavenCentral() }
@@ -28,7 +28,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }

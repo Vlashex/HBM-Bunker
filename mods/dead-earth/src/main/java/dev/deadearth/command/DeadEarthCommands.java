@@ -24,6 +24,12 @@ public final class DeadEarthCommands {
                 .then(SiteCommands.branch())
                 .then(BridgeCommands.branch())
                 .then(ClimateCommands.branch())
+                .then(literal("difficulty").executes(context->report(context.getSource(),()->DeadEarth.runtime(context.getSource().getServer()).difficultyStatus()))
+                    .then(literal("test-pressure").requires(source->Boolean.getBoolean("deadearth.testControls"))
+                      .then(argument("value",com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(.05,4)).executes(ctx->{
+                        DeadEarth.runtime(ctx.getSource().getServer()).testPressure(com.mojang.brigadier.arguments.DoubleArgumentType.getDouble(ctx,"value"));
+                        return report(ctx.getSource(),()->DeadEarth.runtime(ctx.getSource().getServer()).difficultyStatus());
+                      }))))
                 .then(literal("snapshot").executes(context -> report(context.getSource(),
                         () -> DeadEarth.runtime(context.getSource().getServer()).snapshot())))
                 .then(literal("history").then(argument("limit", IntegerArgumentType.integer(1, 100))

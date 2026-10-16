@@ -1,11 +1,12 @@
 package dev.deadearth.climate;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 public record SeasonPolicy(double parasites, double forest) {
     public static SeasonPolicy forPhase(ClimateCycle.Phase phase) {
         return switch(phase) {
-            case HEAT -> new SeasonPolicy(.5,1.5);
-            case ASH_WINTER -> new SeasonPolicy(1.8,.25);
-            case CALM -> new SeasonPolicy(1,1);
+            case HEAT -> new SeasonPolicy(d(SUMMER_PARASITES),d(SUMMER_FOREST));
+            case ASH_WINTER -> new SeasonPolicy(d(WINTER_PARASITES),d(WINTER_FOREST));
+            case CALM -> new SeasonPolicy(d(CALM_PARASITES),d(CALM_FOREST));
         };
     }
     public static double scale(double base,double multiplier) {

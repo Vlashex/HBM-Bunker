@@ -1,4 +1,5 @@
 package dev.deadearth.climate;
+import static dev.deadearth.config.DeadEarthConfig.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,8 @@ public final class ClimateCycle {
 
     private final long originTick;
     private final long phaseTicks;
+    private long ordinalOffset;
+    private long warningTicks;
     private long lastAnnouncedPhase = -1;
     private long lastWarnedPhase = -1;
 
@@ -25,6 +28,7 @@ public final class ClimateCycle {
             throw new IllegalArgumentException("Invalid climate timeline");
         this.originTick = originTick;
         this.phaseTicks = phaseTicks;
+        this.warningTicks=Math.min(i(WARNING_SECONDS)*20L,phaseTicks/4);
     }
     public long originTick() { return originTick; }
     public long phaseTicks() { return phaseTicks; }
@@ -34,9 +38,10 @@ public final class ClimateCycle {
     public Snapshot view(long activeTick) {
         if (activeTick < originTick) throw new IllegalArgumentException("Climate origin is after campaign clock");
         long elapsed = activeTick - originTick;
-        long ordinal = elapsed / phaseTicks;
+        long relativeOrdinal=elapsed/phaseTicks;
+        long ordinal = Math.addExact(ordinalOffset,relativeOrdinal);
         int slot = (int) (ordinal % 4);
-        long entered = Math.addExact(originTick, Math.multiplyExact(ordinal, phaseTicks));
+        long entered = Math.addExact(originTick, Math.multiplyExact(relativeOrdinal, phaseTicks));
         long next = Math.addExact(entered, phaseTicks);
         return new Snapshot(originTick, phase(slot), trend(slot), ordinal / 4, ordinal, entered, next,
                 next - activeTick, phase((slot + 1) % 4), trend((slot + 1) % 4), phaseTicks, activeTick);
@@ -79,7 +84,25 @@ public final class ClimateCycle {
         result.lastWarnedPhase = warned;
         return result;
     }
-    private long warningWindow() { return Math.min(6000, phaseTicks / 4); }
+    public long ordinalOffset(){return ordinalOffset;}
+    public ClimateCycle nextDuration(long now,long duration) {
+        var status=view(now);var changed=new ClimateCycle(status.enteredTick(),duration);
+        changed.ordinalOffset=status.phaseOrdinal();changed.lastAnnouncedPhase=lastAnnouncedPhase;changed.lastWarnedPhase=lastWarnedPhase;return changed;
+    }
+    public static ClimateCycle restore(long origin,long duration,long announced,long warned,long now,long offset) {
+        return restore(origin,duration,announced,warned,now,offset,Math.min(6000,duration/4));
+    }
+    public static ClimateCycle restore(long origin,long duration,long announced,long warned,long now,long offset,long warning) {
+        if(offset<0)throw new IllegalArgumentException("Invalid climate offset");
+        if(warning<0||warning>duration/4)throw new IllegalArgumentException("Invalid saved warning window");
+        var result=new ClimateCycle(origin,duration);result.ordinalOffset=offset;result.warningTicks=warning;
+        var status=result.view(now);
+        if(announced < -1||warned < -1||announced>status.phaseOrdinal()||warned>announced
+           ||(warned==status.phaseOrdinal()&&status.ticksRemaining()>result.warningWindow())) throw new IllegalArgumentException("Invalid climate markers");
+        result.lastAnnouncedPhase=announced;result.lastWarnedPhase=warned;return result;
+    }
+    public long warningTicks(){return warningTicks;}
+    private long warningWindow() { return warningTicks; }
     private static Phase phase(int slot) {
         return switch (slot) { case 0, 2 -> Phase.CALM; case 1 -> Phase.HEAT; case 3 -> Phase.ASH_WINTER;
             default -> throw new IllegalArgumentException("Invalid climate slot"); };

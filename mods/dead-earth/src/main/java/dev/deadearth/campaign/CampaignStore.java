@@ -11,6 +11,7 @@ public final class CampaignStore extends SavedData {
     public static final String NAME = "dead_earth_campaign";
     private CampaignState campaign;
     private CompoundTag unsupported;
+    private boolean adaptiveRequired;
 
     private CampaignStore() {}
 
@@ -27,6 +28,8 @@ public final class CampaignStore extends SavedData {
             if (!tag.contains("schemaVersion", Tag.TAG_INT) || !tag.contains("campaignId", Tag.TAG_STRING)
                     || !tag.contains("revision", Tag.TAG_LONG) || !tag.contains("activeTicks", Tag.TAG_LONG))
                 throw new IllegalArgumentException("Missing campaign fields");
+            if(tag.contains("adaptiveRequired")&&!tag.contains("adaptiveRequired",Tag.TAG_BYTE))throw new IllegalArgumentException("Invalid adaptive marker");
+            store.adaptiveRequired=tag.getBoolean("adaptiveRequired");
             store.campaign = CampaignState.fromValues(Map.of(
                     "schemaVersion", Integer.toString(tag.getInt("schemaVersion")),
                     "campaignId", tag.getString("campaignId"),
@@ -38,6 +41,8 @@ public final class CampaignStore extends SavedData {
         return store;
     }
 
+    public boolean adaptiveRequired(){return adaptiveRequired;}
+    public void requireAdaptive(){adaptiveRequired=true;setDirty();}
     public boolean enabled() { return unsupported == null; }
     public CampaignState campaign() {
         if (!enabled()) throw new IllegalStateException("Campaign save is unsupported or invalid");
@@ -56,6 +61,7 @@ public final class CampaignStore extends SavedData {
     @Override public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
         if (!enabled()) return unsupported.copy();
         tag.putInt("schemaVersion", CampaignState.SCHEMA_VERSION);
+        tag.putBoolean("adaptiveRequired",adaptiveRequired);
         tag.putString("campaignId", campaign.campaignId().toString());
         tag.putLong("revision", campaign.revision());
         tag.putLong("activeTicks", campaign.activeTicks());

@@ -13,6 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class SeasonPrecipitationMixin {
     @Inject(method="getPrecipitationAt",at=@At("RETURN"),cancellable=true)
     private void deadEarthSnow(BlockPos pos,CallbackInfoReturnable<Biome.Precipitation> result) {
-        if (SeasonState.phase()==ClimateCycle.Phase.ASH_WINTER) result.setReturnValue(Biome.Precipitation.SNOW);
+        if (dev.deadearth.config.DeadEarthConfig.b(dev.deadearth.config.DeadEarthConfig.WINTER_SNOW) && SeasonState.phase()==ClimateCycle.Phase.ASH_WINTER) result.setReturnValue(Biome.Precipitation.SNOW);
     }
 }

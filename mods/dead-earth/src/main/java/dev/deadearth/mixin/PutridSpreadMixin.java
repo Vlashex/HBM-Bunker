@@ -12,5 +12,5 @@ public abstract class PutridSpreadMixin {
     @ModifyConstant(method="randomTick",constant=@Constant(doubleValue=.3))
     private double deadEarthSpread(double base) {return Math.clamp(base*SeasonState.parasites(),0,1);}
     @ModifyVariable(method="infect",at=@At("HEAD"),argsOnly=true,ordinal=0)
-    private static float deadEarthContactDamage(float base) {return (float)(base*SeasonState.parasites());}
+    private static float deadEarthContactDamage(float base) {return (float)(base*SeasonState.parasiteDamage());}
 }

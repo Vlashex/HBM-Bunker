@@ -23,7 +23,7 @@
 
 - Перезапуск зимой не применяет коэффициент повторно к уже изменённому значению.
 - Укрытие, смена измерения и позднее подключение корректно меняют эффекты.
-- Адаптивные часы не скачут назад и не перепрыгивают фазу после перезапуска.
+- Счёт игроков меняет нативную эволюцию, не сезонный календарь; изменение длительности через конфиг сохраняет текущую фазу.
 - Пересечение загрузчиков и ME external storage не удваивает запасы.
 - Пустая турель/отсутствующий мод/неизвестная цена не выдаются за подтверждённую защиту/нулевой запас.
 
@@ -41,13 +41,13 @@
 
 ## Task 2 — v2 adaptive difficulty and pace
 
-**Files:** create `difficulty/AdaptivePolicy.java`, `difficulty/AdaptiveStore.java`, `difficulty/PlayerStatistics.java`, `climate/ClimatePace.java`; modify climate store/runtime/snapshot/commands.
+**Files:** create `difficulty/AdaptivePolicy.java`, `difficulty/AdaptiveStore.java`, `difficulty/PlayerStatistics.java`, `config/DeadEarthConfig.java`; modify native evolution/runtime/snapshot/commands and configurable seasonal duration.
 
-**Interfaces:** policy consumes bounded per-window statistics, produces pressure and phase pace. ClimatePace consumes campaign deltas and rate, persists fractional carry.
+**Interfaces:** policy consumes bounded statistics and produces pressure for native parasite/forest evolution and monster HP/damage; seasonal calendar stays independent. Server config controls gameplay defaults and bounds.
 
-- [ ] Write tests for bounded easing/escalation, idle players, changing roster, fractional time and migration; observe RED.
-- [ ] Implement statistics, saved policy and clock; preserve base seasonal coefficients and pause semantics; verify GREEN.
-- [ ] Short phase-crossing/restart checks, review, package/release 2.0.0.
+- [x] Write tests for bounded easing/escalation, idle players, changing roster, native development and migration; observe RED.
+- [x] Implement saved statistics/policy and server config; preserve seasonal calendar and native evolutionary carry; verify GREEN.
+- [x] Short native-evolution/config/calendar/restart checks, review, package/release 2.0.0.
 
 ## Task 3 — v3 loader and zone valuation
 
@@ -76,3 +76,11 @@
 - Ruling: v3 counts local physical ME cells plus physical chests, not the whole touching network — aggregate includes external storage and cannot provide provenance, which otherwise duplicates resources and crosses zone boundaries — cost: remote cells outside the loaded zone are valued in their physical zone, not at the terminal.
 
 - v1: five Important review findings fixed: scoped counter read, fern key, spawn events/cap reservations, dimension cleanup, loaded-neighbour weather. Native RED4→GREEN; final full-pack30/30, Java90/90, Python13/13, client winter/summer and offline restart pass. Evidence: verification/seasons-v1.
+
+- User correction: v2 phase pace means native evolution/forest phases, not seasons. Unreleased ClimatePace removed; old virtual-clock review findings are obsolete. Logout baseline finding is fixed by event lifecycle; campaign/adaptive pairing and strict checkpoint matching retained. New server-config requirement incorporated into v2 before release.
+
+- v2: corrected native-evolution scope delivered;99 Java,39 full-pack GameTests,13 packaging tests pass. Native outbreak/forest points verified1.5x with unchanged season. Actual client synced custom35min/.25cap/.5HP; dedicated v1 migration and restart preserve6533 active ticks, climate and1.2pressure.
+- v2 final review3Important fixed: putrid spread channel, elapsed exposure damage cooldown, truly neutral disabled state. Native RED2→GREEN and exposure helper RED→GREEN. Protocol2 sends inactive phase sentinel on failure. Earlier virtual-calendar review obsolete after user correction; logout/pairing checks retained and verified.
+- Ruling: server-config duration and forecast changes apply at the next phase boundary — preserve current season and notice validity — cost: editing phaseMinutes does not shorten the currently running phase. Explained to user while implementing.
+- Ruling: idle players excluded from statistics by default, configurable — avoid AFK players diluting active group score — cost: stationary passive farming without combat/low health does not count as activity.
+- v2 package selector now includes verification documents/images and TOML examples; fixed historical v1 packaged link without rewriting old release/tag. No v3 product code yet; native audits and work/v3-design-addendum.txt ready.
