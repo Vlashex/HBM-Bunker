@@ -16,6 +16,56 @@ SPEC.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def own_jar(self, root, version="0.2.0-alpha.1"):
+        data = release.zip_bytes({"META-INF/neoforge.mods.toml":
+            f'[[mods]]\nmodId="dead_earth"\nversion="{version}"\n'.encode(),
+            "dev/deadearth/DeadEarth.class": b"compiled-class"})
+        name = "dead-earth-0.2.0-alpha.1.jar"
+        path = root / "mods/dead-earth/build/libs" / name
+        path.parent.mkdir(parents=True)
+        path.write_bytes(data)
+        return dict(filename=name, size=len(data), sha256=hashlib.sha256(data).hexdigest(),
+                    version="0.2.0-alpha.1", mod_id="dead_earth", artifact=path.relative_to(root).as_posix(),
+                    entrypoint="dev/deadearth/DeadEarth.class")
+
+    def test_own_mod_is_packaged_only_after_hash_and_metadata_validation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = self.own_jar(root)
+            entries, manifest = release.own_mod_entries(root, [row], [])
+            self.assertEqual(entries[".minecraft/mods/" + row["filename"]], (root / row["artifact"]).read_bytes())
+            self.assertEqual(manifest[0]["sha256"], row["sha256"])
+            self.assertTrue(manifest[0]["generated"])
+
+    def test_missing_or_changed_own_artifact_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = self.own_jar(root)
+            (root / row["artifact"]).write_bytes(b"tampered")
+            with self.assertRaises(ValueError):
+                release.own_mod_entries(root, [row], [])
+            (root / row["artifact"]).unlink()
+            with self.assertRaises(ValueError):
+                release.own_mod_entries(root, [row], [])
+
+    def test_own_jar_version_and_duplicate_names_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = self.own_jar(root, version="0.1.0-dev")
+            with self.assertRaises(ValueError):
+                release.own_mod_entries(root, [row], [])
+            row = dict(row, version="0.1.0-dev")
+            with self.assertRaises(ValueError):
+                release.own_mod_entries(root, [row], [row["filename"].upper()])
+
+    def test_own_artifact_cannot_escape_source_tree(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            row = self.own_jar(root)
+            for path in ["../escape.jar", "C:/outside.jar", "mods/../../escape.jar"]:
+                with self.subTest(path=path), self.assertRaises(ValueError):
+                    release.own_mod_entries(root, [dict(row, artifact=path)], [])
+
     def row(self, name="example.jar", data=b"external-mod"):
         return dict(filename=name, size=len(data), sha256=hashlib.sha256(data).hexdigest(),
                     url="https://example.org/example.jar")

@@ -48,6 +48,46 @@ def verify_file(path, row):
     verify_bytes(path.read_bytes(), row)
 
 
+def validate_own_mods(rows, forbidden_names):
+    names = {name.casefold() for name in forbidden_names}
+    for row in rows:
+        name = row["filename"]
+        safe_path(name)
+        safe_path(row["artifact"])
+        safe_path(row["entrypoint"])
+        if ("/" in name or not name.endswith(".jar") or name.casefold() in names
+                or not row["artifact"].startswith("mods/") or not row["artifact"].endswith("/" + name)
+                or not row["entrypoint"].endswith(".class")
+                or not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", row["mod_id"])
+                or not re.fullmatch(r"[0-9a-f]{64}", row["sha256"]) or row["size"] <= 0):
+            raise ValueError(f"Invalid own mod pin: {name}")
+        names.add(name.casefold())
+    return rows
+
+
+def own_mod_entries(root, rows, forbidden_names):
+    validate_own_mods(rows, forbidden_names)
+    entries, manifest = {}, []
+    for row in rows:
+        path = root / row["artifact"]
+        if not path.resolve().is_relative_to(root.resolve()) or not path.is_file() or path.is_symlink():
+            raise ValueError(f"Own mod artifact missing or unsafe: {row['filename']}; build its source first")
+        data = path.read_bytes()
+        verify_bytes(data, row)
+        try:
+            with zipfile.ZipFile(io.BytesIO(data)) as jar:
+                info = tomllib.loads(jar.read("META-INF/neoforge.mods.toml").decode("utf-8"))
+                if not any(mod["modId"] == row["mod_id"] and mod["version"] == row["version"] for mod in info["mods"]):
+                    raise ValueError(f"Own mod metadata mismatch: {row['filename']}")
+                if row["entrypoint"] not in jar.namelist():
+                    raise ValueError(f"Own mod entrypoint missing: {row['filename']}")
+        except (zipfile.BadZipFile, KeyError, tomllib.TOMLDecodeError) as invalid:
+            raise ValueError(f"Invalid own mod JAR: {row['filename']}") from invalid
+        entries[".minecraft/mods/" + row["filename"]] = data
+        manifest.append({key: row[key] for key in ["filename", "size", "sha256", "version", "mod_id"]} | {"generated": True})
+    return entries, manifest
+
+
 def zip_bytes(entries):
     result = io.BytesIO()
     with zipfile.ZipFile(result, "w", zipfile.ZIP_DEFLATED, compresslevel=3) as archive:
@@ -113,6 +153,9 @@ def fetch(cache, rows, ca_bundle=None):
 def check(root):
     release = read_json(root / "release.json")
     rows = validate_lock(read_json(root / "metadata/mods.lock.json"))
+    own_pins = root / "metadata/own-mods.lock.json"
+    validate_own_mods(read_json(own_pins) if own_pins.is_file() else [],
+                      [row["filename"] for row in rows] + [release["patch_filename"]])
     for directory in ["pack", "metadata"]:
         for path in (root / directory).rglob("*.json"):
             read_json(path)
@@ -180,6 +223,11 @@ def build(root, cache, dist):
     patch_name = settings["patch_filename"]
     entries[".minecraft/mods/" + patch_name] = patch
     manifest.append(dict(filename=patch_name, size=len(patch), sha256=hashlib.sha256(patch).hexdigest(), version=settings["patch_version"], generated=True))
+    own_pins = root / "metadata/own-mods.lock.json"
+    own_entries, own_manifest = own_mod_entries(root, read_json(own_pins) if own_pins.is_file() else [],
+                                               [row["filename"] for row in rows] + [patch_name])
+    entries.update(own_entries)
+    manifest.extend(own_manifest)
     entries["mmc-pack.json"] = (root / "pack/mmc-pack.json").read_bytes()
     entries["instance.cfg"] = ("[General]\nConfigVersion=1.2\nInstanceType=OneSix\n"
         f"name={settings['name']} {settings['version']}\niconKey=default\n"
@@ -197,6 +245,10 @@ def build(root, cache, dist):
     write_zip(archive, entries)
     (dist / patch_name).write_bytes(patch)
     checksums = {archive.name: hashlib.sha256(archive.read_bytes()).hexdigest(), patch_name: hashlib.sha256(patch).hexdigest()}
+    for name, data in own_entries.items():
+        filename = PurePosixPath(name).name
+        (dist / filename).write_bytes(data)
+        checksums[filename] = hashlib.sha256(data).hexdigest()
     (dist / "SHA256SUMS.txt").write_text("".join(f"{digest}  {name}\n" for name, digest in sorted(checksums.items())), encoding="ascii")
     with zipfile.ZipFile(archive) as built:
         if built.testzip() is not None:
