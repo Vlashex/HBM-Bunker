@@ -27,6 +27,8 @@ public final class DeadEarth {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
         ProjectECompatibility.install(modBus);
         dev.deadearth.content.SeasonBlocks.register(modBus);
+        dev.deadearth.content.ZoneLoaderContent.register(modBus);
+        dev.deadearth.zone.ZoneSentryIndex.install();
         modBus.addListener(dev.deadearth.climate.SeasonNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::started);
         NeoForge.EVENT_BUS.addListener(this::stopped);
@@ -57,8 +59,11 @@ public final class DeadEarth {
         PENDING_DEATHS.remove(event.getServer());
         dev.deadearth.climate.SeasonState.reset();
         dev.deadearth.compat.SeasonHooks.reset();
+        dev.deadearth.zone.ZoneLoaders.close(event.getServer());
+        dev.deadearth.zone.ZoneSentryIndex.close(event.getServer());
     }
     private void tick(ServerTickEvent.Post event) {
+        dev.deadearth.zone.ZoneLoaders.tick(event.getServer());
         var runtime = RUNTIMES.get(event.getServer());
         var deaths = PENDING_DEATHS.remove(event.getServer());
         if (runtime != null) {

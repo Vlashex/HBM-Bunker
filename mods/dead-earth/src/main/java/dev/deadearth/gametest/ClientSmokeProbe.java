@@ -47,7 +47,7 @@ public final class ClientSmokeProbe {
             var thread = Thread.currentThread(); var previous = thread.getContextClassLoader();
             try {
                 thread.setContextClassLoader(ClassLoader.getPlatformClassLoader());
-                for (var item : new ItemStack[] {new ItemStack(Items.IRON_INGOT), new ItemStack(Items.DIAMOND), new ItemStack(Items.STONE)})
+                for (var item : new ItemStack[] {new ItemStack(Items.IRON_INGOT), new ItemStack(Items.DIAMOND), new ItemStack(Items.STONE),new ItemStack(dev.deadearth.content.ZoneLoaderContent.ITEM.get())})
                     if (item.getTooltipLines(context, player, TooltipFlag.Default.NORMAL).isEmpty()) throw new IllegalStateException("Empty tooltip");
             } finally { thread.setContextClassLoader(previous); }
         }).whenComplete((unused, error) -> client.execute(() -> {
@@ -55,7 +55,12 @@ public final class ClientSmokeProbe {
                 DeadEarth.LOGGER.error("DEAD_EARTH_CLIENT_SMOKE failed", error);
                 client.stop();
             } else {
+                var loaderStack=new ItemStack(dev.deadearth.content.ZoneLoaderContent.ITEM.get());
+                if(client.getItemRenderer().getModel(loaderStack,client.level,player,0)==client.getModelManager().getMissingModel()) {
+                    DeadEarth.LOGGER.error("DEAD_EARTH_ZONE_CLIENT missing loader model");client.stop();return;
+                }
                 DeadEarth.LOGGER.info("DEAD_EARTH_CLIENT_SMOKE worker tooltips passed");
+                DeadEarth.LOGGER.info("DEAD_EARTH_ZONE_CLIENT loaderName={} coefficient={}",new ItemStack(dev.deadearth.content.ZoneLoaderContent.ITEM.get()).getHoverName().getString(),dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.ZONE_EMC));
                 DeadEarth.LOGGER.info("DEAD_EARTH_CONFIG_SMOKE phaseMinutes={} maxAbove={} healthInfluence={}",
                     dev.deadearth.config.DeadEarthConfig.i(dev.deadearth.config.DeadEarthConfig.PHASE_MINUTES),
                     dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.ADAPTIVE_ABOVE),

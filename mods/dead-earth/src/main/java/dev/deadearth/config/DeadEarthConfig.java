@@ -94,6 +94,20 @@ public final class DeadEarthConfig {
  public static final ModConfigSpec.BooleanValue WINTER_SNOW=B.define("weather.forceWinterSnow",true);
  public static final ModConfigSpec.IntValue OBSERVATION_REFRESH=B.defineInRange("performance.observationSampleTicks",200,20,1200);
  public static final ModConfigSpec.IntValue SITE_DISCOVERY_RADIUS=B.defineInRange("scenarios.siteDiscoveryRadius",12,1,64);
+ public static final ModConfigSpec.IntValue ZONE_LOADERS=B.defineInRange("zones.maximumLoaders",16,1,64);
+ public static final ModConfigSpec.DoubleValue ZONE_EMC=B.defineInRange("zones.resourceCoefficient",0.0001,0,100);
+ public static final ModConfigSpec.IntValue ZONE_INTERVAL=B.defineInRange("zones.scanIntervalTicks",200,20,72000);
+ public static final ModConfigSpec.IntValue ZONE_CHUNKS=B.defineInRange("zones.chunksPerTick",1,1,8);
+ public static final ModConfigSpec.IntValue ZONE_BES=B.defineInRange("zones.blockEntitiesPerTick",4,1,64);
+ public static final ModConfigSpec.IntValue ZONE_SLOTS=B.defineInRange("zones.inventorySlotsPerTick",64,1,1024);
+ public static final ModConfigSpec.IntValue ZONE_CELLS=B.defineInRange("zones.meCellsPerTick",1,1,10);
+ public static final ModConfigSpec.IntValue ZONE_MAX_BES=B.defineInRange("zones.maximumBlockEntitiesPerChunk",512,16,8192);
+ public static final ModConfigSpec.IntValue ZONE_MAX_ENTITIES=B.defineInRange("zones.maximumSentriesPerChunk",128,8,1024);
+ public static final ModConfigSpec.ConfigValue<java.util.List<String>> ZONE_RANKS=B.define("zones.turretRanks",java.util.List.of(
+  "hbm:turret_sentry=1","hbm:turret_friendly=1","hbm:turret_sentry_damaged=1",
+  "hbm:turret_chekhov=2","hbm:turret_fritz=2","hbm:turret_jeremy=2","hbm:turret_howard=2","hbm:turret_howard_damaged=2",
+  "hbm:turret_richard=3","hbm:turret_tauon=3","hbm:turret_maxwell=4","hbm:turret_arty=4","hbm:turret_himars=5",
+  "securitycraft:sentry=2"),v->v instanceof java.util.List<?> list&&list.size()<=128&&list.stream().allMatch(x->x instanceof String s&&s.matches("[a-z0-9_.-]+:[a-z0-9_./-]+=[0-9]{1,3}")));
  public static final ModConfigSpec SPEC=B.build();
  private DeadEarthConfig(){}
  public static double d(ModConfigSpec.DoubleValue v){return SPEC.isLoaded()?v.get():v.getDefault();}

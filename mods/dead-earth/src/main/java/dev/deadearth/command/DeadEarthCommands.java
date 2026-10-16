@@ -24,6 +24,9 @@ public final class DeadEarthCommands {
                 .then(SiteCommands.branch())
                 .then(BridgeCommands.branch())
                 .then(ClimateCommands.branch())
+                .then(literal("zones").executes(ctx->report(ctx.getSource(),()->dev.deadearth.zone.ZoneLoaders.reports(ctx.getSource().getServer())))
+                    .then(literal("loaders").executes(ctx->report(ctx.getSource(),()->dev.deadearth.zone.ZoneLoaders.zones(ctx.getSource().getServer()))))
+                    .then(literal("rescan").executes(ctx->{dev.deadearth.zone.ZoneLoaders.requestScan(ctx.getSource().getServer());return report(ctx.getSource(),()->"scan_requested");})))
                 .then(literal("difficulty").executes(context->report(context.getSource(),()->DeadEarth.runtime(context.getSource().getServer()).difficultyStatus()))
                     .then(literal("test-pressure").requires(source->Boolean.getBoolean("deadearth.testControls"))
                       .then(argument("value",com.mojang.brigadier.arguments.DoubleArgumentType.doubleArg(.05,4)).executes(ctx->{

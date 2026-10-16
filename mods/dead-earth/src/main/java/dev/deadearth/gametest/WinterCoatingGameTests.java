@@ -11,9 +11,20 @@ import net.neoforged.neoforge.gametest.*;
 
 @GameTestHolder("dead_earth_review") @PrefixGameTestTemplate(false)
 public final class WinterCoatingGameTests {
+    private static void prepareFixture(GameTestHelper h,BlockPos base) {
+        var level=h.getLevel();dev.deadearth.climate.WinterCoating.clearWinter(level);
+        try {
+            for(String name:new String[]{"ACTIVE","THAW"}) {
+                var field=dev.deadearth.climate.WinterCoating.class.getDeclaredField(name);field.setAccessible(true);
+                ((java.util.Map<?,?>)field.get(null)).remove(level);
+            }
+        } catch(ReflectiveOperationException error){throw new IllegalStateException("Winter fixture isolation failed",error);}
+        for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)level.getChunkAt(base.offset(x*16,0,z*16));
+    }
     @GameTest(template="empty",batch="winter_cells")
     public static void exhaustedCellBudgetDefersRatherThanLosesAColumn(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());
+        prepareFixture(h,base);
         try {
             level.setBlock(base,Blocks.STONE.defaultBlockState(),2|16);
             var budget=new dev.deadearth.climate.WinterCoating.Budget(24,2);
@@ -28,6 +39,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_deep")
     public static void highCanopyDoesNotLeaveLowerTrunksAndForestFloorBare(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),200,o.getZ());var target=base.east();
+        prepareFixture(h,base);
         try {
             for(var p:BlockPos.betweenClosed(base.offset(-2,0,-2),base.offset(2,0,2)))level.setBlock(p,Blocks.STONE.defaultBlockState(),2|16);
             for(int y=1;y<80;y++)level.setBlock(base.above(y),Blocks.OAK_LOG.defaultBlockState(),2|16);
@@ -41,6 +53,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_priority_review")
     public static void deferredOuterLayerRetriesAfterSectionBudgetRefusal(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());var occupied=base.above(40);
+        prepareFixture(h,base);
         try {
             level.setBlock(base,Blocks.STONE.defaultBlockState(),2|16);
             for(int pass=0;pass<5;pass++)SeasonWeather.surfaceColumn(level,base.getX(),base.getZ(),Phase.ASH_WINTER);
@@ -58,6 +71,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_relief")
     public static void winterHeightFieldBuildsRealIcePeakAndRestoresSameProfile(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());
+        prepareFixture(h,base);
         try {
             int winter=0;dev.deadearth.climate.WinterTerrain.Thickness profile=null;
             for(;winter<10000;winter++) {
@@ -86,6 +100,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_coating")
     public static void snowCoversOrdinaryForestGrassButPreservesSaplings(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());var sapling=base.east(4);
+        prepareFixture(h,base);
         try {
             level.setBlock(base,Blocks.STONE.defaultBlockState(),2|16);level.setBlock(base.above(),Blocks.SHORT_GRASS.defaultBlockState(),2|16);
             level.setBlock(sapling,Blocks.STONE.defaultBlockState(),2|16);level.setBlock(sapling.above(),Blocks.OAK_SAPLING.defaultBlockState(),2|16);
@@ -98,9 +113,10 @@ public final class WinterCoatingGameTests {
         } finally {for(var p:BlockPos.betweenClosed(base.below(),sapling.above(8)))level.setBlock(p,Blocks.AIR.defaultBlockState(),2|16);}
         h.succeed();
     }
-    @GameTest(template="empty",batch="winter_coating",timeoutTicks=100)
+    @GameTest(template="empty",batch="winter_active",timeoutTicks=100)
     public static void activeColumnsFinishGrowthAndHiddenCoatingThawsWithoutFullWorldRescan(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),245,o.getZ());
+        prepareFixture(h,base);
         level.setBlock(base,Blocks.STONE.defaultBlockState(),2|16);
         SeasonWeather.surfaceColumn(level,base.getX(),base.getZ(),Phase.ASH_WINTER);
         h.runAfterDelay(3,()->{
@@ -121,6 +137,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_coating")
     public static void growthIsGradualAndSkipsOccupiedSpaceAndContainers(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());
+        prepareFixture(h,base);
         var mob=net.minecraft.world.entity.EntityType.COW.create(level);
         try {
             level.setBlock(base,Blocks.STONE.defaultBlockState(),2|16);
@@ -141,6 +158,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_coating")
     public static void sharedBudgetCapsEditsAndChunkSections(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),240,o.getZ());
+        prepareFixture(h,base);
         var budget=new dev.deadearth.climate.WinterCoating.Budget(2,1);
         var local=(base.getX()&15)==15?base.west():base.east();
         var third=(base.getZ()&15)==15?base.north():base.south();
@@ -159,6 +177,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_coating")
     public static void winterBuildsThickTopAndSideShellWithoutGrowingForever(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),250,o.getZ());
+        prepareFixture(h,base);
         try {
             for(int y=0;y<6;y++) level.setBlock(base.above(y),Blocks.OAK_LOG.defaultBlockState(),2|16);
             for(int pass=0;pass<40;pass++) for(int x=-2;x<=2;x++) for(int z=-2;z<=2;z++)
@@ -180,6 +199,7 @@ public final class WinterCoatingGameTests {
     @GameTest(template="empty",batch="winter_coating")
     public static void coatingReachesForestFloorButLeavesRoofedRoomsAlone(GameTestHelper h) {
         var level=h.getLevel();var o=h.absolutePos(new BlockPos(3,0,3));var base=new BlockPos(o.getX(),240,o.getZ());
+        prepareFixture(h,base);
         try {
             for(var p:BlockPos.betweenClosed(base.offset(-2,0,-2),base.offset(2,0,2))) level.setBlock(p,Blocks.STONE.defaultBlockState(),2|16);
             for(var p:BlockPos.betweenClosed(base.offset(-2,7,-2),base.offset(2,7,2))) level.setBlock(p,Blocks.OAK_LEAVES.defaultBlockState(),2|16);

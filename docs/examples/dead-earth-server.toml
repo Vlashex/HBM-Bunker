@@ -272,3 +272,33 @@
 	# Default: 12
 	# Range: 1 ~ 64
 	siteDiscoveryRadius = 12
+
+[zones]
+	# Default: 16
+	# Range: 1 ~ 64
+	maximumLoaders = 16
+	# Default: 1.0E-4
+	# Range: 0.0 ~ 100.0
+	resourceCoefficient = 1.0E-4
+	# Default: 200
+	# Range: 20 ~ 72000
+	scanIntervalTicks = 200
+	# Default: 1
+	# Range: 1 ~ 8
+	chunksPerTick = 1
+	# Default: 4
+	# Range: 1 ~ 64
+	blockEntitiesPerTick = 4
+	# Default: 64
+	# Range: 1 ~ 1024
+	inventorySlotsPerTick = 64
+	# Default: 1
+	# Range: 1 ~ 10
+	meCellsPerTick = 1
+	# Default: 512
+	# Range: 16 ~ 8192
+	maximumBlockEntitiesPerChunk = 512
+	# Default: 128
+	# Range: 8 ~ 1024
+	maximumSentriesPerChunk = 128
+	turretRanks = ["hbm:turret_sentry=1", "hbm:turret_friendly=1", "hbm:turret_sentry_damaged=1", "hbm:turret_chekhov=2", "hbm:turret_fritz=2", "hbm:turret_jeremy=2", "hbm:turret_howard=2", "hbm:turret_howard_damaged=2", "hbm:turret_richard=3", "hbm:turret_tauon=3", "hbm:turret_maxwell=4", "hbm:turret_arty=4", "hbm:turret_himars=5", "securitycraft:sentry=2"]

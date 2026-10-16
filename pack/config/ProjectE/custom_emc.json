@@ -2,6 +2,10 @@
   "comment": "HBM Easy raw-material economy: machine-based resource and EMC generation is intended; crafted industrial/biological items are not transmutable. Zero values use the supported custom-EMC config codec.",
   "entries": [
     {
+      "id": "dead_earth:zone_loader",
+      "emc": 0
+    },
+    {
       "id": "ae2:16k_crafting_storage",
       "emc": 0
     },

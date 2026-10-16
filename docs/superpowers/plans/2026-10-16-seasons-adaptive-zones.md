@@ -72,15 +72,15 @@ checked before reads. New air coating thaws to air, water-origin ice to water.
 
 **Interfaces:** topology consumes block loader locations and yields disjoint chunk unions; score consumes resource EMC, coefficient and turret rank sums; scanner publishes bounded immutable aggregate with age/completeness.
 
-- [ ] Write tests for overlap merging, negative formula, overflow/unknown values and shared storage dedup; observe RED.
-- [ ] Implement own 3×3 loader with bounded persistent tickets and lifecycle cleanup.
-- [ ] Implement read-only chest, ME and real turret adapters, incremental scan and aggregation; verify GREEN.
-- [ ] Test loader independence from players, restart/removal, actual chest/ME/turret values; review/fix and release 3.0.0.
+- [x] Write tests for overlap merging, negative formula, overflow/unknown values and shared storage dedup; observe RED.
+- [x] Implement own 3×3 loader with bounded persistent tickets and lifecycle cleanup.
+- [x] Implement read-only chest, ME and real turret adapters, incremental scan and aggregation; verify GREEN.
+- [x] Test loader independence from players, restart/removal, actual chest/ME/turret values; review/fix and release 3.0.0.
 
 ## Task 4 — delivery and shutdown
 
-- [ ] Check all release artifacts, tags, hashes and source checkout; write final status and any limits.
-- [ ] Gracefully stop test server/client processes, preserving all test worlds.
+- [x] Check all release artifacts, tags, hashes and source checkout; write final status and any limits.
+- [x] Gracefully stop test server/client processes, preserving all test worlds.
 - [ ] Execute ordinary Windows shutdown only after v3 release is complete; never pre-schedule before success.
 
 ## Execution ledger
@@ -115,3 +115,13 @@ checked before reads. New air coating thaws to air, water-origin ice to water.
 - Tall-tree RED:80-block crown leaves lower trunk and floor uncoated with old48 depth. Default depth now384, skip below exterior floor, reserve at most2048 vertical cells/tick across work,16 discovery columns/tick. Deferred cells stay queued; missing cell-budget API RED then implementation. This covers tall forest without an unbounded vertical scan per tick.
 
 - Patch2.0.1 final:103 Java,49 full-pack GameTests (17.35s),13 release tests; final dedicated server/client passed and stopped cleanly. Real forest and rare peak frames in verification/winter-2.0.1. Local2.0.1 package verified; continue Task3.
+
+- v3 first GREEN:108 Java and55 full-pack GameTests in17.33s. Own persistent3x3 loaders, overlap/removal/no-player ticks, physical chest/ME/native turret adapters, bounded scan+unknown flags. Snapshot carries compact summaries rather than per-turret detail.
+- v3 read-only final review2Important: native entity query limit counted only matching Sentries (unbounded other candidates/multipart pass); corrupt/duplicate/nonpositive ME entries silently looked known. One fix pass uses lifecycle Sentry index plus strict UNKNOWN validation, adds real regressions. Minor unpricedItems missing in MCP summary is included in same pass.
+- Dedicated fixture first attempt used setblock in unloaded remote chunks and produced no zone; no product failure or restart proof claimed. Corrected probe temporarily force-loads only its two placement chunks, removes vanilla tickets after actual loaders activate, then saves/restarts without players.
+
+- v3 final GREEN:109 Java,58 full-pack GameTests in23.22s,12 gateway tests. Real dedicated restart restores2 owners/12 chunks; after ProjectE readiness4 diamonds=32768 EMC/value3.2768.3 unknown natural containers remain visibly incomplete, no loot opened. Clientmodel/tooltip/configsync/screenshot passed. Runtime classes/resources compared bytewise to final artifact; only test-fixture classes may differ.
+- Additional actual integration findings: ProjectE before first map returned0 (native readiness RED then UNKNOWN guard); Ponder background SPI failed platform discovery in real client (provider resource present, restricted-context regression then explicit service class loader redirect). GameTests now isolate winter seed/queues/loaded footprint and prepare ticking Sentry destination; earlier nondeterministic fixture failures are not passing evidence.
+- Release3.0.0: local ZIP30 JAR verified against final own artifact; tests and real client/server stopped cleanly. Tag/source fast-forward is the final repository step. Ordinary Windows shutdown is the final external action after verified release, with no force flag; no source writes are planned after that command.
+
+- Packaging/source checks13/13 passed and release validator3.0.0 passed. External versions unchanged, all coefficients in server TOML. Windows shutdown remains final external action after tag and source check; its unchecked checkbox records that it has not yet been invoked when this immutable release document is written.
