@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-16",
+  "version": "0.2.0-alpha.1",
+  "status": "local_alpha_passed_with_prism_and_load_limitations",
+  "junit": {
+    "passed": 47,
+    "failed": 0
+  },
+  "gametest": {
+    "passed": 13,
+    "failed": 0
+  },
+  "repository_tests": {
+    "passed": 11,
+    "failed": 0
+  },
+  "full_pack_jars": 30,
+  "world_seed": 2026101602,
+  "active_ticks_preserved_on_restart": 1224,
+  "campaign_identity_preserved": true,
+  "epoch_rotated": true,
+  "regions_preserved": 2,
+  "discovered_sites_preserved": 1,
+  "placement_request_deduplicated": true,
+  "dev_client_clean_runs": 3,
+  "projecte_hostile_worker_tooltips_passed": true,
+  "discovery_chat_messages": 1,
+  "warning_chat_messages": 1,
+  "repeated_events_after_restart": 0,
+  "prism_import_and_launch": "not_confirmed",
+  "six_real_players": "not_run",
+  "power_loss": "not_run_controlled_partial_structure_test_used",
+  "review_findings_fixed": 3,
+  "server_exit_codes": [
+    0,
+    0
+  ],
+  "auxiliary_execute_if_block_console_checks": "unexpected_command_error_not_used_as_evidence",
+  "physical_structure_restoration": "server_blueprint_validation_and_final_client_screenshot",
+  "artifact": {
+    "filename": "dead-earth-0.2.0-alpha.1.jar",
+    "version": "0.2.0-alpha.1",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-0.2.0-alpha.1.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 90123,
+    "sha256": "79cca5de8303b66c8f202bc1fed7c1fcf4fe9fbe0383e8d930310750436a7fd7"
+  }
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "filename": "dead-earth-0.2.0-alpha.1.jar",
+    "version": "0.2.0-alpha.1",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-0.2.0-alpha.1.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 90123,
+    "sha256": "79cca5de8303b66c8f202bc1fed7c1fcf4fe9fbe0383e8d930310750436a7fd7"
+  }
+]
