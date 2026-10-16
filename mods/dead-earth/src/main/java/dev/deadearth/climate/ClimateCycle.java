@@ -62,7 +62,7 @@ public final class ClimateCycle {
             lastAnnouncedPhase = status.phaseOrdinal();
             notices.add(new Notice(NoticeKind.PHASE, status));
         }
-        if (status.ticksRemaining() <= Math.min(6000, phaseTicks / 4) && status.phaseOrdinal() > lastWarnedPhase) {
+        if (status.ticksRemaining() <= warningWindow() && status.phaseOrdinal() > lastWarnedPhase) {
             lastWarnedPhase = status.phaseOrdinal();
             notices.add(new Notice(NoticeKind.FORECAST, status));
         }
@@ -70,13 +70,16 @@ public final class ClimateCycle {
     }
     public static ClimateCycle restore(long origin, long duration, long announced, long warned, long now) {
         var result = new ClimateCycle(origin, duration);
-        long current = result.view(now).phaseOrdinal();
-        if (announced < -1 || warned < -1 || announced > current || warned > announced)
+        var status = result.view(now);
+        long current = status.phaseOrdinal();
+        if (announced < -1 || warned < -1 || announced > current || warned > announced
+                || (warned == current && status.ticksRemaining() > result.warningWindow()))
             throw new IllegalArgumentException("Invalid saved climate notice markers");
         result.lastAnnouncedPhase = announced;
         result.lastWarnedPhase = warned;
         return result;
     }
+    private long warningWindow() { return Math.min(6000, phaseTicks / 4); }
     private static Phase phase(int slot) {
         return switch (slot) { case 0, 2 -> Phase.CALM; case 1 -> Phase.HEAT; case 3 -> Phase.ASH_WINTER;
             default -> throw new IllegalArgumentException("Invalid climate slot"); };

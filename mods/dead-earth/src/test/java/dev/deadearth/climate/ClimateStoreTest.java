@@ -6,6 +6,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClimateStoreTest {
+    @Test void prematureCurrentSlotForecastMarkerIsPreservedAndDisablesStore() {
+        UUID id=UUID.randomUUID();var store=ClimateStore.create(id,0);store.advance(0,true);
+        var tag=store.save(new CompoundTag(),null);tag.putLong("lastWarnedPhase",0);
+        var restored=ClimateStore.load(id,100,tag,null);
+        assertFalse(restored.enabled());assertFalse(restored.isDirty());
+        assertEquals(tag,restored.save(new CompoundTag(),null));
+    }
     @Test void identityOriginAndNoticeMarkersRoundTrip() {
         UUID id=UUID.randomUUID();var store=ClimateStore.create(id,1234);
         assertEquals(1,store.advance(1234,true).size());
