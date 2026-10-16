@@ -1,0 +1,12 @@
+{
+  "mdk_commit": "3bca8f1e0756c001e4b71f266c328d1568d29363",
+  "gradle_version": "9.2.1",
+  "moddev_version": "2.0.148",
+  "files": {
+    "gradlew": "b187b4c52e749f5760afdd6fadc31b2a98ad35fb249bf0dff03b72650f320409",
+    "gradlew.bat": "94102713eb8fb22d032397924c0f38ab2da783ba60d07054339f1190a0c4e2cd",
+    "gradle/wrapper/gradle-wrapper.jar": "7d3a4ac4de1c32b59bc6a4eb8ecb8e612ccd0cf1ae1e99f66902da64df296172",
+    "gradle/wrapper/gradle-wrapper.properties": "9efd7948359a68d9c80aa8d5df1717af1415c440b59d493040d3cfbd13885383"
+  },
+  "gradle_distribution_sha256": "72f44c9f8ebcb1af43838f45ee5c4aa9c5444898b3468ab3f4af7b6076c5bc3f"
+}

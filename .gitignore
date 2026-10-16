@@ -33,3 +33,10 @@ __pycache__/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Dead Earth development and isolated test runtime
+/.superpowers/
+**/.gradle/
+**/build/
+**/run/
+**/run-gametest/
