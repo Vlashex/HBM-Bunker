@@ -30,18 +30,22 @@ def create_server(client: BridgeClient) -> MCPServer:
 
     @server.tool(annotations=read)
     async def list_catalog() -> dict[str, Any]:
-        """Каталог реализованных сценариев. Сейчас доступен только безопасный сигнал в чат."""
+        """Каталог реализованных сценариев. Сигнал и три варианта радиосообщения известной станции."""
         return {"entries": await invoke("list_catalog", {})}
 
     @server.tool(annotations=read)
-    async def preview_scenario(request_id: str) -> dict[str, Any]:
-        """Проверить сигнал без исполнения. request_id — канонический UUID запроса."""
-        return await invoke("preview_scenario", {"request_id": request_id})
+    async def preview_scenario(request_id: str, catalog_id: str = "warning_beacon_v1",
+                               target_id: str = "test_anchor", variant: str = "standard", delay_ticks: int = 200) -> dict[str, Any]:
+        """Проверить выбор из каталога без эффекта; target_id берётся из обнаруженных объектов."""
+        return await invoke("preview_scenario", {"request_id": request_id, "catalog_id": catalog_id,
+                            "target_id": target_id, "variant": variant, "delay_ticks": delay_ticks})
 
     @server.tool(annotations=write)
-    async def propose_scenario(request_id: str) -> dict[str, Any]:
-        """Предложить безопасный сигнал. Повторяй тот же UUID при неизвестном исходе RPC."""
-        return await invoke("propose_scenario", {"request_id": request_id})
+    async def propose_scenario(request_id: str, catalog_id: str = "warning_beacon_v1",
+                               target_id: str = "test_anchor", variant: str = "standard", delay_ticks: int = 200) -> dict[str, Any]:
+        """Предложить выбор из каталога. При неизвестном исходе повторяй UUID и все параметры."""
+        return await invoke("propose_scenario", {"request_id": request_id, "catalog_id": catalog_id,
+                            "target_id": target_id, "variant": variant, "delay_ticks": delay_ticks})
 
     @server.tool(annotations=read)
     async def get_scenario_status(scenario_id: str) -> dict[str, Any]:

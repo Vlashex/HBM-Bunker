@@ -8,6 +8,18 @@ from test_bridge import endpoint, success
 
 
 class McpStdioTests(unittest.TestCase):
+    def test_sdk_forwards_bounded_radio_choice(self):
+        choice=dict(request_id="00000000-0000-4000-8000-000000000003",catalog_id="relay_broadcast_v1",target_id="relay:00000000-0000-4000-8000-000000000004",variant="rally",delay_ticks=400)
+        async def exchange(path):
+            params=StdioServerParameters(command=sys.executable,args=["-m","dead_earth_director","--bridge",str(path)],cwd=Path(__file__).resolve().parents[1],env={"PYTHONUTF8":"1"})
+            async with Client(params,read_timeout_seconds=10) as client:
+                result=await client.call_tool("propose_scenario",choice)
+                self.assertFalse(result.is_error)
+                self.assertEqual(result.structured_content,{"state":"SCHEDULED"})
+        with endpoint(lambda r:success({"state":"SCHEDULED"})) as (path,requests):
+            asyncio.run(exchange(path))
+            self.assertEqual(requests[0]["arguments"],choice)
+
     def test_expected_bridge_failure_reaches_model_as_safe_reason(self):
         async def exchange(path):
             params = StdioServerParameters(command=sys.executable,

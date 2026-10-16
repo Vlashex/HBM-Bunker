@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Set;
 import java.util.UUID;
+import dev.deadearth.scenario.ScenarioChoice;
 
 public final class BridgeProtocol {
     public static final int MAX_INPUT = 8192, MAX_OUTPUT = 262144;
@@ -47,12 +48,24 @@ public final class BridgeProtocol {
         switch (operation) {
             case "get_snapshot", "list_catalog" -> keys(args, Set.of());
             case "get_history" -> { keys(args, Set.of("limit")); long limit = integer(args, "limit"); if (limit < 1 || limit > 100) throw new BridgeFailure("invalid_arguments"); }
-            case "preview_scenario", "propose_scenario" -> { keys(args, Set.of("request_id")); uuid(args, "request_id"); }
+            case "preview_scenario", "propose_scenario" -> { uuid(args, "request_id"); choice(args); }
             case "get_scenario_status" -> { keys(args, Set.of("scenario_id")); uuid(args, "scenario_id"); }
             case "cancel_scenario" -> { keys(args, Set.of("scenario_id", "revision")); uuid(args, "scenario_id"); if (integer(args, "revision") < 0) throw new BridgeFailure("invalid_arguments"); }
             default -> throw new BridgeFailure("unknown_operation");
         }
         return new Request(operation, args);
+    }
+    public static ScenarioChoice choice(JsonObject args) {
+        if (!args.has("request_id") || !Set.of("request_id","catalog_id","target_id","variant","delay_ticks").containsAll(args.keySet()))
+            throw new BridgeFailure("invalid_arguments");
+        long delay = args.has("delay_ticks") ? integer(args,"delay_ticks") : 200;
+        if (delay < 200 || delay > 1200) throw new BridgeFailure("invalid_arguments");
+        try { return new ScenarioChoice(optionalText(args,"catalog_id",ScenarioChoice.WARNING),
+                optionalText(args,"target_id","test_anchor"),optionalText(args,"variant","standard"),(int) delay); }
+        catch (IllegalArgumentException invalid) { throw new BridgeFailure("invalid_arguments"); }
+    }
+    private static String optionalText(JsonObject args, String field, String fallback) {
+        return args.has(field) ? text(args,field,"invalid_arguments") : fallback;
     }
     public JsonObject success(JsonElement result) {
         var response = new JsonObject(); response.addProperty("protocol", 1); response.addProperty("campaign_id", campaign.toString());

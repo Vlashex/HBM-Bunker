@@ -73,7 +73,27 @@ def _arguments(operation, arguments):
                 "get_scenario_status": {"scenario_id"}, "cancel_scenario": {"scenario_id", "revision"}}
     if operation not in expected:
         raise BridgeError("unknown_operation")
-    if type(arguments) is not dict or set(arguments) != expected[operation]:
+    if operation in {"preview_scenario", "propose_scenario"}:
+        allowed = {"request_id", "catalog_id", "target_id", "variant", "delay_ticks"}
+        if type(arguments) is not dict or "request_id" not in arguments or not set(arguments) <= allowed:
+            raise BridgeError("invalid_arguments")
+        catalog = arguments.get("catalog_id", "warning_beacon_v1")
+        target = arguments.get("target_id", "test_anchor")
+        variant = arguments.get("variant", "standard")
+        delay = arguments.get("delay_ticks", 200)
+        if (type(catalog) is not str or type(target) is not str or type(variant) is not str
+                or type(delay) is not int or not 200 <= delay <= 1200 or delay % 20):
+            raise BridgeError("invalid_arguments")
+        if catalog == "warning_beacon_v1":
+            valid = target == "test_anchor" and variant == "standard"
+        elif catalog == "relay_broadcast_v1":
+            valid = (target.startswith("relay:") and _uuid(target[6:]) and target[6:] == target[6:].lower()
+                     and variant in {"check_in", "survey", "rally"})
+        else:
+            valid = False
+        if not valid:
+            raise BridgeError("invalid_arguments")
+    elif type(arguments) is not dict or set(arguments) != expected[operation]:
         raise BridgeError("invalid_arguments")
     for key in ["request_id", "scenario_id"]:
         if key in arguments and not _uuid(arguments[key]):

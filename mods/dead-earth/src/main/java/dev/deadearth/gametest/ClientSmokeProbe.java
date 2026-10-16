@@ -16,6 +16,7 @@ public final class ClientSmokeProbe {
     private int joinedTicks;
     private boolean started, finished;
     private int finishTicks;
+    private final int holdTicks = Math.clamp(Integer.getInteger("deadearth.clientSmokeHoldTicks", 160), 20, 2400);
     private ClientSmokeProbe() {}
     public static void install() {
         if (Boolean.getBoolean("deadearth.clientSmoke")) {
@@ -27,7 +28,7 @@ public final class ClientSmokeProbe {
         var client = Minecraft.getInstance();
         if (client.player == null || client.level == null) return;
         if (finished) {
-            if (++finishTicks == 160) {
+            if (++finishTicks == holdTicks) {
                 DeadEarth.LOGGER.info("DEAD_EARTH_CLIENT_SMOKE completed; shutting down owned test client");
                 client.stop();
             }

@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import dev.deadearth.CoordinatorRuntime;
 import dev.deadearth.DeadEarth;
+import dev.deadearth.scenario.ScenarioChoice;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -89,8 +90,8 @@ public final class BridgeController implements AutoCloseable {
     public void tick() {
         runtime.requireServerThread(); if (!running) return;
         calls.drain((operation, args) -> switch (operation) {
-            case "preview_scenario" -> JSON.toJsonTree(runtime.preview(UUID.fromString(args.get("request_id").getAsString())));
-            case "propose_scenario" -> JSON.toJsonTree(runtime.submit(UUID.fromString(args.get("request_id").getAsString())));
+            case "preview_scenario" -> JSON.toJsonTree(runtime.preview(UUID.fromString(args.get("request_id").getAsString()),BridgeProtocol.choice(args)));
+            case "propose_scenario" -> JSON.toJsonTree(runtime.submit(UUID.fromString(args.get("request_id").getAsString()),BridgeProtocol.choice(args)));
             case "get_scenario_status" -> JSON.toJsonTree(runtime.findScenario(UUID.fromString(args.get("scenario_id").getAsString()))
                     .orElseThrow(() -> new BridgeFailure("unknown_scenario")));
             case "cancel_scenario" -> JSON.toJsonTree(runtime.cancel(UUID.fromString(args.get("scenario_id").getAsString()), args.get("revision").getAsLong()));
@@ -105,7 +106,13 @@ public final class BridgeController implements AutoCloseable {
     private static JsonArray catalog() {
         var entry = new JsonObject(); entry.addProperty("catalogId", "warning_beacon_v1"); entry.addProperty("effect", "chat_only");
         entry.addProperty("earliestActiveTicks", 200); entry.addProperty("expiresAfterActiveTicks", 1200); entry.addProperty("targetId", "test_anchor");
-        var result = new JsonArray(); result.add(entry); return result;
+        var result = new JsonArray(); result.add(entry);
+        var radio = new JsonObject(); radio.addProperty("catalogId",ScenarioChoice.RADIO);radio.addProperty("effect","chat_only");
+        radio.addProperty("targetSource","discoveredSites[].id");radio.addProperty("targetIdFormat","relay:<canonical UUID>");
+        var variants = new JsonArray();java.util.List.of("check_in","survey","rally").forEach(variants::add);radio.add("variants",variants);
+        radio.addProperty("delayMinActiveTicks",200);radio.addProperty("delayMaxActiveTicks",1200);radio.addProperty("delayStepActiveTicks",20);
+        radio.addProperty("expiresAfterEarliestActiveTicks",1000);radio.addProperty("maxPendingGlobal",4);radio.addProperty("maxPendingPerTarget",1);
+        radio.addProperty("cooldownFromEarliestActiveTicks",2400);result.add(radio);return result;
     }
     private static void writeDescriptor(Path path, String contents) throws IOException {
         Files.createDirectories(path.toAbsolutePath().getParent());

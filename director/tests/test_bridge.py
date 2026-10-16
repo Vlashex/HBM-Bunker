@@ -49,6 +49,17 @@ def endpoint(responder):
 
 
 class BridgeTests(unittest.TestCase):
+    def test_radio_selection_is_forwarded_and_invalid_choices_never_connect(self):
+        choice=dict(request_id=CAMPAIGN,catalog_id="relay_broadcast_v1",target_id="relay:"+EPOCH,variant="survey",delay_ticks=400)
+        with endpoint(lambda r: success({"accepted":True})) as (path,requests):
+            client=BridgeClient(Descriptor.load(path))
+            self.assertEqual(client.call("preview_scenario",choice),{"accepted":True})
+            self.assertEqual(requests[0]["arguments"],choice)
+            for changes in [dict(variant="invented"),dict(target_id="0 0 0"),dict(delay_ticks=201),dict(delay_ticks=True),dict(command="stop")]:
+                with self.subTest(changes=changes),self.assertRaisesRegex(BridgeError,"invalid_arguments"):
+                    client.call("propose_scenario",choice | changes)
+            self.assertEqual(len(requests),1)
+
     def test_external_hosts_unknown_fields_and_invalid_types_are_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "bridge.json"

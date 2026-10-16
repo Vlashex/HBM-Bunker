@@ -20,6 +20,17 @@ class BridgeProtocolTest {
     private void rejects(JsonObject request, String code) {
         assertEquals(code, assertThrows(BridgeFailure.class, () -> protocol.decode(bytes(request))).code());
     }
+    @Test void radioArgumentsAreBoundedAndLegacyWarningStillDecodes() {
+        var protocol = new BridgeProtocol(CAMPAIGN,EPOCH,TOKEN);
+        var raw=request("propose_scenario");
+        var args=raw.getAsJsonObject("arguments");
+        args.addProperty("request_id",CAMPAIGN.toString());
+        args.addProperty("catalog_id","relay_broadcast_v1");args.addProperty("target_id","relay:"+EPOCH);
+        args.addProperty("variant","rally");args.addProperty("delay_ticks",400);
+        assertEquals("rally",protocol.decode(raw.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)).arguments().get("variant").getAsString());
+        args.addProperty("delay_ticks",201);
+        assertThrows(BridgeFailure.class,()->protocol.decode(raw.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
+    }
     @Test void authenticSnapshotIsDecodedWithoutExposingCredentials() {
         var parsed = protocol.decode(bytes(request("get_snapshot")));
         assertEquals("get_snapshot", parsed.operation()); assertTrue(parsed.arguments().isEmpty());

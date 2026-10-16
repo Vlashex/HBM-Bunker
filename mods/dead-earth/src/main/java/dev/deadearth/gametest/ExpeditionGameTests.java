@@ -120,7 +120,7 @@ public final class ExpeditionGameTests {
             } finally { client.close(); }
         });
     }
-    private static void prepare(ServerLevel level, BlockPos origin) {
+    static void prepare(ServerLevel level, BlockPos origin) {
         for (int x : new int[] {0, 8}) for (int z : new int[] {0, 8}) level.getChunkAt(origin.offset(x, 0, z));
         for (var pos : BlockPos.betweenClosed(origin, origin.offset(8, 5, 8))) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2 | 16);
         for (var pos : BlockPos.betweenClosed(origin.below(), origin.offset(8, -1, 8))) level.setBlock(pos, Blocks.STONE.defaultBlockState(), 2 | 16);

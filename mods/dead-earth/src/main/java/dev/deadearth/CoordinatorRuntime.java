@@ -8,6 +8,8 @@ import java.util.List;
 import dev.deadearth.scenario.ScenarioStore;
 import dev.deadearth.scenario.ScenarioTypes.*;
 import dev.deadearth.scenario.WarningBeaconExecutor;
+import dev.deadearth.scenario.ScenarioChoice;
+import dev.deadearth.scenario.RelayRadioExecutor;
 import dev.deadearth.observation.ObservationLog;
 import dev.deadearth.observation.ObservationStore;
 import net.minecraft.server.level.ServerPlayer;
@@ -96,12 +98,21 @@ public final class CoordinatorRuntime {
             observations.setDirty();
         } catch (RuntimeException error) { disable(error); }
     }
-    public Decision preview(UUID request) { requireReady(); return scenarios.engine().preview(proposal(request), view()); }
-    public Receipt submit(UUID request) {
+    public Decision preview(UUID request) { return preview(request,ScenarioChoice.warning()); }
+    public Decision preview(UUID request, ScenarioChoice choice) {
+        requireReady();
+        var existing=scenarios.engine().findRequest(request);
+        if (existing.isPresent()) return existing.get().proposal().choice().equals(choice)
+                ? new Decision(true,List.of()) : new Decision(false,List.of("conflicting_request"));
+        return scenarios.engine().preview(proposal(request,choice),view());
+    }
+    public Receipt submit(UUID request) { return submit(request,ScenarioChoice.warning()); }
+    public Receipt submit(UUID request, ScenarioChoice choice) {
         requireReady();
         var existing = scenarios.engine().findRequest(request);
-        if (existing.isPresent()) return existing.get();
-        var receipt = scenarios.engine().submit(proposal(request), view());
+        if (existing.isPresent()) return existing.get().proposal().choice().equals(choice) ? existing.get()
+                : new Receipt(existing.get().proposal(),null,State.REJECTED,0,"conflicting_request");
+        var receipt = scenarios.engine().submit(proposal(request,choice), view());
         if (receipt.state() != State.REJECTED) {
             scenarios.setDirty();
             checkpoint();
@@ -118,8 +129,14 @@ public final class CoordinatorRuntime {
     public List<Receipt> receipts() { requireReady(); return scenarios.engine().receipts(); }
     public WorldView view() {
         requireReady();
-        return new WorldView(epoch, campaign.campaign().activeTicks(), server.getPlayerCount(),
-                server.overworld().hasChunkAt(server.overworld().getSharedSpawnPos()));
+        var known=new java.util.HashSet<String>();var loaded=new java.util.HashSet<String>();known.add("test_anchor");
+        if (server.overworld().hasChunkAt(server.overworld().getSharedSpawnPos())) loaded.add("test_anchor");
+        for (var site:sites.registry().sites()) if (site.discoverer()!=null) {
+            String target="relay:"+site.id();known.add(target);
+            var origin=new BlockPos(site.x(),site.y(),site.z());
+            if (site.state()==SiteRegistry.State.READY && server.overworld().hasChunksAt(origin,origin.offset(8,5,8))) loaded.add(target);
+        }
+        return new WorldView(epoch,campaign.campaign().activeTicks(),server.getPlayerCount(),known,loaded);
     }
 
     public void tick() {
@@ -145,7 +162,11 @@ public final class CoordinatorRuntime {
             var changed = scenarios.engine().tick(view(), id -> {
                 scenarios.setDirty();
                 checkpoint();
-                return new WarningBeaconExecutor(server).execute(id);
+                var proposal=scenarios.engine().findScenario(id).orElseThrow().proposal();
+                if (!proposal.choice().radio()) return new WarningBeaconExecutor(server).execute(id);
+                var site=sites.registry().sites().stream().filter(s -> ("relay:"+s.id()).equals(proposal.targetId())).findFirst();
+                if (site.isEmpty()) return StepResult.UNCERTAIN;
+                return new RelayRadioExecutor(server,site.get(),proposal.choice()).execute(id);
             });
             if (!changed.isEmpty()) {
                 scenarios.setDirty();
@@ -181,10 +202,10 @@ public final class CoordinatorRuntime {
             }
         }
     }
-    private Proposal proposal(UUID request) {
+    private Proposal proposal(UUID request, ScenarioChoice choice) {
         long now = campaign.campaign().activeTicks();
-        if (now > Long.MAX_VALUE - 1200) throw new IllegalStateException("Campaign clock exhausted");
-        return new Proposal(request, epoch, "test_anchor", now + 200, now + 1200);
+        if (now > Long.MAX_VALUE - 2200) throw new IllegalStateException("Campaign clock exhausted");
+        return new Proposal(request,epoch,choice.targetId(),now+choice.delayTicks(),now+choice.delayTicks()+1000,choice.catalogId(),choice.variant(),choice.delayTicks());
     }
     private void checkpoint() {
         try {
