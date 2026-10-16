@@ -13,6 +13,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.jupiter.api.Test;
 
 class LocalBridgeTest {
+    @Test void fragmentedPeerCannotExtendTotalFrameDeadline() throws Exception {
+        var protocol = new BridgeProtocol(BridgeProtocolTest.CAMPAIGN, BridgeProtocolTest.EPOCH, BridgeProtocolTest.TOKEN);
+        try (var bridge = new LocalBridge(protocol, request -> CompletableFuture.completedFuture(new JsonPrimitive("unused")));
+                var socket = new Socket("127.0.0.1", bridge.port())) {
+            socket.getOutputStream().write('{'); socket.getOutputStream().flush();
+            Thread.sleep(700); socket.getOutputStream().write('"'); socket.getOutputStream().flush();
+            Thread.sleep(700); socket.getOutputStream().write('x'); socket.getOutputStream().flush();
+            socket.setSoTimeout(1200);
+            assertEquals(-1, socket.getInputStream().read(), "Fragmented frame held listener beyond total deadline");
+        }
+    }
     private JsonObject call(int port, JsonObject body) throws Exception {
         try (var socket = new Socket("127.0.0.1", port)) {
             socket.setSoTimeout(2000);

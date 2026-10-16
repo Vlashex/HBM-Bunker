@@ -56,7 +56,11 @@ public final class LocalBridge implements AutoCloseable {
     }
     private static byte[] readFrame(Socket socket) throws IOException {
         var bytes = new ByteArrayOutputStream();
+        long started = System.nanoTime();
         for (int i = 0; i <= BridgeProtocol.MAX_INPUT; i++) {
+            long remaining = 2_000_000_000L - (System.nanoTime() - started);
+            if (remaining <= 0) throw new BridgeFailure("frame_timeout");
+            socket.setSoTimeout((int) Math.max(1, (remaining + 999_999L) / 1_000_000L));
             int next = socket.getInputStream().read();
             if (next == '\n') return bytes.toByteArray();
             if (next < 0) throw new BridgeFailure("incomplete_frame");

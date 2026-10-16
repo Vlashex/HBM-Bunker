@@ -8,6 +8,20 @@ from test_bridge import endpoint, success
 
 
 class McpStdioTests(unittest.TestCase):
+    def test_expected_bridge_failure_reaches_model_as_safe_reason(self):
+        async def exchange(path):
+            params = StdioServerParameters(command=sys.executable,
+                args=["-m", "dead_earth_director", "--bridge", str(path)],
+                cwd=Path(__file__).resolve().parents[1], env={"PYTHONUTF8": "1"})
+            async with Client(params, read_timeout_seconds=10) as client:
+                result = await client.call_tool("get_snapshot")
+                self.assertTrue(result.is_error)
+                text = "\n".join(getattr(item, "text", "") for item in result.content)
+                self.assertIn("unauthorized", text)
+                self.assertNotIn("a" * 64, text)
+        with endpoint(lambda r: dict(ok=False, error=dict(code="unauthorized"))) as (path, requests):
+            asyncio.run(exchange(path))
+
     def test_real_sdk_negotiates_stdio_and_only_bounded_tools_are_exposed(self):
         async def exchange(path):
             params = StdioServerParameters(command=sys.executable,
