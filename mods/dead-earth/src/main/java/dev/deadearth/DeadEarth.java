@@ -11,6 +11,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import dev.deadearth.command.DeadEarthCommands;
+import dev.deadearth.compat.ProjectECompatibility;
+import net.neoforged.bus.api.IEventBus;
 
 @Mod(DeadEarth.MOD_ID)
 public final class DeadEarth {
@@ -18,7 +20,8 @@ public final class DeadEarth {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final Map<MinecraftServer, CoordinatorRuntime> RUNTIMES = new IdentityHashMap<>();
 
-    public DeadEarth() {
+    public DeadEarth(IEventBus modBus) {
+        ProjectECompatibility.install(modBus);
         NeoForge.EVENT_BUS.addListener(this::started);
         NeoForge.EVENT_BUS.addListener(this::stopped);
         NeoForge.EVENT_BUS.addListener(this::tick);
