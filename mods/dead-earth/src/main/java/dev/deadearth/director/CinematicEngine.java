@@ -17,7 +17,7 @@ public final class CinematicEngine {
     public record History(UUID requestId,UUID operationId,String eventId,String zoneId,long tick,String outcome,int spent) {}
     public record Operation(UUID id,UUID requestId,String frozenCatalog,String eventId,String zoneId,
             State state,String node,int cursor,long created,long expires,long entered,int budget,int spent,String outcome,Set<String> latched) {
-        public Operation {latched=Set.copyOf(latched);if(latched.size()>18||latched.stream().anyMatch(v->!CinematicCatalog.validTrigger(v)))throw bad("latched signals");}
+        public Operation {latched=Set.copyOf(latched);if(latched.size()>CinematicCatalog.TRIGGERS.size()*(CinematicCatalog.ROLES.size()+1)||latched.stream().anyMatch(v->!CinematicCatalog.validTrigger(v)))throw bad("latched signals");}
     }
     public record Snapshot(List<Operation> operations,List<History> history,long nextDecision,long recoveryUntil,
             long heavyUntil,int pressuresSinceRest) {}

@@ -157,4 +157,16 @@ class CinematicEngineTest {
         assertTrue(new CinematicEngine().options(configured,ctx).stream().allMatch(o->o.budget()==1));
     }
 
+    @Test void allLegalPersistentRoleSignalsFitOneExtensibleNode()throws Exception {
+        var c=catalog();var engine=new CinematicEngine();var port=admitted(engine,c,0,"CALM");var signals=new HashSet<String>();
+        for(String kind:List.of("inspect","break","burn","water","mine","repair")) {
+            signals.add(kind);for(String role:CinematicCatalog.ROLES)signals.add(kind+":"+role);
+        }
+        port.signals=signals;assertDoesNotThrow(()->engine.tick(c,context(0,"CALM"),port));
+        assertEquals(signals,engine.operations().getFirst().latched());
+    }
+    @Test void oldFrozenCatalogRetainsDefaultElevationLimit()throws Exception {
+        var raw=JsonParser.parseString(source()).getAsJsonObject();raw.getAsJsonObject("rules").getAsJsonObject("coefficients").remove("maximumApproachHeightDifference");
+        assertEquals(12,CinematicCatalog.parse(raw.toString()).rules().count("maximumApproachHeightDifference"));
+    }
 }

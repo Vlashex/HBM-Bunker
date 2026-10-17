@@ -22,6 +22,7 @@ public final class DeadEarth {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final Map<MinecraftServer, CoordinatorRuntime> RUNTIMES = new IdentityHashMap<>();
     private static final Map<MinecraftServer, Map<java.util.UUID, LivingDeathEvent>> PENDING_DEATHS = new IdentityHashMap<>();
+    private static final Map<MinecraftServer, java.util.List<net.neoforged.neoforge.event.level.BlockEvent.BreakEvent>> PENDING_MINING = new IdentityHashMap<>();
 
     public DeadEarth(IEventBus modBus,net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
@@ -39,6 +40,8 @@ public final class DeadEarth {
         NeoForge.EVENT_BUS.addListener(this::logout);
         NeoForge.EVENT_BUS.addListener(this::entityJoined);
         NeoForge.EVENT_BUS.addListener(this::blockBroken);
+        if(Boolean.getBoolean("deadearth.cinematicServerSmoke")&&Boolean.getBoolean("deadearth.testControls"))
+            NeoForge.EVENT_BUS.addListener(dev.deadearth.gametest.CinematicServerSmoke::tick);
         if(Boolean.getBoolean("deadearth.directorServerSmoke")&&Boolean.getBoolean("deadearth.testControls"))
             NeoForge.EVENT_BUS.addListener(dev.deadearth.gametest.DirectorServerSmoke::tick);
     }
@@ -62,6 +65,7 @@ public final class DeadEarth {
     private void stopped(ServerStoppedEvent event) {
         var runtime = RUNTIMES.remove(event.getServer()); if (runtime != null) runtime.close();
         PENDING_DEATHS.remove(event.getServer());
+        PENDING_MINING.remove(event.getServer());
         dev.deadearth.climate.SeasonState.reset();
         dev.deadearth.compat.SeasonHooks.reset();
         dev.deadearth.zone.ZoneLoaders.close(event.getServer());
@@ -71,9 +75,13 @@ public final class DeadEarth {
         dev.deadearth.zone.ZoneLoaders.tick(event.getServer());
         var runtime = RUNTIMES.get(event.getServer());
         var deaths = PENDING_DEATHS.remove(event.getServer());
+        var mining = PENDING_MINING.remove(event.getServer());
         if (runtime != null) {
             if (deaths != null) for (var death : deaths.values())
                 if (!death.isCanceled() && death.getEntity() instanceof ServerPlayer player && player.isDeadOrDying()) runtime.recordDeath(player);
+            if(runtime.enabled()&&mining!=null)for(var attempt:mining)
+                if(!attempt.isCanceled()&&attempt.getPlayer() instanceof ServerPlayer p&&attempt.getLevel()==p.serverLevel()&&p.serverLevel().hasChunkAt(attempt.getPos())
+                        &&!attempt.getLevel().getBlockState(attempt.getPos()).equals(attempt.getState()))runtime.cinematics().mined(p,attempt.getPos());
             runtime.tick();
         }
     }
@@ -84,7 +92,10 @@ public final class DeadEarth {
     }
     private void blockBroken(net.neoforged.neoforge.event.level.BlockEvent.BreakEvent event) {
         if(!event.isCanceled()&&event.getPlayer() instanceof ServerPlayer p) {
-            var runtime=RUNTIMES.get(p.getServer());if(runtime!=null&&runtime.enabled())runtime.cinematics().mined(p,event.getPos());
+            var runtime=RUNTIMES.get(p.getServer());if(runtime!=null&&runtime.enabled()) {
+                var pending=PENDING_MINING.computeIfAbsent(p.getServer(),key->new java.util.ArrayList<>());
+                if(pending.size()<256)pending.add(event);
+            }
         }
     }
     private void logout(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent event) {

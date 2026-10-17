@@ -69,7 +69,7 @@ public final class CinematicGameTests {
             dev.deadearth.config.DeadEarthConfig.DIRECTOR_ENABLED.set(true);
             var brief=director.brief();h.assertTrue(brief.goal()!=null,"No actionable complete fixture zone: "+brief.status());
             var choice=brief.goal().options().stream().filter(o->cat.events().get(o.eventId()).nodes().get(cat.events().get(o.eventId()).start()).branches().stream()
-                .anyMatch(b->java.util.Set.of("water","burn","inspect","inspect:flank","inspect:rear").contains(b.when()))).findFirst().orElseThrow();
+                .anyMatch(b->java.util.Set.of("water","burn","inspect","inspect:flank","inspect:rear").contains(b.when()))).findFirst().orElseThrow(()->new IllegalStateException("No interactive option in shortlist"));
             var definition=cat.events().get(choice.eventId());
             var branch=definition.nodes().get(definition.start()).branches().stream().filter(b->java.util.Set.of("water","burn","inspect","inspect:flank","inspect:rear").contains(b.when())).findFirst().orElseThrow();
             var verdict=director.choose(UUID.randomUUID(),brief.goal().id(),choice.eventId(),choice.zoneId());
@@ -81,7 +81,7 @@ public final class CinematicGameTests {
                     var clues=new ArrayList<TraceContent.TraceEntity>();
                     for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)for(var be:level.getChunk(base.getX()/16+x,base.getZ()/16+z).getBlockEntities().values())
                         if(be instanceof TraceContent.TraceEntity trace&&operation[0].equals(trace.operation()))clues.add(trace);
-                    var trace=clues.stream().filter(t->!branch.when().contains(":")||branch.when().endsWith(":"+t.role())).findFirst().orElseThrow();
+                    var trace=clues.stream().filter(t->!branch.when().contains(":")||branch.when().endsWith(":"+t.role())).findFirst().orElseThrow(()->new IllegalStateException("No clue for selected branch "+choice.eventId()+"/"+branch.when()));
                     var pos=trace.getBlockPos();client.player().setPos(pos.getX()+2.5,pos.getY(),pos.getZ()+.5);
                     String kind=branch.when().split(":")[0];
                     var item=kind.equals("water")?net.minecraft.world.item.Items.WATER_BUCKET:kind.equals("burn")?net.minecraft.world.item.Items.FLINT_AND_STEEL:net.minecraft.world.item.Items.AIR;
@@ -92,7 +92,7 @@ public final class CinematicGameTests {
                     h.runAfterDelay(25,()->{
                         try {
                             var raw=(java.util.Map<?,?>)director.status();var rows=(java.util.List<?>)raw.get("operations");
-                            var row=rows.stream().map(o->(java.util.Map<?,?>)o).filter(o->operation[0].equals(o.get("id"))).findFirst().orElseThrow();
+                            var row=rows.stream().map(o->(java.util.Map<?,?>)o).filter(o->operation[0].equals(o.get("id"))).findFirst().orElseThrow(()->new IllegalStateException("Selected operation no longer active"));
                             h.assertTrue(branch.next().equals(row.get("node")),"Physical interaction failed to change branch: "+row.get("node"));
                             h.succeed();
                         } finally {
@@ -109,6 +109,28 @@ public final class CinematicGameTests {
             if(operation[0]!=null)director.cancel(operation[0]);client.close();level.removeBlock(base,false);
             dev.deadearth.config.DeadEarthConfig.DIRECTOR_ENABLED.set(previous);throw failure;
         }
+    }
+
+    @GameTest(template="empty",batch="cinematic_anchor_edge")
+    public static void alternativeLoadedApproachIsUsedWhenFirstPointIsOutsideTheFloor(GameTestHelper h) {
+        var level=h.getLevel();var base=new BlockPos(2200008,200,2200008);
+        for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)level.getChunk(base.getX()/16+x,base.getZ()/16+z);
+        for(int x=-16;x<32;x++)for(int z=-16;z<32;z++)level.setBlock(new BlockPos(2200000+x,200,2200000+z),Blocks.STONE.defaultBlockState(),3);
+        level.setBlock(base,ZoneLoaderContent.LOADER.get().defaultBlockState(),3);
+        try(var client=FoundationGameTests.attach(h)) {
+            client.player().setPos(base.getX()+.5,201,base.getZ()+.5);client.player().setXRot(-90);
+            var zone=ZoneLoaders.zones(level.getServer()).stream().filter(v->v.loaders().stream().anyMatch(l->l.x()==base.getX())).findFirst().orElseThrow();
+            var c=catalog();var id=UUID.fromString("00000000-0000-4000-8000-000000000eab");
+            var op=new CinematicEngine.Operation(id,UUID.randomUUID(),CinematicEngine.freeze(c,"spore_lure"),"spore_lure",zone.id().toString(),
+                CinematicEngine.State.WAITING,"pollen",0,0,4800,0,4,0,"",Set.of());
+            var director=DeadEarth.runtime(level.getServer()).cinematics();
+            director.emit(op,new CinematicCatalog.Action("trace","spore_1","approach",0),0,c);
+            int count=0;
+            for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)for(var be:level.getChunk(base.getX()/16+x,base.getZ()/16+z).getBlockEntities().values())
+                if(be instanceof TraceContent.TraceEntity trace&&id.equals(trace.operation()))count++;
+            h.assertTrue(count==1,"Nearby valid floor ignored in favor of terrain far below the zone");
+        } finally {level.removeBlock(base,false);}
+        h.succeed();
     }
 
 }

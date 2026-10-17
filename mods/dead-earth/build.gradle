@@ -12,6 +12,8 @@ neoForge {
     runs {
         client {
             client()
+            gameDirectory = file(providers.gradleProperty('deadEarthClientDirectory').orElse('run').get())
+            if(providers.gradleProperty('deadEarthCinematicScreenshot').isPresent()) systemProperty 'deadearth.cinematicScreenshot','true'
             jvmArgument '-Xmx6G'
             if (providers.gradleProperty('deadEarthClientSmoke').isPresent()) systemProperty 'deadearth.clientSmoke', 'true'
             if (providers.gradleProperty('deadEarthSeasonScreenshot').isPresent()) systemProperty 'deadearth.seasonScreenshot', 'true'
@@ -26,6 +28,11 @@ neoForge {
         server {
             server(); programArgument '--nogui'
             gameDirectory = file(providers.gradleProperty('deadEarthServerDirectory').orElse('run').get())
+            if(providers.gradleProperty('deadEarthCinematicSmoke').isPresent()) {
+                systemProperty 'deadearth.cinematicServerSmoke','true'
+                systemProperty 'deadearth.testControls','true'
+                jvmArgument '-Xmx4G'
+            }
             if(providers.gradleProperty('deadEarthDirectorSmoke').isPresent()) {
                 systemProperty 'deadearth.directorServerSmoke','true'
                 systemProperty 'deadearth.testControls','true'
@@ -36,7 +43,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }

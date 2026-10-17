@@ -40,9 +40,7 @@ public final class CinematicDirector implements CinematicEngine.World {
             CinematicEngine.Goal goal,List<CinematicEngine.History> recent,int active,int queued) {}
     public CinematicDirector(MinecraftServer server,CoordinatorRuntime runtime) {
         this.server=server;this.runtime=runtime;
-        store=SavedDataAccess.open(server.overworld(),CinematicStore.NAME,new SavedData.Factory<>(
-            ()->CinematicStore.create(runtime.campaign().campaign().campaignId()),
-            (tag,registries)->CinematicStore.load(runtime.campaign().campaign().campaignId(),tag,registries)));
+        store=CinematicStore.open(server.overworld(),runtime.campaign().campaign().campaignId());
         try{reload();}catch(RuntimeException invalid){fault="catalog_unavailable";DeadEarth.LOGGER.error("Director catalog unavailable",invalid);}
         // Entities already loaded before ServerStarted are registered once; later joins use observe().
         for(var level:server.getAllLevels())for(var entity:level.getAllEntities())observe(entity);
@@ -88,7 +86,7 @@ public final class CinematicDirector implements CinematicEngine.World {
         var goal=enabled()?engine.brief(runtime.epoch(),catalog,context,true):null;
         if(engine!=null)store.setDirty();
         var history=engine==null?List.<CinematicEngine.History>of():engine.history();
-        return new Brief(!enabled()?fault!=null?fault:"disabled":context.online()==0?"no_players":goal==null?"waiting":"ready",
+        return new Brief(!enabled()?fault!=null?fault:!store.enabled()?"unsupported_save":"disabled":context.online()==0?"no_players":goal==null?"waiting":"ready",
             catalog==null?"":catalog.revision(),now(),context.season(),context.pressure(),goal,
             history.subList(Math.max(0,history.size()-6),history.size()),engine==null?0:(int)engine.operations().stream().filter(o->o.state()!=CinematicEngine.State.QUEUED).count(),
             engine==null?0:(int)engine.operations().stream().filter(o->o.state()==CinematicEngine.State.QUEUED).count());
@@ -118,15 +116,22 @@ public final class CinematicDirector implements CinematicEngine.World {
         if(!list.contains(trace))list.add(trace);
     }
     public void observe(Entity entity) {
-        if(entity instanceof LivingEntity living&&entity.getPersistentData().hasUUID("dead_earth:director_operation"))owned.put(entity.getUUID(),living);
+        if(store.enabled()&&entity instanceof LivingEntity living&&entity.getPersistentData().hasUUID("dead_earth:director_operation")) {
+            owned.put(entity.getUUID(),living);store.observeOwned(entity.getPersistentData().getUUID("dead_earth:director_operation"),entity.getUUID(),entity.getPersistentData().getLong("dead_earth:director_expires"));
+        }
     }
     public void tick() {
         if(catalog==null||!store.enabled()||fault!=null)return;
         // Existing owned entities have a finite campaign lifetime, including after chunk reload.
         var it=owned.values().iterator();int inspected=0;
         while(it.hasNext()&&inspected++<64) {
-            var entity=it.next();if(entity.isRemoved()||!entity.isAlive()){it.remove();continue;}
-            if(now()>=entity.getPersistentData().getLong("dead_earth:director_expires")){entity.discard();it.remove();}
+            var entity=it.next();var operation=entity.getPersistentData().getUUID("dead_earth:director_operation");
+            if(entity.isRemoved()) {
+                if(entity.getRemovalReason()!=null&&entity.getRemovalReason().shouldDestroy())store.confirmedGone(operation,entity.getUUID());
+                it.remove();continue;
+            }
+            if(!entity.isAlive()){store.confirmedGone(operation,entity.getUUID());it.remove();continue;}
+            if(now()>=entity.getPersistentData().getLong("dead_earth:director_expires")){entity.discard();store.confirmedGone(operation,entity.getUUID());it.remove();}
         }
         marks.values().forEach(list->list.removeIf(TraceContent.TraceEntity::isRemoved));marks.values().removeIf(List::isEmpty);
         if(!enabled()||now()==lastTick||now()%20!=0)return;lastTick=now();
@@ -158,19 +163,25 @@ public final class CinematicDirector implements CinematicEngine.World {
             }
         }
         for(String role:CinematicCatalog.ROLES) {
-            var pos=anchor(op,role,0);if(pos==null)continue;
+            var pos=resolvedAnchor(op,role);if(pos==null)continue;
             if(level.players().stream().anyMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(pos))<=Math.pow(rules(op).count("nearRadius"),2))){facts.add("near:"+role);facts.add("near");near=true;}
         }
         if(!near&&level.players().stream().noneMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(center(op)))<=Math.pow(rules(op).count("farRadius"),2)))facts.add("far");
         long armed=ZoneLoaders.summaries(server).stream().filter(z->z.id().toString().equals(op.zoneId())&&z.complete()).mapToLong(ZoneScanner.Summary::armedRank).findFirst().orElse(-1);
         if(armed>=0){long old=armedBaseline.computeIfAbsent(op.id(),id->armed);if(armed>old)facts.add("repair");}
-        if(op.spent()>0&&owned.values().stream().noneMatch(e->e.isAlive()&&!e.isRemoved()&&op.id().equals(e.getPersistentData().getUUID("dead_earth:director_operation"))))facts.add("clear");
+        if(op.spent()>0&&store.ownedCleared(op.id(),now()))facts.add("clear");
         return facts;
     }
     private CinematicCatalog.Rules rules(CinematicEngine.Operation op) {
         var saved=store.engine().frozen(op);return saved==null?catalog.rules():saved.rules();
     }
     private BlockPos center(CinematicEngine.Operation op){var l=zone(op).loaders().getFirst();return new BlockPos(l.x(),l.y(),l.z());}
+    private BlockPos resolvedAnchor(CinematicEngine.Operation op,String role) {
+        for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
+            var point=anchor(op,role,attempt);if(point!=null)return point;
+        }
+        return null;
+    }
     private BlockPos anchor(CinematicEngine.Operation op,String role,int attempt) {
         var level=level(op);if(level==null)return null;var center=center(op);
         int index=switch(role){case "flank"->1;case "rear"->2;case "distraction"->3;default->0;};
@@ -179,6 +190,7 @@ public final class CinematicDirector implements CinematicEngine.World {
         int x=center.getX()+(int)Math.round(Math.cos(yaw)*radius),z=center.getZ()+(int)Math.round(Math.sin(yaw)*radius);
         var check=new BlockPos(x,center.getY(),z);if(!level.hasChunkAt(check))return null;
         int y=level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,x,z);var pos=new BlockPos(x,y,z);
+        if(Math.abs(y-center.getY())>rules(op).count("maximumApproachHeightDifference"))return null;
         boolean ownTrace=level.getBlockEntity(pos) instanceof TraceContent.TraceEntity trace&&op.id().equals(trace.operation());
         if(!level.getWorldBorder().isWithinBounds(pos)||(!level.getBlockState(pos).isAir()&&!ownTrace)||!level.getFluidState(pos).isEmpty()
                 ||!level.getBlockState(pos.below()).isFaceSturdy(level,pos.below(),Direction.UP))return null;
@@ -188,9 +200,9 @@ public final class CinematicDirector implements CinematicEngine.World {
         return level.players().stream().filter(p->!p.isSpectator()&&p.isAlive()).noneMatch(p->p.distanceToSqr(point)<minimum*minimum
                 ||p.getViewVector(1).dot(point.subtract(p.getEyePosition()).normalize())>.25);
     }
-    @Override public int livingOwned(){return (int)owned.values().stream().filter(e->e.isAlive()&&!e.isRemoved()).count();}
+    @Override public int livingOwned(){return store.enabled()?store.outstandingOwned(now()):0;}
     @Override public void emit(CinematicEngine.Operation op,CinematicCatalog.Action action,int count,CinematicCatalog frozen) {
-        var level=level(op);if(level==null)return;var point=anchor(op,action.role(),0);if(point==null)return;
+        var level=level(op);if(level==null)return;var point=resolvedAnchor(op,action.type().equals("move")?action.key():action.role());if(point==null)return;
         switch(action.type()) {
             case "sound" -> {
                 var s=frozen.sounds().get(action.key());var sound=BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(s.sound()));
@@ -219,7 +231,7 @@ public final class CinematicDirector implements CinematicEngine.World {
                     if(!level.noCollision(mob)||level.containsAnyLiquid(mob.getBoundingBox())){mob.discard();continue;}
                     mob.getPersistentData().putUUID("dead_earth:director_operation",op.id());mob.getPersistentData().putLong("dead_earth:director_expires",op.expires()+frozen.rules().count("entityLifetimeTailTicks"));
                     mob.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),MobSpawnType.EVENT,null);
-                    if(level.addFreshEntity(mob))owned.put(mob.getUUID(),mob);break;
+                    if(level.addFreshEntity(mob))observe(mob);break;
                 }
             }
             case "move" -> {

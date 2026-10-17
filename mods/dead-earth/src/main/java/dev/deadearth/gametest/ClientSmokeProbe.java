@@ -13,6 +13,7 @@ import net.neoforged.neoforge.common.NeoForge;
 
 /** Explicitly enabled development smoke run; never active in ordinary gameplay. */
 public final class ClientSmokeProbe {
+    private final long openedAt=System.nanoTime();
     private int joinedTicks;
     private boolean started, finished;
     private int finishTicks;
@@ -26,7 +27,10 @@ public final class ClientSmokeProbe {
     }
     private void tick(ClientTickEvent.Post event) {
         var client = Minecraft.getInstance();
-        if(Boolean.getBoolean("deadearth.seasonScreenshot")) client.options.hideGui=true;
+        if(Boolean.getBoolean("deadearth.cinematicScreenshot")&&System.nanoTime()-openedAt>240_000_000_000L) {
+            DeadEarth.LOGGER.error("Cinematic test client exceeded startup bound");client.stop();return;
+        }
+        if(Boolean.getBoolean("deadearth.seasonScreenshot")||Boolean.getBoolean("deadearth.cinematicScreenshot")) client.options.hideGui=true;
         if (client.player == null || client.level == null) return;
         if (finished) {
             if(Boolean.getBoolean("deadearth.seasonScreenshot")&&finishTicks%200==199) {
@@ -66,6 +70,14 @@ public final class ClientSmokeProbe {
                     dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.ADAPTIVE_ABOVE),
                     dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.HEALTH_INFLUENCE));
                 Screenshot.grab(client.gameDirectory, client.getMainRenderTarget(), message -> DeadEarth.LOGGER.info("Smoke screenshot: {}", message.getString()));
+                if(Boolean.getBoolean("deadearth.cinematicScreenshot")) {
+                    int traces=0;
+                    for(int x=-8;x<25;x++)for(int z=-8;z<25;z++)if(client.level.getBlockEntity(new net.minecraft.core.BlockPos(x+4096,71,z+4096)) instanceof dev.deadearth.content.TraceContent.TraceEntity)traces++;
+                    DeadEarth.LOGGER.info("DEAD_EARTH_CINEMATIC_CLIENT traces={} fps={}",traces,client.getFps());
+                    try {java.nio.file.Files.writeString(client.gameDirectory.toPath().resolve("client-cinematic-result.json"),
+                        new com.google.gson.Gson().toJson(java.util.Map.of("traces",traces,"fps",client.getFps(),"ready",traces>=6)));}
+                    catch(java.io.IOException ioFailure){DeadEarth.LOGGER.error("Cinematic client marker failed",ioFailure);}
+                }
                 finished = true;
             }
         }));

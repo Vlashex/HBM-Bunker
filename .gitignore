@@ -48,3 +48,7 @@ mods/dead-earth/run-gametest-*/
 
 # Local AI director state
 /director/runtime/
+
+# Isolated normal-server and rendered-client verification
+mods/dead-earth/run-server-*/
+mods/dead-earth/run-client-*/

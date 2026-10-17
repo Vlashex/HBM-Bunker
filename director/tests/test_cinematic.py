@@ -93,7 +93,7 @@ class CinematicTests(unittest.TestCase):
                     with self.assertRaises(ModelError):select(dict(options=[dict(option=0),dict(option=1)]))
 
     def test_no_players_or_invalid_context_never_admits(self):
-        for status in ("disabled","no_players","waiting","catalog_unavailable","runtime_fault"):
+        for status in ("disabled","no_players","waiting","catalog_unavailable","runtime_fault","unsupported_save"):
             with endpoint(lambda r:success(dict(status=status))) as (path,requests),tempfile.TemporaryDirectory() as tmp,contextlib.ExitStack() as stack:
                 journal=stack.enter_context(contextlib.closing(Journal(Path(tmp)/"live.db")));model=ChoiceModel()
                 self.assertEqual(self.director(BridgeClient(Descriptor.load(path)),model,journal).once(),dict(state=status))

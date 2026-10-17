@@ -219,7 +219,7 @@ class CinematicDirector:
         if type(view) is not dict:
             raise DirectorError("invalid_brief")
         status=view.get("status")
-        if status in {"disabled","waiting","no_players","catalog_unavailable","runtime_fault"}:
+        if status in {"disabled","waiting","no_players","catalog_unavailable","runtime_fault","unsupported_save"}:
             return dict(state=status)
         if status!="ready":
             raise DirectorError("invalid_brief")

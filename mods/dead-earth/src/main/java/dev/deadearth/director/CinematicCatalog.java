@@ -126,7 +126,9 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
         } catch(java.security.NoSuchAlgorithmException impossible){throw new IllegalStateException(impossible);}
     }
     private static Map<String,Double> coefficients(JsonObject rules) {
-        var raw=object(rules.get("coefficients"),"coefficients");fields(raw,"valueNormalization","defenseNormalization","defenseBudgetWeight","playerLevelWeight","playerArmorWeight","deathMemoryTicks","playerRadius","nearRadius","farRadius","restAfter","minimumTraceDistance","maximumLoadedTraces","entityLifetimeTailTicks","approachAttempts","modelOptionLimit","optionsPerZone","affinityLimit","playerScoreMaximum","lossMaximum","retryTicks");
+        var raw=object(rules.get("coefficients"),"coefficients").deepCopy();
+        if(!raw.has("maximumApproachHeightDifference"))raw.addProperty("maximumApproachHeightDifference",12);
+        fields(raw,"valueNormalization","defenseNormalization","defenseBudgetWeight","playerLevelWeight","playerArmorWeight","deathMemoryTicks","playerRadius","nearRadius","farRadius","restAfter","minimumTraceDistance","maximumLoadedTraces","entityLifetimeTailTicks","approachAttempts","modelOptionLimit","optionsPerZone","affinityLimit","playerScoreMaximum","lossMaximum","retryTicks","maximumApproachHeightDifference");
         var values=new TreeMap<String,Double>();
         values.put("valueNormalization",(double)number(raw,"valueNormalization",0.1,1000));
         values.put("defenseNormalization",(double)number(raw,"defenseNormalization",0.1,1000));
@@ -142,6 +144,7 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
         values.put("maximumLoadedTraces",(double)integer(raw,"maximumLoadedTraces",1,128));
         values.put("entityLifetimeTailTicks",(double)integer(raw,"entityLifetimeTailTicks",0,72000));
         values.put("approachAttempts",(double)integer(raw,"approachAttempts",1,32));
+        values.put("maximumApproachHeightDifference",(double)integer(raw,"maximumApproachHeightDifference",1,64));
         values.put("modelOptionLimit",(double)integer(raw,"modelOptionLimit",1,8));
         values.put("optionsPerZone",(double)integer(raw,"optionsPerZone",1,8));
         values.put("affinityLimit",(double)number(raw,"affinityLimit",0.1,4));

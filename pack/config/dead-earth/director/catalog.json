@@ -35,6 +35,7 @@
       "maximumLoadedTraces": 48,
       "entityLifetimeTailTicks": 1200,
       "approachAttempts": 12,
+      "maximumApproachHeightDifference": 12,
       "modelOptionLimit": 8,
       "optionsPerZone": 4,
       "affinityLimit": 4,
