@@ -17,7 +17,7 @@ public final class WastelandFeature extends Feature<NoneFeatureConfiguration> {
     private record Write(BlockPos pos,BlockState state){}
     private static final Set<Block> NATURAL=Set.of(Blocks.DIRT,Blocks.COARSE_DIRT,Blocks.ROOTED_DIRT,Blocks.GRASS_BLOCK,Blocks.PODZOL,
         Blocks.MYCELIUM,Blocks.MUD,Blocks.CLAY,Blocks.SAND,Blocks.RED_SAND,Blocks.SANDSTONE,Blocks.RED_SANDSTONE,
-        Blocks.TERRACOTTA,Blocks.ORANGE_TERRACOTTA,Blocks.WHITE_TERRACOTTA,Blocks.CALCITE,Blocks.GRAVEL,Blocks.COBBLESTONE,
+        Blocks.TERRACOTTA,Blocks.ORANGE_TERRACOTTA,Blocks.WHITE_TERRACOTTA,Blocks.CALCITE,Blocks.GRAVEL,Blocks.COBBLESTONE,Blocks.MOSSY_COBBLESTONE,
         Blocks.BLACKSTONE,Blocks.CRACKED_STONE_BRICKS,Blocks.SNOW_BLOCK,Blocks.ICE,Blocks.PACKED_ICE);
     public WastelandFeature(){super(NoneFeatureConfiguration.CODEC);}
     static boolean natural(BlockState state) {

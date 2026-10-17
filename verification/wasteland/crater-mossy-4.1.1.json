@@ -1,0 +1,35 @@
+{
+  "checked_at": "2026-10-17T17:06:01.428207+03:00",
+  "release": "4.1.1",
+  "coordinator": "3.2.1",
+  "reproduction": {
+    "directory": "run-gametest-crater-mossy-red-1",
+    "required_tests": 7,
+    "failed": 1,
+    "reason": "Crater left a pillar: expected 277, got 280"
+  },
+  "verification": {
+    "directory": "run-gametest-crater-mossy-green-1",
+    "unit_tests": 151,
+    "unit_failures": 0,
+    "game_tests": 75,
+    "game_failures": 0,
+    "game_execution_seconds": 31.86
+  },
+  "assertions": [
+    "mossy cap lowered to 277",
+    "buried mossy lowered to 277",
+    "ordinary control lowered to 277",
+    "removed natural columns are air at 278..280",
+    "chest preserved"
+  ],
+  "installed_server_updated": false,
+  "installed_client_updated": false,
+  "existing_chunks_modified": false,
+  "computer_use": false,
+  "jar_sha256": "3278b19a974e14477dd13bc86f241c274e7a9981c17d8dc038af24f48df57e4a",
+  "root_tests": 13,
+  "source_check": "passed",
+  "review": "no blocking/important findings",
+  "archive_sha256": "29ce2f6d092789fc597715e86afa5e42d141cb8591bb00d6eb3e443e2478ad2e"
+}

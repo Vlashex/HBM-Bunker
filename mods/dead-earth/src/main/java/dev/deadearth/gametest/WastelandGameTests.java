@@ -86,4 +86,28 @@ public final class WastelandGameTests {
         }
         h.assertTrue(logs>=3&&logs<=12,"Trunk escaped configured bounds");h.succeed();
     }
+    @GameTest(template="empty",batch="wasteland_mossy_crater",timeoutTicks=200)
+    public static void mossyBoulderAndBuriedMossyStoneDoNotLeaveCraterPillars(GameTestHelper h) {
+        var level=h.getLevel();int cx=137600,cz=137600;var columns=new ArrayList<BlockPos>();
+        for(int tries=0;tries<64;tries++,cx++) {
+            columns.clear();var candidates=WastelandField.candidates(level.getSeed(),WastelandConfig.settings(),cx,cz);
+            if(level.getChunk(cx,cz).getAllReferences().values().stream().anyMatch(set->!set.isEmpty()))continue;
+            for(int x=cx*16;x<cx*16+16;x++)for(int z=cz*16;z<cz*16+16;z++)
+                if(WastelandField.displacement(candidates,x,z)==-3)columns.add(new BlockPos(x,280,z));
+            if(columns.size()>=4)break;
+        }
+        h.assertTrue(columns.size()>=4,"No unprotected three-block-deep crater fixture found");
+        flat(h,cx,cz);
+        var boulder=columns.get(0);var buried=columns.get(1);var control=columns.get(2);var chest=columns.get(3);
+        level.setBlock(boulder,Blocks.MOSSY_COBBLESTONE.defaultBlockState(),2|16);
+        level.setBlock(buried.below(),Blocks.MOSSY_COBBLESTONE.defaultBlockState(),2|16);
+        level.setBlock(chest,Blocks.CHEST.defaultBlockState(),2|16);
+        WastelandWorldgen.TERRAIN.get().place(NoneFeatureConfiguration.INSTANCE,level,level.getChunkSource().getGenerator(),RandomSource.create(4096),new BlockPos(cx*16,0,cz*16));
+        for(var pos:List.of(boulder,buried,control)) {
+            int top=level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.OCEAN_FLOOR,pos.getX(),pos.getZ())-1;
+            h.assertTrue(top==277,"Crater left a pillar at "+pos+": expected 277, got "+top);
+            for(int y=278;y<=280;y++)h.assertTrue(level.getBlockState(new BlockPos(pos.getX(),y,pos.getZ())).isAir(),"Crater did not clear its full natural column");
+        }
+        h.assertTrue(level.getBlockState(chest).is(Blocks.CHEST),"Mossy terrain fix removed a protected container");h.succeed();
+    }
 }
