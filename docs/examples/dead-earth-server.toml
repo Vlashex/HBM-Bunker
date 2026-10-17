@@ -309,3 +309,10 @@
 	decisionIntervalTicks = 18000
 	goalLifetimeTicks = 2400
 	maximumZoneAgeTicks = 1200
+
+[starter]
+	# Shared world stock in the first player-opened OutpostZero hub starter chest.
+	enabled = true
+	loaders = 6
+	dirt = 256
+	saplingsPerType = 4

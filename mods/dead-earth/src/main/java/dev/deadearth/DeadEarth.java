@@ -33,6 +33,7 @@ public final class DeadEarth {
         dev.deadearth.content.TraceContent.register(modBus);
         dev.deadearth.content.SeasonBlocks.register(modBus);
         dev.deadearth.content.ZoneLoaderContent.register(modBus);
+        dev.deadearth.starter.StarterSupplies.register(modBus);
         dev.deadearth.zone.ZoneSentryIndex.install();
         modBus.addListener(dev.deadearth.climate.SeasonNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::started);

@@ -1,11 +1,11 @@
 [
   {
-    "filename": "dead-earth-3.2.1.jar",
-    "version": "3.2.1",
+    "filename": "dead-earth-3.3.0.jar",
+    "version": "3.3.0",
     "mod_id": "dead_earth",
-    "artifact": "mods/dead-earth/build/libs/dead-earth-3.2.1.jar",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-3.3.0.jar",
     "entrypoint": "dev/deadearth/DeadEarth.class",
-    "size": 584148,
-    "sha256": "3278b19a974e14477dd13bc86f241c274e7a9981c17d8dc038af24f48df57e4a"
+    "size": 597737,
+    "sha256": "2f93267d388735093b1a82dcbbfb6496744138b3e8cd1d23f95825b859c41810"
   }
 ]

@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '3.2.1'
+version = '3.3.0'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 repositories { mavenCentral() }
@@ -48,7 +48,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review,dead_earth_worldgen').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review,dead_earth_worldgen,dead_earth_starter').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }

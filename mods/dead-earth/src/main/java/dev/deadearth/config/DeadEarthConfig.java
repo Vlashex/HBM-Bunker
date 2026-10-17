@@ -112,6 +112,10 @@ public final class DeadEarthConfig {
  public static final ModConfigSpec.IntValue DIRECTOR_INTERVAL=B.defineInRange("director.decisionIntervalTicks",18000,200,144000);
  public static final ModConfigSpec.IntValue DIRECTOR_LIFETIME=B.defineInRange("director.goalLifetimeTicks",2400,200,72000);
  public static final ModConfigSpec.IntValue DIRECTOR_ZONE_AGE=B.defineInRange("director.maximumZoneAgeTicks",1200,0,72000);
+ public static final ModConfigSpec.BooleanValue STARTER_ENABLED=B.define("starter.enabled",true);
+ public static final ModConfigSpec.IntValue STARTER_LOADERS=B.defineInRange("starter.loaders",6,0,16);
+ public static final ModConfigSpec.IntValue STARTER_DIRT=B.defineInRange("starter.dirt",256,0,512);
+ public static final ModConfigSpec.IntValue STARTER_SAPLINGS=B.defineInRange("starter.saplingsPerType",4,0,64);
  public static final ModConfigSpec SPEC=B.build();
  private DeadEarthConfig(){}
  public static double d(ModConfigSpec.DoubleValue v){return SPEC.isLoaded()?v.get():v.getDefault();}

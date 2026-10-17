@@ -128,3 +128,5 @@ python tools/release.py check-evidence
 Источники внешних модов перечислены в lock-файле; см. [THIRD-PARTY.md](THIRD-PARTY.md).
 
 Локальная панель ИИ: `start-admin.bat` → http://127.0.0.1:8765 . [Руководство](docs/DEAD-EARTH-ADMIN.md).
+
+[Общий стартовый запас команды](docs/DEAD-EARTH-STARTER.md): загрузчики зон, земля и саженцы в стартовом сундуке.

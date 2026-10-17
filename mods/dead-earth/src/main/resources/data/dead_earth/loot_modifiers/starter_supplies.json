@@ -1,0 +1,9 @@
+{
+  "type": "dead_earth:starter_supplies",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "outpostzero:chests/hub_starter"
+    }
+  ]
+}
