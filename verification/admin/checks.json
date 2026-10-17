@@ -14,5 +14,8 @@
   "visual_browser_check": "not_completed: tool URL detection, then user requested no Computer Use",
   "gameplay_restarted": false,
   "ai_restarted": false,
-  "game_code_changed": false
+  "game_code_changed": false,
+  "release": "4.1.0",
+  "archive_sha256": "9e03d0e46f8104d54529c8098a7b58369deda09f25da3cb3b2f86a992821a5be",
+  "gameplay_files_identical_to_4_0_0": 36
 }
