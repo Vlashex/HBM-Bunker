@@ -21,6 +21,7 @@ public final class WastelandGameTests {
     @GameTest(template="empty",batch="wasteland_data")
     public static void actualBiomeAndStructureRegistriesKeepHbmAndSuppressVanillaSurfaceBuildings(GameTestHelper h) {
         var access=h.getLevel().registryAccess();var biomes=access.registryOrThrow(Registries.BIOME);
+        h.assertTrue(BuiltInRegistries.ENTITY_TYPE.containsKey(id("hbm:entity_pigeon")),"Pinned HBM pigeon is absent; spawn test invalid");
         var plains=biomes.getOrThrow(Biomes.PLAINS);var desert=biomes.getOrThrow(Biomes.DESERT);
         h.assertTrue(plains.getWaterColor()==WastelandConfig.settings().waterColor(),"Water tint did not reach actual biome");
         for(var biome:List.of(plains,desert)) {

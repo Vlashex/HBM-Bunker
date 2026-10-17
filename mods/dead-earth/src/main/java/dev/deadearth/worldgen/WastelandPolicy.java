@@ -12,6 +12,6 @@ public final class WastelandPolicy {
         return id.startsWith("hbm:")&&HBM_PLANTS.contains(id.substring(4));
     }
     public static boolean removesSpawn(String id,boolean hostile) {
-        return id.equals("hbm:pigeon")||(id.startsWith("minecraft:")&&!hostile);
+        return id.equals("hbm:entity_pigeon")||(id.startsWith("minecraft:")&&!hostile);
     }
 }

@@ -46,8 +46,9 @@ Interfaces: Feature updates only origin chunk; biome modifier filters typed feat
 
 - [ ] Новый обычный мир, ограниченная выборка чанков, stats для кратеров/стволов/зелени/материалов/структур/радиации.
 - [ ] Настоящий клиент: общий вид, крупный кратер, мутная вода; screenshots viewed.
-- [ ] Накопленный общий Java/Python/root прогон; review; docs/CHANGELOG/own artifact pins/local release. Не повторять дорогие прогоны без причины.
+- [x] Накопленный общий Java/Python/root прогон; review; docs/CHANGELOG/own artifact pins/local release. Не повторять дорогие прогоны без причины.
 
 ## Session ruling
 
 User explicitly authorized continuous autonomous implementation, commits and local releases without per-step permission; latest request directly authorizes this change. No extra design/plan approval gate. Reuse existing linked worktree. Initial correction to remove HBM architecture superseded before implementation, no HBM disabling files created.
+3.2.0 устанавливается по прямому запросу пользователя: обычный сервер запущен, Prism-клиент вошёл. Глубокая статистика природных биомов и отдельные screenshots остаются follow-up, не выдаются за выполненные.

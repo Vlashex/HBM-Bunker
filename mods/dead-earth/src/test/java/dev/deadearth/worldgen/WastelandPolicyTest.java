@@ -23,7 +23,7 @@ class WastelandPolicyTest {
         assertTrue(WastelandPolicy.removesSpawn("minecraft:cow",false));
         assertTrue(WastelandPolicy.removesSpawn("minecraft:bat",false));
         assertTrue(WastelandPolicy.removesSpawn("minecraft:salmon",false));
-        assertTrue(WastelandPolicy.removesSpawn("hbm:pigeon",false));
+        assertTrue(WastelandPolicy.removesSpawn("hbm:entity_pigeon",false));
         assertFalse(WastelandPolicy.removesSpawn("minecraft:zombie",true));
         assertFalse(WastelandPolicy.removesSpawn("hbm:gold_creeper",true));
         assertFalse(WastelandPolicy.removesSpawn("mutationcraft:assimilated_cow",false));
