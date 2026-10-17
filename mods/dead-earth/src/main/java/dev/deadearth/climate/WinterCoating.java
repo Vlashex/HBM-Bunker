@@ -17,6 +17,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 /** Loaded-only exterior shell; original geometry, never our own shell, is its anchor. */
 public final class WinterCoating {
     private static final int MAX_REACH=38;
+    // Config bounds: side ice (4) + side snow (4) + side relief (2).
+    private static final int MAX_SIDE_REACH=10;
+    private static final List<List<Offset>> OFFSETS=buildOffsets();
     private static final Map<ServerLevel,Long> WINTER_SEEDS=new WeakHashMap<>();
     private static final Map<ServerLevel,LinkedHashSet<BlockPos>> ACTIVE=new WeakHashMap<>();
     private static final Map<ServerLevel,LinkedHashSet<BlockPos>> THAW=new WeakHashMap<>();
@@ -107,7 +110,7 @@ public final class WinterCoating {
         int initial=budget.changes();boolean pending=false;
         var offsets=offsets(side);
         int ceiling=surface(level,x,z,false,budget);
-        for(var offset:offsets)ceiling=Math.max(ceiling,surface(level,x+offset[0],z+offset[1],false,budget));
+        for(var offset:offsets)ceiling=Math.max(ceiling,surface(level,x+offset.dx(),z+offset.dz(),false,budget));
         int start=Math.min(level.getMaxBuildHeight()-1,ceiling+Math.max(top,MAX_REACH));
         int floor=surface(level,x,z,true,budget);
         int bottom=Math.max(floor,Math.max(level.getMinBuildHeight(),ceiling-i(COATING_DEPTH)));
@@ -144,28 +147,37 @@ public final class WinterCoating {
         if(pending||budget.changes()>initial)requestColumn(level,x,z);
     }
     private record Plan(BlockState state,Direction face) {}
-    private static Plan plan(ServerLevel level,BlockPos pos,WinterTerrain.Thickness profile,List<int[]> offsets) {
+    private record Offset(int dx,int dz,int distance,Direction face) {
+        private Offset(int dx,int dz,int distance) {
+            this(dx,dz,distance,Math.abs(dx)>=Math.abs(dz)?(dx<0?Direction.EAST:Direction.WEST):(dz<0?Direction.SOUTH:Direction.NORTH));
+        }
+    }
+    private static Plan plan(ServerLevel level,BlockPos pos,WinterTerrain.Thickness profile,List<Offset> offsets) {
         for(int d=1;d<=profile.top();d++) {
             var p=pos.below(d);var s=level.getBlockState(p);
             if(anchor(level,p,s))return new Plan((d<=profile.topIce()?SeasonBlocks.RIME.get():SeasonBlocks.SNOW.get()).defaultBlockState(),Direction.UP);
             if(!replaceable(s))break;
         }
         for(var offset:offsets) {
-            int distance=Math.abs(offset[0])+Math.abs(offset[1]);if(distance>profile.sideIce()+profile.sideSnow())continue;
-            var p=pos.offset(offset[0],0,offset[1]);var s=level.getBlockState(p);
+            int distance=offset.distance();if(distance>profile.sideIce()+profile.sideSnow())continue;
+            var p=pos.offset(offset.dx(),0,offset.dz());var s=level.getBlockState(p);
             if(anchor(level,p,s)) {
-                var face=Math.abs(offset[0])>=Math.abs(offset[1])?(offset[0]<0?Direction.EAST:Direction.WEST):(offset[1]<0?Direction.SOUTH:Direction.NORTH);
-                return new Plan((distance<=profile.sideIce()?SeasonBlocks.RIME.get():SeasonBlocks.SNOW.get()).defaultBlockState(),face);
+                return new Plan((distance<=profile.sideIce()?SeasonBlocks.RIME.get():SeasonBlocks.SNOW.get()).defaultBlockState(),offset.face());
             }
         }
         return null;
     }
-    private static List<int[]> offsets(int radius) {
-        var result=new ArrayList<int[]>();
-        for(int d=1;d<=radius;d++)for(int dx=-d;dx<=d;dx++) {
-            int dz=d-Math.abs(dx);result.add(new int[]{dx,dz});if(dz!=0)result.add(new int[]{dx,-dz});
+    private static List<Offset> offsets(int radius) {return OFFSETS.get(radius);}
+    private static List<List<Offset>> buildOffsets() {
+        var cached=new ArrayList<List<Offset>>(MAX_SIDE_REACH+1);
+        for(int radius=0;radius<=MAX_SIDE_REACH;radius++) {
+            var result=new ArrayList<Offset>(2*radius*(radius+1));
+            for(int d=1;d<=radius;d++)for(int dx=-d;dx<=d;dx++) {
+                int dz=d-Math.abs(dx);result.add(new Offset(dx,dz,d));if(dz!=0)result.add(new Offset(dx,-dz,d));
+            }
+            cached.add(List.copyOf(result));
         }
-        return result;
+        return List.copyOf(cached);
     }
     private static boolean replaceable(BlockState s) {
         return s.isAir()||s.is(Blocks.SNOW)||s.is(Blocks.SHORT_GRASS)||s.is(Blocks.TALL_GRASS)
