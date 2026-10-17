@@ -14,6 +14,10 @@ neoForge {
             client()
             gameDirectory = file(providers.gradleProperty('deadEarthClientDirectory').orElse('run').get())
             if(providers.gradleProperty('deadEarthCinematicScreenshot').isPresent()) systemProperty 'deadearth.cinematicScreenshot','true'
+            if(providers.gradleProperty('deadEarthCinematicCloseup').isPresent()) {
+                programArgument '--width'; programArgument '1600'
+                programArgument '--height'; programArgument '900'
+            }
             jvmArgument '-Xmx6G'
             if (providers.gradleProperty('deadEarthClientSmoke').isPresent()) systemProperty 'deadearth.clientSmoke', 'true'
             if (providers.gradleProperty('deadEarthSeasonScreenshot').isPresent()) systemProperty 'deadearth.seasonScreenshot', 'true'
@@ -28,6 +32,7 @@ neoForge {
         server {
             server(); programArgument '--nogui'
             gameDirectory = file(providers.gradleProperty('deadEarthServerDirectory').orElse('run').get())
+            if(providers.gradleProperty('deadEarthCinematicCloseup').isPresent()) systemProperty 'deadearth.cinematicCloseup','true'
             if(providers.gradleProperty('deadEarthCinematicSmoke').isPresent()) {
                 systemProperty 'deadearth.cinematicServerSmoke','true'
                 systemProperty 'deadearth.testControls','true'

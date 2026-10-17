@@ -1,0 +1,31 @@
+{
+  "ok": true,
+  "model": {
+    "state": "queued",
+    "goal_id": "9e859f26-147d-4fbf-b626-905dc85d010f",
+    "source": "model",
+    "reason": "model_validated",
+    "event_id": "interrupted_harvest",
+    "metrics": {
+      "elapsed_ms": 30078,
+      "prompt_tokens": 337,
+      "output_tokens": 7
+    }
+  },
+  "duplicate": "already_queued",
+  "loaded_model_observations": 16,
+  "maximum_vram_bytes": 0,
+  "client": {
+    "fps": 60,
+    "ready": true,
+    "traces": 6
+  },
+  "ordinary_clock_samples": 29,
+  "test_world": "run-server-cinematic-live-5",
+  "date": "2026-10-17",
+  "screenshot": "test-grove-traces.png",
+  "stable_test_observation": true,
+  "game_clock_accelerated": false,
+  "rendering_during_generation_measured": false,
+  "cooperative_load_test": false
+}

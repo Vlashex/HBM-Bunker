@@ -71,7 +71,7 @@ public final class CinematicServerSmoke {
                 }
             }
             // Keep one known observation stable for this model/renderer fixture; scanner cadence is covered separately.
-            DeadEarthConfig.ZONE_INTERVAL.set(72000);DeadEarthConfig.DIRECTOR_ENABLED.set(true);ZoneLoaders.requestScan(server);
+            DeadEarthConfig.ZONE_INTERVAL.set(72000);DeadEarthConfig.DIRECTOR_ENABLED.set(!Boolean.getBoolean("deadearth.cinematicCloseup"));ZoneLoaders.requestScan(server);
         }
         void tick()throws Exception {
             if(finished)return;
@@ -83,7 +83,8 @@ public final class CinematicServerSmoke {
             for(var visitor:server.getPlayerList().getPlayers())if(visitor!=player&&visitor.tickCount>=40&&positioned.add(visitor.getUUID())) {
                 var nativeState=visitor.getPersistentData().getCompound("PlayerPersisted");nativeState.putBoolean("outpostzero:first_join_spawn_done",true);nativeState.remove("outpostzero:first_join_spawn_pending");visitor.getPersistentData().put("PlayerPersisted",nativeState);
                 clientSeen=true;visitor.setInvulnerable(true);visitor.setGameMode(GameType.SPECTATOR);
-                visitor.connection.teleport(8.5+OFFSET,73,3.5+OFFSET,0,30);
+                if(Boolean.getBoolean("deadearth.cinematicCloseup"))visitor.connection.teleport(4.5+OFFSET,71.6,10.5+OFFSET,26.565f,44.58f);
+                else visitor.connection.teleport(8.5+OFFSET,73,3.5+OFFSET,0,30);
                 DeadEarth.LOGGER.info("Cinematic smoke client positioned in test grove");
             }
             var runtime=DeadEarth.runtime(server);
@@ -93,7 +94,7 @@ public final class CinematicServerSmoke {
                 var zone=ZoneLoaders.summaries(server);
                 if(zone.stream().anyMatch(z->z.finished()&&!z.complete())){finish(false,"fixture_zone_incomplete");return;}
             }
-            if(!ready&&brief.goal()!=null) {
+            if(!ready&&(brief.goal()!=null||Boolean.getBoolean("deadearth.cinematicCloseup")&&server.getTickCount()>=40)) {
                 runtime.bridge().start();Files.writeString(root.resolve("director-cinematic-ready.json"),"{\"ready\":true}");ready=true;
             }
             if(server.getTickCount()%20==0)writeStatus();

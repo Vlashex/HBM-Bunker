@@ -15,10 +15,11 @@
   "sound_entries": 103,
   "trace_patterns": 48,
   "catalog_sha256": "531e48ba9dfbb8acc4bb3e302d2c5ed41628291f3e95ba4488551211593d3a05",
-  "rendered_client_verified": false,
-  "real_model_live_choice_verified": false,
+  "rendered_client_verified": true,
+  "real_model_live_choice_verified": true,
   "full_pack_regression_gametests_pending": false,
   "launcher_pending": true,
   "physical_checks_precede_config_refinement": false,
-  "review_regressions_verified": true
+  "review_regressions_verified": true,
+  "release_pending": true
 }
