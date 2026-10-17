@@ -18,7 +18,11 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
     public record Rules(int decisionTicks,int goalTicks,int maxActive,int maxQueued,int historyLimit,
             int zoneCooldownTicks,int recoveryTicks,int heavyCooldownTicks,int maximumZoneAgeTicks,
             int maxWave,int maxEntities,int baseBudget,double scoreWeight,double playerWeight,
-            double pressureWeight,double lossWeight,int signalRadius,int spawnMinDistance,int maxEffectsPerTick) {}
+            double pressureWeight,double lossWeight,int signalRadius,int spawnMinDistance,int maxEffectsPerTick,Map<String,Double> coefficients) {
+        public Rules {coefficients=Map.copyOf(coefficients);}
+        public double coefficient(String key){return coefficients.get(key);}
+        public int count(String key){return coefficients.get(key).intValue();}
+    }
     public record Sound(String sound,double volume,double pitch) {}
     public record Trace(List<String> mask,int color) {}
     public record Wave(List<String> entities) {}
@@ -36,14 +40,14 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
         var r=object(root.get("rules"),"rules");
         fields(r,"decisionTicks","goalTicks","maxActive","maxQueued","historyLimit","zoneCooldownTicks","recoveryTicks",
                 "heavyCooldownTicks","maximumZoneAgeTicks","maxWave","maxEntities","baseBudget","scoreWeight","playerWeight",
-                "pressureWeight","lossWeight","signalRadius","spawnMinDistance","maxEffectsPerTick");
+                "pressureWeight","lossWeight","signalRadius","spawnMinDistance","maxEffectsPerTick","coefficients");
         var rules=new Rules(integer(r,"decisionTicks",200,144000),integer(r,"goalTicks",200,72000),integer(r,"maxActive",1,3),
             integer(r,"maxQueued",1,16),integer(r,"historyLimit",16,512),integer(r,"zoneCooldownTicks",200,1728000),
             integer(r,"recoveryTicks",200,1728000),integer(r,"heavyCooldownTicks",200,1728000),
             integer(r,"maximumZoneAgeTicks",20,72000),integer(r,"maxWave",1,32),integer(r,"maxEntities",1,64),
             integer(r,"baseBudget",1,16),number(r,"scoreWeight",0,10),number(r,"playerWeight",0,10),
             number(r,"pressureWeight",0,10),number(r,"lossWeight",0,10),integer(r,"signalRadius",8,96),
-            integer(r,"spawnMinDistance",12,64),integer(r,"maxEffectsPerTick",1,8));
+            integer(r,"spawnMinDistance",12,64),integer(r,"maxEffectsPerTick",1,8),coefficients(r));
         var sounds=new TreeMap<String,Sound>();
         for(var e:entries(root,"sounds",1,160)) {
             var o=object(e.getValue(),"sound");fields(o,"sound","volume","pitch");
@@ -120,6 +124,31 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
             String hash=HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(new Gson().toJson(root).getBytes(StandardCharsets.UTF_8)));
             return new CinematicCatalog(hash,rules,Map.copyOf(sounds),Map.copyOf(traces),Map.copyOf(waves),Map.copyOf(events));
         } catch(java.security.NoSuchAlgorithmException impossible){throw new IllegalStateException(impossible);}
+    }
+    private static Map<String,Double> coefficients(JsonObject rules) {
+        var raw=object(rules.get("coefficients"),"coefficients");fields(raw,"valueNormalization","defenseNormalization","defenseBudgetWeight","playerLevelWeight","playerArmorWeight","deathMemoryTicks","playerRadius","nearRadius","farRadius","restAfter","minimumTraceDistance","maximumLoadedTraces","entityLifetimeTailTicks","approachAttempts","modelOptionLimit","optionsPerZone","affinityLimit","playerScoreMaximum","lossMaximum","retryTicks");
+        var values=new TreeMap<String,Double>();
+        values.put("valueNormalization",(double)number(raw,"valueNormalization",0.1,1000));
+        values.put("defenseNormalization",(double)number(raw,"defenseNormalization",0.1,1000));
+        values.put("defenseBudgetWeight",(double)number(raw,"defenseBudgetWeight",0,10));
+        values.put("playerLevelWeight",(double)number(raw,"playerLevelWeight",0,10));
+        values.put("playerArmorWeight",(double)number(raw,"playerArmorWeight",0,10));
+        values.put("deathMemoryTicks",(double)integer(raw,"deathMemoryTicks",200,72000));
+        values.put("playerRadius",(double)integer(raw,"playerRadius",16,256));
+        values.put("nearRadius",(double)integer(raw,"nearRadius",1,16));
+        values.put("farRadius",(double)integer(raw,"farRadius",16,256));
+        values.put("restAfter",(double)integer(raw,"restAfter",1,10));
+        values.put("minimumTraceDistance",(double)integer(raw,"minimumTraceDistance",2,32));
+        values.put("maximumLoadedTraces",(double)integer(raw,"maximumLoadedTraces",1,128));
+        values.put("entityLifetimeTailTicks",(double)integer(raw,"entityLifetimeTailTicks",0,72000));
+        values.put("approachAttempts",(double)integer(raw,"approachAttempts",1,32));
+        values.put("modelOptionLimit",(double)integer(raw,"modelOptionLimit",1,8));
+        values.put("optionsPerZone",(double)integer(raw,"optionsPerZone",1,8));
+        values.put("affinityLimit",(double)number(raw,"affinityLimit",0.1,4));
+        values.put("playerScoreMaximum",(double)number(raw,"playerScoreMaximum",1,100));
+        values.put("lossMaximum",(double)number(raw,"lossMaximum",1,100));
+        values.put("retryTicks",(double)integer(raw,"retryTicks",20,72000));
+        return Map.copyOf(values);
     }
     public static boolean validTrigger(String value) {
         var parts=value.split(":",-1);return parts.length<=2&&TRIGGERS.contains(parts[0])&&(parts.length==1||ROLES.contains(parts[1]));

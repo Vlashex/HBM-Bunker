@@ -19,7 +19,29 @@
     "lossWeight": 1.5,
     "signalRadius": 32,
     "spawnMinDistance": 20,
-    "maxEffectsPerTick": 2
+    "maxEffectsPerTick": 2,
+    "coefficients": {
+      "valueNormalization": 10,
+      "defenseNormalization": 16,
+      "defenseBudgetWeight": 0.15,
+      "playerLevelWeight": 0.1,
+      "playerArmorWeight": 0.25,
+      "deathMemoryTicks": 6000,
+      "playerRadius": 96,
+      "nearRadius": 6,
+      "farRadius": 64,
+      "restAfter": 3,
+      "minimumTraceDistance": 8,
+      "maximumLoadedTraces": 48,
+      "entityLifetimeTailTicks": 1200,
+      "approachAttempts": 12,
+      "modelOptionLimit": 8,
+      "optionsPerZone": 4,
+      "affinityLimit": 4,
+      "playerScoreMaximum": 10,
+      "lossMaximum": 4,
+      "retryTicks": 200
+    }
   },
   "sounds": {
     "mutationcraft_entity_assimilated_bear_ambient": {

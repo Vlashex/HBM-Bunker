@@ -43,7 +43,7 @@ public final class CinematicEngine {
     public CinematicCatalog frozen(Operation op){return frozen.get(op.id);}
     public static CinematicEngine restore(Snapshot s) {
         if(s==null||s.operations==null||s.history==null||s.operations.size()>19||s.history.size()>512||s.nextDecision<0
-                ||s.recoveryUntil<0||s.heavyUntil<0||s.pressuresSinceRest<0||s.pressuresSinceRest>3)throw bad("snapshot");
+                ||s.recoveryUntil<0||s.heavyUntil<0||s.pressuresSinceRest<0||s.pressuresSinceRest>10)throw bad("snapshot");
         var engine=new CinematicEngine();engine.nextDecision=s.nextDecision;engine.recoveryUntil=s.recoveryUntil;
         engine.heavyUntil=s.heavyUntil;engine.pressuresSinceRest=s.pressuresSinceRest;
         var requests=new HashSet<UUID>();
@@ -77,7 +77,7 @@ public final class CinematicEngine {
         if(goal!=null&&goal.epoch.equals(epoch)&&goal.catalogRevision.equals(catalog.revision())&&c.now<goal.expires) return goal;
         goal=null;
         if(c.now<nextDecision||operations.size()>=catalog.rules().maxQueued()+catalog.rules().maxActive())return null;
-        var options=options(catalog,c);nextDecision=Math.addExact(c.now,catalog.rules().decisionTicks());
+        var options=options(catalog,c);nextDecision=Math.addExact(c.now,options.isEmpty()?catalog.rules().count("retryTicks"):catalog.rules().decisionTicks());
         if(options.isEmpty())return null;
         goal=new Goal(UUID.randomUUID(),epoch,catalog.revision(),c.now,Math.addExact(c.now,catalog.rules().goalTicks()),options);
         return goal;
@@ -93,15 +93,15 @@ public final class CinematicEngine {
             for(var e:catalog.events().values()) {
                 if(!e.seasons().contains(c.season)||z.value<e.minScore()||z.players<e.minPlayers()||e.heavy()&&c.now<heavyUntil)continue;
                 if(history.stream().anyMatch(h->h.eventId.equals(e.id())&&c.now-h.tick<e.cooldownTicks()))continue;
-                var factors=Map.of("value",Math.log1p(Math.max(0,z.value))/10,"defense",Math.min(z.armed,32)/16d,
-                        "empty_defense",Math.min(z.empty,32)/16d,"pressure",Math.clamp(c.pressure-1,-1,2),
-                        "players",Math.min(z.players,6)/6d,"losses",Math.clamp(z.losses,0,4));
+                var factors=Map.of("value",Math.log1p(Math.max(0,z.value))/r.coefficient("valueNormalization"),"defense",Math.min(z.armed,32)/r.coefficient("defenseNormalization"),
+                        "empty_defense",Math.min(z.empty,32)/r.coefficient("defenseNormalization"),"pressure",Math.clamp(c.pressure-1,-1,2),
+                        "players",Math.min(z.players,6)/6d,"losses",Math.clamp(z.losses,0,r.coefficient("lossMaximum")));
                 double affinity=e.affinity().entrySet().stream().mapToDouble(a->a.getValue()*factors.get(a.getKey())).sum();
-                double weight=e.weight()*Math.exp(Math.clamp(affinity,-4,4));
+                double weight=e.weight()*Math.exp(Math.clamp(affinity,-r.coefficient("affinityLimit"),r.coefficient("affinityLimit")));
                 // Losses lower pressure and the allotted finite head count; defense also subtracts.
                 int budget=(int)Math.floor(r.baseBudget()+r.scoreWeight()*Math.log1p(Math.max(0,z.value))
-                        +r.playerWeight()*Math.clamp(z.playerScore,0,10)+r.pressureWeight()*(c.pressure-1)
-                        -r.lossWeight()*Math.max(0,z.losses)-Math.min(z.armed,16)*.15);
+                        +r.playerWeight()*Math.clamp(z.playerScore,0,r.coefficient("playerScoreMaximum"))+r.pressureWeight()*(c.pressure-1)
+                        -r.lossWeight()*Math.max(0,z.losses)-Math.min(z.armed,16)*r.coefficient("defenseBudgetWeight"));
                 out.add(new Option(e.id(),z.id,e.title(),e.tactic(),e.faction(),weight,Math.clamp(budget,1,r.maxWave())));
             }
         }
@@ -109,7 +109,7 @@ public final class CinematicEngine {
                 .thenComparing(Option::eventId).thenComparing(Option::zoneId));
         // Diversity across tactics and zones, bounded model context.
         var shortlist=new ArrayList<Option>();var counts=new HashMap<String,Integer>();
-        for(var o:out)if(counts.getOrDefault(o.zoneId,0)<4){shortlist.add(o);counts.merge(o.zoneId,1,Integer::sum);if(shortlist.size()==8)break;}
+        for(var o:out)if(counts.getOrDefault(o.zoneId,0)<r.count("optionsPerZone")){shortlist.add(o);counts.merge(o.zoneId,1,Integer::sum);if(shortlist.size()==r.count("modelOptionLimit"))break;}
         return List.copyOf(shortlist);
     }
     private static double lottery(Option o,long cycle) {
@@ -193,7 +193,7 @@ public final class CinematicEngine {
     private void finish(Operation op,String outcome,long now,Rules rules,World world) {
         operations.remove(op.id);frozen.remove(op.id);history.add(new History(op.requestId,op.id,op.eventId,op.zoneId,now,outcome,op.spent));
         pressuresSinceRest++;
-        if(pressuresSinceRest>=3||outcome.equals("repelled")||outcome.equals("contained")) {
+        if(pressuresSinceRest>=rules.count("restAfter")||outcome.equals("repelled")||outcome.equals("contained")) {
             recoveryUntil=Math.max(recoveryUntil,Math.addExact(now,rules.recoveryTicks()));pressuresSinceRest=0;
         }
         trim(rules.historyLimit());world.checkpoint();

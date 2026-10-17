@@ -143,4 +143,18 @@ class CinematicEngineTest {
         assertEquals(current,engine.operations().getFirst().budget());
     }
 
+    @Test void emptyInitialScanRetriesQuicklyRatherThanConsumingAnEntireDecisionCycle()throws Exception {
+        var c=catalog();var engine=new CinematicEngine();
+        assertNull(engine.brief(EPOCH,c,new CinematicEngine.Context(0,2,"CALM",1,List.of()),true));
+        assertNotNull(engine.brief(EPOCH,c,context(200,"CALM"),true));
+    }
+    @Test void remainingWeightsCanBeChangedInDataWithoutRecompiling()throws Exception {
+        var raw=JsonParser.parseString(source()).getAsJsonObject();var rules=raw.getAsJsonObject("rules");
+        var coefficients=rules.has("coefficients")?rules.getAsJsonObject("coefficients"):new JsonObject();
+        coefficients.addProperty("defenseBudgetWeight",5);rules.add("coefficients",coefficients);
+        var configured=assertDoesNotThrow(()->CinematicCatalog.parse(raw.toString()));
+        var ctx=new CinematicEngine.Context(0,2,"CALM",1,List.of(new CinematicEngine.Zone(ZONE,100,8,0,0,true,false,2,3,0)));
+        assertTrue(new CinematicEngine().options(configured,ctx).stream().allMatch(o->o.budget()==1));
+    }
+
 }

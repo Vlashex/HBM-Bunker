@@ -67,16 +67,18 @@ public final class CinematicDirector implements CinematicEngine.World {
     private long now(){return runtime.campaign().campaign().activeTicks();}
     private boolean enabled(){return b(DIRECTOR_ENABLED)&&catalog!=null&&store.enabled()&&fault==null;}
     public CinematicEngine.Context context() {
+        if(catalog==null)return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.of());
+        var rules=catalog.rules();var history=runtime.snapshot().observations().history();
         var summaries=ZoneLoaders.summaries(server);var zones=new ArrayList<CinematicEngine.Zone>();
         for(var z:ZoneLoaders.zones(server)) {
             var scan=summaries.stream().filter(s->s.id().equals(z.id())).findFirst();if(scan.isEmpty())continue;
             var s=scan.get();var center=z.loaders().getFirst();
             var players=server.getPlayerList().getPlayers().stream().filter(p->!p.isSpectator()&&p.isAlive()
                 &&p.level().dimension().location().toString().equals(z.dimension())
-                &&p.distanceToSqr(center.x(),center.y(),center.z())<=96*96).toList();
-            double playerScore=players.stream().mapToDouble(p->Math.min(5,p.experienceLevel/10d)+p.getArmorValue()/4d).average().orElse(0);
-            long deaths=runtime.snapshot().observations().history().stream().filter(h->h.kind()==dev.deadearth.observation.ObservationLog.Kind.DEATH
-                &&now()-h.tick()<=6000&&players.stream().anyMatch(p->p.getUUID().equals(h.player()))).count();
+                &&p.distanceToSqr(center.x(),center.y(),center.z())<=rules.count("playerRadius")*rules.count("playerRadius")).toList();
+            double playerScore=players.stream().mapToDouble(p->Math.min(5,p.experienceLevel*rules.coefficient("playerLevelWeight"))+p.getArmorValue()*rules.coefficient("playerArmorWeight")).average().orElse(0);
+            long deaths=history.stream().filter(h->h.kind()==dev.deadearth.observation.ObservationLog.Kind.DEATH
+                &&now()-h.tick()<=rules.count("deathMemoryTicks")&&players.stream().anyMatch(p->p.getUUID().equals(h.player()))).count();
             zones.add(new CinematicEngine.Zone(z.id().toString(),s.value(),s.armedRank(),s.emptyRank(),s.ageTicks(),s.complete(),s.overflow(),players.size(),playerScore,deaths));
         }
         return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.copyOf(zones));
@@ -145,7 +147,7 @@ public final class CinematicDirector implements CinematicEngine.World {
     private ServerLevel level(CinematicEngine.Operation op){var z=zone(op);return z==null?null:server.getLevel(ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION,ResourceLocation.parse(z.dimension())));}
     @Override public boolean ready(CinematicEngine.Operation op) {
         var z=zone(op);var level=level(op);if(z==null||level==null)return false;var center=z.loaders().getFirst();
-        return level.hasChunkAt(new BlockPos(center.x(),center.y(),center.z()))&&level.players().stream().anyMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(center.x(),center.y(),center.z())<=96*96);
+        return level.hasChunkAt(new BlockPos(center.x(),center.y(),center.z()))&&level.players().stream().anyMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(center.x(),center.y(),center.z())<=rules(op).count("playerRadius")*rules(op).count("playerRadius"));
     }
     @Override public Set<String> signals(CinematicEngine.Operation op) {
         var facts=new HashSet<>(signals.getOrDefault(op.id(),Set.of()));var level=level(op);if(level==null)return facts;
@@ -157,20 +159,23 @@ public final class CinematicDirector implements CinematicEngine.World {
         }
         for(String role:CinematicCatalog.ROLES) {
             var pos=anchor(op,role,0);if(pos==null)continue;
-            if(level.players().stream().anyMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(pos))<=36)){facts.add("near:"+role);facts.add("near");near=true;}
+            if(level.players().stream().anyMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(pos))<=Math.pow(rules(op).count("nearRadius"),2))){facts.add("near:"+role);facts.add("near");near=true;}
         }
-        if(!near&&level.players().stream().noneMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(center(op)))<=64*64))facts.add("far");
+        if(!near&&level.players().stream().noneMatch(p->!p.isSpectator()&&p.isAlive()&&p.distanceToSqr(Vec3.atCenterOf(center(op)))<=Math.pow(rules(op).count("farRadius"),2)))facts.add("far");
         long armed=ZoneLoaders.summaries(server).stream().filter(z->z.id().toString().equals(op.zoneId())&&z.complete()).mapToLong(ZoneScanner.Summary::armedRank).findFirst().orElse(-1);
         if(armed>=0){long old=armedBaseline.computeIfAbsent(op.id(),id->armed);if(armed>old)facts.add("repair");}
         if(op.spent()>0&&owned.values().stream().noneMatch(e->e.isAlive()&&!e.isRemoved()&&op.id().equals(e.getPersistentData().getUUID("dead_earth:director_operation"))))facts.add("clear");
         return facts;
+    }
+    private CinematicCatalog.Rules rules(CinematicEngine.Operation op) {
+        var saved=store.engine().frozen(op);return saved==null?catalog.rules():saved.rules();
     }
     private BlockPos center(CinematicEngine.Operation op){var l=zone(op).loaders().getFirst();return new BlockPos(l.x(),l.y(),l.z());}
     private BlockPos anchor(CinematicEngine.Operation op,String role,int attempt) {
         var level=level(op);if(level==null)return null;var center=center(op);
         int index=switch(role){case "flank"->1;case "rear"->2;case "distraction"->3;default->0;};
         double yaw=(op.id().getLeastSignificantBits()&65535)/65536d*Math.PI*2+index*Math.PI/2+(attempt%5-2)*.18;
-        int radius=Math.max(12,catalog.rules().signalRadius()-8)+attempt/5*2;
+        int radius=Math.max(12,rules(op).signalRadius()-rules(op).count("minimumTraceDistance"))+attempt/5*2;
         int x=center.getX()+(int)Math.round(Math.cos(yaw)*radius),z=center.getZ()+(int)Math.round(Math.sin(yaw)*radius);
         var check=new BlockPos(x,center.getY(),z);if(!level.hasChunkAt(check))return null;
         int y=level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,x,z);var pos=new BlockPos(x,y,z);
@@ -192,9 +197,9 @@ public final class CinematicDirector implements CinematicEngine.World {
                 level.playSound(null,point,sound,SoundSource.AMBIENT,(float)s.volume(),(float)s.pitch());
             }
             case "trace" -> {
-                if(marks.values().stream().mapToInt(List::size).sum()>=48)return;
-                for(int attempt=0;attempt<12;attempt++) {
-                    var pos=anchor(op,action.role(),attempt);if(pos==null||!level.getBlockState(pos).isAir()||!unseen(level,Vec3.atCenterOf(pos),8))continue;
+                if(marks.values().stream().mapToInt(List::size).sum()>=catalog.rules().count("maximumLoadedTraces"))return;
+                for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
+                    var pos=anchor(op,action.role(),attempt);if(pos==null||!level.getBlockState(pos).isAir()||!unseen(level,Vec3.atCenterOf(pos),rules(op).count("minimumTraceDistance")))continue;
                     if(level.setBlock(pos,TraceContent.TRACE.get().defaultBlockState(),3)&&level.getBlockEntity(pos) instanceof TraceContent.TraceEntity trace) {
                         trace.configure(op.id(),action.role(),frozen.traces().get(action.key()),op.expires());observeTrace(trace);break;
                     }
@@ -206,13 +211,13 @@ public final class CinematicDirector implements CinematicEngine.World {
             }
             case "wave" -> {
                 var types=frozen.waves().get(action.key()).entities();
-                for(int i=0;i<count;i++)for(int attempt=0;attempt<12;attempt++) {
-                    var pos=anchor(op,action.role(),attempt+i*3);if(pos==null||!unseen(level,Vec3.atCenterOf(pos),catalog.rules().spawnMinDistance()))continue;
+                for(int i=0;i<count;i++)for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
+                    var pos=anchor(op,action.role(),attempt+i*3);if(pos==null||!unseen(level,Vec3.atCenterOf(pos),frozen.rules().spawnMinDistance()))continue;
                     var entity=BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(types.get(i%types.size()))).create(level);
                     if(!(entity instanceof Mob mob)){if(entity!=null)entity.discard();break;}
                     mob.moveTo(pos.getX()+.5,pos.getY(),pos.getZ()+.5,0,0);
                     if(!level.noCollision(mob)||level.containsAnyLiquid(mob.getBoundingBox())){mob.discard();continue;}
-                    mob.getPersistentData().putUUID("dead_earth:director_operation",op.id());mob.getPersistentData().putLong("dead_earth:director_expires",op.expires()+1200);
+                    mob.getPersistentData().putUUID("dead_earth:director_operation",op.id());mob.getPersistentData().putLong("dead_earth:director_expires",op.expires()+frozen.rules().count("entityLifetimeTailTicks"));
                     mob.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),MobSpawnType.EVENT,null);
                     if(level.addFreshEntity(mob))owned.put(mob.getUUID(),mob);break;
                 }

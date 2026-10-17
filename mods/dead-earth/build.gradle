@@ -36,7 +36,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }
