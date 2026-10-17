@@ -1,0 +1,77 @@
+{
+  "baseTag": "v5.0.0",
+  "baseCommit": "d20e245790225d8e49cc4754ce343015993762b3",
+  "branch": "perf/dead-earth-post-v5",
+  "testedCodeHead": "22be566f1bc95be1a0f4a80f2ad1404886a794cc",
+  "recordedAtUtc": "2026-10-17T19:25:47.465062+00:00",
+  "commits": {
+    "P01": {
+      "commit": "1dfadc7763c9f66bbe68accb871f95c227cd89ea",
+      "independentReversePatchCheck": true,
+      "paths": [
+        "docs/performance/P01-winter-offsets.md",
+        "mods/dead-earth/src/main/java/dev/deadearth/climate/WinterCoating.java",
+        "mods/dead-earth/src/test/java/dev/deadearth/climate/WinterOffsetsTest.java"
+      ]
+    },
+    "P02": {
+      "commit": "b8b25fc2890d4ef30b4255011ad72a25887c4dd3",
+      "independentReversePatchCheck": true,
+      "paths": [
+        "docs/performance/P02-zone-reports.md",
+        "mods/dead-earth/src/main/java/dev/deadearth/gametest/ZoneReportPerformanceGameTests.java",
+        "mods/dead-earth/src/main/java/dev/deadearth/zone/ZoneScanner.java"
+      ]
+    },
+    "P03": {
+      "commit": "22be566f1bc95be1a0f4a80f2ad1404886a794cc",
+      "independentReversePatchCheck": true,
+      "paths": [
+        "docs/performance/P03-snapshot-worker.md",
+        "mods/dead-earth/src/main/java/dev/deadearth/CoordinatorRuntime.java",
+        "mods/dead-earth/src/main/java/dev/deadearth/bridge/AsyncSnapshotPublisher.java",
+        "mods/dead-earth/src/main/java/dev/deadearth/bridge/BridgeController.java",
+        "mods/dead-earth/src/main/java/dev/deadearth/bridge/SnapshotCache.java",
+        "mods/dead-earth/src/main/java/dev/deadearth/gametest/BridgeGameTests.java",
+        "mods/dead-earth/src/test/java/dev/deadearth/bridge/AsyncSnapshotPublisherTest.java"
+      ]
+    }
+  },
+  "validation": {
+    "unit": {
+      "tests": 173,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "gameTest": {
+      "passed": 87,
+      "failed": 0,
+      "durationSeconds": 34.48,
+      "freshWorld": true
+    },
+    "packagingTests": 16,
+    "sourceCheck": true,
+    "redWinterListReuse": true,
+    "redZonePublicationCount": true,
+    "redWorkerMissing": true
+  },
+  "safety": {
+    "maxSnapshotPayloads": 2,
+    "snapshotWorkersPerOpenBridge": 1,
+    "worldAccessOnWorker": false,
+    "savedDataSchemaChanged": false,
+    "configChanged": false,
+    "checkpointsStillSynchronous": true,
+    "liveDeploymentChanged": false,
+    "v5ArchiveChanged": false,
+    "newReleaseBuilt": false,
+    "computerUse": false
+  },
+  "measurementLimits": {
+    "msptBenchmark": false,
+    "fpsBenchmark": false,
+    "normalClientRerun": false,
+    "operationCountsAreCodeAnalysis": true
+  }
+}
