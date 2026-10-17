@@ -6,12 +6,21 @@ group = 'dev.deadearth'
 version = '4.1.1'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Reproducible stress-test instrumentation is excluded from ordinary release builds.
+if (providers.gradleProperty('deadEarthLoadTest').isPresent()) {
+    sourceSets.main.java.srcDir('../../tools/loadtest/java')
+}
 repositories { mavenCentral() }
 neoForge {
     version = '21.1.262'
     runs {
         client {
             client()
+            if (providers.gradleProperty('deadEarthLoadTest').isPresent()) {
+                systemProperty 'deadearth.loadTestOutput', providers.gradleProperty('deadEarthLoadTestOutput').get()
+                programArgument '--width'; programArgument '1600'
+                programArgument '--height'; programArgument '900'
+            }
             gameDirectory = file(providers.gradleProperty('deadEarthClientDirectory').orElse('run').get())
             if(providers.gradleProperty('deadEarthCinematicScreenshot').isPresent()) systemProperty 'deadearth.cinematicScreenshot','true'
             if(providers.gradleProperty('deadEarthCinematicCloseup').isPresent()) {
@@ -33,6 +42,11 @@ neoForge {
         }
         server {
             server(); programArgument '--nogui'
+            if (providers.gradleProperty('deadEarthLoadTest').isPresent()) {
+                systemProperty 'deadearth.loadTestOutput', providers.gradleProperty('deadEarthLoadTestOutput').get()
+                jvmArgument '-Xmx5G'
+                systemProperty 'deadearth.testControls', 'true'
+            }
             gameDirectory = file(providers.gradleProperty('deadEarthServerDirectory').orElse('run').get())
             if(providers.gradleProperty('deadEarthCinematicCloseup').isPresent()) systemProperty 'deadearth.cinematicCloseup','true'
             if(providers.gradleProperty('deadEarthCinematicSmoke').isPresent()) {
