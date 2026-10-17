@@ -106,3 +106,12 @@
   Проверяй вместимость до claim/checkpoint; не очищай существующий лут.
   Загрузка с диска в тесте требует нового DimensionDataStorage: set(name,null)
   создаёт negative cache и не имитирует настоящий перезапуск.
+
+- v5: `IntroDifficulty` использует сохранённые activeTicks; защита бункера —
+  `starter/SafeBunker*`, оригинальные блоки и фиксированный deadline, без восстановления.
+  HBM worker читает только опубликованный снимок; raw snapshots имеют отдельный адаптер.
+  Inventory Sorter guard проверяет текущее меню на серверном потоке до всех actions.
+  Namespace `dead_earth_inventory` входит в полный игровой прогон, шаблон в своём data/.
+  Новые моды имеют side в lock; shaders.lock.json и pack/client-config только для клиента.
+  Клиентская smoke-проверка при запрете снимков требует deadearth.clientNoCapture=true.
+  Активный Iris pipeline проверяется отдельно от наличия выбранного shader ZIP.

@@ -16,7 +16,7 @@ public final class SeasonHooks {
     public static int counterRead(CompoundTag tag,String key,double factor) {
         int previous=tag.getInt(key);
         if (!COUNTERS.contains(key)) return previous;
-        if(!Double.isFinite(factor)||factor<0||factor>16) throw new IllegalArgumentException("Invalid counter factor");
+        if(!Double.isFinite(factor)||factor<0||factor>64) throw new IllegalArgumentException("Invalid counter factor");
         String own="dead_earth:carry/"+key;
         double carry=tag.getDouble(own);
         if(!Double.isFinite(carry)||carry<0||carry>=1) carry=0;

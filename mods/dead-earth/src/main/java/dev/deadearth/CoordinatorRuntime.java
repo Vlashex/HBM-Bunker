@@ -208,6 +208,7 @@ public final class CoordinatorRuntime {
         if (!enabled()) { tickBridge(); return; }
         try {
             campaign.advance(server.getPlayerCount() > 0);
+            dev.deadearth.starter.SafeBunker.tick(server,this);
             if(server.getPlayerCount()==0)statistics.retain(java.util.Set.of());
             if(server.getPlayerCount()>0 && campaign.campaign().activeTicks()%i(SAMPLE_TICKS)==0)
                 for(var sample:statistics.collect(server.getPlayerList().getPlayers())) adaptive.observe(sample);

@@ -34,6 +34,7 @@ public final class DeadEarth {
         dev.deadearth.content.SeasonBlocks.register(modBus);
         dev.deadearth.content.ZoneLoaderContent.register(modBus);
         dev.deadearth.starter.StarterSupplies.register(modBus);
+        dev.deadearth.starter.SafeBunker.install();
         dev.deadearth.zone.ZoneSentryIndex.install();
         modBus.addListener(dev.deadearth.climate.SeasonNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::started);
@@ -74,6 +75,7 @@ public final class DeadEarth {
         dev.deadearth.compat.SeasonHooks.reset();
         dev.deadearth.zone.ZoneLoaders.close(event.getServer());
         dev.deadearth.zone.ZoneSentryIndex.close(event.getServer());
+        dev.deadearth.starter.SafeBunker.close(event.getServer());
     }
     private void tick(ServerTickEvent.Post event) {
         dev.deadearth.zone.ZoneLoaders.tick(event.getServer());

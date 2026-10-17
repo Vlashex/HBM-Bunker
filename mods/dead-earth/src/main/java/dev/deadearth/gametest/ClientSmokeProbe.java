@@ -27,15 +27,15 @@ public final class ClientSmokeProbe {
     }
     private void tick(ClientTickEvent.Post event) {
         var client = Minecraft.getInstance();
-        if(Boolean.getBoolean("deadearth.cinematicScreenshot")&&System.nanoTime()-openedAt>240_000_000_000L) {
-            DeadEarth.LOGGER.error("Cinematic test client exceeded startup bound");client.stop();return;
+        if(System.nanoTime()-openedAt>240_000_000_000L) {
+            DeadEarth.LOGGER.error("Test client exceeded startup bound");client.stop();return;
         }
         if(Boolean.getBoolean("deadearth.seasonScreenshot")||Boolean.getBoolean("deadearth.cinematicScreenshot")) client.options.hideGui=true;
         if (client.player == null || client.level == null) return;
         if (finished) {
             if(Boolean.getBoolean("deadearth.seasonScreenshot")&&finishTicks%200==199) {
                 DeadEarth.LOGGER.info("DEAD_EARTH_VISUAL_SMOKE fps={}",client.getFps());
-                Screenshot.grab(client.gameDirectory,client.getMainRenderTarget(),message->DeadEarth.LOGGER.info("Smoke screenshot: {}",message.getString()));
+                if(!Boolean.getBoolean("deadearth.clientNoCapture"))Screenshot.grab(client.gameDirectory,client.getMainRenderTarget(),message->DeadEarth.LOGGER.info("Smoke screenshot: {}",message.getString()));
             }
             if (++finishTicks == holdTicks) {
                 DeadEarth.LOGGER.info("DEAD_EARTH_CLIENT_SMOKE completed; shutting down owned test client");
@@ -69,7 +69,29 @@ public final class ClientSmokeProbe {
                     dev.deadearth.config.DeadEarthConfig.i(dev.deadearth.config.DeadEarthConfig.PHASE_MINUTES),
                     dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.ADAPTIVE_ABOVE),
                     dev.deadearth.config.DeadEarthConfig.d(dev.deadearth.config.DeadEarthConfig.HEALTH_INFLUENCE));
-                Screenshot.grab(client.gameDirectory, client.getMainRenderTarget(), message -> DeadEarth.LOGGER.info("Smoke screenshot: {}", message.getString()));
+                if(!Boolean.getBoolean("deadearth.clientNoCapture"))Screenshot.grab(client.gameDirectory, client.getMainRenderTarget(), message -> DeadEarth.LOGGER.info("Smoke screenshot: {}", message.getString()));
+                if(Boolean.getBoolean("deadearth.clientShaderSmoke")) {
+                    try {
+                        var api=Class.forName("net.irisshaders.iris.api.v0.IrisApi");
+                        var instance=api.getMethod("getInstance").invoke(null);
+                        boolean shader=(boolean)api.getMethod("isShaderPackInUse").invoke(instance);
+                        var iris=Class.forName("net.irisshaders.iris.Iris");
+                        boolean fallback=(boolean)iris.getMethod("isFallback").invoke(null);
+                        boolean shaderError=((java.util.Optional<?>)iris.getMethod("getStoredError").invoke(null)).isPresent();
+                        var manager=iris.getMethod("getPipelineManager").invoke(null);
+                        var pipeline=manager.getClass().getMethod("getPipelineNullable").invoke(manager);
+                        String pipelineName=pipeline==null?"none":pipeline.getClass().getName();
+                        var required=java.util.List.of("sodium","iris","jade","inventorysorter","blockoutlinecustomizer","ferritecore","modernfix");
+                        var present=new java.util.TreeMap<String,Boolean>();
+                        for(var id:required)present.put(id,net.neoforged.fml.ModList.get().isLoaded(id));
+                        int glError=org.lwjgl.opengl.GL11.glGetError();
+                        boolean ready=shader&&!fallback&&!shaderError&&pipelineName.endsWith(".IrisRenderingPipeline")&&present.values().stream().allMatch(Boolean::booleanValue)&&glError==0;
+                        var report=java.util.Map.of("ready",ready,"shaderPackInUse",shader,"mods",present,"glError",glError,"fps",client.getFps(),"screenshots",false,"fallback",fallback,"shaderError",shaderError,"pipeline",pipelineName);
+                        java.nio.file.Files.writeString(client.gameDirectory.toPath().resolve("client-shader-result.json"),new com.google.gson.Gson().toJson(report));
+                        DeadEarth.LOGGER.info("DEAD_EARTH_SHADER_SMOKE {}",new com.google.gson.Gson().toJson(report));
+                        if(!ready){client.stop();return;}
+                    }catch(Exception invalid){DeadEarth.LOGGER.error("DEAD_EARTH_SHADER_SMOKE failed",invalid);client.stop();return;}
+                }
                 if(Boolean.getBoolean("deadearth.cinematicScreenshot")) {
                     int traces=0;
                     for(int x=-8;x<25;x++)for(int z=-8;z<25;z++)if(client.level.getBlockEntity(new net.minecraft.core.BlockPos(x+4096,71,z+4096)) instanceof dev.deadearth.content.TraceContent.TraceEntity)traces++;

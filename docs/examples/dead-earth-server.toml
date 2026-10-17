@@ -1,3 +1,12 @@
+[convenience]
+sortingAllowedModMenus = []
+
+[starter.protection]
+enabled = true
+minutes = 180
+preventAllBreakingInside = false
+scanBlocksPerTick = 4096
+
 [intro]
 enabled = true
 rampMinutes = 60

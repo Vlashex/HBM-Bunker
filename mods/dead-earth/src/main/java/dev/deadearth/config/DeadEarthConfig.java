@@ -1,8 +1,10 @@
 package dev.deadearth.config;
 import net.neoforged.neoforge.common.ModConfigSpec;
-/** Server config is stored in <world>/serverconfig and synced by NeoForge to clients. */
+/** Server config defaults to config/ and is synced by NeoForge to clients. */
 public final class DeadEarthConfig {
  private static final ModConfigSpec.Builder B=new ModConfigSpec.Builder();
+ public static final ModConfigSpec.ConfigValue<java.util.List<String>> SORT_ALLOWED_MENUS=B.define("convenience.sortingAllowedModMenus",java.util.List.<String>of(),
+  v->v instanceof java.util.List<?> list&&list.size()<=128&&list.stream().allMatch(x->x instanceof String s&&s.matches("[a-z0-9_.-]+:[a-z0-9_./-]+")));
  public static final ModConfigSpec.BooleanValue INTRO_ENABLED=B.define("intro.enabled",true);
  public static final ModConfigSpec.IntValue INTRO_MINUTES=B.defineInRange("intro.rampMinutes",60,0,1440);
  public static final ModConfigSpec.DoubleValue INTRO_INITIAL=B.defineInRange("intro.initialDifficulty",0.1,0.05,1.0);
@@ -122,6 +124,10 @@ public final class DeadEarthConfig {
  public static final ModConfigSpec.IntValue STARTER_LOADERS=B.defineInRange("starter.loaders",6,0,16);
  public static final ModConfigSpec.IntValue STARTER_DIRT=B.defineInRange("starter.dirt",256,0,512);
  public static final ModConfigSpec.IntValue STARTER_SAPLINGS=B.defineInRange("starter.saplingsPerType",4,0,64);
+ public static final ModConfigSpec.BooleanValue BUNKER_PROTECTION_ENABLED=B.define("starter.protection.enabled",true);
+ public static final ModConfigSpec.IntValue BUNKER_PROTECTION_MINUTES=B.defineInRange("starter.protection.minutes",180,0,10080);
+ public static final ModConfigSpec.BooleanValue BUNKER_PROTECT_ALL=B.define("starter.protection.preventAllBreakingInside",false);
+ public static final ModConfigSpec.IntValue BUNKER_SCAN_BUDGET=B.defineInRange("starter.protection.scanBlocksPerTick",4096,64,16384);
  public static final ModConfigSpec SPEC=B.build();
  private DeadEarthConfig(){}
  public static double d(ModConfigSpec.DoubleValue v){return SPEC.isLoaded()?v.get():v.getDefault();}

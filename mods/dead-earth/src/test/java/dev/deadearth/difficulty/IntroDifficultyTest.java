@@ -44,4 +44,9 @@ class IntroDifficultyTest {
         assertEquals(before,restored.view(ClimateCycle.Phase.CALM,36000));
         assertEquals(tag,restored.save(new CompoundTag(),null));
     }
+    @Test void largestConfiguredEvolutionProductCannotCrashCounterHooks() {
+        var tag = new CompoundTag(); tag.putInt("Timer",100);
+        // season<=4, pressure<=4 and native evolution multiplier<=4.
+        assertEquals(164,SeasonHooks.counterRead(tag,"Timer",64)+1);
+    }
 }

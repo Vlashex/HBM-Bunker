@@ -1,0 +1,91 @@
+{
+  "release": "5.0.0",
+  "coordinator": "4.0.0",
+  "recordedAtUtc": "2026-10-17T19:06:54.818644+00:00",
+  "environment": {
+    "minecraft": "1.21.1",
+    "neoforge": "21.1.262",
+    "java": 21
+  },
+  "unit": {
+    "tests": 164,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "gameTest": {
+    "required": 85,
+    "passed": 85,
+    "failed": 0,
+    "durationSeconds": 31.97,
+    "freshWorld": true
+  },
+  "packagingTests": {
+    "passed": 16,
+    "failed": 0
+  },
+  "normalServer": {
+    "freshWorld": true,
+    "bind": "127.0.0.1:25566",
+    "clientJoined": true,
+    "world": "dead_earth_v5_isolated"
+  },
+  "client": {
+    "fps": 89,
+    "glError": 0,
+    "shaderPackInUse": true,
+    "mods": {
+      "blockoutlinecustomizer": true,
+      "ferritecore": true,
+      "inventorysorter": true,
+      "iris": true,
+      "jade": true,
+      "modernfix": true,
+      "sodium": true
+    },
+    "pipeline": "net.irisshaders.iris.pipeline.IrisRenderingPipeline",
+    "ready": true,
+    "screenshots": false,
+    "shaderError": false,
+    "fallback": false
+  },
+  "artifact": {
+    "filename": "dead-earth-4.0.0.jar",
+    "version": "4.0.0",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.0.0.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 671737,
+    "sha256": "21dbf7b3f84417120e08dfdcfd26c5f40e7cd6c23552378089da25d4e8c84f21"
+  },
+  "regressions": {
+    "hbmRawSnapshot": {
+      "redReproduced": true,
+      "greenNativeCarveAndApply": true,
+      "unprotectedNeighborStillDestroyed": true
+    },
+    "sorterGhostRange": {
+      "redReproduced": true,
+      "greenFiveNativeWorkerTests": true,
+      "notClaimedAsProductionDupe": true
+    },
+    "largestEvolutionProduct": {
+      "redReproduced": true,
+      "supportedMaximum": 64
+    },
+    "bunkerDeadline": {
+      "before": 215999,
+      "expires": 216000,
+      "waitedThreeHours": false
+    }
+  },
+  "scope": {
+    "liveWorldChanged": false,
+    "existingClientModified": false,
+    "computerUse": false,
+    "screenshots": false,
+    "fpsBenchmark": false,
+    "tlauncherGuiTested": false,
+    "exhaustiveShaderVisualReview": false
+  }
+}
