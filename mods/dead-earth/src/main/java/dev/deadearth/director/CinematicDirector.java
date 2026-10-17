@@ -5,6 +5,7 @@ import dev.deadearth.CoordinatorRuntime;
 import dev.deadearth.DeadEarth;
 import dev.deadearth.campaign.SavedDataAccess;
 import dev.deadearth.content.TraceContent;
+import dev.deadearth.operator.CatalogStaging;
 import dev.deadearth.zone.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -30,6 +31,8 @@ public final class CinematicDirector implements CinematicEngine.World {
     private final CoordinatorRuntime runtime;
     private final CinematicStore store;
     private CinematicCatalog catalog;
+    private CatalogStaging.Document catalogSource;
+    private boolean catalogFilePresent;
     private String fault;
     private final Map<UUID,Set<String>> signals=new HashMap<>();
     private final Map<UUID,Long> armedBaseline=new HashMap<>();
@@ -38,6 +41,9 @@ public final class CinematicDirector implements CinematicEngine.World {
     private long lastTick=-1;
     public record Brief(String status,String catalogRevision,long activeTicks,String season,double pressure,
             CinematicEngine.Goal goal,List<CinematicEngine.History> recent,int active,int queued) {}
+    public record OperatorStatus(int protocol,UUID campaignId,UUID worldEpoch,String catalogRevision,String sourceHash,
+            boolean enabled,long activeTicks,List<CinematicEngine.Zone> zones) {}
+    public record OperatorResult(boolean accepted,String code,String revision,String sourceHash,UUID operationId,CinematicEngine.Option option) {}
     public CinematicDirector(MinecraftServer server,CoordinatorRuntime runtime) {
         this.server=server;this.runtime=runtime;
         store=CinematicStore.open(server.overworld(),runtime.campaign().campaign().campaignId());
@@ -48,19 +54,21 @@ public final class CinematicDirector implements CinematicEngine.World {
     public String reload() {
         runtime.requireServerThread();
         try {
-            Path path=FMLPaths.CONFIGDIR.get().resolve("dead-earth/director/catalog.json");String source;
-            if(Files.exists(path)) {
-                if(!Files.isRegularFile(path)||Files.isSymbolicLink(path)||Files.size(path)>CinematicCatalog.MAX_BYTES)throw new IllegalArgumentException("Catalog file");
-                source=Files.readString(path,StandardCharsets.UTF_8);
+            Path path=catalogPath();CatalogStaging.Document loaded;boolean present=Files.exists(path,LinkOption.NOFOLLOW_LINKS);
+            if(present) {
+                loaded=CatalogStaging.read(path);
             } else try(var input=CinematicDirector.class.getResourceAsStream("/data/dead_earth/director/catalog.json")) {
-                if(input==null)throw new IllegalStateException("Bundled catalog missing");source=new String(input.readNBytes(CinematicCatalog.MAX_BYTES+1),StandardCharsets.UTF_8);
+                if(input==null)throw new IllegalStateException("Bundled catalog missing");loaded=CatalogStaging.parse(new String(input.readNBytes(CinematicCatalog.MAX_BYTES+1),StandardCharsets.UTF_8));
             }
-            var next=CinematicCatalog.parse(source);
-            for(var sound:next.sounds().values())if(!BuiltInRegistries.SOUND_EVENT.containsKey(ResourceLocation.parse(sound.sound())))throw new IllegalArgumentException("Unknown sound: "+sound.sound());
-            for(var wave:next.waves().values())for(var id:wave.entities())
-                if(!BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(id)))throw new IllegalArgumentException("Unknown entity: "+id);
-            catalog=next;fault=null;return catalog.revision();
+            validateRegistry(loaded.catalog());catalogSource=loaded;catalogFilePresent=present;
+            catalog=loaded.catalog();fault=null;return catalog.revision();
         } catch(java.io.IOException invalid){throw new IllegalArgumentException("Cannot read director catalog",invalid);}
+    }
+    private static Path catalogPath(){return FMLPaths.CONFIGDIR.get().resolve("dead-earth/director/catalog.json");}
+    private static void validateRegistry(CinematicCatalog next) {
+        for(var sound:next.sounds().values())if(!BuiltInRegistries.SOUND_EVENT.containsKey(ResourceLocation.parse(sound.sound())))throw new IllegalArgumentException("Unknown sound: "+sound.sound());
+        for(var wave:next.waves().values())for(var id:wave.entities())
+            if(!BuiltInRegistries.ENTITY_TYPE.containsKey(ResourceLocation.parse(id)))throw new IllegalArgumentException("Unknown entity: "+id);
     }
     private long now(){return runtime.campaign().campaign().activeTicks();}
     private boolean enabled(){return b(DIRECTOR_ENABLED)&&catalog!=null&&store.enabled()&&fault==null;}
@@ -94,6 +102,58 @@ public final class CinematicDirector implements CinematicEngine.World {
     public Object status(){return store.enabled()?Map.of("operations",store.engine().operations().stream().map(o->Map.of(
         "id",o.id(),"eventId",o.eventId(),"zoneId",o.zoneId(),"state",o.state(),"node",o.node(),"budget",o.budget(),"spent",o.spent(),"expires",o.expires())).toList(),
         "history",store.engine().history(),"enabled",enabled()):Map.of("status","unsupported_save");}
+    public OperatorStatus operatorStatus() {
+        runtime.requireServerThread();
+        return new OperatorStatus(1,runtime.campaign().campaign().campaignId(),runtime.epoch(),catalog==null?"":catalog.revision(),
+            catalogSource==null?"":catalogSource.sourceHash(),enabled(),now(),context().zones());
+    }
+    private OperatorResult operatorResult(boolean accepted,String code,UUID operation,CinematicEngine.Option option) {
+        return new OperatorResult(accepted,code,catalog==null?"":catalog.revision(),catalogSource==null?"":catalogSource.sourceHash(),operation,option);
+    }
+    private OperatorResult operatorGuard(UUID epoch,String revision) {
+        runtime.requireServerThread();
+        if(!runtime.epoch().equals(epoch))return operatorResult(false,"stale_epoch",null,null);
+        if(revision!=null&&(catalog==null||!catalog.revision().equals(revision)))return operatorResult(false,"stale_catalog",null,null);
+        return null;
+    }
+    public OperatorResult operatorPreview(UUID epoch,String revision,String event,String zone) {
+        var rejected=operatorGuard(epoch,revision);if(rejected!=null)return rejected;
+        if(!enabled())return operatorResult(false,"disabled",null,null);
+        var preview=store.engine().previewManual(catalog,context(),true,event,zone);
+        return operatorResult(preview.accepted(),preview.code(),null,preview.option());
+    }
+    public OperatorResult operatorRun(UUID epoch,String revision,UUID request,String event,String zone) {
+        var rejected=operatorGuard(epoch,revision);if(rejected!=null)return rejected;
+        if(!enabled())return operatorResult(false,"disabled",null,null);
+        var verdict=store.engine().admitManual(request,event,zone,catalog,context(),true);
+        if(verdict.accepted())checkpoint();
+        return operatorResult(verdict.accepted(),verdict.code(),verdict.operationId(),null);
+    }
+    public OperatorResult operatorCancel(UUID epoch,UUID operation) {
+        var rejected=operatorGuard(epoch,null);if(rejected!=null)return rejected;
+        if(catalog==null||!store.enabled())return operatorResult(false,"disabled",operation,null);
+        boolean cancelled=cancel(operation);return operatorResult(cancelled,cancelled?"cancelled":"not_found",operation,null);
+    }
+    public OperatorResult operatorValidate(UUID epoch,UUID stage) {
+        var rejected=operatorGuard(epoch,null);if(rejected!=null)return rejected;
+        try {
+            var next=CatalogStaging.stage(catalogPath(),stage);validateRegistry(next.catalog());
+            return new OperatorResult(true,"validated",next.catalog().revision(),next.sourceHash(),null,null);
+        }catch(IllegalArgumentException invalid){return operatorResult(false,"invalid_catalog",null,null);}
+        catch(java.io.IOException invalid){return operatorResult(false,"io_error",null,null);}
+    }
+    public OperatorResult operatorApply(UUID epoch,String revision,UUID stage) {
+        var rejected=operatorGuard(epoch,revision);if(rejected!=null)return rejected;
+        if(catalogSource==null)return operatorResult(false,"catalog_unavailable",null,null);
+        try {
+            var next=CatalogStaging.stage(catalogPath(),stage);validateRegistry(next.catalog());
+            CatalogStaging.publish(catalogPath(),catalogSource,catalogFilePresent,next);
+            catalogSource=next;catalogFilePresent=true;catalog=next.catalog();fault=null;
+            return operatorResult(true,"applied",null,null);
+        }catch(CatalogStaging.SourceChangedException changed){return operatorResult(false,"source_changed",null,null);}
+        catch(IllegalArgumentException invalid){return operatorResult(false,"invalid_catalog",null,null);}
+        catch(java.io.IOException invalid){return operatorResult(false,"io_error",null,null);}
+    }
     public CinematicEngine.Verdict choose(UUID request,UUID goal,String eventId,String zoneId) {
         runtime.requireServerThread();if(!enabled())return new CinematicEngine.Verdict(request,goal,false,"disabled",null);
         var verdict=store.engine().admit(request,goal,eventId,zoneId,runtime.epoch(),catalog,context(),true);

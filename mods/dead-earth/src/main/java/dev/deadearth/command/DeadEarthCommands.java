@@ -28,6 +28,7 @@ public final class DeadEarthCommands {
                         DeadEarth.runtime(ctx.getSource().getServer()).cinematics().cancel(UuidArgument.getUuid(ctx,"operation")))))))
                 .then(SiteCommands.branch())
                 .then(BridgeCommands.branch())
+                .then(OperatorCommands.branch())
                 .then(ClimateCommands.branch())
                 .then(literal("zones").executes(ctx->report(ctx.getSource(),()->dev.deadearth.zone.ZoneLoaders.reports(ctx.getSource().getServer())))
                     .then(literal("loaders").executes(ctx->report(ctx.getSource(),()->dev.deadearth.zone.ZoneLoaders.zones(ctx.getSource().getServer()))))

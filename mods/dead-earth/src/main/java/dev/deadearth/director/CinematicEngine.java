@@ -22,6 +22,7 @@ public final class CinematicEngine {
     public record Snapshot(List<Operation> operations,List<History> history,long nextDecision,long recoveryUntil,
             long heavyUntil,int pressuresSinceRest) {}
     public record Verdict(UUID requestId,UUID goalId,boolean accepted,String code,UUID operationId) {}
+    public record ManualPreview(boolean accepted,String code,Option option) {}
     public interface World {
         boolean ready(Operation operation);
         Set<String> signals(Operation operation);
@@ -83,6 +84,15 @@ public final class CinematicEngine {
         return goal;
     }
     public List<Option> options(CinematicCatalog catalog,Context c) {
+        var out=new ArrayList<>(eligibleOptions(catalog,c));var r=catalog.rules();
+        out.sort(Comparator.comparingDouble((Option o)->lottery(o,c.now/r.decisionTicks()))
+                .thenComparing(Option::eventId).thenComparing(Option::zoneId));
+        // Diversity across tactics and zones, bounded model context.
+        var shortlist=new ArrayList<Option>();var counts=new HashMap<String,Integer>();
+        for(var o:out)if(counts.getOrDefault(o.zoneId,0)<r.count("optionsPerZone")){shortlist.add(o);counts.merge(o.zoneId,1,Integer::sum);if(shortlist.size()==r.count("modelOptionLimit"))break;}
+        return List.copyOf(shortlist);
+    }
+    private List<Option> eligibleOptions(CinematicCatalog catalog,Context c) {
         var out=new ArrayList<Option>();var r=catalog.rules();
         for(var z:c.zones) {
             // Incomplete scans stay UNKNOWN, including otherwise tempting high scores.
@@ -105,29 +115,50 @@ public final class CinematicEngine {
                 out.add(new Option(e.id(),z.id,e.title(),e.tactic(),e.faction(),weight,Math.clamp(budget,1,r.maxWave())));
             }
         }
-        out.sort(Comparator.comparingDouble((Option o)->lottery(o,c.now/r.decisionTicks()))
-                .thenComparing(Option::eventId).thenComparing(Option::zoneId));
-        // Diversity across tactics and zones, bounded model context.
-        var shortlist=new ArrayList<Option>();var counts=new HashMap<String,Integer>();
-        for(var o:out)if(counts.getOrDefault(o.zoneId,0)<r.count("optionsPerZone")){shortlist.add(o);counts.merge(o.zoneId,1,Integer::sum);if(shortlist.size()==r.count("modelOptionLimit"))break;}
-        return List.copyOf(shortlist);
+        return List.copyOf(out);
+    }
+    /** Read-only exact selection; the operator receives the same eligibility and finite allocation as the model. */
+    public ManualPreview previewManual(CinematicCatalog catalog,Context context,boolean enabled,String eventId,String zoneId) {
+        if(!enabled)return new ManualPreview(false,"disabled",null);
+        if(context.online==0)return new ManualPreview(false,"no_players",null);
+        if(context.now<recoveryUntil)return new ManualPreview(false,"recovery",null);
+        if(queueFull(catalog))return new ManualPreview(false,"queue_full",null);
+        var option=eligibleOptions(catalog,context).stream().filter(o->o.eventId.equals(eventId)&&o.zoneId.equals(zoneId)).findFirst();
+        return option.map(o->new ManualPreview(true,"ready",o)).orElseGet(()->new ManualPreview(false,"ineligible",null));
+    }
+    public Verdict admitManual(UUID request,String eventId,String zoneId,CinematicCatalog catalog,Context context,boolean enabled) {
+        var replay=replay(request,null,eventId,zoneId);if(replay!=null)return replay;
+        var preview=previewManual(catalog,context,enabled,eventId,zoneId);
+        if(!preview.accepted)return new Verdict(request,null,false,preview.code,null);
+        return enqueue(request,null,eventId,zoneId,catalog,context,preview.option.budget);
+    }
+    private boolean queueFull(CinematicCatalog catalog) {
+        return operations.size()>=catalog.rules().maxQueued()+catalog.rules().maxActive()
+            ||operations.values().stream().filter(o->o.state==State.QUEUED).count()>=catalog.rules().maxQueued();
+    }
+    private Verdict replay(UUID request,UUID goalId,String eventId,String zoneId) {
+        for(var op:operations.values())if(op.requestId.equals(request))return new Verdict(request,goalId,op.eventId.equals(eventId)&&op.zoneId.equals(zoneId),op.eventId.equals(eventId)&&op.zoneId.equals(zoneId)?"already_queued":"conflicting_request",op.id);
+        for(var h:history)if(h.requestId.equals(request))return new Verdict(request,goalId,h.eventId.equals(eventId)&&h.zoneId.equals(zoneId),h.eventId.equals(eventId)&&h.zoneId.equals(zoneId)?"already_recorded":"conflicting_request",h.operationId);
+        return null;
     }
     private static double lottery(Option o,long cycle) {
         long seed=UUID.nameUUIDFromBytes((o.eventId+"/"+o.zoneId+"/"+cycle).getBytes(java.nio.charset.StandardCharsets.UTF_8)).getMostSignificantBits();
         double unit=((seed>>>11)+.5)*0x1.0p-53;return -Math.log(unit)/o.weight;
     }
     public Verdict admit(UUID request,UUID goalId,String eventId,String zoneId,UUID epoch,CinematicCatalog catalog,Context context,boolean enabled) {
-        for(var op:operations.values())if(op.requestId.equals(request))return new Verdict(request,goalId,op.eventId.equals(eventId)&&op.zoneId.equals(zoneId),op.eventId.equals(eventId)&&op.zoneId.equals(zoneId)?"already_queued":"conflicting_request",op.id);
-        for(var h:history)if(h.requestId.equals(request))return new Verdict(request,goalId,h.eventId.equals(eventId)&&h.zoneId.equals(zoneId),h.eventId.equals(eventId)&&h.zoneId.equals(zoneId)?"already_recorded":"conflicting_request",h.operationId);
+        var replay=replay(request,goalId,eventId,zoneId);if(replay!=null)return replay;
         if(!enabled||context.online==0||goal==null||!goal.id.equals(goalId)||!goal.epoch.equals(epoch)||context.now>=goal.expires
                 ||!goal.catalogRevision.equals(catalog.revision()))return new Verdict(request,goalId,false,"stale_goal",null);
         var selected=goal.options.stream().filter(o->o.eventId.equals(eventId)&&o.zoneId.equals(zoneId)).findFirst();
         var current=options(catalog,context).stream().filter(o->o.eventId.equals(eventId)&&o.zoneId.equals(zoneId)).findFirst();
         if(selected.isEmpty()||current.isEmpty())return new Verdict(request,goalId,false,"ineligible",null);
-        if(operations.size()>=catalog.rules().maxQueued()+catalog.rules().maxActive()||operations.values().stream().filter(o->o.state==State.QUEUED).count()>=catalog.rules().maxQueued())return new Verdict(request,goalId,false,"queue_full",null);
+        if(queueFull(catalog))return new Verdict(request,goalId,false,"queue_full",null);
+        return enqueue(request,goalId,eventId,zoneId,catalog,context,current.get().budget);
+    }
+    private Verdict enqueue(UUID request,UUID goalId,String eventId,String zoneId,CinematicCatalog catalog,Context context,int budget) {
         var event=catalog.events().get(eventId);String source=freeze(catalog,eventId);var copy=CinematicCatalog.parse(source);UUID id=UUID.randomUUID();
         var op=new Operation(id,request,source,eventId,zoneId,State.QUEUED,event.start(),0,context.now,
-                Math.addExact(context.now,event.lifetimeTicks()),context.now,current.get().budget,0,"",Set.of());
+                Math.addExact(context.now,event.lifetimeTicks()),context.now,budget,0,"",Set.of());
         operations.put(id,op);frozen.put(id,copy);goal=null;
         if(event.heavy())heavyUntil=Math.addExact(context.now,catalog.rules().heavyCooldownTicks());
         return new Verdict(request,goalId,true,"queued",id);
