@@ -27,20 +27,20 @@
 
 Files: worldgen/WastelandField.java, WastelandSettings.java, WastelandFieldTest.java.
 Interfaces: settings immutable bounded record; samples(seed,x,z) -> displacement; palette(seed,x,z) -> safe enum; candidates(seed,bounds) -> finite crater list.
-- [ ] RED: границы/частота двух размеров, детерминированность, отрицательные координаты, разделение seed, семантика безопасной палитры.
-- [ ] Минимальная реализация, GREEN целевые JUnit.
-- [ ] Common TOML: размеры/частоты/стволы/веса, snapshot при первом использовании.
-- [ ] Коммит ядра и настроек.
+- [x] RED: границы/частота двух размеров, детерминированность, отрицательные координаты, разделение seed, семантика безопасной палитры.
+- [x] Минимальная реализация, GREEN целевые JUnit.
+- [x] Common TOML: размеры/частоты/стволы/веса, snapshot при первом использовании.
+- [x] Коммит ядра и настроек.
 
 ## Task2: генерация и biome policy
 
 Files: worldgen/WastelandFeature.java, DeadTrunksFeature.java, WastelandBiomeModifier.java, WastelandWorldgen.java; content/WastelandContent.java; resources/data & assets.
 Interfaces: Feature updates only origin chunk; biome modifier filters typed features by namespace/id; no radiation API.
-- [ ] RED: actual biome effects/feature policy and structure data expectations.
-- [ ] Добавить инертный ash, местную отделку/кратеры и leaf-free trunks; registry data.
-- [ ] Overworld surface override preserves noise/router/ores; exact vanilla structure exclusions.
-- [ ] Targeted GameTests in fresh full-pack world; prove HBM still registered/eligible and no radioactive surface palette.
-- [ ] Коммит связной генерации.
+- [x] RED: actual biome effects/feature policy and structure data expectations.
+- [x] Добавить инертный ash, местную отделку/кратеры и leaf-free trunks; registry data.
+- [x] Overworld surface override preserves noise/router/ores; exact vanilla structure exclusions.
+- [x] Targeted GameTests in fresh full-pack world; prove HBM still registered/eligible and no radioactive surface palette.
+- [x] Коммит связной генерации.
 
 ## Task3: обычный мир и выпуск
 

@@ -26,6 +26,9 @@ public final class DeadEarth {
 
     public DeadEarth(IEventBus modBus,net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON,dev.deadearth.worldgen.WastelandConfig.SPEC,"dead-earth-worldgen.toml");
+        dev.deadearth.content.WastelandContent.register(modBus);
+        dev.deadearth.worldgen.WastelandWorldgen.register(modBus);
         ProjectECompatibility.install(modBus);
         dev.deadearth.content.TraceContent.register(modBus);
         dev.deadearth.content.SeasonBlocks.register(modBus);

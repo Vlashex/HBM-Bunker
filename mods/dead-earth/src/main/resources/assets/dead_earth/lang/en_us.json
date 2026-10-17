@@ -5,5 +5,6 @@
   "block.dead_earth.seasonal_snow": "Seasonal Snow",
   "block.dead_earth.zone_loader": "Dead Earth Zone Loader",
   "message.dead_earth.loader_active": "Zone active: 3×3 ticking chunks. Overlapping loaders form one zone.",
-  "message.dead_earth.loader_limit": "Server loader limit reached. Remove another loader and try again."
+  "message.dead_earth.loader_limit": "Server loader limit reached. Remove another loader and try again.",
+  "block.dead_earth.ash": "Inert Ash"
 }

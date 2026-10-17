@@ -48,7 +48,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review,dead_earth_worldgen').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }
@@ -65,6 +65,8 @@ tasks.withType(AbstractArchiveTask).configureEach {
 }
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
+    systemProperty "deadearth.resourceSources", file("src/main/resources").absolutePath
+    systemProperty "deadearth.pinnedVanillaResources", file("build/moddev/artifacts/neoforge-21.1.262-client-extra-aka-minecraft-resources.jar").absolutePath
     testLogging { events 'passed', 'failed', 'skipped' }
 }
 dependencyLocking { lockAllConfigurations() }

@@ -5,5 +5,6 @@
   "block.dead_earth.seasonal_snow": "Сезонный снег",
   "block.dead_earth.zone_loader": "Загрузчик зоны Dead Earth",
   "message.dead_earth.loader_active": "Зона активна: 3×3 чанка. Пересекающиеся загрузчики объединяются.",
-  "message.dead_earth.loader_limit": "Загрузчик не активирован: достигнут предел сервера. Повторите после удаления другого."
+  "message.dead_earth.loader_limit": "Загрузчик не активирован: достигнут предел сервера. Повторите после удаления другого.",
+  "block.dead_earth.ash": "Инертный пепел"
 }

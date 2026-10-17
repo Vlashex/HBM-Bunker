@@ -39,6 +39,10 @@ class WastelandFieldTest {
         assertEquals(EnumSet.allOf(WastelandSettings.Surface.class),palette);assertNotEquals(first,second);
         assertTrue(palette.stream().allMatch(v->v.id().startsWith("minecraft:")||v.id().equals("dead_earth:ash")));
     }
+    @Test void insufficientBudgetCannotProducePartlyConvertedChunks() {
+        assertThrows(IllegalArgumentException.class,()->new WastelandSettings(settings.small(),settings.large(),settings.ashPatches(),settings.trunkChance(),3,9,3,1024,
+            settings.waterColor(),settings.waterFogColor(),settings.palette()));
+    }
     @Test void malformedConfigurationIsRejectedAndZeroChanceMeansNoCraters() {
         assertThrows(IllegalArgumentException.class,()->new WastelandSettings.Band(16,.5,3,12,1,2,1));
         assertThrows(IllegalArgumentException.class,()->new WastelandSettings.Band(24,Double.NaN,3,9,1,2,1));

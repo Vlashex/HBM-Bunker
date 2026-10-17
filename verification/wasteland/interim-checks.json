@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "checked_at": "2026-10-17",
+  "release_created": false,
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.262",
+  "java_unit_tests": {
+    "tests": 151,
+    "failures": 0,
+    "suites": 30
+  },
+  "targeted_full_pack_gametest": {
+    "tests": 3,
+    "failures": 0,
+    "execution_seconds": 3.184,
+    "fresh_directory": "mods/dead-earth/run-gametest-wasteland-green-2",
+    "namespace": "dead_earth_worldgen"
+  },
+  "gateway_tests": {
+    "tests": 30,
+    "failures": 0
+  },
+  "pack_source_tests": {
+    "tests": 13,
+    "failures": 0,
+    "source_check": "passed"
+  },
+  "confirmed": [
+    "pinned noise/router/ores/aquifers unchanged outside surface_rule",
+    "all 18 explicit terrestrial vanilla structure overrides have empty biome eligibility",
+    "selected HBM structures preserve biome eligibility; desert barrel feature survives",
+    "actual biome water tint and selective plant/passive spawn policy",
+    "crater displacement and mixed palette on flat fixture within configured height bounds",
+    "protected chest and adjacent chunk sentinel remain",
+    "bare trunks contain logs without leaves"
+  ],
+  "pending": [
+    "ordinary noise-world generation sample and actual HBM building placement observation",
+    "client landscape and water visual verification",
+    "full accumulated GameTest suite after wasteland addition",
+    "review, new version pins, Prism test and local release",
+    "unified BAT launcher"
+  ]
+}

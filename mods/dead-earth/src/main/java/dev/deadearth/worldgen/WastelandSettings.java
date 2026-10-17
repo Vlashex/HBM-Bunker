@@ -20,6 +20,7 @@ public record WastelandSettings(Band small,Band large,double ashPatches,double t
         Objects.requireNonNull(small);Objects.requireNonNull(large);palette=Map.copyOf(palette);
         if(!Double.isFinite(ashPatches)||ashPatches<0||ashPatches>1||!Double.isFinite(trunkChance)||trunkChance<0||trunkChance>1
                 ||trunkMin<2||trunkMax<trunkMin||trunkMax>14||coatingDepth<1||coatingDepth>5||maxWrites<1024||maxWrites>32768
+                ||maxWrites<256*(Math.max(small.depthMax(),large.depthMax())+Math.max(small.rim(),large.rim())+coatingDepth+1)
                 ||waterColor<0||waterColor>0xffffff||waterFogColor<0||waterFogColor>0xffffff||palette.isEmpty()
                 ||palette.values().stream().anyMatch(v->v==null||v<0||v>1000)||palette.values().stream().mapToInt(Integer::intValue).sum()<1)
             throw new IllegalArgumentException("Invalid wasteland settings");

@@ -1,0 +1,6 @@
+{
+  "type": "dead_earth:wasteland",
+  "biomes": "#minecraft:is_overworld",
+  "terrain": "dead_earth:wasteland_terrain",
+  "trunks": "dead_earth:dead_trunks"
+}

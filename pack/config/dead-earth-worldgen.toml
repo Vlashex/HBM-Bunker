@@ -1,0 +1,81 @@
+# DEAD EARTH wasteland: restart required; only newly generated chunks change.
+# Preserve existing worlds by backing them up; use a new world for a continuous landscape.
+# Palette is restricted to inert blocks. HBM ores/architecture and native radiation mechanics remain.
+# Small/large: spacing >= 2*maxRadius; maxRadius >= minRadius; maxDepth >= minDepth.
+# The write budget must cover 256*(maxDepth + maxRimHeight + coatingDepth + 1).
+	[craters.small]
+		# Default: 24
+		# Range: 16 ~ 256
+		spacing = 24
+		# Default: 0.85
+		# Range: 0.0 ~ 1.0
+		chance = 0.85
+		# Default: 3
+		# Range: 2 ~ 32
+		minRadius = 3
+		# Default: 9
+		# Range: 2 ~ 32
+		maxRadius = 9
+		# Default: 2
+		# Range: 1 ~ 32
+		minDepth = 2
+		# Default: 5
+		# Range: 1 ~ 32
+		maxDepth = 5
+		# Default: 1
+		# Range: 0 ~ 4
+		rimHeight = 1
+
+	[craters.large]
+		# Default: 384
+		# Range: 64 ~ 1024
+		spacing = 384
+		# Default: 0.35
+		# Range: 0.0 ~ 1.0
+		chance = 0.35
+		# Default: 32
+		# Range: 2 ~ 128
+		minRadius = 32
+		# Default: 64
+		# Range: 2 ~ 128
+		maxRadius = 64
+		# Default: 10
+		# Range: 1 ~ 32
+		minDepth = 10
+		# Default: 22
+		# Range: 1 ~ 32
+		maxDepth = 22
+		# Default: 3
+		# Range: 0 ~ 4
+		rimHeight = 3
+
+[surface]
+	# Default: 0.28
+	# Range: 0.0 ~ 1.0
+	ashPatchChance = 0.28
+	# Default: 3
+	# Range: 1 ~ 5
+	coatingDepth = 3
+	# Default: 16384
+	# Range: 1024 ~ 32768
+	maximumWritesPerChunk = 16384
+	palette = ["STONE=38", "ASH=22", "COBBLESTONE=13", "ANDESITE=8", "TUFF=7", "GRAVEL=7", "BLACKSTONE=3", "CRACKED_BRICKS=2"]
+
+[trunks]
+	# Default: 0.35
+	# Range: 0.0 ~ 1.0
+	chancePerChunk = 0.35
+	# Default: 3
+	# Range: 2 ~ 14
+	minHeight = 3
+	# Default: 9
+	# Range: 2 ~ 14
+	maxHeight = 9
+
+[water]
+	# Default: 6447423
+	# Range: 0 ~ 16777215
+	color = 6447423
+	# Default: 3422761
+	# Range: 0 ~ 16777215
+	fogColor = 3422761
