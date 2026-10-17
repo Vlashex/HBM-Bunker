@@ -10,6 +10,7 @@ public final class SeasonState {
     public static ClimateCycle.Phase phase() { return phase; }
     public static double pressure() {return active?pressure:1;}
     public static double parasites() { return active?SeasonPolicy.forPhase(phase).parasites()*pressureEffect(pressure,PARASITE_INFLUENCE):1; }
+    public static double parasiteEvolution() { return active?parasites()*d(PARASITE_EVOLUTION_BASE):1; }
     public static double forest() { return active?SeasonPolicy.forPhase(phase).forest()*pressureEffect(pressure,FOREST_INFLUENCE):1; }
     public static double health(){return active?pressureEffect(pressure,HEALTH_INFLUENCE):1;}
     public static double damage(){return active?pressureEffect(pressure,DAMAGE_INFLUENCE):1;}

@@ -121,7 +121,7 @@ public final class CoordinatorRuntime {
     public ClimateCycle.Snapshot climateStatus() {
         requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());
     }
-    public dev.deadearth.difficulty.AdaptiveStore.Snapshot difficultyStatus() {requireReady();return adaptive.view(effectiveSeason());}
+    public dev.deadearth.difficulty.AdaptiveStore.Snapshot difficultyStatus() {requireReady();return adaptive.view(effectiveSeason(),campaign.campaign().activeTicks());}
     public void playerLeft(UUID player){requireServerThread();statistics.forget(player);}
     public void testPressure(double value){requireReady();adaptive.testPressure(value);checkpoint();}
     public List<ClimateCycle.Window> climateForecast() {
@@ -213,12 +213,13 @@ public final class CoordinatorRuntime {
                 for(var sample:statistics.collect(server.getPlayerList().getPlayers())) adaptive.observe(sample);
             adaptive.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             var season=effectiveSeason();
-            dev.deadearth.climate.SeasonState.update(season,adaptive.pressure());
+            double pressure=dev.deadearth.difficulty.IntroDifficulty.pressure(campaign.campaign().activeTicks(),adaptive.pressure());
+            dev.deadearth.climate.SeasonState.update(season,pressure);
             weather.tick(server.overworld(),season,server.getPlayerCount()>0,climate.cycle().view(campaign.campaign().activeTicks()).cycle());
             if (server.getPlayerCount()>0 && server.getTickCount()%i(NETWORK_REFRESH)==0)
                 for(var player:server.getPlayerList().getPlayers())
                     if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))
-                        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(season.ordinal(),adaptive.pressure()));
+                        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(player,new dev.deadearth.climate.SeasonNetwork.State(season.ordinal(),pressure));
             var notices=climate.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0);
             if (!notices.isEmpty()) {
                 checkpoint();

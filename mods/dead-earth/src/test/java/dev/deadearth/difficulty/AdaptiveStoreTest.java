@@ -10,7 +10,7 @@ class AdaptiveStoreTest {
   for(int i=0;i<30;i++)s.observe(new PlayerStatistics.Sample(1,0,0,1,true));
   s.advance(6000,true);assertEquals(1.05,s.pressure(),1e-9);
   var profile=s.view(ClimateCycle.Phase.ASH_WINTER);
-  assertEquals(1.8*1.05,profile.parasiteEvolutionRate(),1e-9);assertEquals(.25*1.05,profile.forestPhaseRate(),1e-9);
+  assertEquals(1.8*1.05*.25,profile.parasiteEvolutionRate(),1e-9);assertEquals(.25*1.05,profile.forestPhaseRate(),1e-9);
   var reload=AdaptiveStore.load(id,6000,s.save(new CompoundTag(),null),null);
   assertEquals(profile,reload.view(ClimateCycle.Phase.ASH_WINTER));reload.advance(6000,false);assertEquals(profile,reload.view(ClimateCycle.Phase.ASH_WINTER));
  }

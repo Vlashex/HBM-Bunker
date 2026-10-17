@@ -19,11 +19,11 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 public final class NativeSeasonGameTests {
     @GameTest(template="empty",batch="native_seasons")
     public static void winterEvolutionUsesScaledValueInNativeThreshold(GameTestHelper helper) throws Exception {
-        boundary(helper,Phase.ASH_WINTER,3,2);
+        boundary(helper,Phase.ASH_WINTER,3,7);
     }
     @GameTest(template="empty",batch="native_seasons")
     public static void summerEvolutionDoesNotCrossThresholdOnZeroIncrement(GameTestHelper helper) throws Exception {
-        boundary(helper,Phase.HEAT,1,2);
+        boundary(helper,Phase.HEAT,1,8);
     }
     @GameTest(template="empty",batch="native_seasons",timeoutTicks=80)
     public static void leavingOverworldClearsSeasonalExposure(GameTestHelper helper) {

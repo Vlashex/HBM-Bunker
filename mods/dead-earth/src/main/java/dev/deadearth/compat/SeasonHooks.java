@@ -12,7 +12,7 @@ public final class SeasonHooks {
     private static java.lang.reflect.Method nativeSummon;
     private SeasonHooks() {}
     /** Scoped native read immediately followed by +1: comparison and write see the same progress. */
-    public static int counterRead(CompoundTag tag,String key) {return counterRead(tag,key,SeasonState.parasites());}
+    public static int counterRead(CompoundTag tag,String key) {return counterRead(tag,key,SeasonState.parasiteEvolution());}
     public static int counterRead(CompoundTag tag,String key,double factor) {
         int previous=tag.getInt(key);
         if (!COUNTERS.contains(key)) return previous;

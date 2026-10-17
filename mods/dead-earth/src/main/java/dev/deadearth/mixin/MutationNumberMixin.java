@@ -14,7 +14,7 @@ public abstract class MutationNumberMixin {
     private void deadEarthScale(CallbackInfoReturnable<Double> result) {
         if(deadEarthName==null) try {deadEarthName=(String)((Object)this).getClass().getField("name").get(this);}
         catch(ReflectiveOperationException error) {throw new IllegalStateException("Unsupported Mutationcraft Number",error);}
-        if(deadEarthName.equals("outbreakTimerSpeed")) result.setReturnValue(result.getReturnValue()*SeasonState.parasites());
+        if(deadEarthName.equals("outbreakTimerSpeed")) result.setReturnValue(result.getReturnValue()*SeasonState.parasiteEvolution());
         else if(deadEarthName.equals("hookFromNecroptorChance")) result.setReturnValue(Math.clamp(result.getReturnValue()*SeasonState.parasites(),0,1));
     }
 }

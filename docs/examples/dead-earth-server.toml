@@ -1,3 +1,13 @@
+[intro]
+enabled = true
+rampMinutes = 60
+initialDifficulty = 0.1
+easeOutPower = 2.0
+adaptiveHandoffMinutes = 5
+
+[biology]
+parasiteEvolutionMultiplier = 0.25
+
 [adaptive]
 	# Default: 0.25
 	# Range: 0.0 ~ 0.95

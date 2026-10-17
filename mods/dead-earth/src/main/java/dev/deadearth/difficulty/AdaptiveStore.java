@@ -78,8 +78,10 @@ public final class AdaptiveStore extends SavedData {
   if(!Boolean.getBoolean("deadearth.testControls"))throw new IllegalArgumentException("Test controls disabled");
   require();AdaptivePolicy.validate(value);pressure=value;setDirty();
  }
- public record Snapshot(double pressure,double parasiteEvolutionRate,double forestPhaseRate,double hostileHealth,double hostileDamage,double parasiteHealth,double parasiteDamage,long windowTicks,int samples){}
- public Snapshot view(Phase phase){require();var base=SeasonPolicy.forPhase(phase);return new Snapshot(pressure(),base.parasites()*pressureEffect(pressure(),PARASITE_INFLUENCE),base.forest()*pressureEffect(pressure(),FOREST_INFLUENCE),pressureEffect(pressure(),HEALTH_INFLUENCE),pressureEffect(pressure(),DAMAGE_INFLUENCE),base.parasites()*pressureEffect(pressure(),HEALTH_INFLUENCE),base.parasites()*pressureEffect(pressure(),DAMAGE_INFLUENCE),lastTick-evaluatedAt,samples);}
+ public record Snapshot(double pressure,double parasiteEvolutionRate,double forestPhaseRate,double hostileHealth,double hostileDamage,double parasiteHealth,double parasiteDamage,long windowTicks,int samples,double adaptivePressure,long introTicksRemaining){}
+ public Snapshot view(Phase phase){return snapshot(phase,pressure(),0);}
+ public Snapshot view(Phase phase,long activeTicks){return snapshot(phase,IntroDifficulty.pressure(activeTicks,pressure()),IntroDifficulty.remaining(activeTicks));}
+ private Snapshot snapshot(Phase phase,double effective,long remaining){require();var base=SeasonPolicy.forPhase(phase);return new Snapshot(effective,base.parasites()*pressureEffect(effective,PARASITE_INFLUENCE)*d(PARASITE_EVOLUTION_BASE),base.forest()*pressureEffect(effective,FOREST_INFLUENCE),pressureEffect(effective,HEALTH_INFLUENCE),pressureEffect(effective,DAMAGE_INFLUENCE),base.parasites()*pressureEffect(effective,HEALTH_INFLUENCE),base.parasites()*pressureEffect(effective,DAMAGE_INFLUENCE),lastTick-evaluatedAt,samples,pressure(),remaining);}
  @Override public CompoundTag save(CompoundTag tag,HolderLookup.Provider registries) {
   if(!enabled()) return unsupported.copy();
   tag.putInt("schemaVersion",1);tag.putString("campaignId",campaignId.toString());tag.putDouble("pressure",pressure);

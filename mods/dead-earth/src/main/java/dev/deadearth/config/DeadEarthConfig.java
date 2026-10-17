@@ -3,6 +3,12 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 /** Server config is stored in <world>/serverconfig and synced by NeoForge to clients. */
 public final class DeadEarthConfig {
  private static final ModConfigSpec.Builder B=new ModConfigSpec.Builder();
+ public static final ModConfigSpec.BooleanValue INTRO_ENABLED=B.define("intro.enabled",true);
+ public static final ModConfigSpec.IntValue INTRO_MINUTES=B.defineInRange("intro.rampMinutes",60,0,1440);
+ public static final ModConfigSpec.DoubleValue INTRO_INITIAL=B.defineInRange("intro.initialDifficulty",0.1,0.05,1.0);
+ public static final ModConfigSpec.DoubleValue INTRO_EASE_POWER=B.defineInRange("intro.easeOutPower",2.0,1.0,6.0);
+ public static final ModConfigSpec.IntValue INTRO_HANDOFF_MINUTES=B.defineInRange("intro.adaptiveHandoffMinutes",5,0,120);
+ public static final ModConfigSpec.DoubleValue PARASITE_EVOLUTION_BASE=B.defineInRange("biology.parasiteEvolutionMultiplier",0.25,0.0,4.0);
  public static final ModConfigSpec.DoubleValue ADAPTIVE_BELOW=B.defineInRange("adaptive.maxBelowBase",0.25,0.0,0.95);
  public static final ModConfigSpec.DoubleValue ADAPTIVE_ABOVE=B.defineInRange("adaptive.maxAboveBase",0.5,0.0,3.0);
  public static final ModConfigSpec.DoubleValue ADAPTIVE_STEP=B.defineInRange("adaptive.stepPerWindow",0.05,0.001,1.0);
