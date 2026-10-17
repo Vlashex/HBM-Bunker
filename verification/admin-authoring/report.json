@@ -1,0 +1,48 @@
+{
+  "base": "f0b0aac",
+  "version": "5.1.0",
+  "coordinator": "4.1.0",
+  "unit": {
+    "tests": 180,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "gameTest": {
+    "passed": 90,
+    "failed": 0,
+    "durationSeconds": 32.36,
+    "freshWorld": true
+  },
+  "python": {
+    "passed": 59,
+    "failed": 0
+  },
+  "nodeSuites": 2,
+  "packagingTests": 16,
+  "sourceCheck": true,
+  "httpRconSmoke": true,
+  "jar": {
+    "filename": "dead-earth-4.1.0.jar",
+    "size": 704549,
+    "sha256": "819896a5bfca43bd6b88a3d44119666f9de1e829b3c92cdf6350e5e13643ba8a"
+  },
+  "computerUse": false,
+  "visualBrowserReview": false,
+  "liveGameChanged": false,
+  "liveAdminUpdated": true,
+  "review": {
+    "issuesFound": 2,
+    "fixed": 2,
+    "regressions": "RED then GREEN"
+  },
+  "archive": {
+    "filename": "HBM-Bunker-5.1.0-Prism.zip",
+    "checksumFile": "dist/SHA256SUMS",
+    "crc": true,
+    "mods": 37,
+    "runtimeExcluded": true
+  },
+  "recordedAtUtc": "2026-10-17T20:00:49.745735+00:00",
+  "codeCommit": "fb35b3483faad3cffb959ea406c36122f8f3da59"
+}
