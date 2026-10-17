@@ -45,8 +45,9 @@ public final class ZoneReviewGameTests {
         var level=h.getLevel();var p=h.absolutePos(new BlockPos(3,2,3));var made=new ArrayList<Entity>();
         var target=p.east(32);var chunk=new net.minecraft.world.level.ChunkPos(target);boolean forced=level.getForcedChunks().contains(chunk.toLong());
         level.getChunkAt(target);level.setChunkForced(chunk.x,chunk.z,true);
-        // UUID visibility follows ticking chunks; prepare the destination before moving the entity.
-        h.runAfterDelay(10,()->{
+        // Forced FULL chunks do not become entity-ticking after a fixed number of ticks.
+        // Wait for the actual destination readiness; the existing 100-tick timeout bounds this.
+        h.startSequence().thenWaitUntil(()->h.assertTrue(level.isPositionEntityTicking(target),"Destination sentry chunk is not entity-ticking")).thenExecute(()->{
         try {
             var type=BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse("securitycraft:sentry"));
             for(int n=0;n<3;n++){var entity=type.create(level);h.assertTrue(entity!=null&&ZoneCompatibility.sentry(entity),"Native Sentry fixture missing");entity.moveTo(p.getX()+.5,p.getY(),p.getZ()+.5,0,0);level.addFreshEntity(entity);made.add(entity);}
@@ -57,7 +58,6 @@ public final class ZoneReviewGameTests {
             h.assertTrue(ZoneSentryIndex.sample(level,new net.minecraft.world.level.ChunkPos(target).toLong(),8).ids().contains(moved.getUUID()),"Moving sentry missing in destination index");
             moved.discard();h.assertTrue(ZoneSentryIndex.sample(level,new net.minecraft.world.level.ChunkPos(target).toLong(),8).ids().isEmpty(),"Removed sentry remained indexed");
         } finally {for(var entity:made)entity.discard();if(!forced)level.setChunkForced(chunk.x,chunk.z,false);}
-        h.succeed();
-        });
+        }).thenSucceed();
     }
 }
