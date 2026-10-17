@@ -72,6 +72,8 @@ def _arguments(operation, arguments):
                 "preview_scenario": {"request_id"}, "propose_scenario": {"request_id"},
                 "get_scenario_status": {"scenario_id"}, "cancel_scenario": {"scenario_id", "revision"}}
     expected.update({"get_director_brief": set(), "preview_director": {"request_id", "goal_id", "variant", "text"}})
+    expected.update({"get_cinematic_brief": set(), "get_cinematic_queue": set(),
+                     "choose_cinematic": {"request_id", "goal_id", "event_id", "zone_id"}})
     if operation not in expected:
         raise BridgeError("unknown_operation")
     if operation in {"preview_scenario", "propose_scenario"}:
@@ -95,6 +97,9 @@ def _arguments(operation, arguments):
         if not valid:
             raise BridgeError("invalid_arguments")
     elif type(arguments) is not dict or set(arguments) != expected[operation]:
+        raise BridgeError("invalid_arguments")
+    if operation == "choose_cinematic" and (not _uuid(arguments["zone_id"]) or type(arguments["event_id"]) is not str
+            or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",arguments["event_id"])):
         raise BridgeError("invalid_arguments")
     if operation == "preview_director":
         from .model import valid_narrative

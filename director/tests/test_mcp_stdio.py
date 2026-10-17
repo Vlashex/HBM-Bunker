@@ -50,6 +50,23 @@ class McpStdioTests(unittest.TestCase):
             self.assertEqual([r["operation"] for r in requests],["get_director_brief","preview_director"])
 
 
+    def test_sdk_cinematic_selection_forwards_only_the_allowed_pair(self):
+        args=dict(request_id="00000000-0000-4000-8000-000000000003",goal_id="00000000-0000-4000-8000-000000000004",
+                  event_id="spore_lure",zone_id="00000000-0000-4000-8000-000000000005")
+        async def exchange(path):
+            params=StdioServerParameters(command=sys.executable,args=["-m","dead_earth_director","--bridge",str(path)],
+                cwd=Path(__file__).resolve().parents[1],env={"PYTHONUTF8":"1"})
+            async with Client(params,read_timeout_seconds=10) as client:
+                self.assertFalse((await client.call_tool("get_cinematic_brief")).is_error)
+                self.assertFalse((await client.call_tool("get_cinematic_queue")).is_error)
+                self.assertFalse((await client.call_tool("choose_cinematic",args)).is_error)
+                for change in [dict(count=10),dict(x=0),dict(command="summon"),dict(event_id="/op player"),dict(zone_id=True)]:
+                    self.assertTrue((await client.call_tool("choose_cinematic",args | change)).is_error)
+        with endpoint(lambda r:success({})) as (path,requests):
+            asyncio.run(exchange(path))
+            self.assertEqual([r["operation"] for r in requests],["get_cinematic_brief","get_cinematic_queue","choose_cinematic"])
+            self.assertEqual(requests[-1]["arguments"],args)
+
     def test_expected_bridge_failure_reaches_model_as_safe_reason(self):
         async def exchange(path):
             params = StdioServerParameters(command=sys.executable,
@@ -73,7 +90,7 @@ class McpStdioTests(unittest.TestCase):
                 tools = (await client.list_tools()).tools
                 self.assertEqual({tool.name for tool in tools}, {
                     "get_snapshot", "get_history", "list_catalog", "preview_scenario",
-                    "propose_scenario", "get_scenario_status", "cancel_scenario", "get_director_brief", "preview_director"})
+                    "propose_scenario", "get_scenario_status", "cancel_scenario", "get_director_brief", "preview_director", "get_cinematic_brief", "get_cinematic_queue", "choose_cinematic"})
                 result = await client.call_tool("get_snapshot")
                 self.assertEqual(result.structured_content, {"activeTicks": 42})
                 denied = await client.call_tool("execute_command", {"command": "stop"})

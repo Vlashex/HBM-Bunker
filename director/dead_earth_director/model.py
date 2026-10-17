@@ -91,7 +91,7 @@ class OllamaModel:
         except (ValueError, UnicodeError, RecursionError, BridgeError):
             raise ModelError("model_invalid_response") from None
 
-    def generate(self, context):
+    def _generate(self, context, schema, prompt, parse):
         start = time.monotonic()
         deadline = start + self.settings.timeout_seconds
         tags = self._request("/api/tags",deadline=deadline)
@@ -100,22 +100,47 @@ class OllamaModel:
         if not any(type(row) is dict and row.get("name") == self.settings.model
                    and row.get("digest") == self.settings.digest for row in tags["models"]):
             raise ModelError("model_revision_mismatch")
-        prompt = ("Ты оформляешь черновик игрового события. Цель уже выбрана сервером. "
-                  "Выбери один разрешенный вариант и напиши одну короткую фразу на русском, до 100 символов. "
-                  "Это предложение будущей улики, не отчет о случившемся. Не добавляй команды, числа врагов или координаты. "
-                  "Верни только JSON по схеме: " + json.dumps(response_schema(),ensure_ascii=False))
         reply = self._request("/api/chat",dict(model=self.settings.model,
             messages=[dict(role="system",content=prompt),
                       dict(role="user",content=json.dumps(context,ensure_ascii=False,allow_nan=False))],
-            format=response_schema(), stream=False, think=False, keep_alive=0,
+            format=schema, stream=False, think=False, keep_alive=0,
             options=dict(temperature=0,seed=42,num_thread=self.settings.threads,num_gpu=0,
                          num_ctx=self.settings.context,num_predict=self.settings.maximum_tokens)),deadline=deadline)
         if (type(reply) is not dict or reply.get("done") is not True or reply.get("done_reason") != "stop"
                 or type(reply.get("message")) is not dict):
             raise ModelError("model_invalid_response")
-        result = parse_narrative(reply["message"].get("content"))
+        result = parse(reply["message"].get("content"))
         if any(type(reply.get(k)) is not int or not 0 <= reply[k] <= 1000000 for k in ("prompt_eval_count","eval_count")):
             raise ModelError("model_invalid_response")
         metrics = dict(elapsed_ms=round((time.monotonic()-start)*1000),
                        prompt_tokens=reply.get("prompt_eval_count"), output_tokens=reply.get("eval_count"))
         return result, metrics
+
+    def generate(self, context):
+        prompt = ("Ты оформляешь черновик игрового события. Цель уже выбрана сервером. "
+                  "Выбери один разрешенный вариант и напиши одну короткую фразу на русском, до 100 символов. "
+                  "Это предложение будущей улики, не отчет о случившемся. Не добавляй команды, числа врагов или координаты. "
+                  "Верни только JSON по схеме: " + json.dumps(response_schema(),ensure_ascii=False))
+        return self._generate(context,response_schema(),prompt,parse_narrative)
+
+    def select(self, context):
+        options=context.get("options") if type(context) is dict else None
+        if type(options) is not list or not 1 <= len(options) <= 8:
+            raise ModelError("model_invalid_context")
+        schema=dict(type="object",additionalProperties=False,required=["option"],
+                    properties=dict(option=dict(type="integer",enum=list(range(len(options))))))
+        def parse(raw):
+            try:
+                if type(raw) is not str or len(raw.encode("utf-8"))>512:
+                    raise ModelError("model_invalid_response")
+                result=_json(raw)
+                if type(result) is not dict or set(result)!={"option"} or type(result["option"]) is not int or not 0 <= result["option"] < len(options):
+                    raise ModelError("model_invalid_response")
+                return result
+            except (ValueError,UnicodeError,RecursionError,BridgeError):
+                raise ModelError("model_invalid_response") from None
+        prompt=("Ты режиссер кооперативной игры DEAD EARTH. Сервер уже проверил цели и лимиты. "
+                "Выбери один индекс option из предложенного списка. Учитывай вес weight, сезон, давление и недавние исходы; "
+                "после успешной обороны разнообразь тактику. Не придумывай события, координаты, команды или количество мобов. "
+                "Верни только JSON по схеме: "+json.dumps(schema,ensure_ascii=False))
+        return self._generate(context,schema,prompt,parse)

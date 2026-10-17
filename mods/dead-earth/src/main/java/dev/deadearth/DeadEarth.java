@@ -26,6 +26,7 @@ public final class DeadEarth {
     public DeadEarth(IEventBus modBus,net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
         ProjectECompatibility.install(modBus);
+        dev.deadearth.content.TraceContent.register(modBus);
         dev.deadearth.content.SeasonBlocks.register(modBus);
         dev.deadearth.content.ZoneLoaderContent.register(modBus);
         dev.deadearth.zone.ZoneSentryIndex.install();
@@ -36,6 +37,8 @@ public final class DeadEarth {
         NeoForge.EVENT_BUS.addListener(DeadEarthCommands::register);
         NeoForge.EVENT_BUS.addListener(this::death);
         NeoForge.EVENT_BUS.addListener(this::logout);
+        NeoForge.EVENT_BUS.addListener(this::entityJoined);
+        NeoForge.EVENT_BUS.addListener(this::blockBroken);
         if(Boolean.getBoolean("deadearth.directorServerSmoke")&&Boolean.getBoolean("deadearth.testControls"))
             NeoForge.EVENT_BUS.addListener(dev.deadearth.gametest.DirectorServerSmoke::tick);
     }
@@ -72,6 +75,16 @@ public final class DeadEarth {
             if (deaths != null) for (var death : deaths.values())
                 if (!death.isCanceled() && death.getEntity() instanceof ServerPlayer player && player.isDeadOrDying()) runtime.recordDeath(player);
             runtime.tick();
+        }
+    }
+    private void entityJoined(net.neoforged.neoforge.event.entity.EntityJoinLevelEvent event) {
+        if(event.getLevel() instanceof net.minecraft.server.level.ServerLevel level) {
+            var runtime=RUNTIMES.get(level.getServer());if(runtime!=null&&runtime.enabled())runtime.cinematics().observe(event.getEntity());
+        }
+    }
+    private void blockBroken(net.neoforged.neoforge.event.level.BlockEvent.BreakEvent event) {
+        if(!event.isCanceled()&&event.getPlayer() instanceof ServerPlayer p) {
+            var runtime=RUNTIMES.get(p.getServer());if(runtime!=null&&runtime.enabled())runtime.cinematics().mined(p,event.getPos());
         }
     }
     private void logout(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent event) {

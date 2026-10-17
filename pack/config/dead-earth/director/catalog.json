@@ -1,0 +1,3714 @@
+{
+  "schema": 1,
+  "rules": {
+    "decisionTicks": 18000,
+    "goalTicks": 2400,
+    "maxActive": 3,
+    "maxQueued": 8,
+    "historyLimit": 128,
+    "zoneCooldownTicks": 18000,
+    "recoveryTicks": 6000,
+    "heavyCooldownTicks": 54000,
+    "maximumZoneAgeTicks": 2400,
+    "maxWave": 10,
+    "maxEntities": 24,
+    "baseBudget": 3,
+    "scoreWeight": 0.65,
+    "playerWeight": 0.5,
+    "pressureWeight": 0.75,
+    "lossWeight": 1.5,
+    "signalRadius": 32,
+    "spawnMinDistance": 20,
+    "maxEffectsPerTick": 2
+  },
+  "sounds": {
+    "mutationcraft_entity_assimilated_bear_ambient": {
+      "sound": "mutationcraft:entity.assimilated_bear.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_bear_death": {
+      "sound": "mutationcraft:entity.assimilated_bear.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_cow_ambient": {
+      "sound": "mutationcraft:entity.assimilated_cow.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_creeper_ambient": {
+      "sound": "mutationcraft:entity.assimilated_creeper.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_donkey_ambient": {
+      "sound": "mutationcraft:entity.assimilated_donkey.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_enderman_ambient": {
+      "sound": "mutationcraft:entity.assimilated_enderman.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_enderman_death": {
+      "sound": "mutationcraft:entity.assimilated_enderman.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_enderman_hurt": {
+      "sound": "mutationcraft:entity.assimilated_enderman.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_enderman_teleport": {
+      "sound": "mutationcraft:entity.assimilated_enderman.teleport",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_enderman_teleport_far": {
+      "sound": "mutationcraft:entity.assimilated_enderman.teleport_far",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_evoker_ambient": {
+      "sound": "mutationcraft:entity.assimilated_evoker.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_evoker_summon_fangs": {
+      "sound": "mutationcraft:entity.assimilated_evoker.summon_fangs",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_evoker_summon_vex": {
+      "sound": "mutationcraft:entity.assimilated_evoker.summon_vex",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_assimilated_fox_ambient": {
+      "sound": "mutationcraft:entity.assimilated_fox.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_horse_ambient": {
+      "sound": "mutationcraft:entity.assimilated_horse.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_pig_ambient": {
+      "sound": "mutationcraft:entity.assimilated_pig.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_sheep_ambient": {
+      "sound": "mutationcraft:entity.assimilated_sheep.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_spider_ambient": {
+      "sound": "mutationcraft:entity.assimilated_spider.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_witch_ambient": {
+      "sound": "mutationcraft:entity.assimilated_witch.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_assimilated_wolf_ambient": {
+      "sound": "mutationcraft:entity.assimilated_wolf.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_carnivorae_ambient": {
+      "sound": "mutationcraft:entity.carnivorae.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_corrosion_queen_ambient": {
+      "sound": "mutationcraft:entity.corrosion_queen.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_corrosion_queen_death": {
+      "sound": "mutationcraft:entity.corrosion_queen.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_corrosion_queen_hurt": {
+      "sound": "mutationcraft:entity.corrosion_queen.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_corrosion_queen_spell": {
+      "sound": "mutationcraft:entity.corrosion_queen.spell",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_corrosion_queen_summon_blood_spike": {
+      "sound": "mutationcraft:entity.corrosion_queen.summon_blood_spike",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_corrosion_queen_summon_poisoned_spikes": {
+      "sound": "mutationcraft:entity.corrosion_queen.summon_poisoned_spikes",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_hazmat_flamethrower_explode": {
+      "sound": "mutationcraft:entity.hazmat_flamethrower.explode",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_hazmat_helicopter_ambient": {
+      "sound": "mutationcraft:entity.hazmat_helicopter.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_hook_ambient": {
+      "sound": "mutationcraft:entity.hook.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_human_herder_ambient": {
+      "sound": "mutationcraft:entity.human_herder.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_human_herder_step": {
+      "sound": "mutationcraft:entity.human_herder.step",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_human_stage_ambient": {
+      "sound": "mutationcraft:entity.human_stage.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_mutant_animal_death": {
+      "sound": "mutationcraft:entity.mutant.animal_death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_mutant_bite": {
+      "sound": "mutationcraft:entity.mutant.bite",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_mutant_death": {
+      "sound": "mutationcraft:entity.mutant.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_mutant_human_ambient": {
+      "sound": "mutationcraft:entity.mutant.human_ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_mutant_hurt": {
+      "sound": "mutationcraft:entity.mutant.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_mutant_transform": {
+      "sound": "mutationcraft:entity.mutant.transform",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_entity_necroptor_ambient": {
+      "sound": "mutationcraft:entity.necroptor.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_parasitic_shooter_ambient": {
+      "sound": "mutationcraft:entity.parasitic_shooter.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_reductor_ambient": {
+      "sound": "mutationcraft:entity.reductor.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_resenter_ambient": {
+      "sound": "mutationcraft:entity.resenter.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_the_intoxicator_ambient": {
+      "sound": "mutationcraft:entity.the_intoxicator.ambient",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "mutationcraft_entity_the_intoxicator_scream": {
+      "sound": "mutationcraft:entity.the_intoxicator.scream",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_event_village_alarm": {
+      "sound": "mutationcraft:event.village.alarm",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_event_village_ambulance": {
+      "sound": "mutationcraft:event.village.ambulance",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_item_flamethrower_bubble": {
+      "sound": "mutationcraft:item.flamethrower.bubble",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_item_flamethrower_overheat": {
+      "sound": "mutationcraft:item.flamethrower.overheat",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "mutationcraft_item_flamethrower_use": {
+      "sound": "mutationcraft:item.flamethrower.use",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_item_shield_parry": {
+      "sound": "overgrown_vegetation:item.shield.parry",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_earthquake_fissure": {
+      "sound": "overgrown_vegetation:earthquake.fissure",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_idle": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.idle",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_hurt": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_death": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_step": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.step",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_pounce": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.pounce",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_phalangiotarbus_latch": {
+      "sound": "overgrown_vegetation:entity.phalangiotarbus.latch",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_idle": {
+      "sound": "overgrown_vegetation:entity.falcimnes.idle",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "overgrown_vegetation_entity_falcimnes_hurt": {
+      "sound": "overgrown_vegetation:entity.falcimnes.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_death": {
+      "sound": "overgrown_vegetation:entity.falcimnes.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_roar": {
+      "sound": "overgrown_vegetation:entity.falcimnes.roar",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_slash": {
+      "sound": "overgrown_vegetation:entity.falcimnes.slash",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_bite": {
+      "sound": "overgrown_vegetation:entity.falcimnes.bite",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_growl": {
+      "sound": "overgrown_vegetation:entity.falcimnes.growl",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_falcimnes_screech": {
+      "sound": "overgrown_vegetation:entity.falcimnes.screech",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_idle": {
+      "sound": "overgrown_vegetation:entity.scutimnes.idle",
+      "volume": 1.6,
+      "pitch": 0.85
+    },
+    "overgrown_vegetation_entity_scutimnes_growl": {
+      "sound": "overgrown_vegetation:entity.scutimnes.growl",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_hurt": {
+      "sound": "overgrown_vegetation:entity.scutimnes.hurt",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_death": {
+      "sound": "overgrown_vegetation:entity.scutimnes.death",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_roar": {
+      "sound": "overgrown_vegetation:entity.scutimnes.roar",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_guard": {
+      "sound": "overgrown_vegetation:entity.scutimnes.guard",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_bash": {
+      "sound": "overgrown_vegetation:entity.scutimnes.bash",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_tail": {
+      "sound": "overgrown_vegetation:entity.scutimnes.tail",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_slam": {
+      "sound": "overgrown_vegetation:entity.scutimnes.slam",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_shield": {
+      "sound": "overgrown_vegetation:entity.scutimnes.shield",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "overgrown_vegetation_entity_scutimnes_deflect": {
+      "sound": "overgrown_vegetation:entity.scutimnes.deflect",
+      "volume": 1.6,
+      "pitch": 1.0
+    },
+    "minecraft_ambient_cave": {
+      "sound": "minecraft:ambient.cave",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_ambient_basalt_deltas_additions": {
+      "sound": "minecraft:ambient.basalt_deltas.additions",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_ambient_crimson_forest_additions": {
+      "sound": "minecraft:ambient.crimson_forest.additions",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_ambient_warped_forest_additions": {
+      "sound": "minecraft:ambient.warped_forest.additions",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_sculk_sensor_clicking": {
+      "sound": "minecraft:block.sculk_sensor.clicking",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_sculk_shrieker_shriek": {
+      "sound": "minecraft:block.sculk_shrieker.shriek",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_amethyst_block_chime": {
+      "sound": "minecraft:block.amethyst_block.chime",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_rooted_dirt_break": {
+      "sound": "minecraft:block.rooted_dirt.break",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_mud_step": {
+      "sound": "minecraft:block.mud.step",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_gravel_step": {
+      "sound": "minecraft:block.gravel.step",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_snow_break": {
+      "sound": "minecraft:block.snow.break",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_glass_break": {
+      "sound": "minecraft:block.glass.break",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_fire_ambient": {
+      "sound": "minecraft:block.fire.ambient",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_campfire_crackle": {
+      "sound": "minecraft:block.campfire.crackle",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_warden_heartbeat": {
+      "sound": "minecraft:entity.warden.heartbeat",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_warden_listening": {
+      "sound": "minecraft:entity.warden.listening",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_warden_tendril_clicks": {
+      "sound": "minecraft:entity.warden.tendril_clicks",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_fox_screech": {
+      "sound": "minecraft:entity.fox.screech",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_phantom_ambient": {
+      "sound": "minecraft:entity.phantom.ambient",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_spider_step": {
+      "sound": "minecraft:entity.spider.step",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_zombie_attack_iron_door": {
+      "sound": "minecraft:entity.zombie.attack_iron_door",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_entity_silverfish_step": {
+      "sound": "minecraft:entity.silverfish.step",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_weather_rain": {
+      "sound": "minecraft:weather.rain",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_note_block_basedrum": {
+      "sound": "minecraft:block.note_block.basedrum",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_note_block_hat": {
+      "sound": "minecraft:block.note_block.hat",
+      "volume": 1.6,
+      "pitch": 0.9
+    },
+    "minecraft_block_chain_step": {
+      "sound": "minecraft:block.chain.step",
+      "volume": 1.6,
+      "pitch": 0.9
+    }
+  },
+  "traces": {
+    "claw_1": {
+      "mask": [
+        "............",
+        "..1..1..1...",
+        "..1..1..1...",
+        "...1..1..1..",
+        "...1..1..1..",
+        "....1..1..1.",
+        "....1..1..1.",
+        ".....1..1...",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "claw_2": {
+      "mask": [
+        "............",
+        "............",
+        ".........11.",
+        ".......11...",
+        ".....11.....",
+        "....1....11.",
+        ".......11...",
+        ".....11.....",
+        "....1....11.",
+        ".......11...",
+        ".....11.....",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "claw_3": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "............",
+        "...1..1.....",
+        ".1..1..1....",
+        ".1..1..1....",
+        "..1..1..1...",
+        "..1..1..1...",
+        "...1..1..1..",
+        "...1..1..1..",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "claw_4": {
+      "mask": [
+        "............",
+        ".....11.....",
+        "...11.......",
+        ".11....1....",
+        ".....11.....",
+        "...11.......",
+        ".11....1....",
+        ".....11.....",
+        "...11.......",
+        ".11.........",
+        "............",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "claw_5": {
+      "mask": [
+        "............",
+        "...1..1..1..",
+        "...1..1..1..",
+        "..1..1..1...",
+        "..1..1..1...",
+        ".1..1..1....",
+        ".1..1..1....",
+        "...1..1.....",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "claw_6": {
+      "mask": [
+        "............",
+        "............",
+        ".11.........",
+        "...11.......",
+        ".....11.....",
+        ".11....1....",
+        "...11.......",
+        ".....11.....",
+        ".11....1....",
+        "...11.......",
+        ".....11.....",
+        "............"
+      ],
+      "color": 7088424
+    },
+    "spore_1": {
+      "mask": [
+        "............",
+        "...1........",
+        "..121..1....",
+        "...1..121...",
+        ".......1....",
+        "....1.......",
+        "...121......",
+        "....1...1...",
+        ".......121..",
+        "........1...",
+        "............",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "spore_2": {
+      "mask": [
+        "............",
+        "............",
+        ".........1..",
+        ".....1..121.",
+        "....121..1..",
+        ".....1......",
+        "........1...",
+        "...1...121..",
+        "..121...1...",
+        "...1........",
+        "............",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "spore_3": {
+      "mask": [
+        "............",
+        "............",
+        "...1........",
+        "..121.......",
+        "...1...1....",
+        "......121...",
+        ".......1....",
+        "....1.......",
+        "...121..1...",
+        "....1..121..",
+        "........1...",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "spore_4": {
+      "mask": [
+        "............",
+        "............",
+        "........1...",
+        "...1...121..",
+        "..121...1...",
+        "...1........",
+        "......1.....",
+        "..1..121....",
+        ".121..1.....",
+        "..1.........",
+        "............",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "spore_5": {
+      "mask": [
+        "............",
+        "........1...",
+        "....1..121..",
+        "...121..1...",
+        "....1.......",
+        ".......1....",
+        "......121...",
+        "...1...1....",
+        "..121.......",
+        "...1........",
+        "............",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "spore_6": {
+      "mask": [
+        "............",
+        "............",
+        "..1.........",
+        ".121..1.....",
+        "..1..121....",
+        "......1.....",
+        "...1........",
+        "..121...1...",
+        "...1...121..",
+        "........1...",
+        "............",
+        "............"
+      ],
+      "color": 9549906
+    },
+    "drag_1": {
+      "mask": [
+        "..11........",
+        "...11.......",
+        "....11......",
+        ".....11.....",
+        "....11......",
+        "...11.......",
+        "....11......",
+        ".....11.....",
+        "......11....",
+        ".....11.....",
+        "....11......",
+        "............"
+      ],
+      "color": 5782578
+    },
+    "drag_2": {
+      "mask": [
+        "............",
+        "............",
+        "...........1",
+        "......1...11",
+        ".1...111.11.",
+        ".11.11.111..",
+        "..111...1...",
+        "...1........",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 5782578
+    },
+    "drag_3": {
+      "mask": [
+        "............",
+        "......11....",
+        ".....11.....",
+        "....11......",
+        ".....11.....",
+        "......11....",
+        ".......11...",
+        "......11....",
+        ".....11.....",
+        "......11....",
+        ".......11...",
+        "........11.."
+      ],
+      "color": 5782578
+    },
+    "drag_4": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "............",
+        "........1...",
+        "...1...111..",
+        "..111.11.11.",
+        ".11.111...1.",
+        "11...1......",
+        "1...........",
+        "............",
+        "............"
+      ],
+      "color": 5782578
+    },
+    "drag_5": {
+      "mask": [
+        "........11..",
+        ".......11...",
+        "......11....",
+        ".....11.....",
+        "......11....",
+        ".......11...",
+        "......11....",
+        ".....11.....",
+        "....11......",
+        ".....11.....",
+        "......11....",
+        "............"
+      ],
+      "color": 5782578
+    },
+    "drag_6": {
+      "mask": [
+        "............",
+        "............",
+        "1...........",
+        "11...1......",
+        ".11.111...1.",
+        "..111.11.11.",
+        "...1...111..",
+        "........1...",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 5782578
+    },
+    "foot_1": {
+      "mask": [
+        "............",
+        "..11....11..",
+        ".122...122..",
+        "..22....22..",
+        "............",
+        "...11....11.",
+        "..122...122.",
+        "...22....22.",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "foot_2": {
+      "mask": [
+        "............",
+        ".........1..",
+        ".....1..221.",
+        "....221.221.",
+        "....221.....",
+        "............",
+        "............",
+        ".........1..",
+        ".....1..221.",
+        "....221.221.",
+        "....221.....",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "foot_3": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "............",
+        ".22....22...",
+        ".221...221..",
+        ".11....11...",
+        "............",
+        "..22....22..",
+        "..221...221.",
+        "..11....11..",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "foot_4": {
+      "mask": [
+        "............",
+        ".....122....",
+        ".122.122....",
+        ".122..1.....",
+        "..1.........",
+        "............",
+        "............",
+        ".....122....",
+        ".122.122....",
+        ".122..1.....",
+        "..1.........",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "foot_5": {
+      "mask": [
+        "............",
+        "..11....11..",
+        "..221...221.",
+        "..22....22..",
+        "............",
+        ".11....11...",
+        ".221...221..",
+        ".22....22...",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "foot_6": {
+      "mask": [
+        "............",
+        "..1.........",
+        ".122..1.....",
+        ".122.122....",
+        ".....122....",
+        "............",
+        "............",
+        "..1.........",
+        ".122..1.....",
+        ".122.122....",
+        ".....122....",
+        "............"
+      ],
+      "color": 4538419
+    },
+    "root_1": {
+      "mask": [
+        ".....1......",
+        ".....1......",
+        "....121.....",
+        "...1.2.1....",
+        "..1..2..1...",
+        ".....2......",
+        "....121.....",
+        "...1.2.1....",
+        "..1..2..1...",
+        ".....1......",
+        "....1.1.....",
+        "...1...1...."
+      ],
+      "color": 5141056
+    },
+    "root_2": {
+      "mask": [
+        "............",
+        "............",
+        "...1...1....",
+        "1...1...1...",
+        ".1...1...1..",
+        "..1222222211",
+        ".1...1...1..",
+        "1...1...1...",
+        "...1...1....",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 5141056
+    },
+    "root_3": {
+      "mask": [
+        "....1...1...",
+        ".....1.1....",
+        "......1.....",
+        "...1..2..1..",
+        "....1.2.1...",
+        ".....121....",
+        "......2.....",
+        "...1..2..1..",
+        "....1.2.1...",
+        ".....121....",
+        "......1.....",
+        "......1....."
+      ],
+      "color": 5141056
+    },
+    "root_4": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "....1...1...",
+        "...1...1...1",
+        "..1...1...1.",
+        "1122222221..",
+        "..1...1...1.",
+        "...1...1...1",
+        "....1...1...",
+        "............",
+        "............"
+      ],
+      "color": 5141056
+    },
+    "root_5": {
+      "mask": [
+        "......1.....",
+        "......1.....",
+        ".....121....",
+        "....1.2.1...",
+        "...1..2..1..",
+        "......2.....",
+        ".....121....",
+        "....1.2.1...",
+        "...1..2..1..",
+        "......1.....",
+        ".....1.1....",
+        "....1...1..."
+      ],
+      "color": 5141056
+    },
+    "root_6": {
+      "mask": [
+        "............",
+        "............",
+        "....1...1...",
+        "...1...1...1",
+        "..1...1...1.",
+        "1122222221..",
+        "..1...1...1.",
+        "...1...1...1",
+        "....1...1...",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 5141056
+    },
+    "fracture_1": {
+      "mask": [
+        ".....1......",
+        "......1.....",
+        ".....121....",
+        "....1..1....",
+        "...1...1....",
+        "....1...1...",
+        ".....1...1..",
+        "....1.......",
+        "...1........",
+        "..1.........",
+        "...1........",
+        "............"
+      ],
+      "color": 10010064
+    },
+    "fracture_2": {
+      "mask": [
+        "............",
+        "............",
+        "..1.........",
+        ".1.1...1....",
+        "....1.1.1...",
+        ".....1...1.1",
+        ".........21.",
+        ".......111..",
+        "......1.....",
+        ".....1......",
+        "............",
+        "............"
+      ],
+      "color": 10010064
+    },
+    "fracture_3": {
+      "mask": [
+        "............",
+        "........1...",
+        ".........1..",
+        "........1...",
+        ".......1....",
+        "..1...1.....",
+        "...1...1....",
+        "....1...1...",
+        "....1..1....",
+        "....121.....",
+        ".....1......",
+        "......1....."
+      ],
+      "color": 10010064
+    },
+    "fracture_4": {
+      "mask": [
+        "............",
+        "............",
+        "......1.....",
+        ".....1......",
+        "..111.......",
+        ".12.........",
+        "1.1...1.....",
+        "...1.1.1....",
+        "....1...1.1.",
+        ".........1..",
+        "............",
+        "............"
+      ],
+      "color": 10010064
+    },
+    "fracture_5": {
+      "mask": [
+        "......1.....",
+        ".....1......",
+        "....121.....",
+        "....1..1....",
+        "....1...1...",
+        "...1...1....",
+        "..1...1.....",
+        ".......1....",
+        "........1...",
+        ".........1..",
+        "........1...",
+        "............"
+      ],
+      "color": 10010064
+    },
+    "fracture_6": {
+      "mask": [
+        "............",
+        "............",
+        ".........1..",
+        "....1...1.1.",
+        "...1.1.1....",
+        "1.1...1.....",
+        ".12.........",
+        "..111.......",
+        ".....1......",
+        "......1.....",
+        "............",
+        "............"
+      ],
+      "color": 10010064
+    },
+    "ash_1": {
+      "mask": [
+        "............",
+        "....111.....",
+        "...12221....",
+        "..122.221...",
+        "..12...21...",
+        "..12...21...",
+        "..122.221...",
+        "...12221....",
+        "....111.....",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "ash_2": {
+      "mask": [
+        "............",
+        "............",
+        ".....1111...",
+        "....122221..",
+        "...122..221.",
+        "...12....21.",
+        "...122..221.",
+        "....122221..",
+        ".....1111...",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "ash_3": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        ".....111....",
+        "....12221...",
+        "...122.221..",
+        "...12...21..",
+        "...12...21..",
+        "...122.221..",
+        "....12221...",
+        ".....111....",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "ash_4": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "...1111.....",
+        "..122221....",
+        ".122..221...",
+        ".12....21...",
+        ".122..221...",
+        "..122221....",
+        "...1111.....",
+        "............",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "ash_5": {
+      "mask": [
+        "............",
+        ".....111....",
+        "....12221...",
+        "...122.221..",
+        "...12...21..",
+        "...12...21..",
+        "...122.221..",
+        "....12221...",
+        ".....111....",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "ash_6": {
+      "mask": [
+        "............",
+        "............",
+        "...1111.....",
+        "..122221....",
+        ".122..221...",
+        ".12....21...",
+        ".122..221...",
+        "..122221....",
+        "...1111.....",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 6443850
+    },
+    "cable_1": {
+      "mask": [
+        "............",
+        "..1111111...",
+        "..2.....1...",
+        "..2.....1...",
+        "..211...1...",
+        "....2...1...",
+        "....2..1....",
+        "....211.....",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7632738
+    },
+    "cable_2": {
+      "mask": [
+        "............",
+        "............",
+        ".......2221.",
+        ".......1..1.",
+        "....2221..1.",
+        "....1.....1.",
+        "....1.....1.",
+        ".....1....1.",
+        "......11111.",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7632738
+    },
+    "cable_3": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        "............",
+        ".....112....",
+        "....1..2....",
+        "...1...2....",
+        "...1...112..",
+        "...1.....2..",
+        "...1.....2..",
+        "...1111111..",
+        "............"
+      ],
+      "color": 7632738
+    },
+    "cable_4": {
+      "mask": [
+        "............",
+        "............",
+        "............",
+        ".11111......",
+        ".1....1.....",
+        ".1.....1....",
+        ".1.....1....",
+        ".1..1222....",
+        ".1..1.......",
+        ".1222.......",
+        "............",
+        "............"
+      ],
+      "color": 7632738
+    },
+    "cable_5": {
+      "mask": [
+        "............",
+        "...1111111..",
+        "...1.....2..",
+        "...1.....2..",
+        "...1...112..",
+        "...1...2....",
+        "....1..2....",
+        ".....112....",
+        "............",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7632738
+    },
+    "cable_6": {
+      "mask": [
+        "............",
+        "............",
+        ".1222.......",
+        ".1..1.......",
+        ".1..1222....",
+        ".1.....1....",
+        ".1.....1....",
+        ".1....1.....",
+        ".11111......",
+        "............",
+        "............",
+        "............"
+      ],
+      "color": 7632738
+    }
+  },
+  "waves": {
+    "scouts": {
+      "entities": [
+        "mutationcraft:assimilated_human",
+        "mutationcraft:assimilated_roamer"
+      ]
+    },
+    "flankers": {
+      "entities": [
+        "mutationcraft:assimilated_spider",
+        "mutationcraft:assimilated_wolf"
+      ]
+    },
+    "forest_scouts": {
+      "entities": [
+        "overgrown_vegetation:parasitized_zombie",
+        "overgrown_vegetation:parasitized_spider"
+      ]
+    },
+    "forest_guard": {
+      "entities": [
+        "overgrown_vegetation:falcimnes"
+      ]
+    }
+  },
+  "events": [
+    {
+      "id": "flank_rustle",
+      "title": "Шорохи на фланге",
+      "tactic": "reconnaissance",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "defense": -0.2,
+        "value": 0.6
+      },
+      "start": "whisper",
+      "nodes": [
+        {
+          "id": "whisper",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_assimilated_spider_ambient",
+              "role": "flank",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "claw_1",
+              "role": "flank",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 200,
+          "branches": [
+            {
+              "when": "inspect",
+              "next": "scouts"
+            },
+            {
+              "when": "near:flank",
+              "next": "scouts"
+            },
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "probe"
+        },
+        {
+          "id": "scouts",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_entity_spider_step",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "rear",
+              "portion": 0.4
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "probe",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.25
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "spore_lure",
+      "title": "Споровая приманка",
+      "tactic": "lure",
+      "faction": "forest",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "pressure": 0.4
+      },
+      "start": "pollen",
+      "nodes": [
+        {
+          "id": "pollen",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_ambient_warped_forest_additions",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "spore_1",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 260,
+          "branches": [
+            {
+              "when": "water",
+              "next": "wash"
+            },
+            {
+              "when": "burn",
+              "next": "smoke"
+            },
+            {
+              "when": "near",
+              "next": "bloom"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "wash",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 80,
+          "branches": [],
+          "timeout": "win"
+        },
+        {
+          "id": "smoke",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "ash",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "overgrown_vegetation_entity_falcimnes_growl",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 180,
+          "branches": [],
+          "timeout": "retreat"
+        },
+        {
+          "id": "bloom",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "brood_silence",
+      "title": "Тишина перед выводком",
+      "tactic": "incubation",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "breath",
+      "nodes": [
+        {
+          "id": "breath",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_human_stage_ambient",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "drag_2",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 320,
+          "branches": [
+            {
+              "when": "break",
+              "next": "early"
+            },
+            {
+              "when": "burn",
+              "next": "early"
+            },
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "hatch"
+        },
+        {
+          "id": "early",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.25
+            }
+          ],
+          "waitTicks": 320,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "hatch",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_mutant_transform",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "flank",
+              "portion": 0.8
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "false_siege",
+      "title": "Ложная осада",
+      "tactic": "feint",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "defense": 0.6
+      },
+      "start": "front",
+      "nodes": [
+        {
+          "id": "front",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_hook_ambient",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "claw_3",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 220,
+          "branches": [
+            {
+              "when": "near:approach",
+              "next": "rear_probe"
+            },
+            {
+              "when": "repair",
+              "next": "weak_probe"
+            }
+          ],
+          "timeout": "weak_probe"
+        },
+        {
+          "id": "rear_probe",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_assimilated_wolf_ambient",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "rear",
+              "portion": 0.65
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "weak_probe",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.25
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "forked_tracks",
+      "title": "Два следа",
+      "tactic": "fork",
+      "faction": "mixed",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "fork",
+      "nodes": [
+        {
+          "id": "fork",
+          "actions": [
+            {
+              "type": "trace",
+              "key": "foot_2",
+              "role": "flank",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "root_3",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "minecraft_block_rooted_dirt_break",
+              "role": "rear",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "inspect:flank",
+              "next": "animal"
+            },
+            {
+              "when": "near:flank",
+              "next": "animal"
+            },
+            {
+              "when": "inspect:rear",
+              "next": "roots"
+            },
+            {
+              "when": "near:rear",
+              "next": "roots"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "animal",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "flank",
+              "portion": 0.5
+            },
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_assimilated_fox_ambient",
+              "role": "flank",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "roots",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "rear",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "water",
+              "next": "win"
+            },
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "underground_pulse",
+      "title": "Подземный ритм",
+      "tactic": "excavation_trap",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "knock",
+      "nodes": [
+        {
+          "id": "knock",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_block_note_block_basedrum",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "fracture_2",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "mine",
+              "next": "disturbed"
+            },
+            {
+              "when": "water",
+              "next": "retreat"
+            },
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "surface"
+        },
+        {
+          "id": "disturbed",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "dust",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "flank",
+              "portion": 0.4
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "surface",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_entity_silverfish_step",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.3
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "defense_probe",
+      "title": "Проверка обороны",
+      "tactic": "weakness_probe",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "empty_defense": 1,
+        "defense": -0.4
+      },
+      "start": "wire",
+      "nodes": [
+        {
+          "id": "wire",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_block_chain_step",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "cable_1",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 360,
+          "branches": [
+            {
+              "when": "repair",
+              "next": "hesitate"
+            },
+            {
+              "when": "inspect",
+              "next": "probe"
+            }
+          ],
+          "timeout": "probe"
+        },
+        {
+          "id": "hesitate",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_assimilated_wolf_ambient",
+              "role": "flank",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 160,
+          "branches": [],
+          "timeout": "defended"
+        },
+        {
+          "id": "probe",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "repair",
+              "next": "withdraw"
+            },
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "withdraw",
+          "actions": [
+            {
+              "type": "move",
+              "key": "rear",
+              "role": "rear",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 160,
+          "branches": [],
+          "timeout": "defended"
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "migration",
+      "title": "Ночная миграция",
+      "tactic": "passage",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "losses": 0.5
+      },
+      "start": "trail",
+      "nodes": [
+        {
+          "id": "trail",
+          "actions": [
+            {
+              "type": "trace",
+              "key": "foot_4",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "drag_4",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_human_herder_step",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 200,
+          "branches": [
+            {
+              "when": "near",
+              "next": "intercept"
+            }
+          ],
+          "timeout": "column"
+        },
+        {
+          "id": "intercept",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.6
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "column",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "flank",
+              "portion": 0.35
+            },
+            {
+              "type": "move",
+              "key": "rear",
+              "role": "rear",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "near",
+              "next": "intercept"
+            },
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "spore_fog",
+      "title": "Заражающий туман",
+      "tactic": "area_denial",
+      "faction": "forest",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "haze",
+      "nodes": [
+        {
+          "id": "haze",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "spore_4",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "minecraft_ambient_crimson_forest_additions",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 260,
+          "branches": [
+            {
+              "when": "water",
+              "next": "purge"
+            },
+            {
+              "when": "burn",
+              "next": "smoke"
+            },
+            {
+              "when": "near",
+              "next": "source"
+            }
+          ],
+          "timeout": "source"
+        },
+        {
+          "id": "purge",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_weather_rain",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 100,
+          "branches": [],
+          "timeout": "win"
+        },
+        {
+          "id": "smoke",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "ash",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 160,
+          "branches": [
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "source"
+        },
+        {
+          "id": "source",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "water",
+              "next": "win"
+            },
+            {
+              "when": "break",
+              "next": "win"
+            },
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "cold_focus",
+      "title": "Холодный очаг",
+      "tactic": "seasonal_ambush",
+      "faction": "mixed",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "ASH_WINTER"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "ice",
+      "nodes": [
+        {
+          "id": "ice",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_block_glass_break",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "fracture_5",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "particles",
+              "key": "frost",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "burn",
+              "next": "heat"
+            },
+            {
+              "when": "inspect",
+              "next": "stir"
+            },
+            {
+              "when": "water",
+              "next": "win"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "heat",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "ash",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "rear",
+              "portion": 0.45
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "stir",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.25
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "dry_thunder",
+      "title": "Сухая гроза",
+      "tactic": "fire_decoy",
+      "faction": "forest",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "embers",
+      "nodes": [
+        {
+          "id": "embers",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_block_campfire_crackle",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "ash_2",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "particles",
+              "key": "ash",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 320,
+          "branches": [
+            {
+              "when": "water",
+              "next": "win"
+            },
+            {
+              "when": "burn",
+              "next": "flush"
+            },
+            {
+              "when": "inspect",
+              "next": "source"
+            }
+          ],
+          "timeout": "source"
+        },
+        {
+          "id": "flush",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "overgrown_vegetation_entity_falcimnes_screech",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "rear",
+              "portion": 0.3
+            }
+          ],
+          "waitTicks": 320,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "source",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "water",
+              "next": "win"
+            },
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "relay_echo",
+      "title": "Эхо из периметра",
+      "tactic": "signal_investigation",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {},
+      "start": "static",
+      "nodes": [
+        {
+          "id": "static",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_block_note_block_hat",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "cable_4",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 200,
+          "branches": [
+            {
+              "when": "inspect",
+              "next": "decode"
+            },
+            {
+              "when": "near",
+              "next": "rush"
+            }
+          ],
+          "timeout": "fade"
+        },
+        {
+          "id": "decode",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_event_village_alarm",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "foot_5",
+              "role": "rear",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 200,
+          "branches": [
+            {
+              "when": "near:rear",
+              "next": "counter"
+            },
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "rush",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "rear",
+              "portion": 0.6
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "counter",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "rear",
+              "portion": 0.2
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "fade",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_ambient_cave",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 80,
+          "branches": [],
+          "timeout": "end"
+        },
+        {
+          "id": "end",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "inconclusive",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "interrupted_harvest",
+      "title": "Сорванный сбор",
+      "tactic": "resource_pressure",
+      "faction": "forest",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "value": 1,
+        "defense": -0.3
+      },
+      "start": "roots",
+      "nodes": [
+        {
+          "id": "roots",
+          "actions": [
+            {
+              "type": "trace",
+              "key": "root_5",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "minecraft_block_rooted_dirt_break",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 360,
+          "branches": [
+            {
+              "when": "mine",
+              "next": "defenders"
+            },
+            {
+              "when": "break",
+              "next": "defenders"
+            },
+            {
+              "when": "water",
+              "next": "win"
+            },
+            {
+              "when": "burn",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "retreat"
+        },
+        {
+          "id": "defenders",
+          "actions": [
+            {
+              "type": "particles",
+              "key": "spores",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.55
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "win",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "contained",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "false_breather",
+      "title": "Ложный выдох",
+      "tactic": "pursuit_trap",
+      "faction": "parasites",
+      "weight": 1,
+      "minScore": -1000000000000.0,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": false,
+      "affinity": {
+        "pressure": 0.7,
+        "losses": -1
+      },
+      "start": "warning",
+      "nodes": [
+        {
+          "id": "warning",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "mutationcraft_entity_assimilated_cow_ambient",
+              "role": "approach",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "foot_6",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 180,
+          "branches": [
+            {
+              "when": "far",
+              "next": "retreat"
+            }
+          ],
+          "timeout": "probe"
+        },
+        {
+          "id": "probe",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "approach",
+              "portion": 0.3
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "quiet"
+            }
+          ],
+          "timeout": "quiet"
+        },
+        {
+          "id": "quiet",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_entity_fox_screech",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "claw_6",
+              "role": "rear",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 260,
+          "branches": [
+            {
+              "when": "near:rear",
+              "next": "second"
+            },
+            {
+              "when": "repair",
+              "next": "defended"
+            }
+          ],
+          "timeout": "defended"
+        },
+        {
+          "id": "second",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "rear",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "retreat",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "avoided",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    },
+    {
+      "id": "cross_front",
+      "title": "Перекрёстный фронт",
+      "tactic": "combined_pressure",
+      "faction": "mixed",
+      "weight": 0.55,
+      "minScore": 10,
+      "minPlayers": 1,
+      "seasons": [
+        "CALM",
+        "ASH_WINTER",
+        "HEAT"
+      ],
+      "cooldownTicks": 36000,
+      "lifetimeTicks": 4800,
+      "heavy": true,
+      "affinity": {
+        "value": 0.7,
+        "pressure": 0.8,
+        "losses": -1
+      },
+      "start": "divide",
+      "nodes": [
+        {
+          "id": "divide",
+          "actions": [
+            {
+              "type": "trace",
+              "key": "spore_6",
+              "role": "flank",
+              "portion": 0
+            },
+            {
+              "type": "trace",
+              "key": "claw_4",
+              "role": "rear",
+              "portion": 0
+            },
+            {
+              "type": "sound",
+              "key": "overgrown_vegetation_entity_scutimnes_roar",
+              "role": "flank",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 300,
+          "branches": [
+            {
+              "when": "water",
+              "next": "parasites"
+            },
+            {
+              "when": "burn",
+              "next": "parasites"
+            },
+            {
+              "when": "near:rear",
+              "next": "forest"
+            },
+            {
+              "when": "repair",
+              "next": "hold"
+            }
+          ],
+          "timeout": "both"
+        },
+        {
+          "id": "parasites",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "flankers",
+              "role": "rear",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "forest",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.5
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "hold",
+          "actions": [
+            {
+              "type": "sound",
+              "key": "minecraft_entity_warden_listening",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 180,
+          "branches": [],
+          "timeout": "defended"
+        },
+        {
+          "id": "both",
+          "actions": [
+            {
+              "type": "wave",
+              "key": "scouts",
+              "role": "rear",
+              "portion": 0.35
+            },
+            {
+              "type": "wave",
+              "key": "forest_scouts",
+              "role": "flank",
+              "portion": 0.35
+            }
+          ],
+          "waitTicks": 400,
+          "branches": [
+            {
+              "when": "clear",
+              "next": "defended"
+            }
+          ],
+          "timeout": "fight"
+        },
+        {
+          "id": "fight",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "engaged",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        },
+        {
+          "id": "defended",
+          "actions": [
+            {
+              "type": "finish",
+              "key": "repelled",
+              "role": "approach",
+              "portion": 0
+            }
+          ],
+          "waitTicks": 0,
+          "branches": [],
+          "timeout": ""
+        }
+      ]
+    }
+  ]
+}

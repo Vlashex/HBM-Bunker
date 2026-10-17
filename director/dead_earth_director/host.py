@@ -1,4 +1,4 @@
-"""D1 preview loop. This module has no propose_scenario or world-writing call."""
+"""Durable preview and bounded live director loops; the server owns physical execution."""
 import argparse
 import json
 import math
@@ -85,6 +85,13 @@ class Journal:
         self.db.execute("DELETE FROM decisions WHERE rowid IN (SELECT rowid FROM decisions ORDER BY rowid DESC LIMIT -1 OFFSET 4096)")
         self.db.commit()
 
+    def pending(self):
+        try:
+            rows=self.db.execute("SELECT goal_id,request_id,choice FROM decisions WHERE report IS NULL AND choice IS NOT NULL ORDER BY rowid LIMIT 16").fetchall()
+            return [dict(goal_id=g,request_id=r,choice=json.loads(c)) for g,r,c in rows]
+        except (sqlite3.Error,ValueError):
+            raise DirectorError("journal_unavailable") from None
+
     def close(self):
         self.db.close()
 
@@ -138,6 +145,107 @@ class Director:
         self.journal.finish(goal["id"],report)
         return report
 
+def cinematic_context(view, descriptor):
+    try:
+        goal=view["goal"]
+        if (type(goal) is not dict or set(goal)!={"id","epoch","catalogRevision","created","expires","options"}
+                or not _uuid(goal["id"]) or goal["epoch"]!=descriptor.world_epoch
+                or type(goal["catalogRevision"]) is not str or len(goal["catalogRevision"])!=64
+                or any(c not in "0123456789abcdef" for c in goal["catalogRevision"])
+                or goal["catalogRevision"]!=view["catalogRevision"]):
+            raise DirectorError("invalid_brief")
+        now,created,expires=view["activeTicks"],goal["created"],goal["expires"]
+        if any(type(v) is not int for v in (now,created,expires)) or not 0 <= created <= now < expires <= created+72000:
+            raise DirectorError("invalid_brief")
+        if view["season"] not in {"CALM","HEAT","ASH_WINTER"} or type(view["pressure"]) not in (int,float) or not math.isfinite(view["pressure"]) or not .05 <= view["pressure"] <= 4:
+            raise DirectorError("invalid_brief")
+        options=goal["options"]
+        if type(options) is not list or not 1 <= len(options) <= 8:
+            raise DirectorError("invalid_brief")
+        projected=[]
+        import re
+        for index,o in enumerate(options):
+            if (type(o) is not dict or set(o)!={"eventId","zoneId","title","tactic","faction","weight","budget"}
+                    or not _uuid(o["zoneId"]) or type(o["eventId"]) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",o["eventId"])
+                    or type(o["tactic"]) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",o["tactic"])
+                    or not valid_narrative("distant_sound",o["title"]) or o["faction"] not in {"forest","parasites","mixed"}
+                    or type(o["weight"]) not in (int,float) or not math.isfinite(o["weight"]) or not 0 < o["weight"] <= 10000
+                    or type(o["budget"]) is not int or not 1 <= o["budget"] <= 32):
+                raise DirectorError("invalid_brief")
+            projected.append(dict(option=index,title=o["title"],tactic=o["tactic"],faction=o["faction"],weight=round(o["weight"],4)))
+        recent=view["recent"]
+        if type(recent) is not list or len(recent)>6:
+            raise DirectorError("invalid_brief")
+        history=[]
+        for h in recent:
+            if (type(h) is not dict or type(h.get("eventId")) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",h["eventId"])
+                    or h.get("outcome") not in {"repelled","contained","avoided","engaged","inconclusive","uncertain","expired","cancelled"}):
+                raise DirectorError("invalid_brief")
+            history.append(dict(event=h["eventId"],outcome=h["outcome"]))
+        return goal,dict(season=view["season"],pressure=view["pressure"],options=projected,recent=history)
+    except (KeyError,TypeError,ValueError):
+        raise DirectorError("invalid_brief") from None
+
+class CinematicDirector:
+    def __init__(self,client,model,journal):
+        self.client,self.model,self.journal=client,model,journal
+
+    def _submit(self,goal_id,request_id,choice):
+        import re
+        if (type(choice) is not dict or choice.get("kind")!="cinematic_v1" or not _uuid(goal_id) or not _uuid(request_id)
+                or not _uuid(choice.get("zone_id")) or type(choice.get("event_id")) is not str
+                or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",choice["event_id"])
+                or request_id!=str(uuid5(UUID(goal_id),"dead-earth-cinematic-v1"))):
+            raise DirectorError("journal_unavailable")
+        verdict=self.client.call("choose_cinematic",dict(request_id=request_id,goal_id=goal_id,event_id=choice["event_id"],zone_id=choice["zone_id"]))
+        accepted={"queued","already_queued","already_recorded"}
+        rejected={"stale_goal","ineligible","queue_full","disabled","conflicting_request"}
+        if (type(verdict) is not dict or verdict.get("requestId")!=request_id or verdict.get("goalId")!=goal_id
+                or type(verdict.get("accepted")) is not bool or verdict.get("code") not in accepted|rejected
+                or verdict["accepted"]!=(verdict["code"] in accepted)
+                or verdict["accepted"] and not _uuid(verdict.get("operationId"))):
+            raise DirectorError("invalid_admission")
+        report=dict(state=verdict["code"],goal_id=goal_id,source=choice["source"],reason=choice["reason"],
+                    event_id=choice["event_id"],metrics=choice["metrics"])
+        self.journal.finish(goal_id,report)
+        return report
+
+    def once(self):
+        # Resolve unknown outcomes first, even if that server goal is no longer advertised.
+        for pending in self.journal.pending():
+            if pending["choice"].get("kind")=="cinematic_v1":
+                return self._submit(pending["goal_id"],pending["request_id"],pending["choice"])
+        view=self.client.call("get_cinematic_brief",{})
+        if type(view) is not dict:
+            raise DirectorError("invalid_brief")
+        status=view.get("status")
+        if status in {"disabled","waiting","no_players","catalog_unavailable","runtime_fault"}:
+            return dict(state=status)
+        if status!="ready":
+            raise DirectorError("invalid_brief")
+        goal,context=cinematic_context(view,self.client.descriptor)
+        saved=self.journal.read(goal["id"])
+        if saved and saved["report"] is not None:
+            return dict(state="already_recorded",goal_id=goal["id"])
+        request_id=str(uuid5(UUID(goal["id"]),"dead-earth-cinematic-v1"))
+        if saved is None:
+            self.journal.reserve(goal["id"],request_id)
+        elif saved["request_id"]!=request_id:
+            raise DirectorError("journal_context_mismatch")
+        try:
+            decision,metrics=self.model.select(context)
+            if type(decision) is not dict or set(decision)!={"option"} or type(decision["option"]) is not int or not 0 <= decision["option"] < len(goal["options"]):
+                raise ModelError("model_invalid_response")
+            source,reason="model","model_validated"
+        except ModelError as error:
+            decision,metrics=dict(option=0),{}
+            source,reason="fallback",str(error)
+        selected=goal["options"][decision["option"]]
+        choice=dict(kind="cinematic_v1",event_id=selected["eventId"],zone_id=selected["zoneId"],source=source,reason=reason,metrics=metrics)
+        self.journal.choice(goal["id"],choice)
+        return self._submit(goal["id"],request_id,choice)
+
+
 def load_config(path):
     try:
         raw=tomllib.loads(Path(path).read_text(encoding="utf-8"))
@@ -151,27 +259,32 @@ def load_config(path):
         raise DirectorError("invalid_config") from None
 
 def main():
-    parser=argparse.ArgumentParser(description="DEAD EARTH director D1: read-only scenario previews")
+    parser=argparse.ArgumentParser(description="DEAD EARTH: bounded cinematic director or D1 previews")
     parser.add_argument("--bridge",type=Path,required=True)
     parser.add_argument("--config",type=Path,default=Path(__file__).resolve().parents[1]/"director.example.toml")
     parser.add_argument("--journal",type=Path,default=Path(__file__).resolve().parents[1]/"runtime"/"decisions.sqlite3")
     parser.add_argument("--once",action="store_true")
+    parser.add_argument("--mode",choices=("preview","live"),default="preview")
+    parser.add_argument("--stop-file",type=Path)
     args=parser.parse_args()
     journal=None
     try:
         settings,poll=load_config(args.config)
         client=BridgeClient(Descriptor.load(args.bridge))
         journal=Journal(args.journal)
-        director=Director(client,OllamaModel(settings),journal)
+        director=(CinematicDirector if args.mode=="live" else Director)(client,OllamaModel(settings),journal)
         previous=None
         while True:
+            if args.stop_file and args.stop_file.exists():return 0
             report=director.once()
             if report != previous:
                 print(json.dumps(report,ensure_ascii=False,allow_nan=False),flush=True)
             previous=report
             if args.once:
                 return 0
-            time.sleep(poll)
+            for _ in range(poll):
+                if args.stop_file and args.stop_file.exists():return 0
+                time.sleep(1)
     except KeyboardInterrupt:
         return 0
     except (BridgeError,DirectorError,ModelError) as error:

@@ -41,6 +41,16 @@ class BridgeProtocolTest {
         args.addProperty("text",10);rejects(input,"invalid_arguments");
         args.addProperty("text","x".repeat(181));rejects(input,"invalid_arguments");
     }
+    @Test void cinematicSelectionAcceptsOnlyNamedEventAndZoneWithoutExtraAuthority() {
+        for(String op:java.util.List.of("get_cinematic_brief","get_cinematic_queue"))assertEquals(op,protocol.decode(bytes(request(op))).operation());
+        var input=request("choose_cinematic");var args=input.getAsJsonObject("arguments");
+        args.addProperty("request_id",CAMPAIGN.toString());args.addProperty("goal_id",EPOCH.toString());
+        args.addProperty("zone_id",EPOCH.toString());args.addProperty("event_id","spore_lure");
+        assertEquals("choose_cinematic",protocol.decode(bytes(input)).operation());
+        args.addProperty("count",10);rejects(input,"invalid_arguments");args.remove("count");
+        args.addProperty("event_id","/op player");rejects(input,"invalid_arguments");
+        args.addProperty("event_id","spore_lure");args.addProperty("zone_id",true);rejects(input,"invalid_arguments");
+    }
     @Test void authenticSnapshotIsDecodedWithoutExposingCredentials() {
         var parsed = protocol.decode(bytes(request("get_snapshot")));
         assertEquals("get_snapshot", parsed.operation()); assertTrue(parsed.arguments().isEmpty());

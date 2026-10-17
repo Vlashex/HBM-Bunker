@@ -1,0 +1,22 @@
+{
+  "stage": "development-interactive-director",
+  "released": false,
+  "date": "2026-10-17",
+  "java_tests": 134,
+  "java_failures": 0,
+  "python_tests": 30,
+  "python_failures": 0,
+  "pack_tests": 13,
+  "pack_failures": 0,
+  "physical_gametests": 2,
+  "physical_gametests_seconds": 3.704,
+  "physical_world": "run-gametest-cinematic-green-1",
+  "catalog_events": 15,
+  "sound_entries": 103,
+  "trace_patterns": 48,
+  "catalog_sha256": "c98d78884eb4f068c2e314bbd93141786032972f0befc2b0a38dc390c594c158",
+  "rendered_client_verified": false,
+  "real_model_live_choice_verified": false,
+  "full_pack_regression_gametests_pending": true,
+  "launcher_pending": true
+}

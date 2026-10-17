@@ -46,7 +46,12 @@ public final class BridgeProtocol {
         if (!input.get("arguments").isJsonObject()) throw new BridgeFailure("invalid_arguments");
         var args = input.getAsJsonObject("arguments");
         switch (operation) {
-            case "get_snapshot", "list_catalog", "get_director_brief" -> keys(args, Set.of());
+            case "get_snapshot", "list_catalog", "get_director_brief", "get_cinematic_brief", "get_cinematic_queue" -> keys(args, Set.of());
+            case "choose_cinematic" -> {
+                keys(args,Set.of("request_id","goal_id","event_id","zone_id"));
+                uuid(args,"request_id");uuid(args,"goal_id");uuid(args,"zone_id");
+                if(!text(args,"event_id","invalid_arguments").matches("[a-z][a-z0-9_]{0,63}"))throw new BridgeFailure("invalid_arguments");
+            }
             case "preview_director" -> {
                 keys(args,Set.of("request_id","goal_id","variant","text"));uuid(args,"request_id");uuid(args,"goal_id");
                 if (!dev.deadearth.director.DirectorPolicy.validNarrative(text(args,"variant","invalid_arguments"),text(args,"text","invalid_arguments")))

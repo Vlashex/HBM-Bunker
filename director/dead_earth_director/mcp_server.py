@@ -44,6 +44,21 @@ def create_server(client: BridgeClient) -> MCPServer:
         return await invoke("get_snapshot", {})
 
     @server.tool(annotations=read)
+    async def get_cinematic_brief() -> dict[str, Any]:
+        """Допустимые события и зоны, уже рассчитанные сервером; без произвольных координат."""
+        return await invoke("get_cinematic_brief", {})
+
+    @server.tool(annotations=read)
+    async def get_cinematic_queue() -> dict[str, Any]:
+        """Очередь интерактивных событий, их этапы и конечные исходы."""
+        return await invoke("get_cinematic_queue", {})
+
+    @server.tool(annotations=write)
+    async def choose_cinematic(request_id: str, goal_id: str, event_id: str, zone_id: str) -> dict[str, Any]:
+        """Выбрать только пару из действующей цели. Сервер повторно проверяет score, лимиты и сроки."""
+        return await invoke("choose_cinematic",dict(request_id=request_id,goal_id=goal_id,event_id=event_id,zone_id=zone_id))
+
+    @server.tool(annotations=read)
     async def get_director_brief() -> dict[str, Any]:
         """Серверная цель D1 и допустимые варианты. Без атак и загрузки мира."""
         return await invoke("get_director_brief", {})

@@ -90,6 +90,11 @@ public final class BridgeController implements AutoCloseable {
     public void tick() {
         runtime.requireServerThread(); if (!running) return;
         calls.drain((operation, args) -> switch (operation) {
+            case "get_cinematic_brief" -> JSON.toJsonTree(runtime.cinematics().brief());
+            case "get_cinematic_queue" -> JSON.toJsonTree(runtime.cinematics().status());
+            case "choose_cinematic" -> JSON.toJsonTree(runtime.cinematics().choose(
+                UUID.fromString(args.get("request_id").getAsString()),UUID.fromString(args.get("goal_id").getAsString()),
+                args.get("event_id").getAsString(),args.get("zone_id").getAsString()));
             case "get_director_brief" -> JSON.toJsonTree(runtime.directorBrief());
             case "preview_director" -> JSON.toJsonTree(runtime.previewDirector(
                     UUID.fromString(args.get("request_id").getAsString()),UUID.fromString(args.get("goal_id").getAsString()),

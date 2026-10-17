@@ -21,6 +21,11 @@ public final class DeadEarthCommands {
 
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(literal("deadearth").requires(source -> source.hasPermission(2))
+                .then(literal("director").executes(ctx->report(ctx.getSource(),()->DeadEarth.runtime(ctx.getSource().getServer()).cinematics().brief()))
+                    .then(literal("reload").executes(ctx->report(ctx.getSource(),()->DeadEarth.runtime(ctx.getSource().getServer()).cinematics().reload())))
+                    .then(literal("queue").executes(ctx->report(ctx.getSource(),()->DeadEarth.runtime(ctx.getSource().getServer()).cinematics().status())))
+                    .then(literal("cancel").then(argument("operation",UuidArgument.uuid()).executes(ctx->report(ctx.getSource(),()->
+                        DeadEarth.runtime(ctx.getSource().getServer()).cinematics().cancel(UuidArgument.getUuid(ctx,"operation")))))))
                 .then(SiteCommands.branch())
                 .then(BridgeCommands.branch())
                 .then(ClimateCommands.branch())

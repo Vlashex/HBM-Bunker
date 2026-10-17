@@ -39,6 +39,7 @@ public final class CoordinatorRuntime {
     private final BridgeController bridge;
     private final dev.deadearth.climate.SeasonWeather weather=new dev.deadearth.climate.SeasonWeather();
     private final dev.deadearth.director.DirectorPolicy director = new dev.deadearth.director.DirectorPolicy();
+    private final dev.deadearth.director.CinematicDirector cinematics;
     private String fault;
     private ClimateCycle.Phase testSeason;
     public ClimateCycle.Phase effectiveSeason() { requireReady();return testSeason==null?climateStatus().phase():testSeason; }
@@ -69,6 +70,7 @@ public final class CoordinatorRuntime {
                 new SavedData.Factory<>(() -> ClimateStore.create(campaign.campaign().campaignId(),campaign.campaign().activeTicks()),
                         (tag, registries) -> ClimateStore.load(campaign.campaign().campaignId(),campaign.campaign().activeTicks(),tag,registries))) : null;
         bridge = new BridgeController(server, this);
+        cinematics=enabled()?new dev.deadearth.director.CinematicDirector(server,this):null;
         if (enabled()) {
             if(!campaign.adaptiveRequired()) {
                 SavedDataAccess.checkpoint(server.overworld(),dev.deadearth.difficulty.AdaptiveStore.NAME,adaptive);
@@ -81,6 +83,8 @@ public final class CoordinatorRuntime {
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
             && observations != null && observations.enabled() && sites != null && sites.enabled()
             && climate != null && climate.enabled() && adaptive != null && adaptive.enabled(); }
+    public dev.deadearth.director.CinematicDirector cinematics(){requireReady();return cinematics;}
+    public void cinematicSignal(UUID operation,String kind,String role){requireServerThread();if(cinematics!=null)cinematics.signal(operation,kind,role);}
     public UUID epoch() { return epoch; }
     public BridgeController bridge() { requireServerThread(); return bridge; }
     public void close() { requireServerThread(); bridge.close(); }
@@ -251,6 +255,7 @@ public final class CoordinatorRuntime {
                     DeadEarth.LOGGER.info("Dead Earth scenario {} -> {}", receipt.scenarioId(), receipt.state());
             }
         } catch (RuntimeException error) { disable(error); }
+        if(cinematics!=null)cinematics.tick();
         tickBridge();
     }
 
@@ -283,6 +288,7 @@ public final class CoordinatorRuntime {
         if (now > Long.MAX_VALUE - 2200) throw new IllegalStateException("Campaign clock exhausted");
         return new Proposal(request,epoch,choice.targetId(),now+choice.delayTicks(),now+choice.delayTicks()+1000,choice.catalogId(),choice.variant(),choice.delayTicks());
     }
+    public void checkpointCinematic(){requireReady();checkpoint();}
     private void checkpoint() {
         try {
             SavedDataAccess.checkpoint(server.overworld(), CampaignStore.NAME, campaign);

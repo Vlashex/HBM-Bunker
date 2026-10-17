@@ -56,3 +56,8 @@ tasks.withType(Test).configureEach {
     testLogging { events 'passed', 'failed', 'skipped' }
 }
 dependencyLocking { lockAllConfigurations() }
+
+// Ship a complete default catalog; server files can override it atomically.
+tasks.named('processResources') {
+    from('../../pack/config/dead-earth/director') { into 'data/dead_earth/director' }
+}
