@@ -113,10 +113,13 @@ public final class SafeBunker {
             // One real room/shaft segment per tick; iteration aborts after a bounded number of entities.
             var box=state.store.boxes().get(state.boxCursor++%state.store.boxes().size()).aabb();
             int[] inspected={0};int budget=Math.min(256,i(BUNKER_SCAN_BUDGET));
+            var intruders=new ArrayList<LivingEntity>();
             server.overworld().getEntities().get(EntityTypeTest.forClass(LivingEntity.class),box,mob->{
-                if(hostile(mob))mob.discard();
+                if(hostile(mob))intruders.add(mob);
                 return ++inspected[0]>=budget?AbortableIterationConsumer.Continuation.ABORT:AbortableIterationConsumer.Continuation.CONTINUE;
             });
+            // Discard mutates EntitySection; do it after its bounded native iterator has finished.
+            for(var mob:intruders)mob.discard();
         }
     }
     public static void close(MinecraftServer server){var state=STATES.remove(server);if(state!=null)state.protecting=false;FAILED.remove(server);var capture=CAPTURE.get();if(capture!=null&&capture.level.getServer()==server)CAPTURE.remove();}

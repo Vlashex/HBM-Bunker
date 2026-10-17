@@ -26,6 +26,28 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 @GameTestHolder("dead_earth_starter") @PrefixGameTestTemplate(false)
 public final class SafeBunkerGameTests {
+    @GameTest(template="empty",batch="safe_bunker",timeoutTicks=200)
+    public static void existingIntrudersAreDiscardedAfterNativeEntityIteration(GameTestHelper h) {
+        var level=h.getLevel();var server=level.getServer();var runtime=DeadEarth.runtime(server);
+        long deadline=runtime.campaign().campaign().activeTicks()+1000;
+        var factory=new SavedData.Factory<>(()->SafeBunkerStore.create(runtime.campaign().campaign().campaignId(),deadline),SafeBunkerStore::load);
+        var previous=SavedDataAccess.open(server.overworld(),SafeBunkerStore.NAME,factory);
+        // The native entity getter visits accessible sections; the test framework forces this chunk.
+        var base=h.absolutePos(new BlockPos(0,2,0));
+        var first=EntityType.ZOMBIE.create(level);var second=EntityType.ZOMBIE.create(level);var cow=EntityType.COW.create(level);
+        try {
+            first.moveTo(base.getX()+0.25,base.getY()+1,base.getZ()+0.5,0,0);second.moveTo(base.getX()+0.5,base.getY()+1,base.getZ()+0.5,0,0);cow.moveTo(base.getX()+0.75,base.getY()+1,base.getZ()+0.5,0,0);
+            h.assertTrue(level.addFreshEntity(first)&&level.addFreshEntity(second)&&level.addFreshEntity(cow),"Intruder fixture could not join before protection");
+            var store=SafeBunkerStore.create(runtime.campaign().campaign().campaignId(),deadline);
+            store.record(List.of(new SafeBunkerStore.Box(base.getX(),base.getY(),base.getZ(),base.getX(),base.getY()+3,base.getZ())),Map.of(),"native_capture");
+            level.getDataStorage().set(SafeBunkerStore.NAME,store);SafeBunker.close(server);SafeBunker.tick(server,runtime);
+            h.assertTrue(first.isRemoved()&&second.isRemoved(),"Bounded sweep did not remove both existing hostiles");
+            h.assertFalse(cow.isRemoved(),"Bounded sweep removed a passive animal");
+        }finally {
+            first.discard();second.discard();cow.discard();level.getDataStorage().set(SafeBunkerStore.NAME,previous);SafeBunker.close(server);SafeBunker.tick(server,runtime);
+        }
+        h.succeed();
+    }
     @GameTest(template="empty",batch="safe_bunker",timeoutTicks=400)
     @SuppressWarnings({"unchecked","rawtypes"})
     public static void nativeOutpostTemplatesCaptureEquipmentAndSurviveDiskReload(GameTestHelper h)throws Exception {
