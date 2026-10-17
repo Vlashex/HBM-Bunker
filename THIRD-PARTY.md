@@ -1,6 +1,6 @@
 # Внешние компоненты
 
-35 внешних JAR следующего среза v5 перечислены в `metadata/mods.lock.json`: версия, URL загрузки,
+37 внешних JAR текущего среза перечислены в `metadata/mods.lock.json`: версия, URL загрузки,
 размер и SHA-256. Собственный HBM Easy Balance собирается из `pack/patch/`.
 
 JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчера не входят в историю Git.
@@ -19,6 +19,8 @@ JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчер
 - [Mining Gadgets](https://www.curseforge.com/minecraft/mc-mods/mining-gadgets)
 - [Charging Gadgets](https://www.curseforge.com/minecraft/mc-mods/charging-gadgets)
 - [Applied Energistics 2](https://appliedenergistics.org/)
+- [Farmer's Delight](https://modrinth.com/mod/farmers-delight) — vectorwing, MIT;
+- [Thirst Was Reclaimed](https://modrinth.com/mod/thirst-was-reclaimed) — mlus, форк Thirst Was Taken/ghen, MIT.
 
 Точные URL файлов остальных компонентов находятся в lock-файле.
 

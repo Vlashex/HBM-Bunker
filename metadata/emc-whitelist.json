@@ -90,5 +90,15 @@
   "ae2:certus_quartz_dust": 256,
   "ae2:fluix_crystal": 288,
   "ae2:fluix_dust": 288,
-  "ae2:silicon": 256
+  "ae2:silicon": 256,
+  "farmersdelight:cabbage_seeds": 16,
+  "farmersdelight:tomato_seeds": 16,
+  "farmersdelight:cabbage": 64,
+  "farmersdelight:cabbage_leaf": 32,
+  "farmersdelight:tomato": 64,
+  "farmersdelight:onion": 64,
+  "farmersdelight:rice": 24,
+  "farmersdelight:rice_panicle": 32,
+  "farmersdelight:straw": 8,
+  "farmersdelight:tree_bark": 8
 }

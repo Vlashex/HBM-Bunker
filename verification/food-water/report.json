@@ -1,0 +1,116 @@
+{
+  "version": "5.2.0",
+  "coordinator": "4.1.1",
+  "patch": "1.3.0",
+  "base": "71029db",
+  "recordedAtUtc": "2026-10-17T23:31:17.042211+03:00",
+  "unit": {
+    "tests": 180,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "gameTest": {
+    "passed": 94,
+    "failed": 0,
+    "durationSeconds": 33.01,
+    "freshWorld": true
+  },
+  "packagingTests": 16,
+  "sourceCheck": true,
+  "mods": [
+    {
+      "filename": "ThirstWasReclaimed-1.21.1-3.0.6.jar",
+      "size": 284187,
+      "sha256": "26e3bf4ccf1f0d881609ac3f972f20aed4c9dd90090cd290f9ebf611b4db4503",
+      "url": "https://cdn.modrinth.com/data/B9HAFlgU/versions/Y7Tm4V7W/ThirstWasReclaimed-1.21.1-3.0.6.jar",
+      "project_id": "B9HAFlgU",
+      "version": "1.21.1-3.0.6",
+      "version_id": "Y7Tm4V7W",
+      "side": "both",
+      "source": "https://modrinth.com/mod/thirst-was-reclaimed"
+    },
+    {
+      "filename": "FarmersDelight-1.21.1-1.3.4.jar",
+      "size": 3160490,
+      "sha256": "139ad7696462c89c03eea463f805abffa552526c5dadaadae221dd9624cb197c",
+      "url": "https://cdn.modrinth.com/data/R2OftAxM/versions/XTVZDOol/FarmersDelight-1.21.1-1.3.4.jar",
+      "project_id": "R2OftAxM",
+      "version": "1.21.1-1.3.4",
+      "version_id": "XTVZDOol",
+      "side": "both",
+      "source": "https://modrinth.com/mod/farmers-delight"
+    }
+  ],
+  "invariants": {
+    "previousModPinsUnchanged": true,
+    "previousEmcUnchanged": true,
+    "previousWhitelistUnchanged": true,
+    "newRegisteredItems": 188,
+    "nativeConfigPreserved": true,
+    "newCropRecipes": 4,
+    "biomeOverrides": 9
+  },
+  "regression": {
+    "originalTakenLastBottleHydrationFailed": true,
+    "reclaimedTwoAndLastBottleHydrationPassed": true
+  },
+  "review": {
+    "importantIssues": 0,
+    "scope": "JAR/dependencies, config, recipes, EMC"
+  },
+  "jar": {
+    "filename": "dead-earth-4.1.1.jar",
+    "version": "4.1.1",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.1.1.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 715997,
+    "sha256": "444162f2696505c8aa4fb9876a259251cdefab31bd6b0d384e7d200d3b886770"
+  },
+  "normalServer": {
+    "freshWorld": true,
+    "bind": "127.0.0.1:25566",
+    "clientJoined": true,
+    "ready": true,
+    "newModsLoadedBothSides": true
+  },
+  "client": {
+    "pipeline": "net.irisshaders.iris.pipeline.IrisRenderingPipeline",
+    "ready": true,
+    "screenshots": false,
+    "shaderError": false,
+    "fallback": false,
+    "fps": 85,
+    "glError": 0,
+    "shaderPackInUse": true,
+    "mods": {
+      "blockoutlinecustomizer": true,
+      "ferritecore": true,
+      "inventorysorter": true,
+      "iris": true,
+      "jade": true,
+      "modernfix": true,
+      "sodium": true
+    }
+  },
+  "scope": {
+    "liveGameChanged": false,
+    "existingClientModified": false,
+    "computerUse": false,
+    "screenshots": false,
+    "visualHudReview": false,
+    "sustainedBalanceTest": false,
+    "fpsBenchmark": false
+  },
+  "observedArrowSaveErrors": 11,
+  "arrowCauseConfirmed": false,
+  "archive": {
+    "mods": 39,
+    "filename": "HBM-Bunker-5.2.0-Prism.zip",
+    "runtimeExcluded": true,
+    "checksumFile": "dist/SHA256SUMS.txt",
+    "crc": true
+  },
+  "installedNewPrismProfile": "Dead-Earth-5.2.0"
+}

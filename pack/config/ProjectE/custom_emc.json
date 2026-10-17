@@ -32552,6 +32552,758 @@
     {
       "id": "mininggadgets:upgrade_void_junk",
       "emc": 0
+    },
+    {
+      "id": "farmersdelight:acacia_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:apple_cider",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:apple_pie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:apple_pie_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bacon",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bacon_and_eggs",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bacon_sandwich",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:baked_cod_stew",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bamboo_basket",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bamboo_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:barbecue_stick",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:beef_patty",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:beef_stew",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:beetroot_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:birch_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:black_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:black_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:blue_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:blue_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:bone_broth",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:brown_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:brown_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:brown_mushroom_colony",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cabbage",
+      "emc": 64
+    },
+    {
+      "id": "farmersdelight:cabbage_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cabbage_leaf",
+      "emc": 32
+    },
+    {
+      "id": "farmersdelight:cabbage_rolls",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cabbage_seeds",
+      "emc": 16
+    },
+    {
+      "id": "farmersdelight:cake_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:canvas",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:canvas_rug",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:carrot_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cherry_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:chicken_cuts",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:chicken_sandwich",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:chicken_soup",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:chocolate_pie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:chocolate_pie_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cod_roll",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cod_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_bacon",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_chicken_cuts",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_cod_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_mutton_chops",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_rice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooked_salmon_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cooking_pot",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:crimson_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cutting_board",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cyan_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:cyan_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:dark_oak_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:debug_pumpkin_pie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:diamond_knife",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:dog_food",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:dumplings",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:egg_sandwich",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:fish_stew",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:flint_knife",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:fried_egg",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:fried_rice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:fruit_salad",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:full_tatami_mat",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:gleaming_salad",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:gleaming_salad_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:glow_berry_custard",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:golden_knife",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:gray_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:gray_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:green_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:green_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:grilled_salmon",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:half_tatami_mat",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:ham",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:hamburger",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:honey_cookie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:honey_glazed_ham",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:honey_glazed_ham_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:horse_feed",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:hot_cocoa",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:iron_knife",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:jungle_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:kelp_roll",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:kelp_roll_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:light_blue_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:light_blue_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:light_gray_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:light_gray_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:lime_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:lime_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:magenta_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:magenta_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:mangrove_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:melon_juice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:melon_popsicle",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:milk_bottle",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:minced_beef",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:mixed_salad",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:mushroom_rice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:mutton_chops",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:mutton_wrap",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:nether_salad",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:netherite_knife",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:noodle_soup",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:oak_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:onion",
+      "emc": 64
+    },
+    {
+      "id": "farmersdelight:onion_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:onion_soup",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:orange_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:orange_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:organic_compost",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pasta_with_meatballs",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pasta_with_mutton_chop",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pie_crust",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pink_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pink_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:potato_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pumpkin_pie_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pumpkin_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:pumpkin_soup",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:purple_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:purple_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:ratatouille",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:raw_pasta",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:red_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:red_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:red_mushroom_colony",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rice",
+      "emc": 24
+    },
+    {
+      "id": "farmersdelight:rice_bag",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rice_bale",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rice_panicle",
+      "emc": 32
+    },
+    {
+      "id": "farmersdelight:rice_roll_medley_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rich_soil",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rich_soil_farmland",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:roast_chicken",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:roast_chicken_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:roasted_mutton_chops",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rope",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rope_fence",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rope_fence_gate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:rotten_tomato",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:safety_net",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:salmon_roll",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:salmon_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:sandy_shrub",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:shepherds_pie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:shepherds_pie_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:skillet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:smoked_ham",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:spruce_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:squid_ink_pasta",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:steak_and_potatoes",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:stove",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:straw",
+      "emc": 8
+    },
+    {
+      "id": "farmersdelight:straw_bale",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:stuffed_potato",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:stuffed_pumpkin",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:stuffed_pumpkin_block",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:sweet_berry_cheesecake",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:sweet_berry_cheesecake_slice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:sweet_berry_cookie",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:tatami",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:tomato",
+      "emc": 64
+    },
+    {
+      "id": "farmersdelight:tomato_crate",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:tomato_sauce",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:tomato_seeds",
+      "emc": 16
+    },
+    {
+      "id": "farmersdelight:tree_bark",
+      "emc": 8
+    },
+    {
+      "id": "farmersdelight:vegetable_noodles",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:vegetable_soup",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:warped_cabinet",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wheat_dough",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:white_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:white_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_beetroots",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_cabbages",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_carrots",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_onions",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_potatoes",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_rice",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wild_tomatoes",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:wooden_basket",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:yellow_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "farmersdelight:yellow_hanging_canvas_sign",
+      "emc": 0
+    },
+    {
+      "id": "thirst:clay_bowl",
+      "emc": 0
+    },
+    {
+      "id": "thirst:terracotta_bowl",
+      "emc": 0
+    },
+    {
+      "id": "thirst:terracotta_water_bowl",
+      "emc": 0
     }
   ]
 }

@@ -1,0 +1,20 @@
+# DEAD EARTH: moderate thirst, with native purification and dirty-water effects.
+# The mod fills its remaining settings with its own defaults on first launch.
+[General]
+thirstDepletionModifier = 0.8
+thirstDepletionInPeace = false
+netherThirstDeletionModifier = 2.0
+depletesWhenNausea = false
+moveSlowWhenThirsty = true
+DrinkRainWater = true
+EnableLoot = true
+
+["Drinking Mechanics"]
+waterBottleStacksize = 16
+dehydrationHaltsHealthRegen = true
+healthRegenDepletesHydration = false
+healthRegenDehydrationIsBiomeDependent = true
+canDrinkByHand = true
+handDrinkingHydration = 3
+handDrinkingQuenched = 2
+ExtraHydrationConvertToQuenched = true
