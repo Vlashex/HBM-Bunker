@@ -24,19 +24,49 @@ def safe_path(name):
         raise ValueError(f"Unsafe archive path: {name!r}")
 
 
-def validate_lock(rows):
+def validate_lock(rows, extension=".jar"):
     names = set()
     for row in rows:
         name = row["filename"]
         safe_path(name)
-        if "/" in name or not name.endswith(".jar") or name.casefold() in names:
+        if "/" in name or not name.endswith(extension) or name.casefold() in names:
             raise ValueError(f"Invalid or duplicate mod filename: {name}")
         names.add(name.casefold())
         if not re.fullmatch(r"[0-9a-f]{64}", row["sha256"]) or row["size"] <= 0:
             raise ValueError(f"Invalid size/hash for {name}")
         if not row.get("url", "").startswith("https://"):
             raise ValueError(f"Missing HTTPS download URL for {name}")
+        if row.get("side", "both") not in ("both", "client", "server"):
+            raise ValueError(f"Invalid mod side for {name}")
     return rows
+
+
+def mods_for_side(rows, side):
+    if side not in ("client", "server"):
+        raise ValueError("Target must be client or server")
+    return [row for row in validate_lock(rows) if row.get("side", "both") in ("both", side)]
+
+
+def shader_entries(root, cache):
+    pin = root / "metadata/shaders.lock.json"
+    rows = validate_lock(read_json(pin), ".zip") if pin.is_file() else []
+    entries = {}
+    for row in rows:
+        if row.get("side", "client") != "client":
+            raise ValueError("Shaders must be client-only")
+        path = cache / row["filename"]
+        if not path.is_file() or path.is_symlink():
+            raise ValueError(f"Missing shader {row['filename']}; run fetch-shaders first")
+        data = path.read_bytes()
+        verify_bytes(data, row)
+        try:
+            with zipfile.ZipFile(io.BytesIO(data)) as archive:
+                if "shaders/shaders.properties" not in archive.namelist() or archive.testzip() is not None:
+                    raise ValueError(f"Invalid shaderpack: {row['filename']}")
+        except zipfile.BadZipFile as invalid:
+            raise ValueError(f"Invalid shaderpack: {row['filename']}") from invalid
+        entries[".minecraft/shaderpacks/" + row["filename"]] = data
+    return entries
 
 
 def verify_bytes(data, row):
@@ -131,8 +161,8 @@ def import_cache(archive_path, cache, rows):
         (cache / name).write_bytes(data)
 
 
-def fetch(cache, rows, ca_bundle=None):
-    validate_lock(rows)
+def fetch(cache, rows, ca_bundle=None, extension=".jar"):
+    validate_lock(rows, extension)
     cache.mkdir(parents=True, exist_ok=True)
     context = ssl.create_default_context(cafile=ca_bundle)
     for row in rows:
@@ -144,7 +174,7 @@ def fetch(cache, rows, ca_bundle=None):
             with urllib.request.urlopen(request, context=context, timeout=120) as response:
                 data = response.read()
             verify_bytes(data, row)
-            temporary = target.with_suffix(".jar.download")
+            temporary = target.with_suffix(target.suffix + ".download")
             temporary.write_bytes(data)
             temporary.replace(target)
         print("Verified", row["filename"])
@@ -153,6 +183,9 @@ def fetch(cache, rows, ca_bundle=None):
 def check(root):
     release = read_json(root / "release.json")
     rows = validate_lock(read_json(root / "metadata/mods.lock.json"))
+    shaders = root / "metadata/shaders.lock.json"
+    if shaders.is_file():
+        validate_lock(read_json(shaders), ".zip")
     own_pins = root / "metadata/own-mods.lock.json"
     validate_own_mods(read_json(own_pins) if own_pins.is_file() else [],
                       [row["filename"] for row in rows] + [release["patch_filename"]])
@@ -235,10 +268,10 @@ def director_entries(root, enabled):
     return entries
 
 
-def build(root, cache, dist):
+def build(root, cache, dist, shader_cache=None):
     summary = check(root)
     settings = read_json(root / "release.json")
-    rows = read_json(root / "metadata/mods.lock.json")
+    rows = mods_for_side(read_json(root / "metadata/mods.lock.json"), "client")
     entries = {}
     manifest = []
     for row in rows:
@@ -263,6 +296,19 @@ def build(root, cache, dist):
         f"OverrideMemory=true\nMinMemAlloc=1024\nMaxMemAlloc={settings['memory_mb']}\n").encode()
     for name, data in tree_entries(root / "pack/config").items():
         entries[".minecraft/config/" + name] = data
+    entries.update(shader_entries(root, shader_cache or root / ".cache/shaders"))
+    client_config = root / "pack/client-config"
+    if client_config.is_dir():
+        for name, data in tree_entries(client_config).items():
+            target = ".minecraft/" + name
+            if target in entries:
+                raise ValueError(f"Client configuration overwrites packaged content: {name}")
+            if not name.startswith(("config/", "shaderpacks/")):
+                raise ValueError(f"Unexpected client configuration path: {name}")
+            entries[target] = data
+    presets = root / "pack/client-presets"
+    if presets.is_dir():
+        entries.update({"client-presets/" + name: data for name, data in tree_entries(presets).items()})
     release_notes = root / "docs/releases" / f"{settings['version']}.md"
     if not release_notes.is_file():
         raise ValueError(f"Release notes missing: {release_notes.name}")
@@ -288,10 +334,11 @@ def build(root, cache, dist):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["check", "check-evidence", "build", "fetch", "import-cache"])
+    parser.add_argument("command", choices=["check", "check-evidence", "build", "fetch", "fetch-shaders", "import-cache"])
     parser.add_argument("archive", nargs="?", type=Path)
     parser.add_argument("--cache", type=Path, default=ROOT / ".cache/mods")
     parser.add_argument("--dist", type=Path, default=ROOT / "dist")
+    parser.add_argument("--shader-cache", type=Path, default=ROOT / ".cache/shaders")
     parser.add_argument("--ca-bundle", help="Optional CA bundle for HTTPS downloads")
     args = parser.parse_args()
     try:
@@ -300,9 +347,11 @@ def main():
         elif args.command == "check-evidence":
             print(check_evidence(ROOT))
         elif args.command == "build":
-            print(json.dumps(build(ROOT, args.cache, args.dist), ensure_ascii=False))
+            print(json.dumps(build(ROOT, args.cache, args.dist, args.shader_cache), ensure_ascii=False))
         elif args.command == "fetch":
             fetch(args.cache, read_json(ROOT / "metadata/mods.lock.json"), args.ca_bundle)
+        elif args.command == "fetch-shaders":
+            fetch(args.shader_cache, read_json(ROOT / "metadata/shaders.lock.json"), args.ca_bundle, ".zip")
         else:
             if args.archive is None:
                 parser.error("import-cache requires an existing Prism ZIP")

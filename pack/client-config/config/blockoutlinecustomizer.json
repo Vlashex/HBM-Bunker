@@ -1,0 +1,18 @@
+{
+  "customOutlineEnabled": true,
+  "forceOutline": false,
+  "style": {
+    "outlineStyle": "FULL",
+    "outlineRed": 224,
+    "outlineGreen": 169,
+    "outlineBlue": 79,
+    "outlineOpacity": 1.0,
+    "outlineWidth": 3.0,
+    "outlineRgbEnabled": false,
+    "outlineRgbGradient": false,
+    "outlineQuadWidth": false,
+    "movingEnabled": false,
+    "pulseEnabled": false,
+    "fillEnabled": false
+  }
+}

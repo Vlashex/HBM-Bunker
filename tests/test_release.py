@@ -16,6 +16,49 @@ SPEC.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_client_only_mods_are_excluded_from_server_selection(self):
+        self.assertTrue(hasattr(release, "mods_for_side"), "Side-aware mod selection missing")
+        common = self.row("common.jar")
+        client = dict(self.row("renderer.jar"), side="client")
+        server = dict(self.row("server.jar"), side="server")
+        self.assertEqual(release.mods_for_side([common, client, server], "server"), [common, server])
+        self.assertEqual(release.mods_for_side([common, client, server], "client"), [common, client])
+        with self.assertRaises(ValueError):
+            release.mods_for_side([dict(client, side="unknown")], "server")
+
+    def test_shaderpack_export_preserves_zip_and_rejects_changed_download(self):
+        self.assertTrue(hasattr(release, "shader_entries"), "Pinned shader export missing")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "metadata").mkdir()
+            data = release.zip_bytes({"shaders/shaders.properties": b"profile.low=!DOF\n", "shaders/final.fsh": b"shader"})
+            row = self.row("test-shader.zip", data)
+            row["side"] = "client"
+            (root / "metadata/shaders.lock.json").write_text(json.dumps([row]))
+            cache = root / "cache"
+            cache.mkdir()
+            (cache / row["filename"]).write_bytes(data)
+            entries = release.shader_entries(root, cache)
+            self.assertEqual(entries[".minecraft/shaderpacks/test-shader.zip"], data)
+            (cache / row["filename"]).write_bytes(b"modified")
+            with self.assertRaises(ValueError):
+                release.shader_entries(root, cache)
+
+    def test_shaderpack_pins_reject_unsafe_names_and_non_shader_zip(self):
+        self.assertTrue(hasattr(release, "shader_entries"), "Pinned shader export missing")
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "metadata").mkdir()
+            cache = root / "cache"
+            cache.mkdir()
+            data = release.zip_bytes({"accounts.json": b"unexpected"})
+            row = self.row("test.zip", data)
+            (cache / "test.zip").write_bytes(data)
+            for filename in ("test.zip", "../escape.zip", "C:/escape.zip"):
+                (root / "metadata/shaders.lock.json").write_text(json.dumps([dict(row, filename=filename)]))
+                with self.assertRaises(ValueError):
+                    release.shader_entries(root, cache)
+
     def test_director_package_excludes_runtime_credentials_and_tests(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
