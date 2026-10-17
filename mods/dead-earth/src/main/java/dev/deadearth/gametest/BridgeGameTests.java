@@ -43,16 +43,32 @@ public final class BridgeGameTests {
     @GameTest(template = "empty", batch = "bridge")
     public static void cacheRefreshesWhenCampaignClockIsPaused(GameTestHelper helper) {
         var server = helper.getLevel().getServer(); var runtime = DeadEarth.runtime(server);
-        var client = FoundationGameTests.attach(helper); boolean attached = true;
-        try (var bridge = new BridgeController(server, runtime)) {
+        var client = FoundationGameTests.attach(helper); boolean attached = true, scheduled = false;
+        var bridge = new BridgeController(server, runtime);
+        try {
             bridge.start(); client.close(); attached = false;
             long before = runtime.campaign().campaign().activeTicks();
             for (int i = 0; i < 200; i++) bridge.tick();
-            var cached = bridge.request(new BridgeProtocol.Request("get_snapshot", new JsonObject())).join().getAsJsonObject();
-            helper.assertTrue(cached.getAsJsonObject("snapshot").get("onlinePlayers").getAsInt() == 0, "Offline state never refreshed");
-            helper.assertTrue(runtime.campaign().campaign().activeTicks() == before, "Cache heartbeat advanced campaign clock");
-        } finally { if (attached) client.close(); }
-        helper.succeed();
+            awaitOfflineSnapshot(helper, bridge, runtime, before, 60); scheduled = true;
+        } finally { if (attached) client.close(); if (!scheduled) bridge.close(); }
+    }
+    private static void awaitOfflineSnapshot(GameTestHelper helper, BridgeController bridge,
+            dev.deadearth.CoordinatorRuntime runtime, long before, int remaining) {
+        helper.runAfterDelay(1, () -> {
+            boolean finished = false;
+            try {
+                // get_snapshot reads an already published cache; it never waits for the encoder.
+                var cached = bridge.request(new BridgeProtocol.Request("get_snapshot", new JsonObject())).join().getAsJsonObject();
+                if (cached.getAsJsonObject("snapshot").get("onlinePlayers").getAsInt() != 0 && remaining > 1) {
+                    awaitOfflineSnapshot(helper, bridge, runtime, before, remaining - 1); return;
+                }
+                finished = true;
+                helper.assertTrue(cached.getAsJsonObject("snapshot").get("onlinePlayers").getAsInt() == 0, "Offline state never refreshed");
+                helper.assertTrue(runtime.campaign().campaign().activeTicks() == before, "Cache heartbeat advanced campaign clock");
+                helper.succeed();
+            } catch (RuntimeException | Error failure) { finished = true; throw failure; }
+            finally { if (finished) bridge.close(); }
+        });
     }
     @GameTest(template = "empty", batch = "bridge")
     public static void stopRejectsPendingCallsAndRestartRotatesToken(GameTestHelper helper) throws Exception {

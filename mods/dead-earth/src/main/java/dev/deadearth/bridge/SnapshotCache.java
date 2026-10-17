@@ -6,11 +6,21 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.LongSupplier;
 
 public final class SnapshotCache {
-    private record Cached(JsonObject data, long captured) {}
-    private final AtomicReference<Cached> latest = new AtomicReference<>();
+    static final class Prepared {
+        private final JsonObject data;
+        private final long captured;
+        private Prepared(JsonObject data, long captured) { this.data = data; this.captured = captured; }
+    }
+    private final AtomicReference<Prepared> latest = new AtomicReference<>();
     private final LongSupplier clock;
     public SnapshotCache(LongSupplier clock) { this.clock = clock; }
     public void publish(JsonObject raw) {
+        publish(raw, clock.getAsLong());
+    }
+    public void publish(JsonObject raw, long capturedNanos) {
+        publishPrepared(prepare(raw, capturedNanos));
+    }
+    static Prepared prepare(JsonObject raw, long capturedNanos) {
         var data = raw.deepCopy();
         if (data.has("observations")) {
             var observations = data.getAsJsonObject("observations");
@@ -19,12 +29,13 @@ public final class SnapshotCache {
             trim(observations, "history", 100, "omittedHistory");
         }
         if (data.has("discoveredSites")) trim(data, "discoveredSites", 64, "omittedSites");
-        latest.set(new Cached(data, clock.getAsLong()));
+        return new Prepared(data, capturedNanos);
     }
+    void publishPrepared(Prepared prepared) { latest.set(prepared); }
     public JsonObject get() {
         var cached = latest.get(); if (cached == null) throw new BridgeFailure("snapshot_unavailable");
-        var reply = new JsonObject(); reply.addProperty("cache_age_millis", Math.max(0, clock.getAsLong() - cached.captured()) / 1_000_000L);
-        reply.add("snapshot", cached.data().deepCopy()); return reply;
+        var reply = new JsonObject(); reply.addProperty("cache_age_millis", Math.max(0, clock.getAsLong() - cached.captured) / 1_000_000L);
+        reply.add("snapshot", cached.data.deepCopy()); return reply;
     }
     private static void trim(JsonObject object, String key, int max, String omitted) {
         var source = object.getAsJsonArray(key); var result = new JsonArray();

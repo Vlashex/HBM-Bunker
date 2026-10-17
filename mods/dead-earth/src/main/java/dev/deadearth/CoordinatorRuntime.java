@@ -92,7 +92,9 @@ public final class CoordinatorRuntime {
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
             ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites,
             ClimateCycle.Snapshot climate, boolean climateEffectsEnabled, dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty,
-            List<dev.deadearth.zone.ZoneScanner.Summary> zones) {}
+            List<dev.deadearth.zone.ZoneScanner.Summary> zones) {
+        public Snapshot { discoveredSites = List.copyOf(discoveredSites); zones = List.copyOf(zones); }
+    }
     public Snapshot snapshot() {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),

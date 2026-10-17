@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.SecureRandom;
 import java.util.HexFormat;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.server.MinecraftServer;
@@ -26,6 +27,7 @@ public final class BridgeController implements AutoCloseable {
     private volatile boolean running;
     private volatile UUID generation;
     private SnapshotCache cache;
+    private AsyncSnapshotPublisher<Optional<CoordinatorRuntime.Snapshot>> snapshots;
     private ServerCallQueue calls;
     private LocalBridge transport;
     private Path descriptor;
@@ -41,7 +43,10 @@ public final class BridgeController implements AutoCloseable {
         var protocol = new BridgeProtocol(runtime.campaign().campaign().campaignId(), runtime.epoch(), token);
         var nextGeneration = UUID.randomUUID();
         var nextCache = new SnapshotCache(System::nanoTime); var nextCalls = new ServerCallQueue(System::nanoTime);
-        nextCache.publish(JSON.toJsonTree(runtime.snapshot()).getAsJsonObject());
+        long capturedNanos = System.nanoTime();
+        nextCache.publish(JSON.toJsonTree(runtime.snapshot()).getAsJsonObject(), capturedNanos);
+        var nextSnapshots = new AsyncSnapshotPublisher<Optional<CoordinatorRuntime.Snapshot>>(nextCache,
+                BridgeController::encodeSnapshot, failed -> DeadEarth.LOGGER.warn("Bridge snapshot encoding failed; previous snapshot retained", failed));
         LocalBridge nextTransport = null;
         try {
             nextTransport = new LocalBridge(protocol, request -> dispatch(nextGeneration, nextCache, nextCalls, request));
@@ -51,12 +56,15 @@ public final class BridgeController implements AutoCloseable {
             descriptor = server.getWorldPath(LevelResource.ROOT).resolve("dead_earth_bridge.json");
             descriptorContents = info.toString() + "\n";
             writeDescriptor(descriptor, descriptorContents);
-            cache = nextCache; calls = nextCalls; transport = nextTransport; generation = nextGeneration; ticks = 0; running = true;
+            cache = nextCache; snapshots = nextSnapshots; calls = nextCalls; transport = nextTransport; generation = nextGeneration; ticks = 0; running = true;
             DeadEarth.LOGGER.info("Dead Earth bridge listening on 127.0.0.1:{}; bounded test-scenario catalog", transport.port());
             return status();
         } catch (IOException failed) {
-            nextCalls.close(); if (nextTransport != null) nextTransport.close();
+            nextSnapshots.close(); nextCalls.close(); if (nextTransport != null) nextTransport.close();
             throw new IllegalStateException("Unable to start local bridge", failed);
+        } catch (RuntimeException failed) {
+            nextSnapshots.close(); nextCalls.close(); if (nextTransport != null) nextTransport.close();
+            throw failed;
         }
     }
     public JsonObject status() {
@@ -108,9 +116,13 @@ public final class BridgeController implements AutoCloseable {
         });
         if (++ticks == 200) {
             ticks = 0;
-            if (runtime.enabled()) cache.publish(JSON.toJsonTree(runtime.snapshot()).getAsJsonObject());
-            else { var unavailable = new JsonObject(); unavailable.addProperty("enabled", false); cache.publish(unavailable); }
+            long capturedNanos = System.nanoTime();
+            snapshots.submit(runtime.enabled() ? Optional.of(runtime.snapshot()) : Optional.empty(), capturedNanos);
         }
+    }
+    private static JsonObject encodeSnapshot(Optional<CoordinatorRuntime.Snapshot> snapshot) {
+        if (snapshot.isPresent()) return JSON.toJsonTree(snapshot.get()).getAsJsonObject();
+        var unavailable = new JsonObject(); unavailable.addProperty("enabled", false); return unavailable;
     }
     private static JsonArray catalog() {
         var entry = new JsonObject(); entry.addProperty("catalogId", "warning_beacon_v1"); entry.addProperty("effect", "chat_only");
@@ -133,6 +145,7 @@ public final class BridgeController implements AutoCloseable {
     }
     @Override public void close() {
         runtime.requireServerThread(); running = false;
+        if (snapshots != null) snapshots.close();
         if (calls != null) calls.close(); if (transport != null) transport.close();
         if (descriptor != null) try {
             if (Files.isRegularFile(descriptor) && Files.size(descriptor) <= 4096
