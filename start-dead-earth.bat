@@ -1,6 +1,7 @@
 @echo off
 setlocal
 set "DEAD_EARTH_SERVER=%~dp0..\Dead-Earth-Server-3.2.0"
+if /i "%~1"=="admin" goto admin
 if /i "%~1"=="stop" goto stop
 if not "%~1"=="" if /i not "%~1"=="status" goto usage
 if not exist "%DEAD_EARTH_SERVER%\run_local.py" goto missing
@@ -10,6 +11,9 @@ if "%DEAD_EARTH_RESULT%"=="10" exit /b 0
 if not "%DEAD_EARTH_RESULT%"=="0" goto failed
 if /i "%~1"=="status" exit /b 0
 call "%DEAD_EARTH_SERVER%\Start-Server.bat"
+exit /b %ERRORLEVEL%
+:admin
+call "%~dp0start-admin.bat"
 exit /b %ERRORLEVEL%
 :stop
 if not exist "%DEAD_EARTH_SERVER%\Stop-Server.bat" goto missing
@@ -23,5 +27,5 @@ echo Keep this launcher in the HBM-Bunker repository folder.
 if /i not "%~1"=="status" pause
 exit /b 1
 :usage
-echo Usage:start-dead-earth.bat [status^|stop]
+echo Usage:start-dead-earth.bat [status^|stop^|admin]
 exit /b 1

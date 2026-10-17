@@ -48,6 +48,13 @@ class CinematicTests(unittest.TestCase):
             self.assertEqual(requests[-1]["arguments"]["event_id"],"false_siege")
             context=json.dumps(model.context,ensure_ascii=False)
             self.assertNotIn(ZONE,context);self.assertNotIn("a"*64,context);self.assertNotIn("budget",context)
+            audit=journal.read(GOAL)["choice"]["audit"]
+            self.assertEqual(audit["campaign_id"],CAMPAIGN)
+            self.assertEqual(audit["world_epoch"],EPOCH)
+            self.assertEqual(audit["selected_index"],1)
+            self.assertEqual(audit["options"][0]["weight"],1.25)
+            self.assertGreater(audit["recorded_at"],0)
+            self.assertEqual(journal.read(GOAL)["report"]["operation_id"],OP)
             journal.close()
 
     def test_model_unavailable_selects_server_shortlist_fallback(self):

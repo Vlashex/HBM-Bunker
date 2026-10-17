@@ -126,3 +126,5 @@ python tools/release.py check-evidence
 
 В Git нет Minecraft, модов третьих сторон, миров, учётных записей или кешей.
 Источники внешних модов перечислены в lock-файле; см. [THIRD-PARTY.md](THIRD-PARTY.md).
+
+Локальная панель ИИ: `start-admin.bat` → http://127.0.0.1:8765 . [Руководство](docs/DEAD-EARTH-ADMIN.md).

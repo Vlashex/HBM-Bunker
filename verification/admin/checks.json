@@ -1,0 +1,18 @@
+{
+  "checked_at": "2026-10-17T16:38:49.869078+03:00",
+  "root_tests": 13,
+  "gateway_tests": 41,
+  "dom_harness": "passed",
+  "source_check": "passed",
+  "live_bridge": "online",
+  "model_status": "ready",
+  "catalog_events": 15,
+  "real_samples": 130,
+  "archive_present": true,
+  "packaged_launcher": true,
+  "packaged_assets": true,
+  "visual_browser_check": "not_completed: tool URL detection, then user requested no Computer Use",
+  "gameplay_restarted": false,
+  "ai_restarted": false,
+  "game_code_changed": false
+}

@@ -103,3 +103,7 @@ preview_scenario, propose_scenario, get_scenario_status, cancel_scenario,
 отдельный мир; инструмент не предназначен для пользовательского сервера.
 
 [Архитектура](../docs/DEAD-EARTH-DIRECTOR.md).
+
+## Админка
+
+Из корня репозитория запустите `start-admin.bat` или `start-dead-earth.bat admin`. Локальная панель: http://127.0.0.1:8765 . [Возможности и ограничения](../docs/DEAD-EARTH-ADMIN.md).

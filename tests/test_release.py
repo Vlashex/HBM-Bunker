@@ -19,9 +19,13 @@ class ReleaseTests(unittest.TestCase):
     def test_director_package_excludes_runtime_credentials_and_tests(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            files = {"director/dead_earth_director/__init__.py": b"", "director/dead_earth_director/__main__.py": b"print('MCP')",
+            files = {"start-admin.bat": b"launcher", "director/dead_earth_director/__init__.py": b"", "director/dead_earth_director/__main__.py": b"print('MCP')",
                      "director/requirements.in": b"mcp==2.3.0", "director/requirements-windows-py312.lock": b"pinned",
-                     "director/README.md": b"setup", "director/setup.ps1": b"setup",
+                     "director/dead_earth_director/admin_web/index.html": b"admin",
+                     "director/dead_earth_director/admin_web/admin.css": b"style",
+                     "director/dead_earth_director/admin_web/admin.js": b"script",
+                     "director/dead_earth_director/admin_web/private.env": b"secret",
+                     "director/admin.ps1": b"launcher", "director/README.md": b"setup", "director/setup.ps1": b"setup",
                      "director/director.example.toml": b"config", "director/models.lock.json": b"pin",
                      "director/model.ps1": b"model", "director/docker/compose.cpu.yaml": b"cpu",
                      "director/runtime/decisions.sqlite3": b"private",
@@ -31,7 +35,7 @@ class ReleaseTests(unittest.TestCase):
             for name, data in files.items():
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(data)
             entries = release.director_entries(root, True)
-            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml"))})
+            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml", "admin.ps1", "index.html", "admin.css", "admin.js", "start-admin.bat"))})
             self.assertEqual(release.director_entries(root, False), {})
 
     def test_director_enabled_without_entrypoint_is_rejected(self):

@@ -206,7 +206,8 @@ class CinematicDirector:
                 or verdict["accepted"] and not _uuid(verdict.get("operationId"))):
             raise DirectorError("invalid_admission")
         report=dict(state=verdict["code"],goal_id=goal_id,source=choice["source"],reason=choice["reason"],
-                    event_id=choice["event_id"],metrics=choice["metrics"])
+                    event_id=choice["event_id"],metrics=choice["metrics"],
+                    operation_id=verdict.get("operationId"),submitted_at=time.time())
         self.journal.finish(goal_id,report)
         return report
 
@@ -241,7 +242,10 @@ class CinematicDirector:
             decision,metrics=dict(option=0),{}
             source,reason="fallback",str(error)
         selected=goal["options"][decision["option"]]
-        choice=dict(kind="cinematic_v1",event_id=selected["eventId"],zone_id=selected["zoneId"],source=source,reason=reason,metrics=metrics)
+        choice=dict(kind="cinematic_v1",event_id=selected["eventId"],zone_id=selected["zoneId"],source=source,reason=reason,metrics=metrics,
+                    audit=dict(campaign_id=self.client.descriptor.campaign_id,world_epoch=self.client.descriptor.world_epoch,
+                               recorded_at=time.time(),active_ticks=view["activeTicks"],season=view["season"],pressure=view["pressure"],
+                               catalog_revision=view["catalogRevision"],selected_index=decision["option"],options=goal["options"]))
         self.journal.choice(goal["id"],choice)
         return self._submit(goal["id"],request_id,choice)
 
