@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+ <title id="title">DEAD EARTH</title><desc id="desc">Земля помнит всё. Постъядерное кооперативное выживание.</desc>
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#172529"/><stop offset="1" stop-color="#080d11"/></linearGradient><radialGradient id="light"><stop stop-color="#d4a66b" stop-opacity=".25"/><stop offset="1" stop-color="#d4a66b" stop-opacity="0"/></radialGradient><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0v36" fill="none" stroke="#66796a" stroke-opacity=".1"/></pattern></defs>
+ <path fill="url(#bg)" d="M0 0h1200v380H0z"/><path fill="url(#grid)" d="M0 0h1200v380H0z"/><ellipse cx="930" cy="165" rx="400" ry="270" fill="url(#light)"/>
+ <g fill="#202d2c"><path d="M700 316V149h45v-38h32v204h27V186h54v130h24V95h23v-9h46v10h22v220h28V172h34v-21h21v165h35V129h41v186h22V219h47v97Z"/><path d="m869 95 16 60 5 71-17 90h105l-21-90 5-71 16-60Z"/></g>
+ <g fill="#0a1215"><path d="M640 380V278h60v-21h34v59h34v-96h45v160h36V281h72v-16h38v115h44v-69h39v-20h20v89h43v-88h56v88Z"/><path d="M752 342h-8V231h-15v-28h7v21h8v-48h8v80h15v-24h8v33h-23Z M1105 350h-8V201h-15v-27h7v20h8v-53h8v92h16v-21h8v30h-24Z"/></g>
+ <g fill="#91b177" opacity=".5"><path d="M799 274h3v4h-3zM1023 276h3v4h-3zM1086 250h2v3h-2zM842 251h3v4h-3zM998 307h3v3h-3z"/></g>
+ <path d="M42 36h28m-28 0v28m1116-28h-28m28 0v28M42 344h28m-28 0v-28m1116 28h-28m28 0v-28" fill="none" stroke="#83917b" stroke-opacity=".6"/>
+ <text x="76" y="75" font-family="Consolas,monospace" font-size="11" letter-spacing="4" fill="#a7b39a">PROJECT / COOPERATIVE SURVIVAL</text>
+ <text x="71" y="191" font-family="Impact,Arial,sans-serif" font-weight="900" font-size="102" letter-spacing="1" fill="#e2e3d4">DEAD <tspan fill="#b7372b">EARTH</tspan></text>
+ <path d="M78 211h453" stroke="#7d8e77" stroke-opacity=".5"/>
+ <text x="78" y="248" font-family="Arial,sans-serif" font-size="20" fill="#bdc8b8">Земля помнит всё.</text>
+ <text x="78" y="307" font-family="Consolas,monospace" font-size="11" letter-spacing="1.6" fill="#96a68e">MINECRAFT 1.21.1 / NEOFORGE / 2–6 PLAYERS</text>
+ <text x="955" y="343" font-family="Consolas,monospace" font-size="9" letter-spacing="2" fill="#bba17d">SIGNAL: NOT LOST</text>
+</svg>

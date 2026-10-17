@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1012">
+  <meta name="description" content="DEAD EARTH — постъядерная сборка Minecraft 1.21.1. HBM, враждебный лес, паразиты, сезоны и локальный ИИ-режиссёр. Кооператив для 2–6 игроков.">
+  <meta property="og:title" content="DEAD EARTH — Земля помнит всё">
+  <meta property="og:description" content="Построй последний оплот. Переживи смену сезонов. Верни себе мёртвую землю.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://vlashex.github.io/HBM-Bunker/">
+  <meta property="og:image" content="https://vlashex.github.io/HBM-Bunker/media/hero.webp">
+  <title>DEAD EARTH — Земля помнит всё</title>
+  <link rel="icon" href="media/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="site.css">
+  <link rel="preload" href="media/hero.webp" as="image" fetchpriority="high">
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="leaf" viewBox="0 0 24 24"><path d="M20 3C9 2 3 7 5 14c2 6 12 7 15-11Z"/><path d="m3 22 13-14M9 17v-5m0 5h6"/></symbol>
+    <symbol id="hazard" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M8 9A5 5 0 0 1 7 3m9 6a5 5 0 0 0 1-6M9 15a5 5 0 0 0-5 4m11-4a5 5 0 0 1 5 4M9 6a6 6 0 0 1 6 0M4 12a6 6 0 0 0 2 6m14-6a6 6 0 0 1-2 6m-9 2a6 6 0 0 0 6 0"/></symbol>
+    <symbol id="cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7Z M3 7l9 5 9-5M12 12v10M7 4l10 6"/></symbol>
+    <symbol id="shield" viewBox="0 0 24 24"><path d="m12 2 9 4v6c0 5-9 10-9 10S3 17 3 12V6Z M12 7v8m-3-3 3 3 3-3"/></symbol>
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4 4l2 2m12 12 2 2M4 20l2-2M18 6l2-2"/></symbol>
+    <symbol id="snow" viewBox="0 0 24 24"><path d="M12 1v22M2.5 6.5l19 11m-19 0 19-11M9 3l3 3 3-3M9 21l3-3 3 3M3 10l4-1-1-4m15 9-4 1 1 4M3 14l4 1-1 4m15-9-4-1 1-4"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="tree" viewBox="0 0 24 24"><path d="m12 2-6 8h3l-5 7h6v5h4v-5h6l-5-7h3Z"/></symbol>
+    <symbol id="gear" viewBox="0 0 24 24"><path d="m10 2-1 4-3-2-2 2 2 3-4 1v4l4 1-2 3 2 2 3-2 1 4h4l1-4 3 2 2-2-2-3 4-1v-4l-4-1 2-3-2-2-3 2-1-4Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#world">К содержимому</a>
+
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="DEAD EARTH — главная"><img src="media/mark.svg" alt="" width="29" height="29"><span>DEAD EARTH</span></a>
+      <nav aria-label="Главная навигация"><a href="#world">О мире</a><a href="#biosphere">Угрозы</a><a href="#climate">Сезоны</a><a href="#overseer">Режиссёр</a><a href="#gallery">Галерея</a><a href="#faq">FAQ</a></nav>
+      <a class="platform" href="https://github.com/Vlashex/HBM-Bunker"><svg aria-hidden="true" focusable="false"><use href="#cube"/></svg><span>NEOFORGE <b>1.21.1</b></span></a>
+    </div>
+  </header>
+
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <img class="hero-art" src="media/hero.webp" alt="" width="1536" height="1024" fetchpriority="high">
+    <div class="hero-shade"></div>
+    <div class="hero-content shell">
+      <div class="eyebrow"><span class="status-light"></span> PROJECT DEAD EARTH <span class="eyebrow-separator">/</span> КООПЕРАТИВНОЕ ВЫЖИВАНИЕ</div>
+      <h1 id="hero-title"><span>DEAD</span><span>EARTH</span></h1>
+      <p class="hero-subtitle">Земля пережила конец света.<br><strong>Теперь её нужно пережить вам.</strong></p>
+      <p class="hero-description">Постъядерный survival horror с живой<br class="desktop-break"> враждебной биосферой. Minecraft, в котором<br class="desktop-break"> безопасно только до следующего затишья.</p>
+      <div class="hero-actions"><a class="button primary" href="#start">Начать кампанию <svg aria-hidden="true" focusable="false"><use href="#arrow"/></svg></a><a class="button ghost" href="https://github.com/Vlashex/HBM-Bunker">Проект на GitHub <span>↗</span></a></div>
+      <div class="mod-chips" aria-label="Основа сборки"><span class="chip amber">☢ HBM</span><span class="chip green"><svg aria-hidden="true" focusable="false"><use href="#leaf"/></svg>Overgrown Vegetation</span><span class="chip red"><svg aria-hidden="true" focusable="false"><use href="#hazard"/></svg>Mutationcraft</span><span class="chip blue"><svg aria-hidden="true" focusable="false"><use href="#shield"/></svg>SecurityCraft</span></div>
+    </div>
+    <div class="hero-note" aria-hidden="true">ЗЕМЛЯ<br>ПОМНИТ<br><span>ВСЁ.</span></div>
+    <a class="scroll-cue" href="#world"><span>ПОСЛЕ КОНЦА СВЕТА</span><span>↓</span></a>
+    <div class="hero-coordinate" aria-hidden="true">ЗОНА 00 / СВЯЗЬ УСТАНОВЛЕНА</div>
+  </section>
+
+  <div class="campaign-bar"><div class="shell campaign-grid"><div><b>2–6</b><span>игроков в команде</span></div><div><b>15</b><span>интерактивных событий</span></div><div><b>2</b><span>враждебные биосферы</span></div><div><b>4.3.0</b><span>текущая версия проекта</span></div></div></div>
+
+  <main class="shell">
+    <section class="section world-section" id="world" aria-labelledby="world-title">
+      <div class="world-copy">
+        <div class="section-label"><span>01</span> МИР</div>
+        <h2 id="world-title">Мир, который<br>уже умер</h2>
+        <p>Вы просыпаетесь в бункере после ядерной войны. Наверху — пепел, камень, кратеры и мёртвые стволы. Земля больше не даёт ничего просто так.</p>
+        <p class="muted">Но пустошь не останется пустой. Под её поверхностью начинается новая жизнь. И у неё свои планы.</p>
+        <div class="world-signs"><span><svg aria-hidden="true" focusable="false"><use href="#cube"/></svg>Пепел<br>и кратеры</span><span><svg aria-hidden="true" focusable="false"><use href="#tree"/></svg>Мёртвые<br>стволы</span><span><svg aria-hidden="true" focusable="false"><use href="#shield"/></svg>Убежища<br>HBM</span></div>
+        <div class="terminal-line"><span>›</span> ЭТО БОЛЬШЕ НЕ НАШ МИР. <em>НО МЫ ВСЁ ЕЩЁ ЗДЕСЬ.</em></div>
+      </div>
+      <figure class="world-image framed"><img src="media/hero.webp" alt="Концепт-арт пустоши: разрушенные промышленные сооружения и вход в бункер" width="1536" height="1024" loading="lazy"><figcaption><span>ПОВЕРХНОСТЬ / ЗОНА ОТЧУЖДЕНИЯ</span><span>КОНЦЕПТ-АРТ</span></figcaption></figure>
+    </section>
+
+    <section class="section" id="biosphere" aria-labelledby="biosphere-title">
+      <div class="section-heading"><div><div class="section-label"><span>02</span> БИОСФЕРА</div><h2 id="biosphere-title">Новая жизнь —<br class="mobile-break"> новая угроза</h2><p>Планета начинает зеленеть. Но это не возрождение.<br>Две силы борются за мир, в котором вам ещё предстоит выжить.</p></div><p class="side-note">ЖИТЬ ВСЕГДА НАЙДЁТ ПУТЬ.<br>ДАЖЕ ЕСЛИ ЭТА ЖИЗНЬ — ТВОЙ ВРАГ.</p></div>
+      <div class="biosphere-grid">
+        <article class="threat-card forest"><img src="media/forest.webp" alt="Враждебный лес поглощает промышленные руины" width="1536" height="1024" loading="lazy"><div class="threat-top"><span class="small-tag">ОРГАНИЗМ 01</span><span class="threat-type">РАСПРОСТРАНЕНИЕ</span></div><div class="threat-content"><h3><svg aria-hidden="true" focusable="false"><use href="#leaf"/></svg>Overgrown Vegetation</h3><p>Лес захватывает руины, меняет ландшафт и развивается по собственным фазам. Споры на периметре — первый признак того, что ваша база ему уже интересна.</p><a href="https://github.com/Vlashex/HBM-Bunker/blob/main/docs/DEAD-EARTH-SEASONS.md">Как растёт угроза <span>↗</span></a></div></article>
+        <article class="threat-card parasites"><img src="media/parasites.webp" alt="Красные глаза заражённых существ в разрушенном подземном проходе" width="1536" height="1024" loading="lazy"><div class="threat-top"><span class="small-tag">ОРГАНИЗМ 02</span><span class="threat-type">ЭВОЛЮЦИЯ</span></div><div class="threat-content"><h3><svg aria-hidden="true" focusable="false"><use href="#hazard"/></svg>Паразиты</h3><p>Заражённые Mutationcraft развиваются и давят на оборону. Зимой они станут сильнее, а режиссёр найдёт повод заставить вас снова проверить дальний коридор.</p><a href="https://github.com/Vlashex/HBM-Bunker/blob/main/docs/DEAD-EARTH-ADAPTIVE.md">Как меняется противник <span>↗</span></a></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="climate" aria-labelledby="climate-title">
+      <div class="section-heading"><div><div class="section-label"><span>03</span> КЛИМАТ</div><h2 id="climate-title">Климатический коллапс</h2></div><p class="side-note">У КАЖДОГО СЕЗОНА СВОЙ ПРОТИВНИК.<br>У ВАШЕЙ КОМАНДЫ — ОДНА БАЗА.</p></div>
+      <div class="climate-grid">
+        <article class="climate-card summer"><img src="media/heat.webp" alt="Оранжевая жара и очаги огня в выжженной пустоши" width="1536" height="1024" loading="lazy"><div><span class="season-code">ФАЗА / HEAT</span><h3><svg aria-hidden="true" focusable="false"><use href="#sun"/></svg>Адская жара</h3><p>Сухая дымка, огонь и ускоренное наступление леса. Открытая деревянная база становится плохой идеей.</p><div class="season-stats"><span>ПАРАЗИТЫ <b>×0.5</b></span><span>ЛЕС <b>×1.5</b></span></div></div></article>
+        <article class="climate-card calm"><img src="media/hero.webp" alt="Холодный свет над затихшими индустриальными руинами" width="1536" height="1024" loading="lazy"><div><span class="season-code">ФАЗА / CALM</span><h3><svg aria-hidden="true" focusable="false"><use href="#sun"/></svg>Затишье</h3><p>Короткое окно передышки. Почините периметр, пополните запасы и решите, куда идти дальше.</p><div class="season-stats"><span>ПАРАЗИТЫ <b>×1.0</b></span><span>ЛЕС <b>×1.0</b></span></div></div></article>
+        <article class="climate-card winter"><img src="media/winter.webp" alt="Промышленные руины под толстой синей наледью и снегом" width="1536" height="1024" loading="lazy"><div><span class="season-code">ФАЗА / ASH WINTER</span><h3><svg aria-hidden="true" focusable="false"><use href="#snow"/></svg>Пепельная зима</h3><p>Мир обрастает толстым льдом и снегом. Лес замедляется. Паразиты получают преимущество.</p><div class="season-stats"><span>ПАРАЗИТЫ <b>×1.8</b></span><span>ЛЕС <b>×0.25</b></span></div></div></article>
+      </div><p class="section-footnote">Сезоны идут по часам кампании и стоят на паузе, когда на сервере нет игроков. Коэффициенты настраиваются в конфиге.</p>
+    </section>
+
+    <section class="section" id="bunker" aria-labelledby="bunker-title">
+      <article class="bunker-panel"><img src="media/bunker.webp" alt="Подземный бункер с работающим реактором, трубопроводами и фермой" width="1536" height="1024" loading="lazy"><div class="bunker-shade"></div><div class="bunker-copy"><div class="section-label"><span>04</span> БАЗА</div><h2 id="bunker-title">Последний оплот<br>человечества</h2><p>Постройте автономную подземную крепость. Запустите производство HBM, наладьте добычу, вырастите еду и доверьте рутину автоматизации.</p><p class="muted">Шесть загрузчиков зон, земля и саженцы в стартовом бункере — один общий запас на всю команду. Всё остальное придётся создать самим.</p><div class="base-features"><span><svg aria-hidden="true" focusable="false"><use href="#gear"/></svg>Реакторы<br>и энергия</span><span><svg aria-hidden="true" focusable="false"><use href="#leaf"/></svg>Фермы<br>и ресурсы</span><span><svg aria-hidden="true" focusable="false"><use href="#cube"/></svg>МЕ-сети<br>и автокрафт</span><span><svg aria-hidden="true" focusable="false"><use href="#shield"/></svg>Турели<br>и защита</span></div></div><span class="bunker-label" aria-hidden="true">B-12<br><small>УБЕЖИЩЕ / АКТИВНО</small></span></article>
+    </section>
+
+    <section class="section overseer-section" id="overseer" aria-labelledby="overseer-title">
+      <div class="overseer-copy"><div class="section-label"><span>05</span> ИИ-РЕЖИССЁР</div><div class="overseer-heading"><span class="overseer-symbol" aria-hidden="true">△</span><h2 id="overseer-title">OVERSEER</h2></div><div class="overseer-caption">НАБЛЮДАЕТ. АНАЛИЗИРУЕТ. МЕНЯЕТ ТАКТИКУ.</div><p>Шум за стеной. След на земле. Тишина у дальней турели. Вы идёте проверять — мир отвечает на ваше решение.</p><p class="muted">Сервер оценивает зоны, ресурсы и оборону. Локальная CPU-модель выбирает из допустимых событий. Бюджет, очередь, реакции и передышки контролирует код.</p><a class="inline-link" href="https://github.com/Vlashex/HBM-Bunker/blob/main/docs/DEAD-EARTH-CINEMATIC.md">15 событий и их развилки <span>↗</span></a></div>
+      <div class="director-panel"><div class="monitor-top"><span><i></i> СХЕМА РАБОТЫ РЕЖИССЁРА</span><span>LOCAL / CPU</span></div><div class="tactical-map" aria-hidden="true"><div class="map-grid"></div><div class="zone zone-a"><span>ЗОНА A</span><i></i><i></i><i></i></div><div class="zone zone-b"><span>ЗОНА B</span><i></i><i></i></div><span class="map-contact contact-one"></span><span class="map-contact contact-two"></span><span class="map-contact contact-three"></span><span class="map-line line-one"></span><span class="map-line line-two"></span><div class="map-stamp">ПЕРИМЕТР<br><b>ПОД НАБЛЮДЕНИЕМ</b></div></div><div class="director-pipeline"><div><span>01</span><b>СЕРВЕР</b><small>Цель и бюджет</small></div><span>→</span><div><span>02</span><b>МОДЕЛЬ</b><small>Выбор события</small></div><span>→</span><div><span>03</span><b>МИР</b><small>Реакция на игрока</small></div></div><div class="monitor-bottom"><span>103 ЗВУКА <i>/</i> 48 ПАТТЕРНОВ СЛЕДОВ</span><span>БЕЗ ПРОИЗВОЛЬНЫХ КОМАНД</span></div></div>
+    </section>
+
+    <section class="section" id="gallery" aria-labelledby="gallery-title"><div class="section-heading"><div><div class="section-label"><span>06</span> АТМОСФЕРА</div><h2 id="gallery-title">Осколки мёртвой земли</h2></div><p class="side-note">ВИЗУАЛЬНАЯ КОНЦЕПЦИЯ ПРОЕКТА.<br>НЕ ИГРОВЫЕ СКРИНШОТЫ.</p></div><div class="gallery-grid"><a class="gallery-item" href="media/forest.webp"><img src="media/forest.webp" alt="Концепт-арт: зелёные споры среди захваченных лесом руин" width="1536" height="1024" loading="lazy"><span>01 / ОНО ПРОРАСТАЕТ <b>↗</b></span></a><a class="gallery-item" href="media/bunker.webp"><img src="media/bunker.webp" alt="Концепт-арт: тёплый свет реактора в подземном бункере" width="1536" height="1024" loading="lazy"><span>02 / ПОКА ГОРИТ СВЕТ <b>↗</b></span></a><a class="gallery-item" href="media/winter.webp"><img src="media/winter.webp" alt="Концепт-арт: ледяная оболочка над мёртвым городом" width="1536" height="1024" loading="lazy"><span>03 / ДОЛГАЯ ЗИМА <b>↗</b></span></a></div></section>
+
+    <section class="section start-section" id="start" aria-labelledby="start-title"><div><div class="section-label"><span>07</span> КАМПАНИЯ</div><h2 id="start-title">Соберите тех,<br>кому доверите спину</h2><p>Кооператив на 2–6 игроков. Minecraft 1.21.1,<br>NeoForge 21.1.262 и Java 21. Клиенту — 6 ГБ памяти.</p><div class="start-actions"><a class="button primary" href="https://github.com/Vlashex/HBM-Bunker/blob/main/docs/releases/4.3.0.md">Установка и версия 4.3.0 <svg aria-hidden="true" focusable="false"><use href="#arrow"/></svg></a><a class="inline-link" href="https://github.com/Vlashex/HBM-Bunker">Исходники и сборка ↗</a></div><p class="availability">Готовый ZIP пока распространяется локально.<br>В репозитории доступны исходники и инструкция по упаковке.</p></div><div class="requirements"><div class="requirement-title">ПРОТОКОЛ ПОДГОТОВКИ <span>v4.3.0</span></div><div><span>01</span><p><b>Подготовьте сборку</b>Получите Prism ZIP или соберите его по инструкции в репозитории.</p></div><div><span>02</span><p><b>Импортируйте в PrismLauncher</b>Добавить экземпляр → Импорт. Выберите Java 21 и выделите 6 ГБ.</p></div><div><span>03</span><p><b>Разверните свой сервер</b>Настройте мир и режиссёра по документации. Локальный запускатель требует подготовленного окружения.</p></div><a href="https://github.com/Vlashex/HBM-Bunker/blob/main/README.md#быстрый-старт">ПОЛНОЕ РУКОВОДСТВО <span>↗</span></a></div></section>
+
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title"><div><div class="section-label"><span>08</span> ЧАСТОТЫ СВЯЗИ</div><h2 id="faq-title">Перед выходом<br>на поверхность</h2><p class="muted">Несколько ответов,<br>пока связь ещё работает.</p></div><div class="faq-list"><details><summary>Это Scape and Run: Parasites?<span>+</span></summary><p>В этой сборке используется Mutationcraft на Minecraft 1.21.1 NeoForge. Оригинальный Scape and Run: Parasites сюда не перенесён. Сезоны и адаптивная сложность связаны с установленными модами через наш координатор.</p></details><details><summary>Нужна мощная видеокарта для ИИ?<span>+</span></summary><p>Локальная модель режиссёра запускается в Docker на CPU. Она выбирает события из серверного списка. Графика игры работает как обычно; иллюстрации на этом сайте показывают художественную концепцию, а не требования к клиенту.</p></details><details><summary>Может ли ИИ сделать что угодно?<span>+</span></summary><p>Нет. Сервер ограничивает цели, варианты, бюджет волн и очередь. Произвольных консольных команд в MCP нет. Полная консоль доступна человеку в отдельной локальной админке.</p></details><details><summary>Можно менять события и баланс?<span>+</span></summary><p>Да. Каталог событий — JSON с графами реакций, звуками и следами. Коэффициенты сезонов, адаптивной сложности и ценности зон вынесены в серверные конфиги. Новые комбинации существующих действий не требуют пересборки мода.</p></details><details><summary>Где скачать готовый архив?<span>+</span></summary><p>Публичный ZIP в GitHub Releases пока не опубликован. Текущий локальный релиз — 4.3.0; в репозитории есть исходники, зафиксированные версии модов и инструкция по воспроизводимой сборке.</p></details></div></section>
+  </main>
+
+  <section class="closing"><div class="shell"><span class="eyebrow">СИГНАЛ НЕ ПОТЕРЯН</span><h2>Выжить. Адаптироваться.<br>Вернуть Землю.</h2><p>Мир уже пережил конец света. Теперь он учится бороться с тобой.</p><a class="button primary" href="#start">Начать кампанию <svg aria-hidden="true" focusable="false"><use href="#arrow"/></svg></a></div></section>
+  <footer class="footer shell"><div><a class="brand" href="#top"><img src="media/mark.svg" alt="" width="27" height="27"><span>DEAD EARTH<small>ПРОЕКТ ДЛЯ MINECRAFT 1.21.1</small></span></a><p>Иллюстрации — концепт-арт.<br>Независимый проект, не связан с Mojang или Microsoft.</p></div><nav aria-label="Ссылки проекта"><a href="https://github.com/Vlashex/HBM-Bunker">GitHub ↗</a><a href="https://github.com/Vlashex/HBM-Bunker/blob/main/CHANGELOG.md">История версий</a><a href="https://github.com/Vlashex/HBM-Bunker/blob/main/docs/DEAD-EARTH-ROADMAP.md">Roadmap</a><a href="https://github.com/Vlashex/HBM-Bunker/issues">Обратная связь</a></nav><div class="footer-sign">ЗЕМЛЯ ПОМНИТ.<br>А ТЫ?</div></footer>
+</body>
+</html>
