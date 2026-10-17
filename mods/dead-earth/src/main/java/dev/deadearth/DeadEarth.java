@@ -27,14 +27,17 @@ public final class DeadEarth {
     public DeadEarth(IEventBus modBus,net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.COMMON,dev.deadearth.worldgen.WastelandConfig.SPEC,"dead-earth-worldgen.toml");
+        container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.defense.DefenseConfig.SPEC,"dead-earth-defense.toml");
         dev.deadearth.content.WastelandContent.register(modBus);
         dev.deadearth.worldgen.WastelandWorldgen.register(modBus);
         ProjectECompatibility.install(modBus);
         dev.deadearth.content.TraceContent.register(modBus);
         dev.deadearth.content.SeasonBlocks.register(modBus);
         dev.deadearth.content.ZoneLoaderContent.register(modBus);
+        dev.deadearth.content.DefenseContent.register(modBus);
         dev.deadearth.starter.StarterSupplies.register(modBus);
         dev.deadearth.starter.SafeBunker.install();
+        dev.deadearth.defense.DefensePolicy.install();
         dev.deadearth.zone.ZoneSentryIndex.install();
         modBus.addListener(dev.deadearth.climate.SeasonNetwork::register);
         NeoForge.EVENT_BUS.addListener(this::started);

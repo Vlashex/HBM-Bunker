@@ -1,1 +1,14 @@
-{"replace":false,"values":["dead_earth:zone_loader"]}
+{
+  "replace": false,
+  "values": [
+    "dead_earth:defense_wall_v1",
+    "dead_earth:defense_wall_v2",
+    "dead_earth:defense_wall_v3",
+    "dead_earth:defense_door_v1",
+    "dead_earth:defense_door_v2",
+    "dead_earth:defense_door_v3",
+    "dead_earth:defense_hatch_v1",
+    "dead_earth:defense_hatch_v2",
+    "dead_earth:defense_hatch_v3"
+  ]
+}

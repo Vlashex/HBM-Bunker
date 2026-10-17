@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": ["SSS", "SSS", "SSS"],
+  "key": {"S": {"tag": "c:ingots/steel"}},
+  "result": {"id": "outpostzero:steel_block", "count": 1},
+  "neoforge:conditions": [{"type": "neoforge:false"}]
+}

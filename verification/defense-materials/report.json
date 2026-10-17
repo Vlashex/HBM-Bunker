@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "release": "5.3.0",
+  "coordinator": "4.2.0",
+  "minecraft": "1.21.1",
+  "neoforge": "21.1.262",
+  "javaUnit": {
+    "tests": 187,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": 38
+  },
+  "nativeGameTests": {
+    "required": 111,
+    "failed": 0,
+    "freshWorld": true,
+    "directory": "run-gametest-defense-full-1",
+    "gameSeconds": 36.07,
+    "gradleExitCode": 0
+  },
+  "ordinary": {
+    "freshWorld": true,
+    "world": "defense_normal_test",
+    "port": 25568,
+    "rconPort": 25578,
+    "serverExitCode": 0,
+    "clientExitCode": 0,
+    "coordinatorEnabled": true,
+    "activeTicks": 755,
+    "clientModels": {
+      "ready": true,
+      "pid": 23416,
+      "itemCount": 9,
+      "blockStateCount": 387,
+      "statesByBlock": {
+        "dead_earth:defense_door_v1": 64,
+        "dead_earth:defense_door_v2": 64,
+        "dead_earth:defense_door_v3": 64,
+        "dead_earth:defense_hatch_v1": 64,
+        "dead_earth:defense_hatch_v2": 64,
+        "dead_earth:defense_hatch_v3": 64,
+        "dead_earth:defense_wall_v1": 1,
+        "dead_earth:defense_wall_v2": 1,
+        "dead_earth:defense_wall_v3": 1
+      },
+      "missingItems": [],
+      "missingStates": [],
+      "missingParticles": [],
+      "error": null,
+      "screenshots": false
+    },
+    "shader": {
+      "mods": {
+        "blockoutlinecustomizer": true,
+        "ferritecore": true,
+        "inventorysorter": true,
+        "iris": true,
+        "jade": true,
+        "modernfix": true,
+        "sodium": true
+      },
+      "shaderPackInUse": true,
+      "glError": 0,
+      "fps": 136,
+      "fallback": false,
+      "shaderError": false,
+      "screenshots": false,
+      "ready": true,
+      "pipeline": "net.irisshaders.iris.pipeline.IrisRenderingPipeline"
+    },
+    "bunkerCapture": {
+      "recorded": true,
+      "source": "native_capture",
+      "deadline": 216000,
+      "snapshotBlocks": 6578,
+      "wallV1": 3744,
+      "legacySteel": 0,
+      "boxes": 18,
+      "sourceSha256": "67c88d00835babfbb6d145fdef4062f768b0b1406547547fcfb37385d6a41a3d"
+    }
+  },
+  "ownJar": {
+    "filename": "dead-earth-4.2.0.jar",
+    "version": "4.2.0",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.2.0.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 860371,
+    "sha256": "df537d82c2113f2774ecfc44d6e9b16b57c7cb3161f46517dba02df01a0808db"
+  },
+  "loadTestClassesInReleaseJar": 0,
+  "automation": {
+    "nativeCraftingRemainderTested": true,
+    "ae2EncodedDecodedPatternAndRemainderTested": true,
+    "ae2FullNetworkRequestTested": false,
+    "rftoolsPinnedCodeAudit": "7.0.12 CrafterBaseTE.craftOneItem calls Recipe.getRemainingItems; EXTC uses internal remainder; failed placement undo",
+    "rftoolsMachineTested": false
+  },
+  "packValidation": {
+    "rootUnitTests": 16,
+    "releaseCheck": true
+  },
+  "screenshots": false,
+  "computerUse": false,
+  "liveInstallationUpdated": false,
+  "limitations": [
+    "HP adapters cover named native break/explosion paths, not all projectiles or unknown raw writers",
+    "Growing synchronous full-journal migration checkpoint cost was not benchmarked",
+    "Performance report measures baseline5.2.0; not a measured improvement or defense overhead comparison"
+  ],
+  "balancePatch": {
+    "releaseVersion": "1.4.0",
+    "nativeTestDescriptorVersion": "1.3.0",
+    "gameplayContentIncludedSteelRecipeDisable": true,
+    "afterNativeVerificationChanges": [
+      "patch descriptor version and output filename only"
+    ]
+  }
+}

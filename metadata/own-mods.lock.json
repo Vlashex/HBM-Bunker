@@ -1,11 +1,11 @@
 [
   {
-    "filename": "dead-earth-4.1.1.jar",
-    "version": "4.1.1",
+    "filename": "dead-earth-4.2.0.jar",
+    "version": "4.2.0",
     "mod_id": "dead_earth",
-    "artifact": "mods/dead-earth/build/libs/dead-earth-4.1.1.jar",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.2.0.jar",
     "entrypoint": "dev/deadearth/DeadEarth.class",
-    "size": 715997,
-    "sha256": "444162f2696505c8aa4fb9876a259251cdefab31bd6b0d384e7d200d3b886770"
+    "size": 860371,
+    "sha256": "df537d82c2113f2774ecfc44d6e9b16b57c7cb3161f46517dba02df01a0808db"
   }
 ]

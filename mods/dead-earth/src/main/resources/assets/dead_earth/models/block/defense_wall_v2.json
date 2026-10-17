@@ -1,0 +1,13 @@
+{
+  "parent": "dead_earth:block/defense_template_cube",
+  "textures": {
+    "particle": "outpostzero:block/steel_block",
+    "down": "outpostzero:block/steel_block",
+    "up": "outpostzero:block/steel_block",
+    "north": "outpostzero:block/steel_block",
+    "south": "outpostzero:block/steel_block",
+    "west": "outpostzero:block/steel_block",
+    "east": "outpostzero:block/steel_block"
+  },
+  "render_type": "minecraft:solid"
+}

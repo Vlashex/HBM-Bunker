@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "dead_earth:defense_hatch_v1",
+    "dead_earth:defense_hatch_v2",
+    "dead_earth:defense_hatch_v3"
+  ]
+}

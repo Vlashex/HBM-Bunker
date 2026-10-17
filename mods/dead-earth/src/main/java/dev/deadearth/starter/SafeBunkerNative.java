@@ -30,8 +30,12 @@ import net.minecraft.world.level.storage.LevelResource;
 /** Read-only adapter pinned to OutpostZero 1.0.20; never invokes its SavedData.computeIfAbsent or a placer. */
 final class SafeBunkerNative {
     private static final String PLACER="dev.mostlyharmless.outpostzero.world.bunker.BunkerPlacer";
+    private static final ResourceLocation LEGACY_STEEL=ResourceLocation.parse("outpostzero:steel_block"),DEFENSE_V1=ResourceLocation.parse("dead_earth:defense_wall_v1");
     private static final Set<String> NATIVE_FIELDS=Set.of("Placed","Finalised","SporeIntroCompleted","OriginX","OriginY","OriginZ","BarracksSpawn");
     private SafeBunkerNative() {}
+    static boolean equivalentWall(ResourceLocation expected,ResourceLocation actual) {
+        return expected.equals(LEGACY_STEEL)&&actual.equals(DEFENSE_V1)||expected.equals(DEFENSE_V1)&&actual.equals(LEGACY_STEEL);
+    }
     private static Object call(Object receiver,String name,Object... args)throws ReflectiveOperationException {
         Class<?> type=receiver instanceof Class<?> c?c:receiver.getClass();
         for(Method method:type.getDeclaredMethods())if(method.getName().equals(name)&&method.getParameterCount()==args.length) {
@@ -143,7 +147,9 @@ final class SafeBunkerNative {
                     var entry=candidate.expected.get(blockIndex);var pos=BlockPos.of(entry.getKey());
                     if(!level.hasChunkAt(pos))return false; // Wait for normal loading; never getChunk/force-load.
                     var actual=BuiltInRegistries.BLOCK.getKey(level.getBlockState(pos).getBlock());
-                    if(entry.getValue().contains(actual))matched.put(entry.getKey(),actual);
+                    // Recovery may observe a partly migrated old bunker while current templates use V1.
+                    // Keep actual identities; campaign identity, original snapshot and deadline are unchanged.
+                    if(entry.getValue().contains(actual)||entry.getValue().stream().anyMatch(expected->equivalentWall(expected,actual)))matched.put(entry.getKey(),actual);
                     blockIndex++;budget--;
                 }
                 if(blockIndex<candidate.expected.size())return false;

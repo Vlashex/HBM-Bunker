@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "dead_earth:defense_wall_v2"
+    },
+    {
+      "item": "hbm:plate_titanium"
+    },
+    {
+      "item": "hbm:plate_titanium"
+    },
+    {
+      "item": "hbm:plate_dura_steel"
+    },
+    {
+      "item": "hbm:plate_dura_steel"
+    }
+  ],
+  "result": {
+    "id": "dead_earth:defense_wall_v3",
+    "count": 1
+  }
+}

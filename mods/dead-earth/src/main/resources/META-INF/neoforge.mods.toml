@@ -4,7 +4,7 @@ license="All Rights Reserved"
 
 [[mods]]
 modId="dead_earth"
-version="4.1.1"
+version="4.2.0"
 displayName="Dead Earth Coordinator"
 description='''Campaign clock, bounded observations, expedition sites and controlled scenarios.'''
 

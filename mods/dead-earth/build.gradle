@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '4.1.1'
+version = '4.2.0'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 // Reproducible stress-test instrumentation is excluded from ordinary release builds.
@@ -31,6 +31,7 @@ neoForge {
             if (providers.gradleProperty('deadEarthClientSmoke').isPresent()) systemProperty 'deadearth.clientSmoke', 'true'
             if (providers.gradleProperty('deadEarthClientNoCapture').isPresent()) systemProperty 'deadearth.clientNoCapture', 'true'
             if (providers.gradleProperty('deadEarthClientShaderSmoke').isPresent()) systemProperty 'deadearth.clientShaderSmoke', 'true'
+            if (providers.gradleProperty('deadEarthDefenseClientSmoke').isPresent()) systemProperty 'deadearth.defenseClientSmoke', 'true'
             if (providers.gradleProperty('deadEarthSeasonScreenshot').isPresent()) systemProperty 'deadearth.seasonScreenshot', 'true'
             if (providers.gradleProperty('deadEarthClientSmokeHoldTicks').isPresent()) {
                 systemProperty 'deadearth.clientSmokeHoldTicks', providers.gradleProperty('deadEarthClientSmokeHoldTicks').get()
@@ -64,7 +65,7 @@ neoForge {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'
             gameDirectory = file(providers.gradleProperty('deadEarthGameTestDirectory').orElse('run-gametest').get())
-            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review,dead_earth_worldgen,dead_earth_starter,dead_earth_inventory,dead_earth_food').get()
+            systemProperty 'neoforge.enabledGameTestNamespaces', providers.gradleProperty('deadEarthTestNamespaces').orElse('dead_earth,dead_earth_native,dead_earth_review,dead_earth_zones_review,dead_earth_cinematic,dead_earth_loot_review,dead_earth_cinematic_review,dead_earth_worldgen,dead_earth_starter,dead_earth_inventory,dead_earth_food,dead_earth_defense').get()
         }
     }
     mods { dead_earth { sourceSet sourceSets.main } }

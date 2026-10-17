@@ -33304,6 +33304,42 @@
     {
       "id": "thirst:terracotta_water_bowl",
       "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_wall_v1",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_wall_v2",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_wall_v3",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_door_v1",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_door_v2",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_door_v3",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_hatch_v1",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_hatch_v2",
+      "emc": 0
+    },
+    {
+      "id": "dead_earth:defense_hatch_v3",
+      "emc": 0
     }
   ]
 }

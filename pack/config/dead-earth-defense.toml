@@ -1,0 +1,66 @@
+[hp]
+	# Default: 1000
+	# Range: 1 ~ 100000000
+	v1 = 1000
+	# Default: 2000
+	# Range: 1 ~ 100000000
+	v2 = 2000
+	# Default: 8000
+	# Range: 1 ~ 100000000
+	v3 = 8000
+
+[strength]
+	# Default: 5.0
+	# Range: 0.1 ~ 10000.0
+	v1Hardness = 5.0
+	# Default: 5.0
+	# Range: 0.1 ~ 10000.0
+	v2Hardness = 5.0
+	# Default: 5.0
+	# Range: 0.1 ~ 10000.0
+	v3Hardness = 5.0
+	# Default: 6.0
+	# Range: 0.0 ~ 100000.0
+	v1BlastResistance = 6.0
+	# Default: 6.0
+	# Range: 0.0 ~ 100000.0
+	v2BlastResistance = 6.0
+	# Default: 6.0
+	# Range: 0.0 ~ 100000.0
+	v3BlastResistance = 6.0
+
+[damage]
+	# Default: 50
+	# Range: 0 ~ 100000000
+	improvedMobsPerHit = 50
+	# Default: 20
+	# Range: 1 ~ 1200
+	improvedMobsHitIntervalTicks = 20
+	# Default: 100
+	# Range: 0 ~ 100000000
+	arboraTunnelPerAttempt = 100
+	# Default: 250
+	# Range: 0 ~ 100000000
+	siegeCraterPerAttempt = 250
+	# Default: 50
+	# Range: 0 ~ 100000000
+	otherLivingDestroyPerAttempt = 50
+	# Default: 100.0
+	# Range: 0.0 ~ 1.0E8
+	explosionPerPower = 100.0
+	# Default: 100.0
+	# Range: 0.0 ~ 1.0E8
+	hbmVntExplosionPerPower = 100.0
+
+[migration]
+	# Default: 4096
+	# Range: 16 ~ 65536
+	blocksPerTick = 4096
+	# Default: 2048
+	# Range: 16 ~ 16384
+	maximumQueuedChunks = 2048
+	# Default: 16
+	# Range: 1 ~ 128
+	retryChunkPalettesPerTick = 16
+	#Explicit old_id=new_v1_id pairs only. Only the confirmed OutpostZero steel wall is migrated by default; no SecurityCraft family conversion.
+	legacyMappings = ["outpostzero:steel_block=dead_earth:defense_wall_v1"]

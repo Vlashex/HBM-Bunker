@@ -157,8 +157,12 @@ public final class SafeBunker {
         capture.writes.put(pos.asLong(),BuiltInRegistries.BLOCK.getKey(next.getBlock()));
     }
     public static boolean blocksReplacement(Level level,BlockPos pos,BlockState current,BlockState next) {
+        if(dev.deadearth.defense.DefenseMigration.migrationScope(level,pos))return false;
         var capture=CAPTURE.get();if(capture!=null&&capture.level==level)return false;
-        var state=state(level);return active(state)&&state.store.blocksReplacement(pos,BuiltInRegistries.BLOCK.getKey(current.getBlock()),BuiltInRegistries.BLOCK.getKey(next.getBlock()),state.protectAll);
+        var state=state(level);if(!active(state)||current.getBlock()==next.getBlock())return false;
+        var currentId=BuiltInRegistries.BLOCK.getKey(current.getBlock());var originalId=state.store.originals().get(pos.asLong());
+        if(originalId!=null&&dev.deadearth.defense.DefenseMigration.equivalent(originalId,currentId))currentId=originalId;
+        return state.store.blocksReplacement(pos,currentId,BuiltInRegistries.BLOCK.getKey(next.getBlock()),state.protectAll);
     }
     /** Cached snapshot only: safe for HBM worker threads and does not read/load any chunk. */
     public static boolean intersectsSection(Level level,int chunkX,int chunkZ,int sectionIndex) {

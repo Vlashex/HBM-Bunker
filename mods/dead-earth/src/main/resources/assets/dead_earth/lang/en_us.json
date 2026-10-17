@@ -6,5 +6,14 @@
   "block.dead_earth.zone_loader": "Dead Earth Zone Loader",
   "message.dead_earth.loader_active": "Zone active: 3×3 ticking chunks. Overlapping loaders form one zone.",
   "message.dead_earth.loader_limit": "Server loader limit reached. Remove another loader and try again.",
-  "block.dead_earth.ash": "Inert Ash"
+  "block.dead_earth.ash": "Inert Ash",
+  "block.dead_earth.defense_wall_v1": "Defense wall V1",
+  "block.dead_earth.defense_wall_v2": "Defense wall V2",
+  "block.dead_earth.defense_wall_v3": "Defense wall V3",
+  "block.dead_earth.defense_door_v1": "Defense door V1",
+  "block.dead_earth.defense_door_v2": "Defense door V2",
+  "block.dead_earth.defense_door_v3": "Defense door V3",
+  "block.dead_earth.defense_hatch_v1": "Defense hatch V1",
+  "block.dead_earth.defense_hatch_v2": "Defense hatch V2",
+  "block.dead_earth.defense_hatch_v3": "Defense hatch V3"
 }

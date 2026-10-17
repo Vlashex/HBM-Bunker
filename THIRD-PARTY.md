@@ -24,6 +24,12 @@ JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчер
 
 Точные URL файлов остальных компонентов находятся в lock-файле.
 
+Защитные стены ссылаются на текстуру установленного Outpost Zero; его PNG не
+копируется. Текстуры дверей, люков и предметов SecurityCraft 1.10.2.1 включены
+без изменения пикселей по MIT; затемнение V2/V3 задаёт модель. Полный текст
+лицензии и атрибуция:
+[Лицензии ресурсов защиты](docs/DEFENSE-ASSET-LICENSES.md).
+
 Для v5 добавлены Inventory Sorter (cpw, GPLv3), Sodium (CaffeineMC,
 Polyform Shield1.0.0), Iris (IrisShaders, LGPL3.0), Jade (Snownee,
 CC-BY-NC-SA4.0), FerriteCore (malte0811, MIT), ModernFix (embeddedt, LGPL3.0),

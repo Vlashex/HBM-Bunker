@@ -6,5 +6,14 @@
   "block.dead_earth.zone_loader": "Загрузчик зоны Dead Earth",
   "message.dead_earth.loader_active": "Зона активна: 3×3 чанка. Пересекающиеся загрузчики объединяются.",
   "message.dead_earth.loader_limit": "Загрузчик не активирован: достигнут предел сервера. Повторите после удаления другого.",
-  "block.dead_earth.ash": "Инертный пепел"
+  "block.dead_earth.ash": "Инертный пепел",
+  "block.dead_earth.defense_wall_v1": "Защитная стена V1",
+  "block.dead_earth.defense_wall_v2": "Защитная стена V2",
+  "block.dead_earth.defense_wall_v3": "Защитная стена V3",
+  "block.dead_earth.defense_door_v1": "Защитная дверь V1",
+  "block.dead_earth.defense_door_v2": "Защитная дверь V2",
+  "block.dead_earth.defense_door_v3": "Защитная дверь V3",
+  "block.dead_earth.defense_hatch_v1": "Защитный люк V1",
+  "block.dead_earth.defense_hatch_v2": "Защитный люк V2",
+  "block.dead_earth.defense_hatch_v3": "Защитный люк V3"
 }

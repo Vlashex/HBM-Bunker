@@ -1,0 +1,6 @@
+{
+  "parent": "dead_earth:block/defense_template_template_trapdoor_open",
+  "textures": {
+    "texture": "dead_earth:block/defense_hatch"
+  }
+}

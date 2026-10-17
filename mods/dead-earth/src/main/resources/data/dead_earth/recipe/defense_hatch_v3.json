@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WW",
+    "WW"
+  ],
+  "key": {
+    "W": {
+      "item": "dead_earth:defense_wall_v3"
+    }
+  },
+  "result": {
+    "id": "dead_earth:defense_hatch_v3",
+    "count": 1
+  }
+}

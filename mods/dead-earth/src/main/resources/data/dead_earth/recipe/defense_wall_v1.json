@@ -1,0 +1,10 @@
+{
+  "type": "dead_earth:reinforcement",
+  "base": {
+    "item": "minecraft:iron_block"
+  },
+  "result": {
+    "id": "dead_earth:defense_wall_v1",
+    "count": 1
+  }
+}
