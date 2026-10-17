@@ -10,7 +10,34 @@
   "gameplay_changes": [],
   "review": "no critical or important findings",
   "computer_use": false,
-  "live_minecraft_rcon": "pending user-approved first restart",
-  "server_changed": "only RCON settings prepared with backup; no process stopped",
-  "mcp_authority": "unchanged; arbitrary execute_command rejected by real SDK tests"
+  "live_minecraft_rcon": {
+    "state": "passed",
+    "commands": [
+      {
+        "command": "list",
+        "output_chars": 43,
+        "duplicate_uuid_verified": true
+      },
+      {
+        "command": "help",
+        "output_chars": 4545,
+        "multipart": true
+      }
+    ],
+    "history_count": 2,
+    "log_lines_at_check": 348,
+    "console_state": "ready"
+  },
+  "server_changed": "RCON settings prepared with backup; user-approved graceful restart, world save confirmed, original mods unchanged",
+  "mcp_authority": "unchanged; arbitrary execute_command rejected by real SDK tests",
+  "activation": {
+    "minecraft": "ready",
+    "director_running": true,
+    "bindings": [
+      "127.0.0.1:25565",
+      "127.0.0.1:25575",
+      "127.0.0.1:8765"
+    ],
+    "shutdown_recovery": "old supervisor missing; one-time lifecycle agent explicitly approved separately, Minecraft saved all dimensions; agent is not installed in new JVM"
+  }
 }
