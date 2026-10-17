@@ -54,7 +54,7 @@ public final class ZoneGameTests {
         h.assertTrue(before.equals(chest.saveWithoutMetadata(level.registryAccess())),"Read-only observation modified chest");
         chest.setLootTable(net.minecraft.world.level.storage.loot.BuiltInLootTables.SIMPLE_DUNGEON);
         var deferred=ZoneCompatibility.container(chest);
-        h.assertTrue(deferred.unknown()&&chest.getLootTable()!=null,"Observation unpacked deferred loot");
+        h.assertTrue(!deferred.unknown()&&deferred.ignoredLoot()&&deferred.inventory()==null&&chest.getLootTable()!=null,"Deferred loot was unpacked or blocked zone eligibility");
         level.setBlock(p,Blocks.AIR.defaultBlockState(),3);h.succeed();
     }
 }

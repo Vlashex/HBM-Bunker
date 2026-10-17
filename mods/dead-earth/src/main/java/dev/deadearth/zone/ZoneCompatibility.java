@@ -14,7 +14,10 @@ import net.minecraft.world.level.block.entity.*;
 public final class ZoneCompatibility {
     public record Stock(ItemStack item,long amount) {}
     public record Cell(List<Stock> stock,boolean unknown) {}
-    public record ContainerView(Container inventory,int slots,boolean unknown) {}
+    public record ContainerView(Container inventory,int slots,boolean unknown,boolean ignoredLoot) {
+        public ContainerView(Container inventory,int slots,boolean unknown){this(inventory,slots,unknown,false);}
+    }
+    private enum LootState { KNOWN, SEALED, UNKNOWN }
     public record Turret(String id,int rank,ZoneScore.Defense state,String reason) {}
     public record Price(long unit,boolean unknown) {}
     private static final Set<String> CELLS=Set.of("ae2:item_storage_cell_1k","ae2:item_storage_cell_4k","ae2:item_storage_cell_16k","ae2:item_storage_cell_64k","ae2:item_storage_cell_256k");
@@ -41,14 +44,21 @@ public final class ZoneCompatibility {
         String id=BuiltInRegistries.BLOCK.getKey(be.getBlockState().getBlock()).toString();
         boolean supported=be instanceof ChestBlockEntity||be instanceof BarrelBlockEntity||be instanceof ShulkerBoxBlockEntity||id.startsWith("hbm:crate_");
         if(!supported||!(be instanceof Container container))return new ContainerView(null,0,false);
-        if(deferredLoot(be)||container.getContainerSize()>4096)return new ContainerView(null,0,true);
+        var loot=lootState(be);
+        if(loot==LootState.SEALED)return new ContainerView(null,0,false,true);
+        if(loot==LootState.UNKNOWN||container.getContainerSize()>4096)return new ContainerView(null,0,true);
         return new ContainerView(container,container.getContainerSize(),false);
     }
-    public static boolean deferredLoot(BlockEntity be) {
-        if(be instanceof RandomizableContainerBlockEntity random)return random.getLootTable()!=null;
-        if(be.getClass().getName().startsWith("com.hbm."))try{return call(be,"getLootTable")!=null;}catch(ReflectiveOperationException failure){return true;}
-        return false;
+    private static LootState lootState(BlockEntity be) {
+        if(be instanceof RandomizableContainerBlockEntity random)return random.getLootTable()!=null?LootState.SEALED:LootState.KNOWN;
+        if(be.getClass().getName().startsWith("com.hbm.")) {
+            try{return call(be,"getLootTable")!=null?LootState.SEALED:LootState.KNOWN;}
+            catch(ReflectiveOperationException|RuntimeException failure){return LootState.UNKNOWN;}
+        }
+        return LootState.KNOWN;
     }
+    /** Compatibility helper remains conservative; only positively observed SEALED inventories are ignored. */
+    public static boolean deferredLoot(BlockEntity be) {return lootState(be)!=LootState.KNOWN;}
     public static boolean me(BlockEntity be){String name=be.getClass().getName();return name.equals("appeng.blockentity.storage.DriveBlockEntity")||name.equals("appeng.blockentity.storage.MEChestBlockEntity");}
     public static int cellCount(BlockEntity be){return be.getClass().getName().endsWith("DriveBlockEntity")?10:1;}
     @SuppressWarnings("unchecked") public static Cell cell(BlockEntity be,int index) {

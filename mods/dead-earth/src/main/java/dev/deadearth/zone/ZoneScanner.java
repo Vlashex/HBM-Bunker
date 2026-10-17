@@ -11,11 +11,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 public final class ZoneScanner {
     public record Summary(UUID id,String dimension,int loaders,int chunks,long ageTicks,boolean finished,boolean complete,
             long resourceEmc,long unpricedItems,double resourceCoefficient,double value,long armedRank,long emptyRank,int unknownContainers,
-            int unknownCells,int unknownPrices,int unknownTurrets,int missingChunks,boolean truncated,boolean overflow) {}
+            int unknownCells,int unknownPrices,int unknownTurrets,int missingChunks,boolean truncated,boolean overflow,int ignoredLootContainers) {}
     public record Report(UUID id,String dimension,int loaders,int chunks,long generation,long startedTick,long completedTick,long ageTicks,
             boolean finished,boolean complete,boolean overflow,long resourceEmc,double resourceCoefficient,double value,
             long unpricedItems,int unknownPrices,int containers,int inventorySlots,int meCells,int unknownContainers,int unknownCells,
-            int missingChunks,boolean truncated,long armedRank,long emptyRank,int unknownTurrets,List<ZoneCompatibility.Turret> turrets,String fault) {}
+            int missingChunks,boolean truncated,long armedRank,long emptyRank,int unknownTurrets,List<ZoneCompatibility.Turret> turrets,String fault,int ignoredLootContainers) {}
     private final Map<UUID,Report> published=new LinkedHashMap<>();
     private List<ZoneTopology.Zone> topology=List.of();private final ArrayDeque<Job> jobs=new ArrayDeque<>();
     private long nextScan,generation;private String fault;
@@ -24,20 +24,20 @@ public final class ZoneScanner {
         final ZoneTopology.Zone zone;final long generation,started;final double coefficient=d(ZONE_EMC);final ZoneScore score=new ZoneScore();
         final ArrayDeque<Long> chunks;final ArrayDeque<BlockPos> blocks=new ArrayDeque<>();final ArrayDeque<UUID> entities=new ArrayDeque<>();
         final Set<UUID> seenEntities=new HashSet<>();final List<ZoneCompatibility.Turret> turrets=new ArrayList<>();
-        BlockEntity current;int slot,cell,containers,slots,cells,unknownContainers,unknownCells,unknownPrices,missing;boolean truncated;
+        BlockEntity current;int slot,cell,containers,slots,cells,unknownContainers,unknownCells,unknownPrices,missing,ignoredLootContainers;boolean truncated;
         Job(ZoneTopology.Zone zone,long generation,long started){this.zone=zone;this.generation=generation;this.started=started;chunks=new ArrayDeque<>(zone.chunks());}
         void turret(ZoneCompatibility.Turret turret){if(turret==null)return;score.turret(turret.state(),turret.rank());if(turrets.size()<256)turrets.add(turret);else truncated=true;}
         void stock(net.minecraft.world.item.ItemStack item,long amount){if(item.isEmpty()||amount<=0)return;var price=ZoneCompatibility.price(item);if(price.unknown())unknownPrices++;else score.stock(price.unit(),amount);}
         Report report(long now,boolean done,String fault){boolean complete=done&&missing==0&&!truncated&&unknownContainers==0&&unknownCells==0&&unknownPrices==0&&score.unknownTurrets()==0&&fault==null;
             return new Report(zone.id(),zone.dimension(),zone.loaders().size(),zone.chunks().size(),generation,started,done?now:-1,0,done,complete,score.overflow(),score.emc(),coefficient,score.value(coefficient),
-                    score.unpricedItems(),unknownPrices,containers,slots,cells,unknownContainers,unknownCells,missing,truncated,score.armedRank(),score.emptyRank(),score.unknownTurrets(),List.copyOf(turrets),fault);}
+                    score.unpricedItems(),unknownPrices,containers,slots,cells,unknownContainers,unknownCells,missing,truncated,score.armedRank(),score.emptyRank(),score.unknownTurrets(),List.copyOf(turrets),fault,ignoredLootContainers);}
     }
     public void request(){nextScan=0;}
-    public List<Summary> summaries(long now){return reports(now).stream().map(r->new Summary(r.id,r.dimension,r.loaders,r.chunks,r.ageTicks,r.finished,r.complete,r.resourceEmc,r.unpricedItems,r.resourceCoefficient,r.value,r.armedRank,r.emptyRank,r.unknownContainers,r.unknownCells,r.unknownPrices,r.unknownTurrets,r.missingChunks,r.truncated,r.overflow)).toList();}
+    public List<Summary> summaries(long now){return reports(now).stream().map(r->new Summary(r.id,r.dimension,r.loaders,r.chunks,r.ageTicks,r.finished,r.complete,r.resourceEmc,r.unpricedItems,r.resourceCoefficient,r.value,r.armedRank,r.emptyRank,r.unknownContainers,r.unknownCells,r.unknownPrices,r.unknownTurrets,r.missingChunks,r.truncated,r.overflow,r.ignoredLootContainers)).toList();}
     public List<Report> reports(long now) {
         return published.values().stream().map(r->new Report(r.id,r.dimension,r.loaders,r.chunks,r.generation,r.startedTick,r.completedTick,
                 Math.max(0,now-(r.finished?r.completedTick:r.startedTick)),r.finished,r.complete,r.overflow,r.resourceEmc,r.resourceCoefficient,r.value,
-                r.unpricedItems,r.unknownPrices,r.containers,r.inventorySlots,r.meCells,r.unknownContainers,r.unknownCells,r.missingChunks,r.truncated,r.armedRank,r.emptyRank,r.unknownTurrets,r.turrets,r.fault)).toList();
+                r.unpricedItems,r.unknownPrices,r.containers,r.inventorySlots,r.meCells,r.unknownContainers,r.unknownCells,r.missingChunks,r.truncated,r.armedRank,r.emptyRank,r.unknownTurrets,r.turrets,r.fault,r.ignoredLootContainers)).toList();
     }
     public void tick(MinecraftServer server,List<ZoneTopology.Zone> zones) {
         if(!server.isSameThread())throw new IllegalStateException("Zone scan outside server thread");
@@ -68,7 +68,9 @@ public final class ZoneScanner {
                 return 1;
             }
             var container=ZoneCompatibility.container(be);
-            if(container.unknown()){job.unknownContainers++;job.current=null;return 1;}
+            // A container that changes from opened to sealed mid-pass invalidates this pass;
+            // the next pass excludes it without retaining a partial old inventory value.
+            if(container.unknown()||container.ignoredLoot()){job.unknownContainers++;job.current=null;return 1;}
             if(job.slot>=container.slots()){job.current=null;return 1;}
             if(budget.slots<=0)return 0;budget.slots--;
             var stack=container.inventory().getItem(job.slot++);job.slots++;job.stock(stack,stack.getCount());return 1;
@@ -79,7 +81,7 @@ public final class ZoneScanner {
             var be=level.getBlockEntity(pos);if(be==null)return 1;job.turret(ZoneCompatibility.turret(be));
             if(ZoneCompatibility.me(be)){job.current=be;job.cell=0;return 1;}
             var container=ZoneCompatibility.container(be);
-            if(container.unknown())job.unknownContainers++;else if(container.inventory()!=null){job.containers++;job.current=be;job.slot=0;}
+            if(container.ignoredLoot())job.ignoredLootContainers++;else if(container.unknown())job.unknownContainers++;else if(container.inventory()!=null){job.containers++;job.current=be;job.slot=0;}
             return 1;
         }
         if(!job.entities.isEmpty()) {
