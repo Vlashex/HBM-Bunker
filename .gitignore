@@ -45,3 +45,6 @@ Thumbs.db
 **/run/
 **/run-gametest/
 mods/dead-earth/run-gametest-*/
+
+# Local AI director state
+/director/runtime/

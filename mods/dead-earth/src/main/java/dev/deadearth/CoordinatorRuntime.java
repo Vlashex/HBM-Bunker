@@ -38,6 +38,7 @@ public final class CoordinatorRuntime {
     private final SiteStore sites;
     private final BridgeController bridge;
     private final dev.deadearth.climate.SeasonWeather weather=new dev.deadearth.climate.SeasonWeather();
+    private final dev.deadearth.director.DirectorPolicy director = new dev.deadearth.director.DirectorPolicy();
     private String fault;
     private ClimateCycle.Phase testSeason;
     public ClimateCycle.Phase effectiveSeason() { requireReady();return testSeason==null?climateStatus().phase():testSeason; }
@@ -93,6 +94,25 @@ public final class CoordinatorRuntime {
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
                 climateStatus(),true,difficultyStatus(),dev.deadearth.zone.ZoneLoaders.summaries(server));
+    }
+    public record DirectorSnapshot(dev.deadearth.director.DirectorPolicy.Brief planning, String season, double pressure) {}
+    private dev.deadearth.director.DirectorPolicy.Settings directorSettings() {
+        return new dev.deadearth.director.DirectorPolicy.Settings(b(DIRECTOR_ENABLED),i(DIRECTOR_INTERVAL),
+                Math.min(i(DIRECTOR_LIFETIME),i(DIRECTOR_INTERVAL)),i(DIRECTOR_ZONE_AGE));
+    }
+    private List<dev.deadearth.director.DirectorPolicy.Candidate> directorCandidates() {
+        return dev.deadearth.zone.ZoneLoaders.summaries(server).stream().map(z ->
+                new dev.deadearth.director.DirectorPolicy.Candidate(z.id().toString(),z.value(),z.ageTicks(),z.complete(),z.overflow())).toList();
+    }
+    public DirectorSnapshot directorBrief() {
+        requireReady();
+        return new DirectorSnapshot(director.brief(campaign.campaign().campaignId(),epoch,campaign.campaign().activeTicks(),
+                server.getPlayerCount(),directorSettings(),directorCandidates()),effectiveSeason().name(),difficultyStatus().pressure());
+    }
+    public dev.deadearth.director.DirectorPolicy.Verdict previewDirector(UUID request,UUID goal,String variant,String text) {
+        requireReady();
+        return director.preview(request,goal,variant,text,campaign.campaign().campaignId(),epoch,campaign.campaign().activeTicks(),
+                server.getPlayerCount(),directorSettings(),directorCandidates());
     }
     public ClimateCycle.Snapshot climateStatus() {
         requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());

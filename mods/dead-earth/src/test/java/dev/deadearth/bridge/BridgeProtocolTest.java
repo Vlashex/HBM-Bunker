@@ -31,6 +31,16 @@ class BridgeProtocolTest {
         args.addProperty("delay_ticks",201);
         assertThrows(BridgeFailure.class,()->protocol.decode(raw.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8)));
     }
+    @Test void directorReadOnlyContractRejectsNumbersCoordinatesAndExtraFields() {
+        assertEquals("get_director_brief",protocol.decode(bytes(request("get_director_brief"))).operation());
+        var input=request("preview_director");var args=input.getAsJsonObject("arguments");
+        args.addProperty("request_id",CAMPAIGN.toString());args.addProperty("goal_id",EPOCH.toString());
+        args.addProperty("variant","radio_static");args.addProperty("text","Quiet.");
+        assertEquals("preview_director",protocol.decode(bytes(input)).operation());
+        args.addProperty("count",10);rejects(input,"invalid_arguments");args.remove("count");
+        args.addProperty("text",10);rejects(input,"invalid_arguments");
+        args.addProperty("text","x".repeat(181));rejects(input,"invalid_arguments");
+    }
     @Test void authenticSnapshotIsDecodedWithoutExposingCredentials() {
         var parsed = protocol.decode(bytes(request("get_snapshot")));
         assertEquals("get_snapshot", parsed.operation()); assertTrue(parsed.arguments().isEmpty());

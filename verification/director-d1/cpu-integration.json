@@ -1,0 +1,36 @@
+{
+  "ok": true,
+  "model": {
+    "state": "preview_accepted",
+    "goal_id": "af212c4d-1935-4ec6-b274-5842a1ae2297",
+    "target_id": "campaign",
+    "source": "model",
+    "reason": "model_validated",
+    "code": "preview_accepted",
+    "metrics": {
+      "elapsed_ms": 25687,
+      "prompt_tokens": 224,
+      "output_tokens": 27
+    },
+    "preview_only": true
+  },
+  "fallback": {
+    "state": "preview_accepted",
+    "goal_id": "af212c4d-1935-4ec6-b274-5842a1ae2297",
+    "target_id": "campaign",
+    "source": "fallback",
+    "reason": "model_unavailable",
+    "code": "preview_accepted",
+    "metrics": {},
+    "preview_only": true
+  },
+  "duplicate_state": "already_recorded",
+  "model_observations": 12,
+  "maximum_vram_bytes": 0,
+  "maximum_model_bytes": 3146734631,
+  "observed_server_tps": 20.05,
+  "clock_samples": 25,
+  "gpu_requested": false,
+  "threads": 4,
+  "note": "One embedded test player. No six-player or rendered-client load claim."
+}

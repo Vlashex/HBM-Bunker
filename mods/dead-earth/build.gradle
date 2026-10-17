@@ -3,7 +3,7 @@ plugins {
     id 'net.neoforged.moddev' version '2.0.148'
 }
 group = 'dev.deadearth'
-version = '3.0.0'
+version = '3.1.0'
 base { archivesName = 'dead-earth' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 repositories { mavenCentral() }
@@ -23,7 +23,15 @@ neoForge {
                 programArgument providers.gradleProperty('deadEarthSmokeServer').get()
             }
         }
-        server { server(); programArgument '--nogui' }
+        server {
+            server(); programArgument '--nogui'
+            gameDirectory = file(providers.gradleProperty('deadEarthServerDirectory').orElse('run').get())
+            if(providers.gradleProperty('deadEarthDirectorSmoke').isPresent()) {
+                systemProperty 'deadearth.directorServerSmoke','true'
+                systemProperty 'deadearth.testControls','true'
+                jvmArgument '-Xmx4G'
+            }
+        }
         gameTestServer {
             type = 'gameTestServer'
             jvmArgument '-Xmx4G'

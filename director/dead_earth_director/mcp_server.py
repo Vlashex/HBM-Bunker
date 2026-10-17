@@ -44,6 +44,16 @@ def create_server(client: BridgeClient) -> MCPServer:
         return await invoke("get_snapshot", {})
 
     @server.tool(annotations=read)
+    async def get_director_brief() -> dict[str, Any]:
+        """Серверная цель D1 и допустимые варианты. Без атак и загрузки мира."""
+        return await invoke("get_director_brief", {})
+
+    @server.tool(annotations=read)
+    async def preview_director(request_id: str, goal_id: str, variant: str, text: str) -> dict[str, Any]:
+        """Проверить оформление действующей цели D1; эффекты в мире отсутствуют."""
+        return await invoke("preview_director", dict(request_id=request_id, goal_id=goal_id, variant=variant, text=text))
+
+    @server.tool(annotations=read)
     async def get_history(limit: int = 20) -> dict[str, Any]:
         """Последние 1–100 наблюдений; старые сведения не являются текущим состоянием."""
         return await invoke("get_history", {"limit": limit})

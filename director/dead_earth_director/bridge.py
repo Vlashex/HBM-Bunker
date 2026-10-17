@@ -71,6 +71,7 @@ def _arguments(operation, arguments):
     expected = {"get_snapshot": set(), "get_history": {"limit"}, "list_catalog": set(),
                 "preview_scenario": {"request_id"}, "propose_scenario": {"request_id"},
                 "get_scenario_status": {"scenario_id"}, "cancel_scenario": {"scenario_id", "revision"}}
+    expected.update({"get_director_brief": set(), "preview_director": {"request_id", "goal_id", "variant", "text"}})
     if operation not in expected:
         raise BridgeError("unknown_operation")
     if operation in {"preview_scenario", "propose_scenario"}:
@@ -95,7 +96,11 @@ def _arguments(operation, arguments):
             raise BridgeError("invalid_arguments")
     elif type(arguments) is not dict or set(arguments) != expected[operation]:
         raise BridgeError("invalid_arguments")
-    for key in ["request_id", "scenario_id"]:
+    if operation == "preview_director":
+        from .model import valid_narrative
+        if not valid_narrative(arguments["variant"], arguments["text"]):
+            raise BridgeError("invalid_arguments")
+    for key in ["request_id", "scenario_id", "goal_id"]:
         if key in arguments and not _uuid(arguments[key]):
             raise BridgeError("invalid_arguments")
     if "limit" in arguments and (type(arguments["limit"]) is not int or not 1 <= arguments["limit"] <= 100):

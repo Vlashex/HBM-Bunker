@@ -22,13 +22,16 @@ class ReleaseTests(unittest.TestCase):
             files = {"director/dead_earth_director/__init__.py": b"", "director/dead_earth_director/__main__.py": b"print('MCP')",
                      "director/requirements.in": b"mcp==2.3.0", "director/requirements-windows-py312.lock": b"pinned",
                      "director/README.md": b"setup", "director/setup.ps1": b"setup",
+                     "director/director.example.toml": b"config", "director/models.lock.json": b"pin",
+                     "director/model.ps1": b"model", "director/docker/compose.cpu.yaml": b"cpu",
+                     "director/runtime/decisions.sqlite3": b"private",
                      "director/.venv/private.py": b"secret", "director/tests/test.py": b"fixture",
                      "director/dead_earth_director/token.env": b"secret", "director/dead_earth_bridge.json": b"secret",
                      "director/dead_earth_director/__pycache__/module.pyc": b"cache"}
             for name, data in files.items():
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(data)
             entries = release.director_entries(root, True)
-            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1"))})
+            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml"))})
             self.assertEqual(release.director_entries(root, False), {})
 
     def test_director_enabled_without_entrypoint_is_rejected(self):
@@ -146,7 +149,7 @@ class ReleaseTests(unittest.TestCase):
 
     def test_release_docs_include_local_markdown_link_targets(self):
         self.assertTrue(hasattr(release, "release_documents"), "Release document selector missing")
-        documents = release.release_documents(ROOT)
+        documents = release.release_documents(ROOT) | release.director_entries(ROOT, bool(release.read_json(ROOT / "release.json").get("director")))
         for name, data in documents.items():
             if not name.endswith(".md"):
                 continue

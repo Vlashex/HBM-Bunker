@@ -36,6 +36,8 @@ public final class DeadEarth {
         NeoForge.EVENT_BUS.addListener(DeadEarthCommands::register);
         NeoForge.EVENT_BUS.addListener(this::death);
         NeoForge.EVENT_BUS.addListener(this::logout);
+        if(Boolean.getBoolean("deadearth.directorServerSmoke")&&Boolean.getBoolean("deadearth.testControls"))
+            NeoForge.EVENT_BUS.addListener(dev.deadearth.gametest.DirectorServerSmoke::tick);
     }
 
     public static CoordinatorRuntime runtime(MinecraftServer server) {

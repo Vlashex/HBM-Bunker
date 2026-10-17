@@ -3,7 +3,8 @@
 Поверх [Expeditions](DEAD-EARTH-EXPEDITIONS.md) реализованы локальный Java-мост
 и Python gateway с официальным MCP SDK 2.3.0. Это часть
 [большого контракта](DEAD-EARTH-MCP.md): пока без нейросети, памяти SQLite,
-биологических атак и климатических событий.
+биологических атак. В 3.1.0 добавлен отдельный [CPU-режиссёр D1](../director/README.md)
+и два дополнительных инструмента без воздействия на мир; gateway остаётся транспортом.
 
 ## Запуск и полномочия
 
@@ -31,6 +32,8 @@ MCP host запускает `.venv/Scripts/python.exe -m dead_earth_director --b
 
 | Инструмент | Действие |
 |---|---|
+| get_director_brief | Серверная наблюдательная цель D1, срок и варианты |
+| preview_director | Повторная проверка текста и цели, без исполнения |
 | get_snapshot | Снимок наблюдений и возраст кеша |
 | get_history | Последние 1–100 событий |
 | list_catalog | warning_beacon_v1 и relay_broadcast_v1 |

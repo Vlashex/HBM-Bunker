@@ -35,6 +35,21 @@ class McpStdioTests(unittest.TestCase):
             asyncio.run(exchange(path))
             self.assertEqual(requests[0]["arguments"],choice)
 
+    def test_sdk_forwards_director_preview_and_rejects_extra_authority(self):
+        args=dict(request_id="00000000-0000-4000-8000-000000000003",
+                  goal_id="00000000-0000-4000-8000-000000000004",variant="radio_static",text="Черновик.")
+        async def exchange(path):
+            params=StdioServerParameters(command=sys.executable,args=["-m","dead_earth_director","--bridge",str(path)],
+                cwd=Path(__file__).resolve().parents[1],env={"PYTHONUTF8":"1"})
+            async with Client(params,read_timeout_seconds=10) as client:
+                self.assertFalse((await client.call_tool("get_director_brief")).is_error)
+                self.assertFalse((await client.call_tool("preview_director",args)).is_error)
+                self.assertTrue((await client.call_tool("preview_director",args | dict(count=20))).is_error)
+        with endpoint(lambda r:success({})) as (path,requests):
+            asyncio.run(exchange(path))
+            self.assertEqual([r["operation"] for r in requests],["get_director_brief","preview_director"])
+
+
     def test_expected_bridge_failure_reaches_model_as_safe_reason(self):
         async def exchange(path):
             params = StdioServerParameters(command=sys.executable,
@@ -58,7 +73,7 @@ class McpStdioTests(unittest.TestCase):
                 tools = (await client.list_tools()).tools
                 self.assertEqual({tool.name for tool in tools}, {
                     "get_snapshot", "get_history", "list_catalog", "preview_scenario",
-                    "propose_scenario", "get_scenario_status", "cancel_scenario"})
+                    "propose_scenario", "get_scenario_status", "cancel_scenario", "get_director_brief", "preview_director"})
                 result = await client.call_tool("get_snapshot")
                 self.assertEqual(result.structured_content, {"activeTicks": 42})
                 denied = await client.call_tool("execute_command", {"command": "stop"})

@@ -108,6 +108,10 @@ public final class DeadEarthConfig {
   "hbm:turret_chekhov=2","hbm:turret_fritz=2","hbm:turret_jeremy=2","hbm:turret_howard=2","hbm:turret_howard_damaged=2",
   "hbm:turret_richard=3","hbm:turret_tauon=3","hbm:turret_maxwell=4","hbm:turret_arty=4","hbm:turret_himars=5",
   "securitycraft:sentry=2"),v->v instanceof java.util.List<?> list&&list.size()<=128&&list.stream().allMatch(x->x instanceof String s&&s.matches("[a-z0-9_.-]+:[a-z0-9_./-]+=[0-9]{1,3}")));
+ public static final ModConfigSpec.BooleanValue DIRECTOR_ENABLED=B.define("director.enabled",false);
+ public static final ModConfigSpec.IntValue DIRECTOR_INTERVAL=B.defineInRange("director.decisionIntervalTicks",18000,200,144000);
+ public static final ModConfigSpec.IntValue DIRECTOR_LIFETIME=B.defineInRange("director.goalLifetimeTicks",2400,200,72000);
+ public static final ModConfigSpec.IntValue DIRECTOR_ZONE_AGE=B.defineInRange("director.maximumZoneAgeTicks",1200,0,72000);
  public static final ModConfigSpec SPEC=B.build();
  private DeadEarthConfig(){}
  public static double d(ModConfigSpec.DoubleValue v){return SPEC.isLoaded()?v.get():v.getDefault();}

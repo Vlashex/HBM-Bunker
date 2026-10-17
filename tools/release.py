@@ -220,6 +220,7 @@ def director_entries(root, enabled):
         return {}
     package = root / "director/dead_earth_director"
     required = [root / "director" / name for name in ["README.md", "requirements.in", "requirements-windows-py312.lock", "setup.ps1"]]
+    required += [root / "director" / name for name in ["director.example.toml", "models.lock.json", "model.ps1", "docker/compose.cpu.yaml"]]
     required += [package / "__init__.py", package / "__main__.py"]
     if package.is_symlink() or not package.resolve().is_relative_to(root.resolve()):
         raise ValueError("Unsafe director package directory")

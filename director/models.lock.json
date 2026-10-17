@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "runtime_image": "ollama/ollama:0.40.6@sha256:265409e1d931028a8f7d5a32bcbafddd7bffbc6cc629d77efe9560adf692a5e7",
+  "model": "qwen3.5:4b",
+  "manifest_sha256": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+  "registry_manifest": "https://registry.ollama.ai/v2/library/qwen3.5/manifests/4b",
+  "execution": "cpu"
+}
