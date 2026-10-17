@@ -1,8 +1,9 @@
-"""Local read-only director dashboard. No gameplay or model inference authority."""
+"""Local director dashboard with a separate human operator console."""
 import argparse
 import hashlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
+import secrets
 from pathlib import Path
 import sqlite3
 import threading
@@ -11,6 +12,7 @@ from urllib.parse import parse_qs, urlsplit
 from urllib.request import Request, build_opener, ProxyHandler
 from .bridge import BridgeClient, BridgeError, Descriptor, _uuid
 from .admin_store import Telemetry, read_decisions, safe_tree
+from .admin_console import OperatorConsole
 
 STATIC = Path(__file__).with_name("admin_web")
 PRODUCT = "dead-earth-admin-v1"
@@ -63,13 +65,15 @@ class Observer:
 
 
 class Application:
-    def __init__(self,bridge,journal,database,catalog,model_config=None):
+    def __init__(self,bridge,journal,database,catalog,model_config=None,server_root=None):
         self.store=Telemetry(database); self.observer=Observer(bridge,self.store)
         self.journal=Path(journal); self.catalog_path=Path(catalog)
         self.instance_id=hashlib.sha256(str(self.journal.parent.parent.parent.resolve()).lower().encode("utf-8")).hexdigest()[:16]
         self.model_config=model_config
         self.model=dict(state="unchecked")
         self.model_checked=0
+        self.console=OperatorConsole(server_root) if server_root else None
+        self.console_nonce=secrets.token_urlsafe(32)
 
     def check_model(self):
         # Tags only: never load/unload a model or request generation from the panel.
@@ -164,6 +168,12 @@ def make_server(app, port=8765):
                 except OSError: return self.send_body(503,b'{"error":"assets_unavailable"}')
             if parsed.path=="/api/health":
                 return self.send_body(200,json.dumps(dict(product=PRODUCT,instance_id=app.instance_id)).encode())
+            if parsed.path=="/api/console" and not parsed.query:
+                if app.console is None: return self.send_body(503,b'{"error":"console_unavailable"}')
+                try:
+                    payload=dict(app.console.snapshot(),nonce=app.console_nonce)
+                    return self.send_body(200,json.dumps(payload,ensure_ascii=False).encode('utf-8'))
+                except (OSError,ValueError,sqlite3.Error): return self.send_body(503,b'{"error":"console_unavailable"}')
             if parsed.path not in {"/api/dashboard","/api/export"}: return self.send_body(404,b'{"error":"not_found"}')
             try:
                 q=parse_qs(parsed.query,keep_blank_values=True,max_num_fields=3)
@@ -181,13 +191,33 @@ def make_server(app, port=8765):
             except (OSError,ValueError,sqlite3.Error): return self.send_body(503,b'{"error":"data_unavailable"}')
         def do_GET(self): self.handle_read()
         def do_HEAD(self): self.handle_read()
+        def do_POST(self):
+            if not self.allowed(): return self.send_body(403,b'{"error":"local_only"}')
+            if self.path!="/api/console/command": return self.reject()
+            host="http://127.0.0.1:"+str(self.server.server_address[1])
+            if (self.headers.get_all('Origin')!=[host]
+                or self.headers.get_all('X-Dead-Earth-Console')!=[app.console_nonce]):
+                return self.send_body(403,b'{"error":"operator_session_required"}')
+            try:
+                if self.headers.get('Content-Type')!='application/json' or self.headers.get('Transfer-Encoding'): raise ValueError()
+                lengths=self.headers.get_all('Content-Length') or []
+                if len(lengths)!=1: raise ValueError()
+                length=int(lengths[0])
+                if not 1<=length<=8192: raise ValueError()
+                payload=json.loads(self.rfile.read(length))
+                if type(payload) is not dict or set(payload)!={'request_id','command'}: raise ValueError()
+                if app.console is None: return self.send_body(503,b'{"error":"console_unavailable"}')
+                result=app.console.execute(payload['request_id'],payload['command'])
+                return self.send_body(200,json.dumps(result,ensure_ascii=False).encode('utf-8'))
+            except (ValueError,TypeError,AttributeError,RecursionError): return self.send_body(400,b'{"error":"invalid_command_request"}')
+            except (OSError,sqlite3.Error): return self.send_body(503,b'{"error":"console_unavailable_outcome_unknown"}')
         def reject(self): self.send_body(405,b'{"error":"read_only"}')
-        do_POST=do_PUT=do_DELETE=do_PATCH=do_OPTIONS=reject
+        do_PUT=do_DELETE=do_PATCH=do_OPTIONS=reject
     return ThreadingHTTPServer(("127.0.0.1",port),Handler)
 
 
 def main():
-    parser=argparse.ArgumentParser(description="DEAD EARTH local read-only AI admin")
+    parser=argparse.ArgumentParser(description="DEAD EARTH local AI admin and operator console")
     parser.add_argument("--server-root",type=Path,required=True)
     parser.add_argument("--catalog",type=Path,default=Path(__file__).resolve().parents[2]/"pack/config/dead-earth/director/catalog.json")
     parser.add_argument("--port",type=int,default=8765)
@@ -204,7 +234,7 @@ def main():
         world_path=(root/world).resolve()
         if not world or not world_path.is_relative_to(root) or world_path==root: raise ValueError()
         app=Application(world_path/"dead_earth_bridge.json",root/"director/runtime/decisions.sqlite3",
-                        root/"director/runtime/admin.sqlite3",args.catalog,root/"director/director.example.toml")
+                        root/"director/runtime/admin.sqlite3",args.catalog,root/"director/director.example.toml",server_root=root)
         server=make_server(app,args.port)
     except (OSError,ValueError,sqlite3.Error):
         print("Dead Earth admin: startup_unavailable",flush=True);return 2

@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('start','stop','status')][string]$Action='start',
+    [ValidateSet('start','stop','status','console-setup')][string]$Action='start',
     [string]$ServerRoot=(Join-Path $PSScriptRoot '../../Dead-Earth-Server-3.2.0'),
     [string]$Catalog,
     [ValidateRange(1,65535)][int]$Port=8765,
@@ -8,6 +8,24 @@ param(
 $ErrorActionPreference='Stop'
 try {
     $serverPath=(Resolve-Path -LiteralPath $ServerRoot).ProviderPath
+    function Get-AdminPython {
+        $candidate=Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
+        if(-not (Test-Path -LiteralPath $candidate -PathType Leaf)) {
+            $deployment=Get-Content -LiteralPath (Join-Path $serverPath 'deployment.json') -Raw | ConvertFrom-Json
+            $candidate=$deployment.python
+        }
+        if(-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw 'Python runtime was not found. Prepare director/.venv or deployment.json.' }
+        return $candidate
+    }
+    if($Action -eq 'console-setup') {
+        $python=Get-AdminPython
+        Push-Location -LiteralPath $PSScriptRoot
+        try { & $python -m dead_earth_director.admin_console --server-root $serverPath; $result=$LASTEXITCODE }
+        finally { Pop-Location }
+        if($result -ne 0) { throw 'Console preparation failed. Verify loopback server-ip, properties format and free port 25575.' }
+        Write-Host 'Operator console configured. Minecraft must be restarted normally to activate RCON. No process was stopped.'
+        exit 0
+    }
     $baseUrl="http://127.0.0.1:$Port"
     $hash=[Security.Cryptography.SHA256]::Create()
     try { $digest=$hash.ComputeHash([Text.Encoding]::UTF8.GetBytes($serverPath.ToLowerInvariant())) }
@@ -31,12 +49,7 @@ try {
         exit 0
     }
     if(-not $health) {
-        $python=Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
-        if(-not (Test-Path -LiteralPath $python -PathType Leaf)) {
-            $deployment=Get-Content -LiteralPath (Join-Path $serverPath 'deployment.json') -Raw | ConvertFrom-Json
-            $python=$deployment.python
-        }
-        if(-not (Test-Path -LiteralPath $python -PathType Leaf)) { throw 'Python runtime was not found. Prepare director/.venv or deployment.json.' }
+        $python=Get-AdminPython
         if(-not $Catalog) {
             $Catalog=Join-Path $PSScriptRoot '../pack/config/dead-earth/director/catalog.json'
             if(-not (Test-Path -LiteralPath $Catalog -PathType Leaf)) { $Catalog=Join-Path $serverPath 'config/dead-earth/director/catalog.json' }

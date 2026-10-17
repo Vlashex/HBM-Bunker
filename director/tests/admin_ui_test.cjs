@@ -17,9 +17,10 @@ class Element {
 }
 const ids=new Map();
 const html=fs.readFileSync(path.join(__dirname,'../dead_earth_director/admin_web/index.html'),'utf8');
+assert.match(html,/id="console-command"/,'Operator console input is missing');
 for(const match of html.matchAll(/id="([^"]+)"/g))ids.set(match[1],new Element());
 ids.get('range').value='6';
-const views=['overview','decisions','scenarios','zones','catalog'];
+const views=['overview','decisions','scenarios','zones','catalog','console'];
 const nav=views.map(v=>{const e=new Element('button');e.dataset.view=v;return e;});
 const note=new Element();
 const document={getElementById:id=>{assert(ids.has(id),'Unknown element '+id);return ids.get(id);},
@@ -55,4 +56,30 @@ assert.equal(ids.get('catalog-list').children.length,15);
 assert.match(ids.get('event-detail').textContent,/Окно реакции/);
 vm.runInContext('fixture.connection.state="offline";render()',context);
 assert.match(ids.get('notice').textContent,/Свежих данных нет/);
-console.log('Admin UI DOM checks passed: five screens, charts, decision detail/search, archive, catalog, offline state, literal untrusted text.');
+async function consoleChecks(){
+ const calls=[];
+ context.crypto={randomUUID:()=> '00000000-0000-4000-8000-000000000007'};
+ const state={state:'ready',nonce:'test-nonce',lines:['<script>log()</script>'],source:'server-console.log',checked_at:2000,history:[{request_id:'old',command:'list',state:'completed',output:'<img>answer',at:1000}]};
+ context.fetch=async(url,options={})=>{calls.push({url,options});return {ok:true,json:async()=>url==='/api/console'?state:{state:'completed'}};};
+ await vm.runInContext('refreshConsole()',context);vm.runInContext('setView("console")',context);
+ await Promise.resolve();await Promise.resolve();
+ assert.match(ids.get('console-log').textContent,/<script>log\(\)<\/script>/);
+ assert.match(ids.get('console-history').textContent,/<img>answer/);
+ ids.get('console-command').value='list';
+ const first=vm.runInContext('sendConsole()',context);await vm.runInContext('sendConsole()',context);await first;
+ assert.equal(calls.filter(c=>c.options.method==='POST').length,1,'Double click must not send twice');
+ const posted=calls.find(c=>c.options.method==='POST');
+ assert.equal(posted.options.headers['X-Dead-Earth-Console'],'test-nonce');
+ assert.equal(JSON.parse(posted.options.body).command,'list');
+ assert.match(ids.get('console-result').textContent,/Ответ получен/);
+ state.state='restart_or_server_required';await vm.runInContext('refreshConsole()',context);
+ assert.equal(ids.get('console-send').disabled,true);
+ assert.match(ids.get('console-state').textContent,/перезапуск/);
+ state.state='ready';await vm.runInContext('refreshConsole()',context);
+ ids.get('console-command').value='list';context.fetch=async()=>{throw Error('network');};
+ await vm.runInContext('sendConsole()',context);
+ assert.match(ids.get('console-result').textContent,/могла выполниться/);
+ assert.equal(ids.get('console-send').disabled,true);
+ console.log('Admin UI DOM checks passed: six screens, literal log/output, console single send, disabled state, uncertain delivery, existing charts/history/catalog.');
+}
+consoleChecks().catch(error=>{console.error(error);process.exitCode=1;});

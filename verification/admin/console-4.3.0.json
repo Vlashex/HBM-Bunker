@@ -1,0 +1,16 @@
+{
+  "release": "4.3.0",
+  "date": "2026-10-17",
+  "director_tests": 48,
+  "release_tests": 13,
+  "console_tests": 7,
+  "ui_dom": "passed: six views, single-send, uncertain state, literal text",
+  "powershell_parse": "passed",
+  "gameplay_entries_compared_to_4_2_0": 36,
+  "gameplay_changes": [],
+  "review": "no critical or important findings",
+  "computer_use": false,
+  "live_minecraft_rcon": "pending user-approved first restart",
+  "server_changed": "only RCON settings prepared with backup; no process stopped",
+  "mcp_authority": "unchanged; arbitrary execute_command rejected by real SDK tests"
+}
