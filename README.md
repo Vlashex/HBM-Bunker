@@ -1,6 +1,6 @@
 # HBM Bunker
 
-**DEAD EARTH · `3.2.0` · Minecraft 1.21.1 · NeoForge 21.1.262 · Java 21**
+**DEAD EARTH · `4.0.0` · Minecraft 1.21.1 · NeoForge 21.1.262 · Java 21**
 
 Сборка для выживания в бункере: HBM составляет основу производства,
 Overgrown Vegetation захватывает мир, Mutationcraft добавляет заражение,
@@ -40,14 +40,14 @@ MVP соответствует игровому содержимому ране�
 огонь/лёд и адаптеры биосфер. В 3.1.0 добавлен [режиссёр D1](director/README.md): локальная CPU-модель оформляет
 серверную цель и получает preview. В 3.2.0 добавлены [15 интерактивных событий](docs/DEAD-EARTH-CINEMATIC.md), ограниченная live-очередь атак и [пустошь](docs/DEAD-EARTH-WASTELAND.md).
 Исходный ZIP MVP остаётся без координатора.
-См. [текущий выпуск](docs/releases/3.2.0.md), [сезоны](docs/DEAD-EARTH-SEASONS.md) и
+См. [текущий выпуск](docs/releases/4.0.0.md), [сезоны](docs/DEAD-EARTH-SEASONS.md) и
 [результаты проверки климата](docs/DEAD-EARTH-CLIMATE-VERIFICATION.md).
 В v3 добавлены [загрузчик и ценность зон](docs/DEAD-EARTH-ZONES.md): физические
 запасы сундуков/ME и оснащение турелей; [проверки](verification/zones-v3/README.md).
 
 ## Установка для игры
 
-1. Получи `dist/HBM-Bunker-3.2.0-Prism.zip` для отдельного тестового профиля
+1. Получи `dist/HBM-Bunker-4.0.0-Prism.zip` для отдельного тестового профиля
    либо прежний `dist/HBM-Bunker-0.1.0-mvp-Prism.zip` для исходной версии.
 2. В PrismLauncher: **Добавить экземпляр → Импорт**, выбери ZIP.
 3. Используй Java 21. Профилю назначено 6 ГБ памяти.
