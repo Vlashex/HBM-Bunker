@@ -47,11 +47,17 @@ public final class ZoneScanner {
         if(jobs.isEmpty()&&now>=nextScan){generation++;for(var zone:topology){var job=new Job(zone,generation,now);jobs.add(job);published.put(zone.id(),job.report(now,false,null));}nextScan=now+i(ZONE_INTERVAL);}
         var budget=new Budget();
         try {
+            Job partial=null;
             for(int work=0;work<4096&&!jobs.isEmpty();work++) {
                 var job=jobs.getFirst();int result=step(server,job,budget);
                 if(result==0)break;
-                boolean done=result==2;published.put(job.zone.id(),job.report(now,done,null));if(done)jobs.removeFirst();
+                if(result==2) {
+                    published.put(job.zone.id(),job.report(now,true,null));jobs.removeFirst();partial=null;
+                } else partial=job;
             }
+            // FIFO jobs leave at most one unfinished job. Publish its final tick state once,
+            // including work-limit/budget exits; completed jobs already published above.
+            if(partial!=null)published.put(partial.zone.id(),partial.report(now,false,null));
         }catch(RuntimeException error){fault="scan_failed";if(!jobs.isEmpty()){var job=jobs.removeFirst();published.put(job.zone.id(),job.report(now,true,fault));}jobs.clear();dev.deadearth.DeadEarth.LOGGER.error("Zone scanner suspended; physical resources unchanged",error);}
     }
     /** 0: budget exhausted, 1: bounded progress, 2: finished. */
