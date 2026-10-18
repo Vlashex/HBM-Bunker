@@ -17,6 +17,12 @@ try {
         if(-not (Test-Path -LiteralPath $candidate -PathType Leaf)) { throw 'Python runtime was not found. Prepare director/.venv or deployment.json.' }
         return $candidate
     }
+    # Match pathlib.resolve() used by the admin instance identity. Resolve-Path
+    # alone keeps a Windows junction alias and produces a different server hash.
+    $python=Get-AdminPython
+    $canonicalPath=& $python -c 'import sys; from pathlib import Path; print(Path(sys.argv[1]).resolve())' $serverPath
+    if($LASTEXITCODE -ne 0 -or -not $canonicalPath) { throw 'Unable to resolve the configured server folder.' }
+    $serverPath=$canonicalPath.Trim()
     if($Action -eq 'console-setup') {
         $python=Get-AdminPython
         Push-Location -LiteralPath $PSScriptRoot
