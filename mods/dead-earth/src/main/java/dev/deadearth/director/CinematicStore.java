@@ -2,6 +2,10 @@ package dev.deadearth.director;
 
 import com.google.gson.Gson;
 import java.util.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.nio.charset.CodingErrorAction;
+import java.nio.charset.CharacterCodingException;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -87,23 +91,31 @@ public final class CinematicStore extends SavedData {
     public static CinematicStore load(UUID expected,CompoundTag tag,HolderLookup.Provider registries) {
         var store=new CinematicStore();
         try {
-            if(!tag.contains("schema",Tag.TAG_INT)||tag.getInt("schema")!=1||!tag.contains("campaign",Tag.TAG_STRING)
-                    ||!expected.toString().equals(tag.getString("campaign"))||!tag.contains("queue",Tag.TAG_STRING))throw new IllegalArgumentException("Director schema");
-            var raw=CinematicCatalog.strict(tag.getString("queue"));
+            if(!tag.contains("schema",Tag.TAG_INT)||!Set.of(1,2).contains(tag.getInt("schema"))||!tag.contains("campaign",Tag.TAG_STRING)
+                    ||!expected.toString().equals(tag.getString("campaign")))throw new IllegalArgumentException("Director schema");
+            boolean legacy=tag.getInt("schema")==1;
+            var raw=CinematicCatalog.strict(readJson(tag,"queue",legacy));
             var snapshot=JSON.fromJson(raw,CinematicEngine.Snapshot.class);
             if(!normalized(JSON.toJsonTree(snapshot)).equals(normalized(raw)))throw new IllegalArgumentException("Director snapshot fields");
             store.campaign=expected;store.engine=CinematicEngine.restore(snapshot);
-            if(tag.contains("owned_waves")){if(!tag.contains("owned_waves",Tag.TAG_STRING))throw new IllegalArgumentException("Director owned format");store.readOwned(tag.getString("owned_waves"));}
+            if(!legacy||tag.contains("owned_waves"))store.readOwned(readJson(tag,"owned_waves",legacy));
             store.setDirty();
-        } catch(RuntimeException invalid){store.unsupported=tag.copy();store.setDirty(false);}
+        } catch(RuntimeException|CharacterCodingException invalid){store.unsupported=tag.copy();store.setDirty(false);}
         return store;
+    }
+    private static String readJson(CompoundTag tag,String key,boolean legacy) throws CharacterCodingException {
+        if(legacy){if(!tag.contains(key,Tag.TAG_STRING))throw new IllegalArgumentException("Director JSON type");return tag.getString(key);}
+        if(!tag.contains(key,Tag.TAG_BYTE_ARRAY))throw new IllegalArgumentException("Director JSON type");
+        var bytes=tag.getByteArray(key);if(bytes.length>CinematicCatalog.MAX_BYTES)throw new IllegalArgumentException("Director JSON size");
+        return StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString();
     }
     public boolean enabled(){return unsupported==null;}
     public CinematicEngine engine(){if(!enabled())throw new IllegalStateException("Unsupported director save");return engine;}
     @Override public CompoundTag save(CompoundTag tag,HolderLookup.Provider registries) {
         if(!enabled())return unsupported.copy();
         String data=JSON.toJson(engine.snapshot());CinematicCatalog.strict(data);
-        tag.putInt("schema",1);tag.putString("campaign",campaign.toString());tag.putString("queue",data);
-        String owned=JSON.toJson(ownedWaves);CinematicCatalog.strict(owned);tag.putString("owned_waves",owned);return tag;
+        tag.putInt("schema",2);tag.putString("campaign",campaign.toString());tag.putByteArray("queue",data.getBytes(StandardCharsets.UTF_8));
+        String owned=JSON.toJson(ownedWaves);CinematicCatalog.strict(owned);tag.putByteArray("owned_waves",owned.getBytes(StandardCharsets.UTF_8));return tag;
     }
 }
