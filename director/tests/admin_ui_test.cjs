@@ -20,7 +20,7 @@ const html=fs.readFileSync(path.join(__dirname,'../dead_earth_director/admin_web
 assert.match(html,/id="console-command"/,'Operator console input is missing');
 for(const match of html.matchAll(/id="([^"]+)"/g))ids.set(match[1],new Element());
 ids.get('range').value='6';
-const views=['overview','decisions','scenarios','zones','catalog','console'];
+const views=['overview','decisions','scenarios','zones','catalog','console','evolution'];
 const nav=views.map(v=>{const e=new Element('button');e.dataset.view=v;return e;});
 const note=new Element();
 const document={getElementById:id=>{assert(ids.has(id),'Unknown element '+id);return ids.get(id);},
@@ -56,6 +56,11 @@ assert.equal(ids.get('catalog-list').children.length,15);
 assert.match(ids.get('event-detail').textContent,/Окно реакции/);
 vm.runInContext('fixture.connection.state="offline";render()',context);
 assert.match(ids.get('notice').textContent,/Свежих данных нет/);
+let evolutionRenders=0;context.window={DeadEarthEvolution:{render:()=>evolutionRenders++}};
+vm.runInContext('setView("evolution")',context);
+assert.equal(ids.get('evolution').hidden,false);assert.equal(evolutionRenders,1,'Evolution navigation must render its live controls');
+assert.match(ids.get('page-title').textContent,/заражения/);
+vm.runInContext('setView("overview")',context);
 async function consoleChecks(){
  const calls=[];
  context.crypto={randomUUID:()=> '00000000-0000-4000-8000-000000000007'};

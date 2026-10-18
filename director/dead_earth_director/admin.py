@@ -14,6 +14,7 @@ from .bridge import BridgeClient, BridgeError, Descriptor, _uuid
 from .admin_store import Telemetry, read_decisions, safe_tree
 from .admin_console import OperatorConsole
 from .admin_authoring import Authoring, AuthoringError, MAX_BODY
+from .admin_evolution import Evolution, EvolutionError
 from .bridge import _json
 
 STATIC = Path(__file__).with_name("admin_web")
@@ -78,6 +79,8 @@ class Application:
         self.console_nonce=secrets.token_urlsafe(32)
         self.authoring=Authoring(server_root,self.console) if server_root else None
         self.authoring_nonce=secrets.token_urlsafe(32)
+        self.evolution=Evolution(server_root,self.console) if server_root else None
+        self.evolution_nonce=secrets.token_urlsafe(32)
 
     def check_model(self):
         # Tags only: never load/unload a model or request generation from the panel.
@@ -167,12 +170,16 @@ def make_server(app, port=8765):
             parsed=urlsplit(self.path)
             routes={"/":("index.html","text/html; charset=utf-8"),"/admin.css":("admin.css","text/css; charset=utf-8"),"/admin.js":("admin.js","text/javascript; charset=utf-8")}
             routes.update({"/authoring.js":("authoring.js","text/javascript; charset=utf-8"),"/authoring.css":("authoring.css","text/css; charset=utf-8")})
+            routes.update({"/evolution.js":("evolution.js","text/javascript; charset=utf-8"),"/evolution.css":("evolution.css","text/css; charset=utf-8")})
             if parsed.path in routes:
                 name,kind=routes[parsed.path]
                 try: return self.send_body(200,(STATIC/name).read_bytes(),kind)
                 except OSError: return self.send_body(503,b'{"error":"assets_unavailable"}')
             if parsed.path=="/api/health":
                 return self.send_body(200,json.dumps(dict(product=PRODUCT,instance_id=app.instance_id)).encode())
+            if parsed.path=="/api/evolution" and not parsed.query:
+                payload=app.evolution.snapshot() if app.evolution is not None else dict(state='offline',server=None)
+                return self.send_body(200,json.dumps(dict(payload,nonce=app.evolution_nonce),ensure_ascii=False,allow_nan=False).encode('utf-8'))
             if parsed.path=="/api/authoring" and not parsed.query:
                 if app.authoring is None:return self.send_body(503,b'{"error":"authoring_unavailable"}')
                 try:
@@ -204,6 +211,8 @@ def make_server(app, port=8765):
         def do_HEAD(self): self.handle_read()
         def do_POST(self):
             if not self.allowed(): return self.send_body(403,b'{"error":"local_only"}')
+            if self.path=="/api/evolution/shift":
+                return self.evolution_shift()
             if self.path.startswith('/api/authoring/'):
                 return self.authoring_action()
             if self.path!="/api/console/command": return self.reject()
@@ -244,6 +253,23 @@ def make_server(app, port=8765):
                 return self.send_body(400,json.dumps(dict(error=ex.code,path=ex.path)).encode('utf-8'))
             except (ValueError,TypeError,AttributeError,RecursionError,BridgeError):return self.send_body(400,b'{"error":"invalid_authoring_request"}')
             except (OSError,sqlite3.Error):return self.send_body(503,b'{"error":"authoring_unavailable_outcome_unknown"}')
+        def evolution_shift(self):
+            origin='http://127.0.0.1:'+str(self.server.server_address[1])
+            if self.headers.get_all('Origin')!=[origin] or self.headers.get_all('X-Dead-Earth-Operator')!=[app.evolution_nonce]:
+                return self.send_body(403,b'{"error":"operator_session_required"}')
+            try:
+                if self.headers.get_all('Content-Type')!=['application/json'] or self.headers.get_all('Transfer-Encoding') is not None:raise ValueError()
+                lengths=self.headers.get_all('Content-Length') or []
+                if len(lengths)!=1:raise ValueError()
+                length=int(lengths[0])
+                if not 1<=length<=8192:raise ValueError()
+                payload=_json(self.rfile.read(length).decode('utf-8'))
+                if app.evolution is None:return self.send_body(503,b'{"error":"evolution_unavailable"}')
+                result=app.evolution.shift(payload)
+                return self.send_body(200,json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8'))
+            except EvolutionError as error:return self.send_body(400,json.dumps(dict(error=error.code)).encode('utf-8'))
+            except (ValueError,TypeError,AttributeError,RecursionError,BridgeError):return self.send_body(400,b'{"error":"invalid_evolution_request"}')
+            except (OSError,sqlite3.Error):return self.send_body(503,b'{"error":"evolution_unavailable_outcome_unknown"}')
         def reject(self): self.send_body(405,b'{"error":"read_only"}')
         do_PUT=do_DELETE=do_PATCH=do_OPTIONS=reject
     return ThreadingHTTPServer(("127.0.0.1",port),Handler)
