@@ -21,7 +21,8 @@ from dead_earth_director.tactics import parse_selection, selection_prompt, selec
 DEFAULTS = dict(seed=20261018, max_length=1536, max_steps=64, batch_size=1,
                 gradient_accumulation_steps=4, learning_rate=1e-4, lora_rank=8, lora_alpha=16,
                 attention_implementation='sdpa', memory_budget_mib=7600,
-                validation_interval=16, test_rows=64, validation_rows=32, generation_rows=8)
+                validation_interval=16, test_rows=64, validation_rows=32, generation_rows=8,
+                initial_loss_scale=1.0)
 PROJECTIONS = {'q_proj', 'k_proj', 'v_proj', 'o_proj', 'gate_proj', 'up_proj', 'down_proj',
                'in_proj_qkv', 'in_proj_z', 'in_proj_b', 'in_proj_a', 'out_proj'}
 
@@ -49,6 +50,8 @@ def validate_config(raw):
             raise ValueError('invalid_' + name)
     if type(result['learning_rate']) not in (int, float) or not math.isfinite(result['learning_rate']) or not 0 < result['learning_rate'] <= .001:
         raise ValueError('invalid_learning_rate')
+    if type(result['initial_loss_scale']) not in (int, float) or not math.isfinite(result['initial_loss_scale']) or not 1e-8 <= result['initial_loss_scale'] <= 65536:
+        raise ValueError('invalid_initial_loss_scale')
     if result['attention_implementation'] not in ('sdpa', 'eager'):
         raise ValueError('turing_attention_required')
     if 'model_path' in result:
@@ -323,7 +326,9 @@ def run(config, data, output, *, probe=False):
         else:
             report['evaluation'] = dict(status='not_run_probe_only')
         optimizer = torch.optim.AdamW(parameters, lr=config['learning_rate'], weight_decay=0)
-        scaler = torch.amp.GradScaler('cuda', init_scale=128)
+        # BF16-pretrained weights can overflow FP16 gradients even at modest scales.
+        # Keep the scale explicit and fail rather than counting a skipped update.
+        scaler = torch.amp.GradScaler('cuda', init_scale=config['initial_loss_scale'])
         order = list(rows['train']); rng = random.Random(config['seed']); rng.shuffle(order); cursor = 0
         steps, accumulation = (1, 1) if probe else (config['max_steps'], config['gradient_accumulation_steps'])
         report.update(status='training', actual_gradient_accumulation_steps=accumulation)
@@ -351,7 +356,14 @@ def run(config, data, output, *, probe=False):
                 scaler.scale(loss / accumulation).backward()
                 del inputs, mask, targets_tensor, result, loss
             scaler.unscale_(optimizer)
-            norm = torch.nn.utils.clip_grad_norm_(parameters, 1.0, error_if_nonfinite=True)
+            try:
+                norm = torch.nn.utils.clip_grad_norm_(parameters, 1.0, error_if_nonfinite=True)
+            except RuntimeError:
+                invalid = [name for name, parameter in named_parameters
+                           if parameter.grad is not None and not torch.isfinite(parameter.grad).all().item()]
+                _progress(output, 'nonfinite_gradients', loss=loss_sum/accumulation,
+                          scale=scaler.get_scale(), count=len(invalid), names=invalid[:16])
+                raise
             scaler.step(optimizer); scaler.update(); torch.cuda.synchronize()
             # Finite unscaled gradients above ensure GradScaler did not skip this step.
             report['completed_optimizer_steps'] = step

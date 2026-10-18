@@ -111,6 +111,12 @@ class TrainEncodingTests(unittest.TestCase):
 
 
 class TrainConfigTests(unittest.TestCase):
+    def test_fp16_loss_scale_is_explicit_bounded_and_can_be_below_one(self):
+        self.assertEqual(validate_config(dict(config(), initial_loss_scale=0.25))['initial_loss_scale'], 0.25)
+        for value in (True, 0, -1, math.nan, math.inf, 100000):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                validate_config(dict(config(), initial_loss_scale=value))
+
     def test_model_inside_cache_parent_still_rejects_unmanifested_files(self):
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent) as temporary:
             root = Path(temporary) / '.cache' / 'huggingface' / 'snapshot'
