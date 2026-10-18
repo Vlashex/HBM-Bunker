@@ -1,0 +1,120 @@
+{
+  "schema": 1,
+  "created_at_utc": "2026-10-18T08:38:22.233312+00:00",
+  "answers": {
+    "gpu": 72,
+    "cpu": 16
+  },
+  "semantic_assessment": "Manually authored and committed before unblinding. No automated policy grade or aggregate quality score.",
+  "review_commits": {
+    "gpu": "156cc20",
+    "cpu": "c60b0db"
+  },
+  "production_modified": false,
+  "images": {
+    "gpu": "sha256:a9e5e5aa49ed75a4254611f8a080654e108402e7a3d04290b84ed4a95571facc",
+    "cpu": "ollama/ollama:0.40.6@sha256:265409e1d931028a8f7d5a32bcbafddd7bffbc6cc629d77efe9560adf692a5e7"
+  },
+  "integrity_checks": "Completed counts, key/response/blind identity and raw content equality, unique complete manual ID coverage, original blind byte hashes, strict technical parser replay, unchanged production A prompt.",
+  "verification": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -v",
+    "cwd": "director",
+    "tests": 138,
+    "seconds": 43.663,
+    "result": "OK",
+    "exit_code": 0
+  },
+  "cleanup": {
+    "test_containers_stopped": true,
+    "loaded_models_after_experiment": 0,
+    "weight_cache_preserved": true
+  },
+  "line_endings": "Original byte hashes bind the files at execution/archive time; Git normalizes text CRLF to LF. normalized_lf_sha256 is stable for Git checkouts.",
+  "files": {
+    "cpu/blind.json": {
+      "bytes_at_archive": 14776,
+      "original_byte_sha256": "ab00ca9630a5b8aa31974bc72fbdab2d8859999ab758bcdb5abcd2e20848ca5c",
+      "normalized_lf_sha256": "54c097db3ff65d18e4e16751e76de0bf29f859c1fefa2da73716d05cc4bc0d72"
+    },
+    "cpu/key.json": {
+      "bytes_at_archive": 1897,
+      "original_byte_sha256": "e7cf3f3194c796b321d055c5dbb521a52ff5b2cbf4b4ef0599cc03485a8ae638",
+      "normalized_lf_sha256": "091f20ae7d0cea39977ccbed65c91c04fb34304ff687ddf1bf80c353fb136ab0"
+    },
+    "cpu/responses.jsonl": {
+      "bytes_at_archive": 5180,
+      "original_byte_sha256": "ea0c5019e0f317420cf1e0475839b8f39e3c79e5609a45e68c9fb60d21282951",
+      "normalized_lf_sha256": "1d6c89178bf803a373e621597a43cb8e24fa146ab958f2bb6e3b10febfb946b0"
+    },
+    "cpu/run.json": {
+      "bytes_at_archive": 1042,
+      "original_byte_sha256": "af783d45ece8515115176cb393cc4c5dc5a2eb1f63d99200f0bc5c68815098a6",
+      "normalized_lf_sha256": "e3623a2eb0825e9a90f701b45d7b4abc6327bdb511a90260d84ab9213962e148"
+    },
+    "cpu-protocol.json": {
+      "bytes_at_archive": 2901,
+      "original_byte_sha256": "8b57c3317db5566d2b672050445711ed96a45f342cb7533443552ef26c938a8c",
+      "normalized_lf_sha256": "e3da43284b1b23224c9f97b9f6adcd42d48cdef4bb99dbf2edcf12b0ace8ff52"
+    },
+    "CPU-PROTOCOL.md": {
+      "bytes_at_archive": 1656,
+      "original_byte_sha256": "4e73ec2fb0e74d9b266c4deb2214de8152fba9f0f2cf2dd108e925e163f838f5",
+      "normalized_lf_sha256": "4e73ec2fb0e74d9b266c4deb2214de8152fba9f0f2cf2dd108e925e163f838f5"
+    },
+    "cpu-unload.json": {
+      "bytes_at_archive": 45,
+      "original_byte_sha256": "6767e1b7c45eb93cd433036636b459e61e64ed6ea1362193bf66b758d7e3d6e8",
+      "normalized_lf_sha256": "ec226862d66392dd26a0af6af7d744069466297f50daa07473fd6684c526bdcc"
+    },
+    "gpu/blind.json": {
+      "bytes_at_archive": 26858,
+      "original_byte_sha256": "efedc646e36703fd0af7e6b95e655d65bf3adf8d6a1370074278bdf2c982d29e",
+      "normalized_lf_sha256": "efedc646e36703fd0af7e6b95e655d65bf3adf8d6a1370074278bdf2c982d29e"
+    },
+    "gpu/key.json": {
+      "bytes_at_archive": 8337,
+      "original_byte_sha256": "e39bafbaeb98e93ea26cf0108662fd89f20c1fcbc2d2265f368b1f2f9a56af3c",
+      "normalized_lf_sha256": "e39bafbaeb98e93ea26cf0108662fd89f20c1fcbc2d2265f368b1f2f9a56af3c"
+    },
+    "gpu/responses.jsonl": {
+      "bytes_at_archive": 22862,
+      "original_byte_sha256": "cadc85b6d07ef3ad035f13d5da694dd51efc5846d6cdce4955bb0341254e9525",
+      "normalized_lf_sha256": "cadc85b6d07ef3ad035f13d5da694dd51efc5846d6cdce4955bb0341254e9525"
+    },
+    "gpu/run.json": {
+      "bytes_at_archive": 2338,
+      "original_byte_sha256": "b575a8e55584d554622fbb226179590f3ad7d9d6e89e6da51afb267f42271c40",
+      "normalized_lf_sha256": "b575a8e55584d554622fbb226179590f3ad7d9d6e89e6da51afb267f42271c40"
+    },
+    "manual-cpu-blind-review.json": {
+      "bytes_at_archive": 7828,
+      "original_byte_sha256": "fb6287856e352174d5588ec79cee53d676c3f5004390cc3115fed672851ef3fc",
+      "normalized_lf_sha256": "f6fbe0e7dfb9c9409a13b7e4f38b76c0d698e3e7a9d6371881dd1dbf3745021f"
+    },
+    "manual-gpu-blind-review.json": {
+      "bytes_at_archive": 19022,
+      "original_byte_sha256": "a18506f95f186a3b6a107229757da20d92389782f6e8ab43bb0f32a74cee3809",
+      "normalized_lf_sha256": "08fb76dcfcdce5f1fa6cb2ae32f97ac68dea0924cb3c1015801335814f64f69d"
+    },
+    "PROTOCOL.md": {
+      "bytes_at_archive": 2409,
+      "original_byte_sha256": "83b3131a6f8132dc735c3cb34b8b54dca8e6230aa9bdf77e7a490633259d0261",
+      "normalized_lf_sha256": "83b3131a6f8132dc735c3cb34b8b54dca8e6230aa9bdf77e7a490633259d0261"
+    },
+    "provenance.json": {
+      "bytes_at_archive": 840,
+      "original_byte_sha256": "237ab47d74b9cbc1fd051147be5441e128fe30d9ff0ee62d0fa0f49e2a34fd50",
+      "normalized_lf_sha256": "237ab47d74b9cbc1fd051147be5441e128fe30d9ff0ee62d0fa0f49e2a34fd50"
+    },
+    "README.md": {
+      "bytes_at_archive": 2368,
+      "original_byte_sha256": "194447ac5edb264232c069460768f0f6b103461ba03cc410a188756623260cbb",
+      "normalized_lf_sha256": "194447ac5edb264232c069460768f0f6b103461ba03cc410a188756623260cbb"
+    },
+    "suite.json": {
+      "bytes_at_archive": 24223,
+      "original_byte_sha256": "9a160b0be3dd1ba987b9d8a8791b76d872da7ed0ff6cd516ec874c1b4171e4b9",
+      "normalized_lf_sha256": "7c6e784cfc4aaebe6294cb302d19616a6a9c770fa93c7426e43ff6a3880a29be"
+    }
+  }
+}

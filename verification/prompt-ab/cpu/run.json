@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "complete",
+  "source_commit": "5e603fc5c2e8b9aa3eed1798af9a7612522ba809",
+  "suite_sha256": "9a160b0be3dd1ba987b9d8a8791b76d872da7ed0ff6cd516ec874c1b4171e4b9",
+  "protocol_sha256": "8b57c3317db5566d2b672050445711ed96a45f342cb7533443552ef26c938a8c",
+  "runner_sha256": "4019741a7ab8ce45852a08ad4291d2f6adeb18856f9e572743797bd3b098d16c",
+  "outputs_expected": 16,
+  "outputs_completed": 16,
+  "production_modified": false,
+  "semantic_judging": "manual_blind_review_pending",
+  "settings": {
+    "num_gpu": 0,
+    "num_ctx": 4096,
+    "num_thread": 4,
+    "num_predict": 160,
+    "keep_alive": 0,
+    "temperature": 0,
+    "seed": 42
+  },
+  "models": {
+    "primary": {
+      "model": "qwen3.5:4b",
+      "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "critic": {
+      "model": "dead-earth-critic:2b-q4",
+      "digest": "1e2d21a4f03ab9e4a9c1976a4b7e88f21de61d65f2c5485d8fde8942be73f1e7"
+    }
+  },
+  "elapsed_seconds": 369.2272303999998
+}

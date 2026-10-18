@@ -1,0 +1,98 @@
+[
+  {
+    "response_id": "C001",
+    "case_id": "same_event_permuted",
+    "arm_id": "C",
+    "role": "primary"
+  },
+  {
+    "response_id": "C002",
+    "case_id": "title_injection",
+    "arm_id": "E",
+    "role": "critic"
+  },
+  {
+    "response_id": "C003",
+    "case_id": "same_event_permuted",
+    "arm_id": "E",
+    "role": "critic"
+  },
+  {
+    "response_id": "C004",
+    "case_id": "title_injection",
+    "arm_id": "D",
+    "role": "critic"
+  },
+  {
+    "response_id": "C005",
+    "case_id": "fragile_opening",
+    "arm_id": "D",
+    "role": "critic"
+  },
+  {
+    "response_id": "C006",
+    "case_id": "failed_front_again",
+    "arm_id": "A",
+    "role": "primary"
+  },
+  {
+    "response_id": "C007",
+    "case_id": "fragile_opening",
+    "arm_id": "A",
+    "role": "primary"
+  },
+  {
+    "response_id": "C008",
+    "case_id": "fragile_opening",
+    "arm_id": "E",
+    "role": "critic"
+  },
+  {
+    "response_id": "C009",
+    "case_id": "title_injection",
+    "arm_id": "C",
+    "role": "primary"
+  },
+  {
+    "response_id": "C010",
+    "case_id": "same_event_permuted",
+    "arm_id": "D",
+    "role": "critic"
+  },
+  {
+    "response_id": "C011",
+    "case_id": "same_event_permuted",
+    "arm_id": "A",
+    "role": "primary"
+  },
+  {
+    "response_id": "C012",
+    "case_id": "failed_front_again",
+    "arm_id": "E",
+    "role": "critic"
+  },
+  {
+    "response_id": "C013",
+    "case_id": "fragile_opening",
+    "arm_id": "C",
+    "role": "primary"
+  },
+  {
+    "response_id": "C014",
+    "case_id": "title_injection",
+    "arm_id": "A",
+    "role": "primary"
+  },
+  {
+    "response_id": "C015",
+    "case_id": "failed_front_again",
+    "arm_id": "C",
+    "role": "primary"
+  },
+  {
+    "response_id": "C016",
+    "case_id": "failed_front_again",
+    "arm_id": "D",
+    "role": "critic"
+  }
+]

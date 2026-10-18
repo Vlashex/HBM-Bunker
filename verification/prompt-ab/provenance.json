@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "old_dataset": {
+    "train.jsonl": {
+      "rows": 384,
+      "sha256": "f3e1c580b1c5c262b00f844b808097c5f6c4a63ec558cfd5586529d63d3fe714"
+    },
+    "validation.jsonl": {
+      "rows": 148,
+      "sha256": "1849fa02d83dffbfe6d3e9bbcd937a26f544cb1329103d115ba919d1dc9967b8"
+    },
+    "test.jsonl": {
+      "rows": 160,
+      "sha256": "c0b55d5e5d9471ab6423ccdf459ca9616b2d72e518c328b37f40afb2dc82debd"
+    }
+  },
+  "old_rows": 692,
+  "new_cases": 12,
+  "exact_context_overlaps": [],
+  "caveat": "No exact overlap does not establish independence of concepts or gameplay generalization. Authored preference tests, no live player evidence.",
+  "suite_raw_sha256": "9a160b0be3dd1ba987b9d8a8791b76d872da7ed0ff6cd516ec874c1b4171e4b9",
+  "suite_lf_sha256": "7c6e784cfc4aaebe6294cb302d19616a6a9c770fa93c7426e43ff6a3880a29be"
+}

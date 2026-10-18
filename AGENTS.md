@@ -1,5 +1,12 @@
 # Инструкции для следующих изменений
 
+- A/B/C от18.10: `verification/prompt-ab/`, `docs/DEAD-EARTH-PROMPT-AB.md`.
+  88 полных ответов оценены root вручную вслепую, оценки закоммичены до unblind.
+  Не заменяй A/D и production weights по этому эксперименту; подробные C/E не
+  показали оснований для замены, LoRA повторяет раскрытую зимнюю засаду.
+  Эти 12 просмотренных ситуаций — регрессионные примеры, не независимый test
+  следующей итерации. Reason codes критика не являются доказанными фактами мира.
+
 - С5.5.1 human-only GET/POST `/api/ai-mode`, `ai_control.py`, `ai-mode.js`.
   Общая `ai-control.sqlite3` рядом с decisions: desired UUID/CAS отдельно
   от host ack. UI не должен выдавать saved/unknown за applied/released.
