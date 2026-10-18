@@ -107,3 +107,8 @@ preview_scenario, propose_scenario, get_scenario_status, cancel_scenario,
 ## Админка
 
 Из корня репозитория запустите `start-admin.bat` или `start-dead-earth.bat admin`. Локальная панель: http://127.0.0.1:8765 . [Возможности и ограничения](../docs/DEAD-EARTH-ADMIN.md).
+# Дообучение тактик
+
+Отдельный [локальный эксперимент](training/README.md) с QLoRA, хешами данных
+и сравнением до/после. Запуск сервера не начинает обучение и не меняет model pin.
+

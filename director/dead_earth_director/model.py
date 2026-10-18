@@ -8,6 +8,7 @@ import unicodedata
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHandler
 from .bridge import _json, BridgeError
+from .tactics import selection_schema,selection_prompt,parse_selection
 
 VARIANTS = ("distant_sound", "radio_static", "spore_trace")
 
@@ -127,20 +128,8 @@ class OllamaModel:
         options=context.get("options") if type(context) is dict else None
         if type(options) is not list or not 1 <= len(options) <= 8:
             raise ModelError("model_invalid_context")
-        schema=dict(type="object",additionalProperties=False,required=["option"],
-                    properties=dict(option=dict(type="integer",enum=list(range(len(options))))))
+        schema=selection_schema(len(options))
         def parse(raw):
-            try:
-                if type(raw) is not str or len(raw.encode("utf-8"))>512:
-                    raise ModelError("model_invalid_response")
-                result=_json(raw)
-                if type(result) is not dict or set(result)!={"option"} or type(result["option"]) is not int or not 0 <= result["option"] < len(options):
-                    raise ModelError("model_invalid_response")
-                return result
-            except (ValueError,UnicodeError,RecursionError,BridgeError):
-                raise ModelError("model_invalid_response") from None
-        prompt=("Ты режиссер кооперативной игры DEAD EARTH. Сервер уже проверил цели и лимиты. "
-                "Выбери один индекс option из предложенного списка. Учитывай вес weight, сезон, давление и недавние исходы; "
-                "после успешной обороны разнообразь тактику. Не придумывай события, координаты, команды или количество мобов. "
-                "Верни только JSON по схеме: "+json.dumps(schema,ensure_ascii=False))
-        return self._generate(context,schema,prompt,parse)
+            try:return parse_selection(raw,len(options))
+            except ValueError:raise ModelError("model_invalid_response") from None
+        return self._generate(context,schema,selection_prompt(len(options)),parse)

@@ -172,7 +172,7 @@ def cinematic_context(view, descriptor):
                     or type(o["weight"]) not in (int,float) or not math.isfinite(o["weight"]) or not 0 < o["weight"] <= 10000
                     or type(o["budget"]) is not int or not 1 <= o["budget"] <= 32):
                 raise DirectorError("invalid_brief")
-            projected.append(dict(option=index,title=o["title"],tactic=o["tactic"],faction=o["faction"],weight=round(o["weight"],4)))
+            projected.append(dict(option=index,event=o["eventId"],title=o["title"],tactic=o["tactic"],faction=o["faction"],weight=round(o["weight"],4)))
         recent=view["recent"]
         if type(recent) is not list or len(recent)>6:
             raise DirectorError("invalid_brief")

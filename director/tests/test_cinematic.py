@@ -44,6 +44,14 @@ class CinematicTests(unittest.TestCase):
             with self.subTest(phase=bad),self.assertRaises(DirectorError):
                 host.cinematic_context(view,SimpleNamespace(world_epoch=EPOCH))
 
+    def test_public_event_id_connects_choices_to_recent_history(self):
+        from types import SimpleNamespace
+        view=brief();view['recent']=[dict(eventId='false_siege',outcome='repelled')]
+        _,context=host.cinematic_context(view,SimpleNamespace(world_epoch=EPOCH))
+        self.assertEqual(context['options'][1]['event'],'false_siege')
+        self.assertEqual(context['recent'],[dict(event='false_siege',outcome='repelled')])
+        self.assertNotIn(ZONE,json.dumps(context))
+
     def director(self,client,model,journal):
         factory=getattr(host,"CinematicDirector",None)
         self.assertTrue(callable(factory),"live cinematic host is missing")
