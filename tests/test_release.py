@@ -18,7 +18,7 @@ SPEC.loader.exec_module(release)
 class ReleaseTests(unittest.TestCase):
     def test_server_shortcut_assets_survive_packaging(self):
         entries=release.launcher_entries(ROOT,True)
-        for name in ('start-dead-earth.bat','stop-dead-earth.bat','tools/install-server-shortcuts.ps1',
+        for name in ('start-dead-earth.bat','stop-dead-earth.bat','tools/install-server-shortcuts.ps1','tools/server/run_local.py',
                      'launcher-icons/server-start.ico','launcher-icons/server-stop.ico'):
             self.assertIn(name,entries)
         for name in ('launcher-icons/server-start.ico','launcher-icons/server-stop.ico'):
@@ -93,7 +93,7 @@ class ReleaseTests(unittest.TestCase):
                      "director/dead_earth_director/admin_web/private.env": b"secret",
                      "director/admin.ps1": b"launcher", "director/README.md": b"setup", "director/setup.ps1": b"setup",
                      "director/director.example.toml": b"config", "director/models.lock.json": b"pin",
-                     "director/model.ps1": b"model", "director/docker/compose.cpu.yaml": b"cpu",
+                     "director/docker-backend.ps1": b"backend policy", "director/model.ps1": b"model", "director/docker/compose.cpu.yaml": b"cpu",
                      "director/runtime/decisions.sqlite3": b"private",
                      "director/.venv/private.py": b"secret", "director/tests/test.py": b"fixture",
                      "director/dead_earth_director/token.env": b"secret", "director/dead_earth_bridge.json": b"secret",
@@ -101,7 +101,7 @@ class ReleaseTests(unittest.TestCase):
             for name, data in files.items():
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(data)
             entries = release.director_entries(root, True)
-            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml", "admin.ps1", "index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "ai-mode.js", "evolution.js", "evolution.css", "start-admin.bat"))})
+            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "docker-backend.ps1", "compose.cpu.yaml", "admin.ps1", "index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "ai-mode.js", "evolution.js", "evolution.css", "start-admin.bat"))})
             self.assertEqual(release.director_entries(root, False), {})
 
     def test_director_enabled_without_entrypoint_is_rejected(self):

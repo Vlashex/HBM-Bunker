@@ -16,11 +16,14 @@ Docker Desktop не требуется. Официальная инструкц�
 https://docs.docker.com/engine/install/ubuntu/
 
 ~~~powershell
-./model.ps1 -Action pull
-./model.ps1 -Action status
+./model.ps1 -Action pull -Backend wsl
+./model.ps1 -Action status -Backend wsl
 ~~~
 
 Первый pull скачивает закреплённые веса; последующие используют кеш.
+`-Backend windows` выбирает Docker Desktop; `auto` предпочитает доступный
+движок с существующим кешем. `start` только использует кеш и проверяет pin;
+при отсутствии весов подготовка выполняется явно через `pull`.
 Образ и модель закреплены в models.lock.json, compose и director.example.toml.
 Контейнер слушает только 127.0.0.1:11434, ограничен четырьмя CPU и 6 GiB RAM.
 GPU не передаётся; запросы дополнительно содержат num_gpu=0.

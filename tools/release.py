@@ -253,7 +253,7 @@ def director_entries(root, enabled):
         return {}
     package = root / "director/dead_earth_director"
     required = [root / "director" / name for name in ["README.md", "requirements.in", "requirements-windows-py312.lock", "setup.ps1"]]
-    required += [root / "director" / name for name in ["director.example.toml", "models.lock.json", "model.ps1", "docker/compose.cpu.yaml"]]
+    required += [root / "director" / name for name in ["director.example.toml", "models.lock.json", "model.ps1", "docker-backend.ps1", "docker/compose.cpu.yaml"]]
     required += [package / "__init__.py", package / "__main__.py", root / "director/admin.ps1", root / "start-admin.bat"]
     required += [package / "admin_web" / name for name in ("index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "evolution.css", "evolution.js", "ai-mode.js")]
     if package.is_symlink() or not package.resolve().is_relative_to(root.resolve()):
@@ -271,7 +271,7 @@ def director_entries(root, enabled):
 def launcher_entries(root, enabled):
     if not enabled:
         return {}
-    names = ['start-dead-earth.bat', 'stop-dead-earth.bat', 'tools/install-server-shortcuts.ps1']
+    names = ['start-dead-earth.bat', 'stop-dead-earth.bat', 'tools/install-server-shortcuts.ps1', 'tools/server/run_local.py']
     names += ['launcher-icons/' + name for name in
               ('README.md', 'server-start.png', 'server-stop.png', 'server-start.ico', 'server-stop.ico')]
     entries = {}
