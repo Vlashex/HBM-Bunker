@@ -1,5 +1,11 @@
 # Инструкции для следующих изменений
 
+- Канонический код: `C:\projects\DEAD-EARTH`, самостоятельный Git-репозиторий.
+  Старый HBM-Bunker-Foundation — junction для существующих путей; не удаляй
+  через него содержимое. Соседний Dead-Earth-Server-3.2.0 в C:\projects —
+  junction на действующий сервер. Ярлыки: tools/install-server-shortcuts.ps1,
+  stop-dead-earth.bat и launcher-icons/. Миграция кода не обновляет мир/моды.
+
 - A/B/C от18.10: `verification/prompt-ab/`, `docs/DEAD-EARTH-PROMPT-AB.md`.
   88 полных ответов оценены root вручную вслепую, оценки закоммичены до unblind.
   Не заменяй A/D и production weights по этому эксперименту; подробные C/E не

@@ -16,6 +16,17 @@ SPEC.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_server_shortcut_assets_survive_packaging(self):
+        entries=release.launcher_entries(ROOT,True)
+        for name in ('start-dead-earth.bat','stop-dead-earth.bat','tools/install-server-shortcuts.ps1',
+                     'launcher-icons/server-start.ico','launcher-icons/server-stop.ico'):
+            self.assertIn(name,entries)
+        for name in ('launcher-icons/server-start.ico','launcher-icons/server-stop.ico'):
+            self.assertEqual(entries[name][:4],b'\x00\x00\x01\x00')
+            self.assertGreaterEqual(int.from_bytes(entries[name][4:6],'little'),4)
+        self.assertFalse(any(name.endswith(('.lnk','.env','.sqlite3')) for name in entries))
+        self.assertEqual(release.launcher_entries(ROOT,False),{})
+
     def test_admin_html_scripts_and_styles_are_included_in_release(self):
         entries=release.director_entries(ROOT,True)
         html=entries['director/dead_earth_director/admin_web/index.html'].decode('utf-8')
@@ -208,7 +219,8 @@ class ReleaseTests(unittest.TestCase):
 
     def test_release_docs_include_local_markdown_link_targets(self):
         self.assertTrue(hasattr(release, "release_documents"), "Release document selector missing")
-        documents = release.release_documents(ROOT) | release.director_entries(ROOT, bool(release.read_json(ROOT / "release.json").get("director")))
+        enabled=bool(release.read_json(ROOT / "release.json").get("director"))
+        documents = release.release_documents(ROOT) | release.director_entries(ROOT,enabled) | release.launcher_entries(ROOT,enabled)
         for name, data in documents.items():
             if not name.endswith(".md"):
                 continue

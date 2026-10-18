@@ -268,6 +268,21 @@ def director_entries(root, enabled):
     return entries
 
 
+def launcher_entries(root, enabled):
+    if not enabled:
+        return {}
+    names = ['start-dead-earth.bat', 'stop-dead-earth.bat', 'tools/install-server-shortcuts.ps1']
+    names += ['launcher-icons/' + name for name in
+              ('README.md', 'server-start.png', 'server-stop.png', 'server-start.ico', 'server-stop.ico')]
+    entries = {}
+    for name in names:
+        path = root / name
+        if not path.is_file() or path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
+            raise ValueError(f'Launcher source missing or unsafe: {name}')
+        entries[name] = path.read_bytes()
+    return entries
+
+
 def build(root, cache, dist, shader_cache=None):
     summary = check(root)
     settings = read_json(root / "release.json")
@@ -314,6 +329,7 @@ def build(root, cache, dist, shader_cache=None):
         raise ValueError(f"Release notes missing: {release_notes.name}")
     entries.update(release_documents(root))
     entries.update(director_entries(root, bool(settings.get("director"))))
+    entries.update(launcher_entries(root, bool(settings.get("director"))))
     entries["mods-manifest.json"] = (json.dumps(sorted(manifest, key=lambda row: row["filename"]), ensure_ascii=False, indent=2) + "\n").encode()
     entries["release.json"] = (root / "release.json").read_bytes()
     dist.mkdir(parents=True, exist_ok=True)
