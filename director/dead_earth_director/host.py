@@ -10,6 +10,7 @@ import tomllib
 from uuid import UUID, uuid5
 from .bridge import BridgeClient, BridgeError, Descriptor, _uuid
 from .model import ModelSettings, ModelError, OllamaModel, VARIANTS, valid_narrative
+from .council import CouncilError, CouncilModel, CouncilSettings
 
 class DirectorError(RuntimeError):
     pass
@@ -239,12 +240,15 @@ class CinematicDirector:
         elif saved["request_id"]!=request_id:
             raise DirectorError("journal_context_mismatch")
         try:
-            decision,metrics=self.model.select(context)
+            if isinstance(self.model,CouncilModel):
+                decision,metrics=self.model.select(context,deadline=council_deadline(view,self.model.settings))
+            else:
+                decision,metrics=self.model.select(context)
             if type(decision) is not dict or set(decision)!={"option"} or type(decision["option"]) is not int or not 0 <= decision["option"] < len(goal["options"]):
                 raise ModelError("model_invalid_response")
             source,reason="model","model_validated"
         except ModelError as error:
-            decision,metrics=dict(option=0),{}
+            decision,metrics=dict(option=0),error.metrics if isinstance(error,CouncilError) else {}
             source,reason="fallback",str(error)
         selected=goal["options"][decision["option"]]
         choice=dict(kind="cinematic_v1",event_id=selected["eventId"],zone_id=selected["zoneId"],source=source,reason=reason,metrics=metrics,
@@ -255,15 +259,34 @@ class CinematicDirector:
         return self._submit(goal["id"],request_id,choice)
 
 
+def council_deadline(view,settings,*,now=None):
+    now=time.monotonic() if now is None else now
+    remaining=(view['goal']['expires']-view['activeTicks'])/20
+    return now+max(0,min(settings.budget_seconds,remaining-settings.margin_seconds))
+
+def build_model(settings,mode):
+    primary=OllamaModel(settings)
+    if mode=='live' and getattr(settings,'ai_mode','single')=='dual':
+        return CouncilModel(primary,OllamaModel(settings.critic),settings)
+    return primary
+
 def load_config(path):
     try:
         raw=tomllib.loads(Path(path).read_text(encoding="utf-8"))
-        if set(raw)!={"model","poll_seconds"} or type(raw["model"]) is not dict:
+        if (not {'model','poll_seconds'}<=set(raw) or set(raw)-{'model','poll_seconds','ai_mode','critic','council'}
+                or type(raw['model']) is not dict or set(raw['model'])-set(ModelSettings.__dataclass_fields__)):
             raise DirectorError("invalid_config")
         poll=raw["poll_seconds"]
         if type(poll) is not int or not 5 <= poll <= 300:
             raise DirectorError("invalid_config")
-        return ModelSettings(**raw["model"]),poll
+        council=raw.get('council',{})
+        if type(council) is not dict or set(council)-{'budget_seconds','margin_seconds'}:
+            raise DirectorError('invalid_config')
+        critic=raw.get('critic')
+        if critic is not None:
+            if type(critic) is not dict or set(critic)-set(ModelSettings.__dataclass_fields__):raise DirectorError('invalid_config')
+            critic=ModelSettings(**critic)
+        return CouncilSettings(**raw['model'],ai_mode=raw.get('ai_mode','single'),critic=critic,**council),poll
     except (OSError,ValueError,TypeError):
         raise DirectorError("invalid_config") from None
 
@@ -281,7 +304,7 @@ def main():
         settings,poll=load_config(args.config)
         client=BridgeClient(Descriptor.load(args.bridge))
         journal=Journal(args.journal)
-        director=(CinematicDirector if args.mode=="live" else Director)(client,OllamaModel(settings),journal)
+        director=(CinematicDirector if args.mode=="live" else Director)(client,build_model(settings,args.mode),journal)
         previous=None
         while True:
             if args.stop_file and args.stop_file.exists():return 0

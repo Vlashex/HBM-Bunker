@@ -1,5 +1,11 @@
 # D1 performs read-only previews. GPU use is explicitly disabled in the adapter.
 poll_seconds = 30
+# Independent of --mode live/preview. Preview always uses the primary alone.
+ai_mode = "single"
+
+[council]
+budget_seconds = 90
+margin_seconds = 5
 
 [model]
 url = "http://127.0.0.1:11434"
@@ -9,3 +15,14 @@ timeout_seconds = 90
 threads = 4
 context = 4096
 maximum_tokens = 160
+
+# Both pins are checked before use. This critic is used only in ai_mode="dual".
+# One CPU Ollama container: OLLAMA_MAX_LOADED_MODELS=1, OLLAMA_NUM_PARALLEL=1.
+[critic]
+url = "http://127.0.0.1:11434"
+model = "dead-earth-critic:2b-q4"
+digest = "1e2d21a4f03ab9e4a9c1976a4b7e88f21de61d65f2c5485d8fde8942be73f1e7"
+timeout_seconds = 90
+threads = 4
+context = 4096
+maximum_tokens = 96
