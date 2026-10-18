@@ -1,0 +1,52 @@
+{
+  "pack": "5.4.0",
+  "coordinator": {
+    "filename": "dead-earth-4.3.0.jar",
+    "version": "4.3.0",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.3.0.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 941063,
+    "sha256": "78caf4a122b3771292f06ca7d68fd81413547cfefc321102d86e31d698da338e"
+  },
+  "java_unit": {
+    "passed": 197,
+    "failed": 0
+  },
+  "director_python": {
+    "passed": 69,
+    "failed": 0
+  },
+  "dom_suites": 3,
+  "pack_tests": 16,
+  "gametest": {
+    "full_2_passed": 120,
+    "full_2_total": 121,
+    "remaining_fixture_fixed": true,
+    "focused_cinematic_passed": 4,
+    "focused_total": 4,
+    "unique_covered": 121,
+    "single_all_green_run_claimed": false,
+    "new_evolution_tests_passed": 10
+  },
+  "normal_server": {
+    "migration_active_ticks": 24000,
+    "migration_points": 6000,
+    "native_time_preserved": 774403.25,
+    "phase_after_restart": 5,
+    "revision": 6,
+    "paused_without_players": true,
+    "http_rcon": true,
+    "replay": true,
+    "stale_revision": true,
+    "stale_epoch": true,
+    "phase_limit": true,
+    "server_exits": [
+      0,
+      0
+    ]
+  },
+  "client_visual_test": false,
+  "live_install_updated": false,
+  "public_release": false
+}

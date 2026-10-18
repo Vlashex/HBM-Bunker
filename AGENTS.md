@@ -1,5 +1,14 @@
 # Инструкции для следующих изменений
 
+- Эволюция 5.4: `evolution/`, `config/dead-earth/evolution.json`, namespace
+  `dead_earth_evolution` в полном прогоне. Шесть фаз 0…5, progress только online,
+  migration once из Campaign.activeTicks×migrationRate. Нативный time/stage/paused
+  сохраняются. Не удалять loaded creatures при downgrade; проверять будущие
+  native conversions/queued callbacks и actual wave emission текущей фазой.
+  Marker evolutionRequired запрещает remigration пропавшего обязательного файла.
+  Human-only RCON−/+ имеет durable UUID/campaign/epoch/revision; не расширять MCP.
+  Invalid input не должен disable runtime; persistence failure — failclosed.
+
 - Отвечай пользователю по-русски. Рабочий проект находится в этом Git-репозитории.
 - Канонические исходники: `pack/patch/`, `pack/config/`, `metadata/mods.lock.json`.
 - Java-координатор Dead Earth: `mods/dead-earth/`; собирается отдельно от ZIP MVP.
