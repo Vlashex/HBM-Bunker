@@ -1,6 +1,6 @@
 # Внешние компоненты
 
-37 внешних JAR текущего среза перечислены в `metadata/mods.lock.json`: версия, URL загрузки,
+36 внешних JAR текущего среза перечислены в `metadata/mods.lock.json`: версия, URL загрузки,
 размер и SHA-256. Собственный HBM Easy Balance собирается из `pack/patch/`.
 
 JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчера не входят в историю Git.
@@ -31,13 +31,13 @@ JAR модов, Minecraft, NeoForge, Java и библиотеки лаунчер
 [Лицензии ресурсов защиты](docs/DEFENSE-ASSET-LICENSES.md).
 
 Для v5 добавлены Inventory Sorter (cpw, GPLv3), Sodium (CaffeineMC,
-Polyform Shield1.0.0), Iris (IrisShaders, LGPL3.0), Jade (Snownee,
+Polyform Shield1.0.0), Jade (Snownee,
 CC-BY-NC-SA4.0), FerriteCore (malte0811, MIT), ModernFix (embeddedt, LGPL3.0),
 Block Outline Customizer (автор и исходный проект указаны в lock).
-Шейдер MakeUp Ultra Fast9.5g — Javier García/MakeUpUltraFast,
-LGPL3.0-or-later; его исходный ZIP не изменяется. Профили задаются отдельными
-настройками. Страницы, точные загрузки и ссылки на соответствующие исходники
-сохранены в двух lock-файлах. [Состав и настройки клиента v5](docs/V5-CLIENT.md).
+С 5.3.1 Iris и MakeUp Ultra Fast не распространяются в текущем составе.
+Их исторические пины и атрибуция доступны в теге v5.3.0. Точные версии и ссылки
+на исходники текущих модов находятся в lock-файле.
+[Состав клиента](docs/V5-CLIENT.md).
 
 MCP gateway использует [официальный Python SDK](https://github.com/modelcontextprotocol/python-sdk)
 версии 2.3.0 (MIT). Python-зависимости перечислены с SHA-256 в

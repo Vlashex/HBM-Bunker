@@ -264,19 +264,6 @@
     "source_url": "https://github.com/CaffeineMC/sodium"
   },
   {
-    "filename": "iris-neoforge-1.8.12+mc1.21.1.jar",
-    "size": 2438548,
-    "sha256": "3e3f94d2d5cdcb8145c4385d521974aa2d8669b2cc212351f70cf06488182e83",
-    "url": "https://cdn.modrinth.com/data/YL57xq9U/versions/t3ruzodq/iris-neoforge-1.8.12%2Bmc1.21.1.jar",
-    "project_id": "YL57xq9U",
-    "version": "1.8.12+1.21.1-neoforge",
-    "version_id": "t3ruzodq",
-    "side": "client",
-    "license": "LGPL-3.0-only",
-    "project_url": "https://modrinth.com/mod/iris",
-    "source_url": "https://github.com/IrisShaders/Iris"
-  },
-  {
     "filename": "Jade-1.21.1-NeoForge-15.10.6.jar",
     "size": 726853,
     "sha256": "276f1f65a20d04f536989c4f311949d770b52c440c23c2b904a08860f3c93810",
