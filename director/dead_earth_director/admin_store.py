@@ -8,6 +8,7 @@ import sqlite3
 import threading
 import time
 from .bridge import _uuid
+from . import admin_analytics
 
 RETENTION = 7 * 86400
 MAX_SAMPLES = 20000
@@ -31,7 +32,7 @@ def _pick(value, keys):
 
 def _decision(choice, report):
     c = _pick(choice, ("kind", "event_id", "zone_id", "source", "reason", "narrative"))
-    c["metrics"] = _pick(choice.get("metrics"), ("elapsed_ms", "prompt_tokens", "output_tokens"))
+    c["metrics"] = admin_analytics.council_metrics(choice.get("metrics"))
     audit = choice.get("audit")
     if type(audit) is dict:
         a = _pick(audit, ("campaign_id", "world_epoch", "recorded_at", "selected_index", "season", "pressure", "active_ticks", "catalog_revision"))
@@ -94,6 +95,8 @@ class Telemetry:
             db.execute("CREATE TABLE IF NOT EXISTS states(scope TEXT PRIMARY KEY, at REAL NOT NULL, data TEXT NOT NULL)")
             db.execute("CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY,scope TEXT NOT NULL,kind TEXT NOT NULL,key TEXT NOT NULL,at REAL NOT NULL,data TEXT NOT NULL,UNIQUE(scope,kind,key))")
             db.execute("CREATE INDEX IF NOT EXISTS events_scope ON events(scope,at)")
+            db.execute("CREATE TABLE IF NOT EXISTS analytics_seen(scope TEXT NOT NULL,key TEXT NOT NULL,first_at REAL NOT NULL,last_at REAL NOT NULL,PRIMARY KEY(scope,key))")
+            db.execute("INSERT OR IGNORE INTO analytics_seen SELECT scope,key,at,at FROM events WHERE kind='analytics'")
             db.execute("PRAGMA user_version=1")
 
     @contextmanager
@@ -119,7 +122,12 @@ class Telemetry:
                 if not _uuid(campaign) or not _uuid(epoch): raise ValueError("invalid_snapshot")
                 scope=campaign+":"+epoch
                 snap=_pick(snapshot,("campaignId","worldEpoch","activeTicks","onlinePlayers","observations","climate","climateEffectsEnabled","difficulty","zones"))
-                payload=json.dumps(dict(snapshot=snap,queue=safe_tree(queue)),ensure_ascii=False,allow_nan=False)
+                analytics=admin_analytics.project(queue.get("analytics"))
+                # Store the operation archive separately: a large optional analytics payload
+                # must not make the basic observer snapshot exceed its byte budget.
+                clean_queue=safe_tree({k:v for k,v in queue.items() if k != "analytics"})
+                clean_queue["analytics"]={**analytics,"operations":[]}
+                payload=json.dumps(dict(snapshot=snap,queue=clean_queue),ensure_ascii=False,allow_nan=False)
                 if len(payload)>524288: raise ValueError("snapshot_too_large")
                 db.execute("INSERT INTO states VALUES(?,?,?) ON CONFLICT(scope) DO UPDATE SET at=excluded.at,data=excluded.data",(scope,now,payload))
                 difficulty=snapshot.get("difficulty") or {}
@@ -131,6 +139,8 @@ class Telemetry:
                                queued=sum(o.get("state")=="QUEUED" for o in operations),
                                active=sum(o.get("state") in {"WAITING","APPLYING"} for o in operations))
                 sample=dict(at=now,online=True,tick=snapshot.get("activeTicks"),metrics=safe_tree(metrics))
+                for item in analytics["operations"]:
+                    self._analytics_upsert(db,scope,item,now)
                 for kind,history in (("scenarios",queue.get("history",[])),("observations",snapshot.get("observations",{}).get("history",[]))):
                     if type(history) is not list: continue
                     for item in history[:512]:
@@ -138,9 +148,13 @@ class Telemetry:
                         clean=safe_tree(item)
                         raw=json.dumps(clean,ensure_ascii=False,sort_keys=True,allow_nan=False)
                         if len(raw)>8192: continue
-                        key=hashlib.sha256(raw.encode("utf-8")).hexdigest()
+                        identity=item.get("operationId") if kind=="scenarios" else None
+                        key=identity if type(identity) is str and 0<len(identity)<=128 else hashlib.sha256(raw.encode("utf-8")).hexdigest()
                         clean["observed_at"]=now
-                        db.execute("INSERT OR IGNORE INTO events(scope,kind,key,at,data) VALUES(?,?,?,?,?)",(scope,kind,key,now,json.dumps(clean,ensure_ascii=False)))
+                        if identity:
+                            db.execute("INSERT INTO events(scope,kind,key,at,data) VALUES(?,?,?,?,?) ON CONFLICT(scope,kind,key) DO UPDATE SET at=excluded.at,data=excluded.data",(scope,kind,key,now,json.dumps(clean,ensure_ascii=False)))
+                        else:
+                            db.execute("INSERT OR IGNORE INTO events(scope,kind,key,at,data) VALUES(?,?,?,?,?)",(scope,kind,key,now,json.dumps(clean,ensure_ascii=False)))
             else:
                 last=db.execute("SELECT scope FROM states ORDER BY at DESC LIMIT 1").fetchone()
                 if not last: return
@@ -151,19 +165,55 @@ class Telemetry:
             db.execute("DELETE FROM states WHERE scope NOT IN (SELECT scope FROM states ORDER BY at DESC LIMIT 16)")
             db.execute("DELETE FROM samples WHERE scope NOT IN (SELECT scope FROM states)")
             db.execute("DELETE FROM events WHERE at<? OR scope NOT IN (SELECT scope FROM states)",(now-RETENTION,))
-            db.execute("DELETE FROM events WHERE id IN (SELECT id FROM events ORDER BY id DESC LIMIT -1 OFFSET 10000)")
+            db.execute("DELETE FROM events WHERE id IN (SELECT id FROM events WHERE kind='analytics' ORDER BY at DESC,id DESC LIMIT -1 OFFSET ?)",(admin_analytics.MAX_OPERATIONS,))
+            db.execute("DELETE FROM events WHERE id IN (SELECT id FROM events WHERE kind!='analytics' ORDER BY id DESC LIMIT -1 OFFSET 10000)")
+            self._prune_analytics_seen(db)
 
     def scopes(self):
         with self.lock, self._db() as db:
             return [dict(id=s,at=a) for s,a in db.execute("SELECT scope,at FROM states ORDER BY at DESC")]
 
+    def _analytics_upsert(self,db,scope,item,now):
+        db.execute("INSERT INTO analytics_seen VALUES(?,?,?,?) ON CONFLICT(scope,key) DO UPDATE SET last_at=excluded.last_at",(scope,item["operationId"],now,now))
+        first_at=db.execute("SELECT first_at FROM analytics_seen WHERE scope=? AND key=?",(scope,item["operationId"])).fetchone()[0]
+        if first_at<now-RETENTION:return
+        previous=db.execute("SELECT data FROM events WHERE scope=? AND kind='analytics' AND key=?",(scope,item["operationId"])).fetchone()
+        item["observed_at"]=first_at
+        item=admin_analytics.merge(json.loads(previous[0]) if previous else None,item)
+        db.execute("INSERT INTO events(scope,kind,key,at,data) VALUES(?,'analytics',?,?,?) "
+                   "ON CONFLICT(scope,kind,key) DO UPDATE SET data=excluded.data",
+                   (scope,item["operationId"],first_at,json.dumps(item,ensure_ascii=False,allow_nan=False)))
+
+    def _prune_analytics_seen(self,db):
+        # A bounded first-seen index prevents an unchanged server ring from
+        # reintroducing a dossier immediately after its seven-day payload expiry.
+        db.execute("DELETE FROM analytics_seen WHERE scope NOT IN (SELECT scope FROM states)")
+        db.execute("DELETE FROM analytics_seen WHERE rowid IN (SELECT rowid FROM analytics_seen ORDER BY last_at DESC,rowid DESC LIMIT -1 OFFSET ?)",(admin_analytics.MAX_OPERATIONS,))
+
+    def analytics_operation(self,scope,operation_id):
+        with self.lock,self._db() as db:
+            row=db.execute("SELECT data FROM events WHERE scope=? AND kind='analytics' AND key=?",(scope,operation_id)).fetchone()
+            return json.loads(row[0]) if row else None
+
+    def record_analytics(self,scope,value,now=None):
+        item=admin_analytics.operation(value)
+        if item is None:raise ValueError("invalid_analytics")
+        now=time.time() if now is None else now
+        with self.lock,self._db() as db:
+            if not db.execute("SELECT 1 FROM states WHERE scope=?",(scope,)).fetchone():raise ValueError("unknown_scope")
+            self._analytics_upsert(db,scope,item,now)
+            db.execute("DELETE FROM events WHERE kind='analytics' AND at<?",(now-RETENTION,))
+            db.execute("DELETE FROM events WHERE id IN (SELECT id FROM events WHERE kind='analytics' ORDER BY at DESC,id DESC LIMIT -1 OFFSET ?)",(admin_analytics.MAX_OPERATIONS,))
+            self._prune_analytics_seen(db)
+        return self.analytics_operation(scope,item["operationId"])
+
     def view(self, scope=None, since=0):
         with self.lock, self._db() as db:
             row=db.execute("SELECT scope,at,data FROM states WHERE scope=?",(scope,)).fetchone() if scope else db.execute("SELECT scope,at,data FROM states ORDER BY at DESC LIMIT 1").fetchone()
-            if not row: return dict(scope=scope,snapshot=None,queue=None,sampled_at=None,samples=[],archive=dict(scenarios=[],observations=[]))
+            if not row: return dict(scope=scope,snapshot=None,queue=None,sampled_at=None,samples=[],archive=dict(scenarios=[],observations=[],analytics=[]),analytics=admin_analytics.view(None,[]))
             s,at,raw=row
             rows=db.execute("SELECT data FROM samples WHERE scope=? AND at>=? ORDER BY at,id",(s,since)).fetchall()
-            archive={kind:[json.loads(r[0]) for r in reversed(db.execute("SELECT data FROM events WHERE scope=? AND kind=? ORDER BY id DESC LIMIT 1000",(s,kind)).fetchall())] for kind in ("scenarios","observations")}
+            archive={kind:[json.loads(r[0]) for r in reversed(db.execute("SELECT data FROM events WHERE scope=? AND kind=? ORDER BY at DESC,id DESC LIMIT 1000",(s,kind)).fetchall())] for kind in ("scenarios","observations","analytics")}
             # Mark real discontinuities BEFORE reducing successful measurements.
             samples=[json.loads(r[0]) for r in rows]
             previous=None
@@ -186,4 +236,6 @@ class Telemetry:
                         for x in chosen: x["gap_before"]=True
                     reduced.extend(chosen)
                 samples=reduced
-            return dict(scope=s,sampled_at=at,samples=samples,archive=archive,**json.loads(raw))
+            state=json.loads(raw)
+            return dict(scope=s,sampled_at=at,samples=samples,archive=archive,
+                        analytics=admin_analytics.view((state.get("queue") or {}).get("analytics"),archive["analytics"]),**state)

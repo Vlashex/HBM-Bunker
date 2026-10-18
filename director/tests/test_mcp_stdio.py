@@ -4,7 +4,7 @@ import sys
 import unittest
 from mcp import Client
 from mcp.client.stdio import StdioServerParameters
-from test_bridge import endpoint, success
+from test_bridge import endpoint, success, CAMPAIGN
 
 
 class McpStdioTests(unittest.TestCase):
@@ -90,7 +90,12 @@ class McpStdioTests(unittest.TestCase):
                 tools = (await client.list_tools()).tools
                 self.assertEqual({tool.name for tool in tools}, {
                     "get_snapshot", "get_history", "list_catalog", "preview_scenario",
-                    "propose_scenario", "get_scenario_status", "cancel_scenario", "get_director_brief", "preview_director", "get_cinematic_brief", "get_cinematic_queue", "choose_cinematic"})
+                    "propose_scenario", "get_scenario_status", "cancel_scenario", "get_director_brief", "preview_director", "get_cinematic_brief", "get_cinematic_queue", "get_event_analytics", "choose_cinematic"})
+                analytics=next(t for t in tools if t.name=="get_event_analytics")
+                self.assertTrue(analytics.annotations.read_only_hint)
+                self.assertFalse(analytics.input_schema["additionalProperties"])
+                for args in ({"operation_id":"bad"},{"operation_id":CAMPAIGN,"extra":1}):
+                    self.assertTrue((await client.call_tool("get_event_analytics",args)).is_error)
                 result = await client.call_tool("get_snapshot")
                 self.assertEqual(result.structured_content, {"activeTicks": 42})
                 denied = await client.call_tool("execute_command", {"command": "stop"})

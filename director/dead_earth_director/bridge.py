@@ -72,7 +72,7 @@ def _arguments(operation, arguments):
                 "preview_scenario": {"request_id"}, "propose_scenario": {"request_id"},
                 "get_scenario_status": {"scenario_id"}, "cancel_scenario": {"scenario_id", "revision"}}
     expected.update({"get_director_brief": set(), "preview_director": {"request_id", "goal_id", "variant", "text"}})
-    expected.update({"get_cinematic_brief": set(), "get_cinematic_queue": set(),
+    expected.update({"get_cinematic_brief": set(), "get_cinematic_queue": set(), "get_event_analytics": {"operation_id"},
                      "choose_cinematic": {"request_id", "goal_id", "event_id", "zone_id"}})
     if operation not in expected:
         raise BridgeError("unknown_operation")
@@ -108,6 +108,8 @@ def _arguments(operation, arguments):
     for key in ["request_id", "scenario_id", "goal_id"]:
         if key in arguments and not _uuid(arguments[key]):
             raise BridgeError("invalid_arguments")
+    if "operation_id" in arguments and (not _uuid(arguments["operation_id"]) or arguments["operation_id"]!=arguments["operation_id"].lower()):
+        raise BridgeError("invalid_arguments")
     if "limit" in arguments and (type(arguments["limit"]) is not int or not 1 <= arguments["limit"] <= 100):
         raise BridgeError("invalid_arguments")
     if "revision" in arguments and (type(arguments["revision"]) is not int or not 0 <= arguments["revision"] <= 9223372036854775807):

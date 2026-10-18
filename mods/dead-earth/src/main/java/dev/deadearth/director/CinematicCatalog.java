@@ -168,7 +168,11 @@ public record CinematicCatalog(String revision, Rules rules, Map<String,Sound> s
         path.remove(id);complete.add(id);
     }
     public static JsonElement strict(String source) {
-        if(source==null||source.getBytes(StandardCharsets.UTF_8).length>MAX_BYTES)throw bad("file size");
+        return strict(source,MAX_BYTES);
+    }
+    /** The catalogue keeps its own limit; bounded SavedData may use a larger envelope. */
+    static JsonElement strict(String source,int maximumBytes) {
+        if(maximumBytes<1||maximumBytes>8*1024*1024||source==null||source.getBytes(StandardCharsets.UTF_8).length>maximumBytes)throw bad("file size");
         try(var reader=new JsonReader(new StringReader(source))) {
             reader.setLenient(false);var value=read(reader,0);
             if(reader.peek()!=JsonToken.END_DOCUMENT)throw bad("trailing data");return value;

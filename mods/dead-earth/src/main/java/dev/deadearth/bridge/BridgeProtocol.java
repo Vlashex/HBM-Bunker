@@ -47,6 +47,7 @@ public final class BridgeProtocol {
         var args = input.getAsJsonObject("arguments");
         switch (operation) {
             case "get_snapshot", "list_catalog", "get_director_brief", "get_cinematic_brief", "get_cinematic_queue" -> keys(args, Set.of());
+            case "get_event_analytics" -> {keys(args,Set.of("operation_id"));uuid(args,"operation_id");if(!args.get("operation_id").getAsString().equals(UUID.fromString(args.get("operation_id").getAsString()).toString()))throw new BridgeFailure("invalid_arguments");}
             case "choose_cinematic" -> {
                 keys(args,Set.of("request_id","goal_id","event_id","zone_id"));
                 uuid(args,"request_id");uuid(args,"goal_id");uuid(args,"zone_id");

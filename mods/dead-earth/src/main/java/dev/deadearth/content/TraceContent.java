@@ -48,19 +48,20 @@ public final class TraceContent {
         @Override protected ItemInteractionResult useItemOn(ItemStack stack,BlockState state,Level level,BlockPos pos,Player player,InteractionHand hand,BlockHitResult hit){
             if(!stack.is(Items.FLINT_AND_STEEL)&&!stack.is(Items.WATER_BUCKET))return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
             if(!level.isClientSide&&player instanceof ServerPlayer p&&level.getBlockEntity(pos) instanceof TraceEntity trace) {
-                boolean water=stack.is(Items.WATER_BUCKET);trace.signal(p,water?"water":"burn");
+                boolean water=stack.is(Items.WATER_BUCKET);
+                if(!level.removeBlock(pos,false))return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                trace.signal(p,water?"water":"burn");
                 if(!player.getAbilities().instabuild) {
                     if(water)player.setItemInHand(hand,new ItemStack(Items.BUCKET));
                     else stack.hurtAndBreak(1,p,net.minecraft.world.entity.LivingEntity.getSlotForHand(hand));
                 }
                 var particles=water?net.minecraft.core.particles.ParticleTypes.SPLASH:net.minecraft.core.particles.ParticleTypes.SMOKE;
                 ((ServerLevel)level).sendParticles(particles,pos.getX()+.5,pos.getY()+.15,pos.getZ()+.5,16,.3,.1,.3,.015);
-                level.removeBlock(pos,false);
             }
             return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
         @Override public BlockState playerWillDestroy(Level l,BlockPos pos,BlockState state,Player player) {
-            if(player instanceof ServerPlayer p&&l.getBlockEntity(pos) instanceof TraceEntity trace)trace.signal(p,"break");
+            // BreakEvent is confirmed after dispatch and physical removal in DeadEarth.tick.
             return super.playerWillDestroy(l,pos,state,player);
         }
     }
@@ -83,7 +84,7 @@ public final class TraceContent {
         }
         public void signal(ServerPlayer player,String kind) {
             if(operation==null||player.isSpectator()||!player.isAlive())return;
-            try{DeadEarth.runtime(player.getServer()).cinematicSignal(operation,kind,role);}catch(IllegalStateException unavailable){}
+            try{DeadEarth.runtime(player.getServer()).cinematics().traceInteraction(player,operation,kind,role);}catch(IllegalStateException unavailable){}
         }
         static void tick(Level level,BlockPos pos,BlockState state,TraceEntity trace) {
             if(level.getGameTime()%20!=0)return;

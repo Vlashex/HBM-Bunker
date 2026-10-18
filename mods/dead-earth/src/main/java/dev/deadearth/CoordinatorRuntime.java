@@ -96,19 +96,19 @@ public final class CoordinatorRuntime {
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
             ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites,
             ClimateCycle.Snapshot climate, boolean climateEffectsEnabled, dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty,
-            List<dev.deadearth.zone.ZoneScanner.Summary> zones,dev.deadearth.evolution.EvolutionController.Snapshot parasites) {
+            List<dev.deadearth.zone.ZoneScanner.Summary> zones,dev.deadearth.evolution.EvolutionController.Snapshot parasites,com.google.gson.JsonObject analytics) {
         public Snapshot { discoveredSites = List.copyOf(discoveredSites); zones = List.copyOf(zones); }
         public Snapshot(UUID campaignId,UUID worldEpoch,long activeTicks,int onlinePlayers,ObservationLog.Snapshot observations,
                 List<SiteRegistry.Site> discoveredSites,ClimateCycle.Snapshot climate,boolean climateEffectsEnabled,
                 dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty,List<dev.deadearth.zone.ZoneScanner.Summary> zones) {
-            this(campaignId,worldEpoch,activeTicks,onlinePlayers,observations,discoveredSites,climate,climateEffectsEnabled,difficulty,zones,null);
+            this(campaignId,worldEpoch,activeTicks,onlinePlayers,observations,discoveredSites,climate,climateEffectsEnabled,difficulty,zones,null,null);
         }
     }
     public Snapshot snapshot() {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
-                climateStatus(),true,difficultyStatus(),dev.deadearth.zone.ZoneLoaders.summaries(server),evolutionStatus());
+                climateStatus(),true,difficultyStatus(),dev.deadearth.zone.ZoneLoaders.summaries(server),evolutionStatus(),cinematics==null?null:cinematics.analytics().summary(dev.deadearth.director.AnalyticsTransport.SUMMARY_BYTES));
     }
     public record DirectorSnapshot(dev.deadearth.director.DirectorPolicy.Brief planning, String season, double pressure) {}
     private dev.deadearth.director.DirectorPolicy.Settings directorSettings() {

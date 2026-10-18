@@ -38,7 +38,7 @@ public final class CinematicReviewGameTests {
         } finally {level.getDataStorage().set(CinematicStore.NAME,original);if(backup==null)Files.deleteIfExists(file);else Files.write(file,backup);}
         h.succeed();
     }
-    private static final class Fixture implements AutoCloseable {
+    static final class Fixture implements AutoCloseable {
         final GameTestHelper h;final FoundationGameTests.AttachedClient client;final CinematicDirector director;
         final CinematicStore store;final CinematicEngine previous;final java.lang.reflect.Field engineField;
         final CinematicCatalog catalog;final CinematicEngine.Operation op;final BlockPos base;final boolean enabled;
@@ -67,7 +67,8 @@ public final class CinematicReviewGameTests {
         }
         @Override public void close() {
             director.cancel(op.id());engineField.setAccessible(true);try{engineField.set(store,previous);}catch(IllegalAccessException e){throw new IllegalStateException(e);}
-            for(var entity:h.getLevel().getAllEntities())if(entity.getPersistentData().hasUUID("dead_earth:director_operation")&&op.id().equals(entity.getPersistentData().getUUID("dead_earth:director_operation")))entity.discard();
+            var cleanup=new ArrayList<net.minecraft.world.entity.Entity>();h.getLevel().getAllEntities().forEach(entity->{if(entity!=null)cleanup.add(entity);});
+            for(var entity:cleanup)if(entity.getPersistentData().hasUUID("dead_earth:director_operation")&&op.id().equals(entity.getPersistentData().getUUID("dead_earth:director_operation")))entity.discard();
             client.close();h.getLevel().removeBlock(base,false);dev.deadearth.config.DeadEarthConfig.DIRECTOR_ENABLED.set(enabled);
         }
     }

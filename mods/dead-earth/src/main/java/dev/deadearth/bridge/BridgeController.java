@@ -100,6 +100,7 @@ public final class BridgeController implements AutoCloseable {
         calls.drain((operation, args) -> switch (operation) {
             case "get_cinematic_brief" -> JSON.toJsonTree(runtime.cinematics().brief());
             case "get_cinematic_queue" -> JSON.toJsonTree(runtime.cinematics().status());
+            case "get_event_analytics" -> runtime.cinematics().analytics().detail(UUID.fromString(args.get("operation_id").getAsString()));
             case "choose_cinematic" -> JSON.toJsonTree(runtime.cinematics().choose(
                 UUID.fromString(args.get("request_id").getAsString()),UUID.fromString(args.get("goal_id").getAsString()),
                 args.get("event_id").getAsString(),args.get("zone_id").getAsString()));

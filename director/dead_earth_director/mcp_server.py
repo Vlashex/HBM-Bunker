@@ -53,6 +53,11 @@ def create_server(client: BridgeClient) -> MCPServer:
         """Очередь интерактивных событий, их этапы и конечные исходы."""
         return await invoke("get_cinematic_queue", {})
 
+    @server.tool(annotations=read)
+    async def get_event_analytics(operation_id: str) -> dict[str, Any]:
+        """Сохранённые факты одной операции по UUID; без игроков, координат или изменений мира."""
+        return await invoke("get_event_analytics", dict(operation_id=operation_id))
+
     @server.tool(annotations=write)
     async def choose_cinematic(request_id: str, goal_id: str, event_id: str, zone_id: str) -> dict[str, Any]:
         """Выбрать только пару из действующей цели. Сервер повторно проверяет score, лимиты и сроки."""

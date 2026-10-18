@@ -16,6 +16,7 @@ from .admin_console import OperatorConsole
 from .admin_authoring import Authoring, AuthoringError, MAX_BODY
 from .admin_evolution import Evolution, EvolutionError
 from .bridge import _json
+from . import admin_analytics
 
 STATIC = Path(__file__).with_name("admin_web")
 PRODUCT = "dead-earth-admin-v1"
@@ -90,15 +91,24 @@ class Application:
             from .host import load_config
             from .model import NoRedirect
             settings,_=load_config(self.model_config)
-            result.update(name=settings.model,device="CPU")
+            result.update(name=settings.model,device="CPU",ai_mode=getattr(settings,"ai_mode","single"))
+            critic=getattr(settings,"critic",None)
+            result.update(primary=dict(name=settings.model,state="unavailable"),
+                          critic=dict(name=critic.model,state="unavailable") if result["ai_mode"]=="dual" and critic else None)
             opener=build_opener(ProxyHandler({}),NoRedirect())
             with opener.open(Request(settings.url+"/api/tags"),timeout=2) as response:
                 raw=response.read(131073)
             if len(raw)>131072: raise ValueError()
             body=json.loads(raw)
             rows=body.get("models",[])
-            match=next((m for m in rows if type(m) is dict and m.get("name")==settings.model),None)
-            result["state"]="ready" if match and match.get("digest")==settings.digest else "revision_mismatch"
+            if type(rows) is not list:raise ValueError()
+            def model_status(model):
+                match=next((m for m in rows if type(m) is dict and m.get("name")==model.model),None)
+                return dict(name=model.model,state="ready" if match and match.get("digest")==model.digest else "revision_mismatch")
+            result["primary"]=model_status(settings)
+            critic=getattr(settings,"critic",None)
+            result["critic"]=model_status(critic) if result["ai_mode"]=="dual" and critic else None
+            result["state"]="ready" if result["primary"]["state"]=="ready" and (result["critic"] is None or result["critic"]["state"]=="ready") else "revision_mismatch"
         except Exception:
             # Never forward config contents or endpoint exceptions to the browser.
             pass
@@ -114,6 +124,26 @@ class Application:
         except (OSError,ValueError,TypeError,RecursionError):
             return dict(status="unavailable",events=[])
 
+    def event_analytics(self,operation_id,scope):
+        cached=self.store.analytics_operation(scope,operation_id)
+        if cached and cached.get("wireTruncated") is False:
+            return dict(schema=1,status="ready",operation=cached,source="archive")
+        try:
+            descriptor=Descriptor.load(self.observer.bridge)
+            if scope!=descriptor.campaign_id+":"+descriptor.world_epoch:
+                return dict(schema=1,status="scope_mismatch",operation=cached)
+            result=BridgeClient(descriptor).call("get_event_analytics",dict(operation_id=operation_id))
+            if (type(result) is not dict or type(result.get("schema")) is not int or result["schema"]!=1
+                    or type(result.get("status")) is not str or result["status"] not in {"ready","not_found","unsupported_save","unavailable"}):
+                raise ValueError()
+            item=admin_analytics.operation(result.get("operation")) if result["status"]=="ready" else None
+            if result["status"]=="ready":
+                if item is None or item["operationId"]!=operation_id:raise ValueError()
+                item=self.store.record_analytics(scope,item) or item
+            return dict(schema=1,status=result["status"],operation=item or cached,source="server")
+        except (BridgeError,OSError,ValueError,sqlite3.Error):
+            return dict(schema=1,status="unavailable",operation=cached,source="archive")
+
     def dashboard(self,scope=None,hours=6):
         now=time.time()
         connection=self.observer.status()
@@ -128,6 +158,8 @@ class Application:
             if scope is None and scopes: scope=scopes[0]["id"]
             if scope is None: scope="unscoped"
         view=self.store.view(scope,since=now-hours*3600)
+        view["analytics"]=admin_analytics.dashboard_summary(view["analytics"])
+        view["archive"]["analytics"]=[]
         decisions=read_decisions(self.journal,scope)
         return dict(product=PRODUCT,generated_at=now,connection=connection,model=self.model,
                     scopes=scopes,decisions=decisions,catalog=self.catalog(),**view)
@@ -177,6 +209,16 @@ def make_server(app, port=8765):
                 except OSError: return self.send_body(503,b'{"error":"assets_unavailable"}')
             if parsed.path=="/api/health":
                 return self.send_body(200,json.dumps(dict(product=PRODUCT,instance_id=app.instance_id)).encode())
+            if parsed.path=="/api/event-analytics":
+                try:
+                    q=parse_qs(parsed.query,keep_blank_values=True,max_num_fields=2)
+                    if set(q)!={"operation_id","scope"} or any(len(v)!=1 for v in q.values()):raise ValueError()
+                    operation_id=q["operation_id"][0];scope=q["scope"][0];parts=scope.split(":")
+                    if (not _uuid(operation_id) or operation_id!=operation_id.lower()
+                            or len(parts)!=2 or not all(_uuid(p) and p==p.lower() for p in parts)):raise ValueError()
+                    payload=app.event_analytics(operation_id,scope)
+                    return self.send_body(200,json.dumps(payload,ensure_ascii=False,allow_nan=False).encode("utf-8"))
+                except (ValueError,TypeError,sqlite3.Error):return self.send_body(400,b'{"error":"invalid_query"}')
             if parsed.path=="/api/evolution" and not parsed.query:
                 payload=app.evolution.snapshot() if app.evolution is not None else dict(state='offline',server=None)
                 return self.send_body(200,json.dumps(dict(payload,nonce=app.evolution_nonce),ensure_ascii=False,allow_nan=False).encode('utf-8'))

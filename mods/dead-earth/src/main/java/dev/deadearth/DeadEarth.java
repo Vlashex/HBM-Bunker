@@ -22,7 +22,8 @@ public final class DeadEarth {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     private static final Map<MinecraftServer, CoordinatorRuntime> RUNTIMES = new IdentityHashMap<>();
     private static final Map<MinecraftServer, Map<java.util.UUID, LivingDeathEvent>> PENDING_DEATHS = new IdentityHashMap<>();
-    private static final Map<MinecraftServer, java.util.List<net.neoforged.neoforge.event.level.BlockEvent.BreakEvent>> PENDING_MINING = new IdentityHashMap<>();
+    private record Mining(net.neoforged.neoforge.event.level.BlockEvent.BreakEvent event,java.util.UUID operation,String role) {}
+    private static final Map<MinecraftServer, java.util.List<Mining>> PENDING_MINING = new IdentityHashMap<>();
 
     public DeadEarth(IEventBus modBus,net.neoforged.fml.ModContainer container) {
         container.registerConfig(net.neoforged.fml.config.ModConfig.Type.SERVER,dev.deadearth.config.DeadEarthConfig.SPEC,"dead-earth-server.toml");
@@ -32,6 +33,7 @@ public final class DeadEarth {
         dev.deadearth.worldgen.WastelandWorldgen.register(modBus);
         ProjectECompatibility.install(modBus);
         dev.deadearth.content.TraceContent.register(modBus);
+        dev.deadearth.director.EventAnalyticsHooks.install();
         dev.deadearth.content.SeasonBlocks.register(modBus);
         dev.deadearth.content.ZoneLoaderContent.register(modBus);
         dev.deadearth.content.DefenseContent.register(modBus);
@@ -88,9 +90,14 @@ public final class DeadEarth {
         if (runtime != null) {
             if (deaths != null) for (var death : deaths.values())
                 if (!death.isCanceled() && death.getEntity() instanceof ServerPlayer player && player.isDeadOrDying()) runtime.recordDeath(player);
-            if(runtime.enabled()&&mining!=null)for(var attempt:mining)
+            if(runtime.enabled()&&mining!=null)for(var captured:mining) {
+                var attempt=captured.event();
                 if(!attempt.isCanceled()&&attempt.getPlayer() instanceof ServerPlayer p&&attempt.getLevel()==p.serverLevel()&&p.serverLevel().hasChunkAt(attempt.getPos())
-                        &&!attempt.getLevel().getBlockState(attempt.getPos()).equals(attempt.getState()))runtime.cinematics().mined(p,attempt.getPos());
+                        &&!attempt.getLevel().getBlockState(attempt.getPos()).equals(attempt.getState())) {
+                    if(captured.operation()!=null)runtime.cinematics().traceInteraction(p,captured.operation(),"break",captured.role());
+                    runtime.cinematics().mined(p,attempt.getPos());
+                }
+            }
             runtime.tick();
         }
     }
@@ -103,7 +110,7 @@ public final class DeadEarth {
         if(!event.isCanceled()&&event.getPlayer() instanceof ServerPlayer p) {
             var runtime=RUNTIMES.get(p.getServer());if(runtime!=null&&runtime.enabled()) {
                 var pending=PENDING_MINING.computeIfAbsent(p.getServer(),key->new java.util.ArrayList<>());
-                if(pending.size()<256)pending.add(event);
+                if(pending.size()<256){var be=p.serverLevel().getBlockEntity(event.getPos());var trace=be instanceof dev.deadearth.content.TraceContent.TraceEntity t?t:null;pending.add(new Mining(event,trace==null?null:trace.operation(),trace==null?"":trace.role()));}
             }
         }
     }

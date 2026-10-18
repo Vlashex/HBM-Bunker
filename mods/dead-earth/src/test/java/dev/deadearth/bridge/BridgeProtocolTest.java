@@ -56,6 +56,13 @@ class BridgeProtocolTest {
         assertEquals("get_snapshot", parsed.operation()); assertTrue(parsed.arguments().isEmpty());
         assertFalse(parsed.toString().contains(TOKEN));
     }
+    @Test void eventAnalyticsAllowsOnlyOneCanonicalOperationUuid() {
+        var input=request("get_event_analytics");var args=input.getAsJsonObject("arguments");
+        rejects(input,"invalid_arguments");args.addProperty("operation_id",EPOCH.toString());
+        assertEquals("get_event_analytics",protocol.decode(bytes(input)).operation());
+        args.addProperty("player_uuid",CAMPAIGN.toString());rejects(input,"invalid_arguments");args.remove("player_uuid");
+        args.addProperty("operation_id","invalid");rejects(input,"invalid_arguments");
+    }
     @Test void invalidTokenAndStaleContextCannotReachTools() {
         var request = request("get_snapshot"); request.addProperty("token", "b".repeat(64)); rejects(request, "unauthorized");
         request.addProperty("token", TOKEN); request.addProperty("world_epoch", UUID.randomUUID().toString()); rejects(request, "stale_context");

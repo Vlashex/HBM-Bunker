@@ -30,6 +30,7 @@ public final class CinematicDirector implements CinematicEngine.World {
     private final MinecraftServer server;
     private final CoordinatorRuntime runtime;
     private final CinematicStore store;
+    private final EventAnalyticsController analytics;
     private CinematicCatalog catalog;
     private CatalogStaging.Document catalogSource;
     private boolean catalogFilePresent;
@@ -47,6 +48,7 @@ public final class CinematicDirector implements CinematicEngine.World {
     public CinematicDirector(MinecraftServer server,CoordinatorRuntime runtime) {
         this.server=server;this.runtime=runtime;
         store=CinematicStore.open(server.overworld(),runtime.campaign().campaign().campaignId());
+        analytics=new EventAnalyticsController(server,runtime,store);
         try{reload();}catch(RuntimeException invalid){fault="catalog_unavailable";DeadEarth.LOGGER.error("Director catalog unavailable",invalid);}
         // Entities already loaded before ServerStarted are registered once; later joins use observe().
         for(var level:server.getAllLevels())for(var entity:level.getAllEntities())observe(entity);
@@ -100,9 +102,16 @@ public final class CinematicDirector implements CinematicEngine.World {
             history.subList(Math.max(0,history.size()-6),history.size()),engine==null?0:(int)engine.operations().stream().filter(o->o.state()!=CinematicEngine.State.QUEUED).count(),
             engine==null?0:(int)engine.operations().stream().filter(o->o.state()==CinematicEngine.State.QUEUED).count());
     }
-    public Object status(){return store.enabled()?Map.of("operations",store.engine().operations().stream().map(o->Map.of(
-        "id",o.id(),"eventId",o.eventId(),"zoneId",o.zoneId(),"state",o.state(),"node",o.node(),"budget",o.budget(),"spent",o.spent(),"expires",o.expires())).toList(),
-        "history",store.engine().history(),"enabled",enabled()):Map.of("status","unsupported_save");}
+    public Object status(){
+        var result=new LinkedHashMap<String,Object>();
+        if(store.enabled()){result.put("operations",store.engine().operations().stream().map(o->Map.of(
+        "id",o.id(),"eventId",o.eventId(),"zoneId",o.zoneId(),"state",o.state(),"node",o.node(),"budget",o.budget(),"spent",o.spent(),"expires",o.expires())).toList());
+        result.put("history",store.engine().history());result.put("enabled",enabled());}
+        else result.put("status","unsupported_save");
+        result.put("analytics",analytics.summary(dev.deadearth.bridge.BridgeProtocol.MAX_OUTPUT-AnalyticsTransport.bytes(JSON.toJsonTree(result))-4096));return result;
+    }
+    private static final Gson JSON=new Gson();
+    public EventAnalyticsController analytics(){return analytics;}
     public OperatorStatus operatorStatus() {
         runtime.requireServerThread();
         return new OperatorStatus(1,runtime.campaign().campaign().campaignId(),runtime.epoch(),catalog==null?"":catalog.revision(),
@@ -127,7 +136,7 @@ public final class CinematicDirector implements CinematicEngine.World {
         var rejected=operatorGuard(epoch,revision);if(rejected!=null)return rejected;
         if(!enabled())return operatorResult(false,"disabled",null,null);
         var verdict=store.engine().admitManual(request,event,zone,catalog,context(),true);
-        if(verdict.accepted())checkpoint();
+        if(verdict.accepted()){analytics.register(verdict.operationId());checkpoint();}
         return operatorResult(verdict.accepted(),verdict.code(),verdict.operationId(),null);
     }
     public OperatorResult operatorCancel(UUID epoch,UUID operation) {
@@ -158,7 +167,7 @@ public final class CinematicDirector implements CinematicEngine.World {
     public CinematicEngine.Verdict choose(UUID request,UUID goal,String eventId,String zoneId) {
         runtime.requireServerThread();if(!enabled())return new CinematicEngine.Verdict(request,goal,false,"disabled",null);
         var verdict=store.engine().admit(request,goal,eventId,zoneId,runtime.epoch(),catalog,context(),true);
-        if(verdict.accepted())checkpoint();return verdict;
+        if(verdict.accepted()){analytics.register(verdict.operationId());checkpoint();}return verdict;
     }
     public boolean cancel(UUID id){runtime.requireServerThread();return store.enabled()&&store.engine().cancel(id,now(),catalog.rules(),this);}
     public void signal(UUID op,String trigger,String role) {
@@ -169,8 +178,9 @@ public final class CinematicDirector implements CinematicEngine.World {
     public void mined(ServerPlayer player,BlockPos pos) {
         if(!enabled())return;
         for(var op:store.engine().operations())if(level(op)==player.serverLevel())for(var mark:marks.getOrDefault(op.id(),List.of()))
-            if(!mark.isRemoved()&&mark.getBlockPos().distSqr(pos)<=36){signal(op.id(),"mine",mark.role());break;}
+            if(!mark.isRemoved()&&mark.getBlockPos().distSqr(pos)<=36){traceInteraction(player,op.id(),"mine",mark.role());break;}
     }
+    public void traceInteraction(ServerPlayer player,UUID operation,String kind,String role){signal(operation,kind,role);analytics.interaction(operation,player,kind,role);}
     public void observeTrace(TraceContent.TraceEntity trace) {
         if(trace.operation()==null||trace.isRemoved()||trace.getLevel()==null)return;
         var list=marks.computeIfAbsent(trace.operation(),id->new ArrayList<>());
@@ -195,6 +205,7 @@ public final class CinematicDirector implements CinematicEngine.World {
             if(now()>=entity.getPersistentData().getLong("dead_earth:director_expires")){entity.discard();store.confirmedGone(operation,entity.getUUID());it.remove();}
         }
         marks.values().forEach(list->list.removeIf(TraceContent.TraceEntity::isRemoved));marks.values().removeIf(List::isEmpty);
+        analytics.tick();
         if(!enabled()||now()==lastTick||now()%20!=0)return;lastTick=now();
         try {
             var b=brief();
@@ -267,20 +278,20 @@ public final class CinematicDirector implements CinematicEngine.World {
         switch(action.type()) {
             case "sound" -> {
                 var s=frozen.sounds().get(action.key());var sound=BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(s.sound()));
-                level.playSound(null,point,sound,SoundSource.AMBIENT,(float)s.volume(),(float)s.pitch());
+                if(EventAnalyticsHooks.confirmedSound(level,point,()->level.playSound(null,point,sound,SoundSource.AMBIENT,(float)s.volume(),(float)s.pitch())))analytics.action(op,action,1,level,point,frozen);
             }
             case "trace" -> {
                 if(marks.values().stream().mapToInt(List::size).sum()>=catalog.rules().count("maximumLoadedTraces"))return;
                 for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
                     var pos=anchor(op,action.role(),attempt);if(pos==null||!level.getBlockState(pos).isAir()||!unseen(level,Vec3.atCenterOf(pos),rules(op).count("minimumTraceDistance")))continue;
                     if(level.setBlock(pos,TraceContent.TRACE.get().defaultBlockState(),3)&&level.getBlockEntity(pos) instanceof TraceContent.TraceEntity trace) {
-                        trace.configure(op.id(),action.role(),frozen.traces().get(action.key()),op.expires());observeTrace(trace);break;
+                        trace.configure(op.id(),action.role(),frozen.traces().get(action.key()),op.expires());observeTrace(trace);analytics.action(op,action,1,level,pos,frozen);break;
                     }
                 }
             }
             case "particles" -> {
                 var particle=switch(action.key()){case "spores"->ParticleTypes.SPORE_BLOSSOM_AIR;case "ash"->ParticleTypes.ASH;case "frost"->ParticleTypes.SNOWFLAKE;default->ParticleTypes.POOF;};
-                level.sendParticles(particle,point.getX()+.5,point.getY()+.3,point.getZ()+.5,32,2,.5,2,.015);
+                int sent=level.sendParticles(particle,point.getX()+.5,point.getY()+.3,point.getZ()+.5,32,2,.5,2,.015);analytics.action(op,action,sent,level,point,frozen);
             }
             case "wave" -> {
                 var published=dev.deadearth.evolution.EvolutionState.published(server);
@@ -296,16 +307,17 @@ public final class CinematicDirector implements CinematicEngine.World {
                     if(!level.noCollision(mob)||level.containsAnyLiquid(mob.getBoundingBox())){mob.discard();continue;}
                     mob.getPersistentData().putUUID("dead_earth:director_operation",op.id());mob.getPersistentData().putLong("dead_earth:director_expires",op.expires()+frozen.rules().count("entityLifetimeTailTicks"));
                     mob.finalizeSpawn(level,level.getCurrentDifficultyAt(pos),MobSpawnType.EVENT,null);
-                    if(level.addFreshEntity(mob))observe(mob);break;
+                    if(level.addFreshEntity(mob)){observe(mob);analytics.action(op,action,1,level,pos,frozen);}break;
                 }
             }
             case "move" -> {
                 int moved=0;for(var e:owned.values())if(moved<16&&e instanceof Mob mob&&op.id().equals(e.getPersistentData().getUUID("dead_earth:director_operation"))&&mob.getTarget()==null) {
-                    mob.getNavigation().moveTo(point.getX()+.5,point.getY(),point.getZ()+.5,1);moved++;
+                    if(mob.getNavigation().moveTo(point.getX()+.5,point.getY(),point.getZ()+.5,1))moved++;
                 }
+                analytics.action(op,action,moved,level,point,frozen);
             }
             default -> throw new IllegalArgumentException("Unknown world primitive");
         }
     }
-    @Override public void checkpoint(){runtime.checkpointCinematic();store.setDirty();SavedDataAccess.checkpoint(server.overworld(),CinematicStore.NAME,store);}
+    @Override public void checkpoint(){runtime.checkpointCinematic();store.setDirty();SavedDataAccess.checkpoint(server.overworld(),CinematicStore.NAME,store);analytics.checkpoint();}
 }
