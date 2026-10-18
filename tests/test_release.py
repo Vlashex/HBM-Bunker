@@ -16,6 +16,13 @@ SPEC.loader.exec_module(release)
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_admin_html_scripts_and_styles_are_included_in_release(self):
+        entries=release.director_entries(ROOT,True)
+        html=entries['director/dead_earth_director/admin_web/index.html'].decode('utf-8')
+        for name in re.findall(r'(?:src|href)="/([^"?#]+\.(?:js|css))"',html):
+            self.assertTrue('director/dead_earth_director/admin_web/'+name in entries,
+                          'Admin references an asset omitted from the release: '+name)
+
     def test_client_only_mods_are_excluded_from_server_selection(self):
         self.assertTrue(hasattr(release, "mods_for_side"), "Side-aware mod selection missing")
         common = self.row("common.jar")
@@ -69,6 +76,9 @@ class ReleaseTests(unittest.TestCase):
                      "director/dead_earth_director/admin_web/admin.js": b"script",
                      "director/dead_earth_director/admin_web/authoring.css": b"authoring style",
                      "director/dead_earth_director/admin_web/authoring.js": b"authoring script",
+                     "director/dead_earth_director/admin_web/ai-mode.js": b"mode controls",
+                     "director/dead_earth_director/admin_web/evolution.js": b"evolution controls",
+                     "director/dead_earth_director/admin_web/evolution.css": b"evolution styles",
                      "director/dead_earth_director/admin_web/private.env": b"secret",
                      "director/admin.ps1": b"launcher", "director/README.md": b"setup", "director/setup.ps1": b"setup",
                      "director/director.example.toml": b"config", "director/models.lock.json": b"pin",
@@ -80,7 +90,7 @@ class ReleaseTests(unittest.TestCase):
             for name, data in files.items():
                 path = root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(data)
             entries = release.director_entries(root, True)
-            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml", "admin.ps1", "index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "start-admin.bat"))})
+            self.assertEqual(set(entries), {name for name in files if name.endswith(("__init__.py", "__main__.py", ".in", ".lock", "README.md", "setup.ps1", "director.example.toml", "models.lock.json", "model.ps1", "compose.cpu.yaml", "admin.ps1", "index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "ai-mode.js", "evolution.js", "evolution.css", "start-admin.bat"))})
             self.assertEqual(release.director_entries(root, False), {})
 
     def test_director_enabled_without_entrypoint_is_rejected(self):

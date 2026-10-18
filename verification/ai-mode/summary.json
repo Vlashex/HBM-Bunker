@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "release": "5.5.1",
+  "date": "2026-10-18",
+  "python": {
+    "tests": 132,
+    "failures": 0,
+    "seconds": 48.197
+  },
+  "pack": {
+    "tests": 17,
+    "failures": 0,
+    "source_check": "passed"
+  },
+  "dom": [
+    "admin_ui_test",
+    "analytics_ui_test",
+    "authoring_ui_test",
+    "evolution_ui_test",
+    "ai_mode_ui_test"
+  ],
+  "real_unload": "real-unload.json",
+  "java_changed": false,
+  "minecraft_rerun": false,
+  "computer_use": false,
+  "live_installation_updated": false,
+  "public_push": false,
+  "review": {
+    "important_findings": 1,
+    "fixed": 1,
+    "initialization_race_and_interruption_red_green": true
+  },
+  "sources": {
+    "ai_control.py": "375feb8128ff54e3c6a5b666ac9051b49ce6d6b24487a3a8b43045d1587dccd7",
+    "admin.py": "f8285e60d11bb97aea3ae7760448d2bd8dbd08fb390abc7b8937b46b23c51fbe",
+    "host.py": "37d184d2310882b4d7debe36d7d9c7b1f8205242ec8e3e578b6d0c55c7d63120",
+    "council.py": "2dde4f556614af4b86c0937eb10003ebf3d0ed16e2f2d4b1b4580ca1a102520b",
+    "admin_web/ai-mode.js": "e359496723cf0cec92a5ffba25a2e838ba6dd0228f09fec173635736972ea192"
+  }
+}

@@ -17,6 +17,7 @@ from .admin_authoring import Authoring, AuthoringError, MAX_BODY
 from .admin_evolution import Evolution, EvolutionError
 from .bridge import _json
 from . import admin_analytics
+from .ai_control import ModeControl,ControlError
 
 STATIC = Path(__file__).with_name("admin_web")
 PRODUCT = "dead-earth-admin-v1"
@@ -82,6 +83,9 @@ class Application:
         self.authoring_nonce=secrets.token_urlsafe(32)
         self.evolution=Evolution(server_root,self.console) if server_root else None
         self.evolution_nonce=secrets.token_urlsafe(32)
+        self.ai_nonce=secrets.token_urlsafe(32)
+        try:self.ai_control=ModeControl(self.journal.parent/'ai-control.sqlite3',self.model_config) if self.model_config else None
+        except ControlError:self.ai_control=None
 
     def check_model(self):
         # Tags only: never load/unload a model or request generation from the panel.
@@ -91,7 +95,8 @@ class Application:
             from .host import load_config
             from .model import NoRedirect
             settings,_=load_config(self.model_config)
-            result.update(name=settings.model,device="CPU",ai_mode=getattr(settings,"ai_mode","single"))
+            desired=self.ai_control.store.desired(settings.ai_mode) if self.ai_control else dict(mode=settings.ai_mode)
+            result.update(name=settings.model,device="CPU",ai_mode=desired['mode'])
             critic=getattr(settings,"critic",None)
             result.update(primary=dict(name=settings.model,state="unavailable"),
                           critic=dict(name=critic.model,state="unavailable") if result["ai_mode"]=="dual" and critic else None)
@@ -203,12 +208,18 @@ def make_server(app, port=8765):
             routes={"/":("index.html","text/html; charset=utf-8"),"/admin.css":("admin.css","text/css; charset=utf-8"),"/admin.js":("admin.js","text/javascript; charset=utf-8")}
             routes.update({"/authoring.js":("authoring.js","text/javascript; charset=utf-8"),"/authoring.css":("authoring.css","text/css; charset=utf-8")})
             routes.update({"/evolution.js":("evolution.js","text/javascript; charset=utf-8"),"/evolution.css":("evolution.css","text/css; charset=utf-8")})
+            routes['/ai-mode.js']=("ai-mode.js","text/javascript; charset=utf-8")
             if parsed.path in routes:
                 name,kind=routes[parsed.path]
                 try: return self.send_body(200,(STATIC/name).read_bytes(),kind)
                 except OSError: return self.send_body(503,b'{"error":"assets_unavailable"}')
             if parsed.path=="/api/health":
                 return self.send_body(200,json.dumps(dict(product=PRODUCT,instance_id=app.instance_id)).encode())
+            if parsed.path=="/api/ai-mode" and not parsed.query:
+                if app.ai_control is None:return self.send_body(503,b'{"error":"ai_mode_not_configured"}')
+                try:
+                    return self.send_body(200,json.dumps(dict(app.ai_control.snapshot(),nonce=app.ai_nonce),allow_nan=False).encode())
+                except ControlError:return self.send_body(503,b'{"error":"ai_control_unavailable"}')
             if parsed.path=="/api/event-analytics":
                 try:
                     q=parse_qs(parsed.query,keep_blank_values=True,max_num_fields=2)
@@ -253,6 +264,7 @@ def make_server(app, port=8765):
         def do_HEAD(self): self.handle_read()
         def do_POST(self):
             if not self.allowed(): return self.send_body(403,b'{"error":"local_only"}')
+            if self.path=="/api/ai-mode":return self.ai_mode()
             if self.path=="/api/evolution/shift":
                 return self.evolution_shift()
             if self.path.startswith('/api/authoring/'):
@@ -275,6 +287,25 @@ def make_server(app, port=8765):
                 return self.send_body(200,json.dumps(result,ensure_ascii=False).encode('utf-8'))
             except (ValueError,TypeError,AttributeError,RecursionError): return self.send_body(400,b'{"error":"invalid_command_request"}')
             except (OSError,sqlite3.Error): return self.send_body(503,b'{"error":"console_unavailable_outcome_unknown"}')
+        def ai_mode(self):
+            origin='http://127.0.0.1:'+str(self.server.server_address[1])
+            if self.headers.get_all('Origin')!=[origin] or self.headers.get_all('X-Dead-Earth-Operator')!=[app.ai_nonce]:
+                return self.send_body(403,b'{"error":"operator_session_required"}')
+            try:
+                if self.headers.get_all('Content-Type')!=['application/json'] or self.headers.get_all('Transfer-Encoding') is not None:raise ValueError()
+                lengths=self.headers.get_all('Content-Length') or []
+                if len(lengths)!=1:raise ValueError()
+                length=int(lengths[0])
+                if not 1<=length<=2048:raise ValueError()
+                payload=_json(self.rfile.read(length).decode('utf-8'))
+                if app.ai_control is None:return self.send_body(503,b'{"error":"ai_mode_not_configured"}')
+                result=app.ai_control.request(payload)
+                app.model.update(ai_mode=result['desired_mode'])
+                return self.send_body(200,json.dumps(dict(result,nonce=app.ai_nonce),allow_nan=False).encode())
+            except ControlError as error:
+                code=str(error)
+                return self.send_body(409 if code in {'stale_revision','conflicting_request'} else 503 if code=='ai_control_unavailable' else 400,json.dumps(dict(error=code)).encode())
+            except (ValueError,TypeError,UnicodeError,RecursionError,BridgeError):return self.send_body(400,b'{"error":"invalid_ai_mode_request"}')
         def authoring_action(self):
             action=self.path.removeprefix('/api/authoring/')
             if action not in {'save','validate','publish','preview','run','cancel'}:return self.reject()

@@ -11,6 +11,7 @@ from uuid import UUID, uuid5
 from .bridge import BridgeClient, BridgeError, Descriptor, _uuid
 from .model import ModelSettings, ModelError, OllamaModel, VARIANTS, valid_narrative
 from .council import CouncilError, CouncilModel, CouncilSettings
+from .ai_control import ModeStore,RuntimeModels,ControlError
 
 class DirectorError(RuntimeError):
     pass
@@ -264,10 +265,10 @@ def council_deadline(view,settings,*,now=None):
     remaining=(view['goal']['expires']-view['activeTicks'])/20
     return now+max(0,min(settings.budget_seconds,remaining-settings.margin_seconds))
 
-def build_model(settings,mode):
+def build_model(settings,mode,*,continue_dual=None):
     primary=OllamaModel(settings)
     if mode=='live' and getattr(settings,'ai_mode','single')=='dual':
-        return CouncilModel(primary,OllamaModel(settings.critic),settings)
+        return CouncilModel(primary,OllamaModel(settings.critic),settings,continue_dual=continue_dual)
     return primary
 
 def load_config(path):
@@ -299,16 +300,19 @@ def main():
     parser.add_argument("--mode",choices=("preview","live"),default="preview")
     parser.add_argument("--stop-file",type=Path)
     args=parser.parse_args()
-    journal=None
+    journal=None;runtime_models=None
     try:
         settings,poll=load_config(args.config)
         client=BridgeClient(Descriptor.load(args.bridge))
         journal=Journal(args.journal)
-        director=(CinematicDirector if args.mode=="live" else Director)(client,build_model(settings,args.mode),journal)
+        runtime_models=RuntimeModels(settings,ModeStore(args.journal.parent/'ai-control.sqlite3'),args.mode)
+        director=(CinematicDirector if args.mode=="live" else Director)(client,runtime_models.refresh(),journal)
         previous=None
         while True:
             if args.stop_file and args.stop_file.exists():return 0
+            director.model=runtime_models.refresh()
             report=director.once()
+            director.model=runtime_models.refresh()
             if report != previous:
                 print(json.dumps(report,ensure_ascii=False,allow_nan=False),flush=True)
             previous=report
@@ -316,16 +320,20 @@ def main():
                 return 0
             for _ in range(poll):
                 if args.stop_file and args.stop_file.exists():return 0
+                director.model=runtime_models.refresh()
                 time.sleep(1)
     except KeyboardInterrupt:
         return 0
-    except (BridgeError,DirectorError,ModelError) as error:
+    except (BridgeError,DirectorError,ModelError,ControlError) as error:
         print("Dead Earth: "+str(error),file=sys.stderr)
         return 2
     except (sqlite3.Error,OSError,ValueError,KeyError,TypeError):
         print("Dead Earth: director_unavailable",file=sys.stderr)
         return 2
     finally:
+        if runtime_models:
+            try:runtime_models.close()
+            except ControlError:pass
         if journal:
             journal.close()
 

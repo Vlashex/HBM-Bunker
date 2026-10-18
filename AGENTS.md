@@ -1,5 +1,13 @@
 # Инструкции для следующих изменений
 
+- С5.5.1 human-only GET/POST `/api/ai-mode`, `ai_control.py`, `ai-mode.js`.
+  Общая `ai-control.sqlite3` рядом с decisions: desired UUID/CAS отдельно
+  от host ack. UI не должен выдавать saved/unknown за applied/released.
+  Single запрещает следующие council stages; текущий запрос завершается,
+  затем unload только critic digest и проверка `/api/ps`. Не выгружать primary,
+  не очищать файловый кеш ОС и не добавлять управление режимами в MCP.
+  Host/admin обновляются вместе; Java/GameTest для Python-only среза не нужны.
+
 - Срез5.5: `director/dead_earth_director/council.py` single по умолчанию; dual — один общий
   deadline, максимум proposal→critique→revision, при отказе критика сохраняй A.
   Две CPU-модели поочерёдно в одном6GiB контейнере; не возвращай GPU inference.

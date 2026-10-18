@@ -255,7 +255,7 @@ def director_entries(root, enabled):
     required = [root / "director" / name for name in ["README.md", "requirements.in", "requirements-windows-py312.lock", "setup.ps1"]]
     required += [root / "director" / name for name in ["director.example.toml", "models.lock.json", "model.ps1", "docker/compose.cpu.yaml"]]
     required += [package / "__init__.py", package / "__main__.py", root / "director/admin.ps1", root / "start-admin.bat"]
-    required += [package / "admin_web" / name for name in ("index.html", "admin.css", "admin.js", "authoring.css", "authoring.js")]
+    required += [package / "admin_web" / name for name in ("index.html", "admin.css", "admin.js", "authoring.css", "authoring.js", "evolution.css", "evolution.js", "ai-mode.js")]
     if package.is_symlink() or not package.resolve().is_relative_to(root.resolve()):
         raise ValueError("Unsafe director package directory")
     files = set(required)

@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "kind": "real_cpu_critic_unload_via_admin",
+  "client_or_server_started": false,
+  "computer_use": false,
+  "loaded_before": true,
+  "anonymous_bytes_before": 2144493568,
+  "elapsed_seconds": 0.5630000000001019,
+  "state": "applied",
+  "active_mode": "single",
+  "critic_memory": "released",
+  "anonymous_bytes_after": 12693504,
+  "vram_bytes": 0,
+  "status": "passed",
+  "sources": {
+    "ai_control.py": "99579d53fc309a793fa400b1806301616604d41d6d413cf874621e45ba7781b1",
+    "admin.py": "f8285e60d11bb97aea3ae7760448d2bd8dbd08fb390abc7b8937b46b23c51fbe",
+    "host.py": "37d184d2310882b4d7debe36d7d9c7b1f8205242ec8e3e578b6d0c55c7d63120",
+    "council.py": "2dde4f556614af4b86c0937eb10003ebf3d0ed16e2f2d4b1b4580ca1a102520b",
+    "admin_web/ai-mode.js": "e359496723cf0cec92a5ffba25a2e838ba6dd0228f09fec173635736972ea192"
+  }
+}

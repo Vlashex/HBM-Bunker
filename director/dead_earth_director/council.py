@@ -64,11 +64,12 @@ def parse_critique(raw, count):
 
 
 class CouncilModel:
-    def __init__(self, primary, critic, settings, *, clock=None):
+    def __init__(self, primary, critic, settings, *, clock=None,continue_dual=None):
         if settings.ai_mode != 'dual' or primary.settings.url != critic.settings.url:
             raise ModelError('council_invalid_settings')
         self.primary, self.critic, self.settings = primary, critic, settings
         self.clock = clock or time.monotonic
+        self.continue_dual=continue_dual or (lambda:True)
 
     def select(self, context, *, deadline=None):
         start = self.clock()
@@ -102,9 +103,9 @@ class CouncilModel:
                             remaining_ms=max(0, round((end - self.clock()) * 1000)))
                 stages.append(item)
 
-        def skipped(name, model):
+        def skipped(name, model,reason='council_deadline'):
             stages.append(dict(stage=name, model=model.settings.model, digest=model.settings.digest,
-                               status='skipped', error_code='council_deadline', elapsed_ms=0,
+                               status='skipped', error_code=reason, elapsed_ms=0,
                                remaining_ms=max(0, round((end - self.clock()) * 1000))))
 
         def summary(outcome, proposal=None, final=None):
@@ -119,7 +120,9 @@ class CouncilModel:
         except ModelError as error:
             raise CouncilError(str(error), summary('primary_failed')) from None
         final, outcome = proposal, 'critic_agreed'
-        if self.clock() >= end:
+        if not self.continue_dual():
+            skipped('critique',self.critic,'council_mode_changed');outcome='mode_changed'
+        elif self.clock() >= end:
             skipped('critique', self.critic); outcome = 'proposal_deadline'
         else:
             try:
@@ -127,7 +130,9 @@ class CouncilModel:
             except ModelError:
                 outcome = 'critic_failed'
             else:
-                if critique['option'] != proposal['option']:
+                if not self.continue_dual():
+                    skipped('revision',self.primary,'council_mode_changed');outcome='mode_changed'
+                elif critique['option'] != proposal['option']:
                     if self.clock() >= end:
                         skipped('revision', self.primary); outcome = 'revision_deadline'
                     else:
@@ -137,4 +142,5 @@ class CouncilModel:
                             outcome = 'revised'
                         except ModelError:
                             outcome = 'revision_failed'
+        if not self.continue_dual():final,outcome=proposal,'mode_changed'
         return final, summary(outcome, proposal, final)

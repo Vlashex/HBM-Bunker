@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://vlashex.github.io/HBM-Bunker/"><b>Сайт проекта ↗</b></a> &nbsp; / &nbsp;
   <a href="#быстрый-старт">Установка</a> &nbsp; / &nbsp;
-  <a href="docs/releases/5.5.0.md">Версия 5.5.0</a> &nbsp; / &nbsp;
+  <a href="docs/releases/5.5.1.md">Версия 5.5.1</a> &nbsp; / &nbsp;
   <a href="docs/DEAD-EARTH-ROADMAP.md">Roadmap</a> &nbsp; / &nbsp;
   <a href="CHANGELOG.md">История версий</a>
 </p>
