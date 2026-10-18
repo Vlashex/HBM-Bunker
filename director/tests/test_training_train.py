@@ -40,6 +40,14 @@ def config():
 
 
 class TrainEncodingTests(unittest.TestCase):
+    def test_new_tokenizer_dictionary_default_is_explicitly_disabled(self):
+        class DictionaryDefault(FakeTokenizer):
+            def apply_chat_template(self, messages, **kwargs):
+                ids = super().apply_chat_template(messages, **kwargs)
+                return ids if kwargs.get('return_dict') is False else {'input_ids': ids, 'attention_mask': [1] * len(ids)}
+        encoded = encode_row(DictionaryDefault(), row(), 128)
+        self.assertEqual(encoded['input_ids'][:3], [100, 101, 102])
+
     def test_only_canonical_answer_and_eos_are_supervised(self):
         tokenizer = FakeTokenizer()
         encoded = encode_row(tokenizer, row(), 128)
@@ -51,7 +59,7 @@ class TrainEncodingTests(unittest.TestCase):
         self.assertEqual([message['role'] for message in messages], ['system', 'user'])
         self.assertEqual(messages[0]['content'], selection_prompt(2))
         self.assertEqual(json.loads(messages[1]['content']), row()['context'])
-        self.assertEqual(kwargs, dict(tokenize=True, add_generation_prompt=True, enable_thinking=False))
+        self.assertEqual(kwargs, dict(tokenize=True, add_generation_prompt=True, enable_thinking=False, return_dict=False))
         self.assertEqual(len(tokenizer.calls), 1)
 
     def test_overlength_is_rejected_instead_of_truncating_prefix_or_answer(self):

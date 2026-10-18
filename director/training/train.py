@@ -71,7 +71,7 @@ def _count(row):
 def _prefix(tokenizer, row):
     messages = [dict(role='system', content=selection_prompt(_count(row))),
                 dict(role='user', content=_json(row['context']))]
-    ids = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, enable_thinking=False)
+    ids = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, enable_thinking=False, return_dict=False)
     if type(ids) is not list or not ids or any(type(token) is not int or token < 0 for token in ids):
         raise ValueError('invalid_chat_prefix_tokens')
     return ids
