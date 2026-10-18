@@ -1,0 +1,310 @@
+{
+  "schema": 1,
+  "status": "trained",
+  "base_commit": "88166728c5040877606a4524fdb9b28c48127476",
+  "config_sha256": "dcb9a4b4ecb3c35fac83857cfa0ac813a6832580624d2500860c47208842e710",
+  "completed_optimizer_steps": 48,
+  "actual_gradient_accumulation_steps": 2,
+  "elapsed_seconds": 739.9930741799999,
+  "training_seconds": 432.345989807,
+  "gpu": {
+    "budget_mib": 7000,
+    "capability": [
+      7,
+      5
+    ],
+    "dtype": "float16",
+    "name": "NVIDIA GeForce RTX 2060 SUPER",
+    "offload": false,
+    "total_mib": 8191.6875
+  },
+  "memory": {
+    "allocated_mib": 3237.25341796875,
+    "peak_allocated_mib": 5585.07958984375,
+    "peak_reserved_mib": 5620.0,
+    "reserved_mib": 3984.0
+  },
+  "dependencies": {
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "peft": "0.21.2",
+    "safetensors": "0.8.0",
+    "torch": "2.10.0+cu128",
+    "transformers": "5.20.1"
+  },
+  "data": {
+    "test": {
+      "families": [
+        "forest_only_recovery",
+        "heat_soft_exploration",
+        "mixed_front_repelled",
+        "winter_single_survivor"
+      ],
+      "rows": 160,
+      "sha256": "c0b55d5e5d9471ab6423ccdf459ca9616b2d72e518c328b37f40afb2dc82debd"
+    },
+    "train": {
+      "families": [
+        "forest_opening",
+        "heat_diversion",
+        "incubation_patience",
+        "pressure_side_switch",
+        "pursuit_recovery",
+        "reconnaissance_repelled",
+        "single_allowed",
+        "winter_probe"
+      ],
+      "rows": 384,
+      "sha256": "f3e1c580b1c5c262b00f844b808097c5f6c4a63ec558cfd5586529d63d3fe714"
+    },
+    "validation": {
+      "families": [
+        "forest_pressure_reversal",
+        "unknown_old_history",
+        "winter_exhausted_probe"
+      ],
+      "rows": 148,
+      "sha256": "1849fa02d83dffbfe6d3e9bbcd937a26f544cb1329103d115ba919d1dc9967b8"
+    }
+  },
+  "quantization": {
+    "bits": 4,
+    "compute_dtype": "float16",
+    "double_quant": true,
+    "type": "nf4"
+  },
+  "sequence_lengths": {
+    "test": {
+      "max": 638,
+      "min": 330
+    },
+    "train": {
+      "max": 643,
+      "min": 328
+    },
+    "validation": {
+      "max": 636,
+      "min": 375
+    }
+  },
+  "sources": {
+    "dead_earth_director/tactics.py": "be44ec298e2a81e8336098cd2c050ade324db314256722ba389f70053642d807",
+    "training/dataset.py": "919c71032fcce79ca93fb5074dcd1206636199025e802cfa1065232cf0497c71",
+    "training/evaluation.py": "8f69e6735b8182ab59e8a6597a9627d74ad61f82825772270dcb5724bfdbdb18",
+    "training/train.py": "8664c54f4ad563bbe7f484218591dba47e0ccadb5becacba873decac1a9f406f"
+  },
+  "artifacts": {
+    "adapter/README.md": "b35b96fc52d701fa2949463f8fe3e20ed039e601ce03da2cfe342a19c5cd133a",
+    "adapter/adapter_config.json": "2c77e1c82c64af7474191e9036d2fbee5c598fbbd6a4571f137cb77ce96520f6",
+    "adapter/adapter_model.safetensors": "5f0583b66664885ebef0dcf41a93c66ced33071e3b90f865705926a73953c034",
+    "tokenizer/chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+    "tokenizer/tokenizer.json": "a5cd9732badce41de57e6efce8302930ded1c1188c5f81feb2bd6c24c4a1941f",
+    "tokenizer/tokenizer_config.json": "6fc30221b0ec773811dfa2a04ebf0eec1a7e36a3bb1698888e28b38eabc1126c"
+  },
+  "nonzero_lora_b": true,
+  "optimizer_state_entries": 496,
+  "last_loss": 0.05998151714447886,
+  "limitation": "Weak synthetic policy agreement, not real-player success.",
+  "lora": {
+    "alpha": 16,
+    "gradient_checkpointing_use_reentrant": false,
+    "rank": 8,
+    "trainable_parameters": 16232448,
+    "target_module_count": 248
+  },
+  "evaluation": {
+    "baseline": {
+      "choice": {
+        "agreed": 71,
+        "extra_predictions": 0,
+        "kind": "synthetic_policy_evaluation",
+        "limitation": "Policy agreement with weak synthetic labels; not measured real-player success.",
+        "max_seconds": 1.9272745250000014,
+        "mean_seconds": 0.6499363347062509,
+        "method": "constrained_logit_choice",
+        "missing_predictions": 0,
+        "per_family": {
+          "forest_only_recovery": {
+            "agreed": 12,
+            "policy_agreement": 0.35294117647058826,
+            "total": 34
+          },
+          "heat_soft_exploration": {
+            "agreed": 19,
+            "policy_agreement": 0.3333333333333333,
+            "total": 57
+          },
+          "mixed_front_repelled": {
+            "agreed": 28,
+            "policy_agreement": 0.49122807017543857,
+            "total": 57
+          },
+          "winter_single_survivor": {
+            "agreed": 12,
+            "policy_agreement": 1.0,
+            "total": 12
+          }
+        },
+        "permutation": {
+          "consistent_groups": 16,
+          "groups": 36,
+          "same_event_rate": 0.4444444444444444,
+          "singleton_groups": 12
+        },
+        "policy_agreement": 0.44375,
+        "repeat_after_repelled": {
+          "eligible_rows": 57,
+          "rate": 0.0,
+          "selected_rows": 0
+        },
+        "total": 160
+      },
+      "generation": {
+        "agreed": 3,
+        "contract_error_ids": [],
+        "contract_valid": 8,
+        "contract_valid_rate": 1.0,
+        "do_sample": false,
+        "extra_predictions": 0,
+        "json_valid_rate": 1.0,
+        "kind": "synthetic_policy_evaluation",
+        "limitation": "Policy agreement with weak synthetic labels; not measured real-player success.",
+        "max_new_tokens": 24,
+        "max_seconds": 2.88304186000002,
+        "mean_seconds": 2.680252617124996,
+        "method": "greedy_json_generation",
+        "missing_predictions": 0,
+        "per_family": {
+          "heat_soft_exploration": {
+            "agreed": 2,
+            "contract_valid": 3,
+            "contract_valid_rate": 1.0,
+            "json_valid_rate": 1.0,
+            "policy_agreement": 0.6666666666666666,
+            "total": 3
+          },
+          "mixed_front_repelled": {
+            "agreed": 1,
+            "contract_valid": 5,
+            "contract_valid_rate": 1.0,
+            "json_valid_rate": 1.0,
+            "policy_agreement": 0.2,
+            "total": 5
+          }
+        },
+        "permutation": {
+          "consistent_groups": 0,
+          "groups": 0,
+          "same_event_rate": null,
+          "singleton_groups": 8
+        },
+        "policy_agreement": 0.375,
+        "repeat_after_repelled": {
+          "eligible_rows": 5,
+          "rate": 0.0,
+          "selected_rows": 0
+        },
+        "total": 8
+      }
+    },
+    "after": {
+      "choice": {
+        "agreed": 45,
+        "extra_predictions": 0,
+        "kind": "synthetic_policy_evaluation",
+        "limitation": "Policy agreement with weak synthetic labels; not measured real-player success.",
+        "max_seconds": 1.3620701410000038,
+        "mean_seconds": 0.6168776943625005,
+        "method": "constrained_logit_choice",
+        "missing_predictions": 0,
+        "per_family": {
+          "forest_only_recovery": {
+            "agreed": 21,
+            "policy_agreement": 0.6176470588235294,
+            "total": 34
+          },
+          "heat_soft_exploration": {
+            "agreed": 0,
+            "policy_agreement": 0.0,
+            "total": 57
+          },
+          "mixed_front_repelled": {
+            "agreed": 12,
+            "policy_agreement": 0.21052631578947367,
+            "total": 57
+          },
+          "winter_single_survivor": {
+            "agreed": 12,
+            "policy_agreement": 1.0,
+            "total": 12
+          }
+        },
+        "permutation": {
+          "consistent_groups": 15,
+          "groups": 36,
+          "same_event_rate": 0.4166666666666667,
+          "singleton_groups": 12
+        },
+        "policy_agreement": 0.28125,
+        "repeat_after_repelled": {
+          "eligible_rows": 57,
+          "rate": 0.0,
+          "selected_rows": 0
+        },
+        "total": 160
+      },
+      "generation": {
+        "agreed": 1,
+        "contract_error_ids": [],
+        "contract_valid": 8,
+        "contract_valid_rate": 1.0,
+        "do_sample": false,
+        "extra_predictions": 0,
+        "json_valid_rate": 1.0,
+        "kind": "synthetic_policy_evaluation",
+        "limitation": "Policy agreement with weak synthetic labels; not measured real-player success.",
+        "max_new_tokens": 24,
+        "max_seconds": 3.7316418939999494,
+        "mean_seconds": 2.668020453125038,
+        "method": "greedy_json_generation",
+        "missing_predictions": 0,
+        "per_family": {
+          "heat_soft_exploration": {
+            "agreed": 0,
+            "contract_valid": 3,
+            "contract_valid_rate": 1.0,
+            "json_valid_rate": 1.0,
+            "policy_agreement": 0.0,
+            "total": 3
+          },
+          "mixed_front_repelled": {
+            "agreed": 1,
+            "contract_valid": 5,
+            "contract_valid_rate": 1.0,
+            "json_valid_rate": 1.0,
+            "policy_agreement": 0.2,
+            "total": 5
+          }
+        },
+        "permutation": {
+          "consistent_groups": 0,
+          "groups": 0,
+          "same_event_rate": null,
+          "singleton_groups": 8
+        },
+        "policy_agreement": 0.125,
+        "repeat_after_repelled": {
+          "eligible_rows": 5,
+          "rate": 0.0,
+          "selected_rows": 0
+        },
+        "total": 8
+      }
+    }
+  },
+  "promotion": {
+    "status": "rejected",
+    "reason": "Held-out synthetic policy agreement fell from 71/160 to 45/160. Production pin unchanged; no GGUF export."
+  },
+  "training_image": "dead-earth-training:20261018@sha256:a9e5e5aa49ed75a4254611f8a080654e108402e7a3d04290b84ed4a95571facc"
+}

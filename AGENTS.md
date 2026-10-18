@@ -1,5 +1,22 @@
 # Инструкции для следующих изменений
 
+- Срез5.5: `director/dead_earth_director/council.py` single по умолчанию; dual — один общий
+  deadline, максимум proposal→critique→revision, при отказе критика сохраняй A.
+  Две CPU-модели поочерёдно в одном6GiB контейнере; не возвращай GPU inference.
+  Модель выбирает catalog event; свободный исполняемый граф пока не генерирует.
+- EventAnalytics — отдельный SavedData, actual HP/absorption и committed death,
+  максимум одна атрибуция; proxy не означает намерение игрока. Новая аналитика
+  пока не входит в model context. Read-only get_event_analytics без консоли.
+  Timeline seq и pointsWeights сохраняются; wire truncation != droppedTimeline.
+  Admin archive scope-bound≤512/7days, lazy dossier, unknown старого сервера.
+- CinematicStore/EventAnalyticsStore schema2 используют byte array UTF-8:
+  не возвращай JSON в TAG_STRING (NBT writeUTF65535байт). Legacy1 читается,
+  неизвестные файлы сохраняются; rollback только с совместимой копией мира.
+- QLoRA48-step кандидат18.10 отклонён (44.375%→28.125% synthetic held-out).
+  Не устанавливай адаптер как улучшение. Pin production прежний; данные,
+  freeze/хеши/ограничения — verification/director-training/. Новая итерация
+  не должна подбирать параметры по уже просмотренному test split.
+
 - Эволюция 5.4: `evolution/`, `config/dead-earth/evolution.json`, namespace
   `dead_earth_evolution` в полном прогоне. Шесть фаз 0…5, progress только online,
   migration once из Campaign.activeTicks×migrationRate. Нативный time/stage/paused

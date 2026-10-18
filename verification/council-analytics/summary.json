@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "release": "5.5.0",
+  "coordinator": "4.4.0",
+  "java": {
+    "tests": 211,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "director_python": {
+    "tests": 121,
+    "failures": 0,
+    "elapsed_seconds": 34.04
+  },
+  "pack_python": {
+    "tests": 16,
+    "failures": 0
+  },
+  "dom_suites": [
+    "admin_ui_test",
+    "analytics_ui_test",
+    "authoring_ui_test",
+    "evolution_ui_test"
+  ],
+  "native": {
+    "passed": 25,
+    "required": 25,
+    "namespaces": [
+      "dead_earth_cinematic",
+      "dead_earth_cinematic_review",
+      "dead_earth_evolution"
+    ],
+    "test_seconds": 19.58,
+    "gradle_wall_seconds": 96,
+    "fresh_world": true,
+    "first_run_failures": 2,
+    "first_run_cause": "Fixture retained native ServerPlayer 60-tick spawn invulnerability; fixture-only correction, no gameplay damage guard changes."
+  },
+  "own_artifact": {
+    "filename": "dead-earth-4.4.0.jar",
+    "version": "4.4.0",
+    "mod_id": "dead_earth",
+    "artifact": "mods/dead-earth/build/libs/dead-earth-4.4.0.jar",
+    "entrypoint": "dev/deadearth/DeadEarth.class",
+    "size": 1005442,
+    "sha256": "22b75ed4fefcde765168330af7bf95e123e0f42f73c5f5e98e6acb0722c7a23a"
+  },
+  "review": {
+    "important_findings": 3,
+    "fixed": 3,
+    "regression_red_green": true,
+    "additional_queue_nbt_regression": true
+  },
+  "scope": {
+    "computer_use": false,
+    "screenshots": false,
+    "user_world_modified": false,
+    "client_server_updated": false,
+    "production_model_pin_changed": false,
+    "new_concurrent_client_server_council_stress": false,
+    "public_push": false
+  }
+}

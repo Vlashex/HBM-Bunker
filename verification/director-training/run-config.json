@@ -1,0 +1,21 @@
+{
+  "attention_implementation": "sdpa",
+  "base_commit": "88166728c5040877606a4524fdb9b28c48127476",
+  "batch_size": 1,
+  "generation_rows": 8,
+  "gradient_accumulation_steps": 2,
+  "initial_loss_scale": 1.0,
+  "learning_rate": 0.0001,
+  "lora_alpha": 16,
+  "lora_rank": 8,
+  "max_length": 1536,
+  "max_steps": 48,
+  "memory_budget_mib": 7000,
+  "model_id": "Qwen/Qwen3.5-4B",
+  "model_path": "/cache/base4b",
+  "model_revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "seed": 20261018,
+  "test_rows": 160,
+  "validation_interval": 16,
+  "validation_rows": 32
+}
