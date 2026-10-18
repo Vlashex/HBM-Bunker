@@ -102,7 +102,7 @@ public final class NativeSeasonGameTests {
         var util=Class.forName("com.asestefan.mutationcraft.ModUtil");
         var data=(CompoundTag)util.getMethod("data",Entity.class).invoke(null,mob);data.putInt("Evolve",threshold-remaining);
         var nativeTick=Class.forName("com.asestefan.mutationcraft.behavior.HumanStageEvolution").getMethod("tick",Mob.class,String.class,EntityType.class);
-        try {
+        try(var evolution=EvolutionNativeGameTests.phaseFiveWithPlayer(helper)) {
             SeasonState.update(phase,1);
             for(int i=0;i<calls-1;i++) {nativeTick.invoke(null,mob,"Evolve",EntityType.ZOMBIE);helper.assertTrue(!mob.isRemoved(),"Native evolution happened too early");}
             nativeTick.invoke(null,mob,"Evolve",EntityType.ZOMBIE);

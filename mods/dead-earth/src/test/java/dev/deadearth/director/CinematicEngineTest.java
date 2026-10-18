@@ -17,6 +17,15 @@ class CinematicEngineTest {
     static CinematicCatalog catalog()throws Exception{return CinematicCatalog.parse(source());}
     static CinematicEngine.Context context(long now,String season){return new CinematicEngine.Context(now,2,season,1.2,
         List.of(new CinematicEngine.Zone(ZONE,100,1,2,20,true,false,2,3,0)));}
+    @Test void phaseZeroKeepsForestEventsButRejectsParasiteChoicesAfterDowngrade()throws Exception {
+        var c=catalog();var engine=new CinematicEngine();var old=context(0,"CALM");
+        var early=new CinematicEngine.Context(0,2,"CALM",1.2,old.zones(),0);
+        var options=engine.options(c,early);
+        assertFalse(options.isEmpty());assertTrue(options.stream().allMatch(o->o.faction().equals("forest")));
+        var goal=engine.brief(EPOCH,c,old,true);assertNotNull(goal);
+        var attack=goal.options().stream().filter(o->!o.faction().equals("forest")).findFirst().orElseThrow();
+        assertFalse(engine.admit(UUID.randomUUID(),goal.id(),attack.eventId(),attack.zoneId(),EPOCH,c,early,true).accepted());
+    }
     static class Port implements CinematicEngine.World {
         CinematicEngine engine;boolean ready=true;int living=0,emissions=0,spawned=0;Set<String> signals=Set.of();
         List<CinematicEngine.Snapshot> barriers=new ArrayList<>();List<String> effects=new ArrayList<>();

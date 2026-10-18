@@ -75,7 +75,7 @@ public final class DefenseProtectionGameTests {
         var corruption=Class.forName("com.yayuy.overgrownvegetation.corruption.CorruptionRegistry");
         var canCorrupt=corruption.getMethod("canCorrupt",LevelReader.class,BlockPos.class,BlockState.class,boolean.class);
         var convert=corruption.getMethod("placeCorrupted",net.minecraft.world.level.LevelAccessor.class,BlockPos.class,BlockState.class,BlockState.class,int.class);
-        try {
+        try(var evolution=EvolutionNativeGameTests.phaseFiveWithPlayer(h)) {
             for(var shape:List.of("wall","door","hatch"))for(int tier=1;tier<=3;tier++) {
                 clear(level,base);var source=base;var target=source.above();var state=block("dead_earth:defense_"+shape+"_v"+tier).defaultBlockState();
                 place(level,target,state);level.setBlock(source,putrid.defaultBlockState(),2);
@@ -126,7 +126,7 @@ public final class DefenseProtectionGameTests {
         var config=Class.forName("com.asestefan.mutationcraft.config.MutationcraftConfig");
         var setting=config.getField("HOOKS_PLACE_PUTRID_BLOCKS").get(null);
         h.assertTrue((boolean)setting.getClass().getMethod("get").invoke(setting),"Native Hook placement must be enabled in the fresh fixture config");
-        try {
+        try(var evolution=EvolutionNativeGameTests.phaseFiveWithPlayer(h)) {
             var wall=block("dead_earth:defense_wall_v3").defaultBlockState();place(level,base,wall);
             h.assertTrue(hook!=null&&Class.forName("com.asestefan.mutationcraft.entity.HookEntity").isInstance(hook),"Native light Hook fixture missing");
             hook.moveTo(base.getX()+0.5,base.getY()+1,base.getZ()+0.5,0,0);

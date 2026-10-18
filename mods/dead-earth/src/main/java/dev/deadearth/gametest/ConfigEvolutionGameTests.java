@@ -3,6 +3,8 @@ import static dev.deadearth.config.DeadEarthConfig.*;
 import dev.deadearth.DeadEarth;
 import dev.deadearth.climate.*;
 import dev.deadearth.difficulty.*;
+import dev.deadearth.evolution.EvolutionCatalog;
+import dev.deadearth.evolution.EvolutionState;
 import net.minecraft.gametest.framework.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -59,6 +61,10 @@ public final class ConfigEvolutionGameTests {
   var mapType=Class.forName("com.asestefan.mutationcraft.network.ModVariables$MapVariables");
   var map=mapType.getMethod("get",LevelAccessor.class).invoke(null,level);var time=mapType.getField("time");var paused=mapType.getField("paused");
   double original=time.getDouble(map);boolean wasPaused=paused.getBoolean(map);
+  var previousEvolution=EvolutionState.published(level.getServer());
+  // This legacy adapter test explicitly exercises controller-disabled/manual mode.
+  var legacyCatalog=com.google.gson.JsonParser.parseString(EvolutionCatalog.defaults().source()).getAsJsonObject();legacyCatalog.addProperty("enabled",false);
+  EvolutionState.publish(level.getServer(),EvolutionCatalog.parse(legacyCatalog.toString()),0);
   try {
    paused.setBoolean(map,false);SeasonState.update(ClimateCycle.Phase.CALM,1);variables.getMethod("tickTime",Level.class).invoke(null,level);
    double first=time.getDouble(map)-original;SeasonState.update(ClimateCycle.Phase.CALM,1.5);variables.getMethod("tickTime",Level.class).invoke(null,level);
@@ -71,7 +77,7 @@ public final class ConfigEvolutionGameTests {
    SeasonState.update(ClimateCycle.Phase.CALM,1);add.invoke(normal,level,20L);SeasonState.update(ClimateCycle.Phase.CALM,1.5);add.invoke(strong,level,20L);
    long a=(long)points.invoke(normal),b=(long)points.invoke(strong);h.assertTrue(a>0&&Math.abs(b/(double)a-1.5)<.001,"Native forest points ignored adaptive pressure");
    h.assertTrue(runtime.climateStatus().equals(season),"Adaptive biology changed seasonal calendar");
-  } finally {time.setDouble(map,original);paused.setBoolean(map,wasPaused);SeasonState.reset();}
+  } finally {time.setDouble(map,original);paused.setBoolean(map,wasPaused);SeasonState.reset();EvolutionState.restore(level.getServer(),previousEvolution);}
   h.succeed();
  }
 }

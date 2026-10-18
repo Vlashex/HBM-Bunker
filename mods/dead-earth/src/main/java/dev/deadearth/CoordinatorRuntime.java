@@ -32,6 +32,7 @@ public final class CoordinatorRuntime {
     private final CampaignStore campaign;
     private final ClimateStore climate;
     private final dev.deadearth.difficulty.AdaptiveStore adaptive;
+    private final dev.deadearth.evolution.EvolutionController evolution;
     private final dev.deadearth.difficulty.PlayerStatistics statistics=new dev.deadearth.difficulty.PlayerStatistics();
     private final ScenarioStore scenarios;
     private final ObservationStore observations;
@@ -69,6 +70,8 @@ public final class CoordinatorRuntime {
         climate = campaign.enabled() && adaptive.enabled() ? SavedDataAccess.open(server.overworld(), ClimateStore.NAME,
                 new SavedData.Factory<>(() -> ClimateStore.create(campaign.campaign().campaignId(),campaign.campaign().activeTicks()),
                         (tag, registries) -> ClimateStore.load(campaign.campaign().campaignId(),campaign.campaign().activeTicks(),tag,registries))) : null;
+        evolution=campaign.enabled()&&adaptive!=null&&adaptive.enabled()&&climate!=null&&climate.enabled()
+                ?new dev.deadearth.evolution.EvolutionController(server,campaign):null;
         bridge = new BridgeController(server, this);
         cinematics=enabled()?new dev.deadearth.director.CinematicDirector(server,this):null;
         if (enabled()) {
@@ -82,24 +85,30 @@ public final class CoordinatorRuntime {
 
     public boolean enabled() { return fault == null && campaign.enabled() && scenarios != null && scenarios.enabled()
             && observations != null && observations.enabled() && sites != null && sites.enabled()
-            && climate != null && climate.enabled() && adaptive != null && adaptive.enabled(); }
+            && climate != null && climate.enabled() && adaptive != null && adaptive.enabled()
+            && evolution!=null&&evolution.enabled(); }
     public dev.deadearth.director.CinematicDirector cinematics(){requireReady();return cinematics;}
     public void cinematicSignal(UUID operation,String kind,String role){requireServerThread();if(cinematics!=null)cinematics.signal(operation,kind,role);}
     public UUID epoch() { return epoch; }
     public BridgeController bridge() { requireServerThread(); return bridge; }
-    public void close() { requireServerThread(); bridge.close(); }
+    public void close() { requireServerThread(); bridge.close();dev.deadearth.evolution.EvolutionState.clear(server); }
     public CampaignStore campaign() { requireServerThread(); return campaign; }
     public record Snapshot(UUID campaignId, UUID worldEpoch, long activeTicks, int onlinePlayers,
             ObservationLog.Snapshot observations, List<SiteRegistry.Site> discoveredSites,
             ClimateCycle.Snapshot climate, boolean climateEffectsEnabled, dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty,
-            List<dev.deadearth.zone.ZoneScanner.Summary> zones) {
+            List<dev.deadearth.zone.ZoneScanner.Summary> zones,dev.deadearth.evolution.EvolutionController.Snapshot parasites) {
         public Snapshot { discoveredSites = List.copyOf(discoveredSites); zones = List.copyOf(zones); }
+        public Snapshot(UUID campaignId,UUID worldEpoch,long activeTicks,int onlinePlayers,ObservationLog.Snapshot observations,
+                List<SiteRegistry.Site> discoveredSites,ClimateCycle.Snapshot climate,boolean climateEffectsEnabled,
+                dev.deadearth.difficulty.AdaptiveStore.Snapshot difficulty,List<dev.deadearth.zone.ZoneScanner.Summary> zones) {
+            this(campaignId,worldEpoch,activeTicks,onlinePlayers,observations,discoveredSites,climate,climateEffectsEnabled,difficulty,zones,null);
+        }
     }
     public Snapshot snapshot() {
         requireReady();
         return new Snapshot(campaign.campaign().campaignId(), epoch, campaign.campaign().activeTicks(),
                 server.getPlayerCount(), observations.log().snapshot(), sites.registry().sites().stream().filter(s -> s.discoverer() != null).toList(),
-                climateStatus(),true,difficultyStatus(),dev.deadearth.zone.ZoneLoaders.summaries(server));
+                climateStatus(),true,difficultyStatus(),dev.deadearth.zone.ZoneLoaders.summaries(server),evolutionStatus());
     }
     public record DirectorSnapshot(dev.deadearth.director.DirectorPolicy.Brief planning, String season, double pressure) {}
     private dev.deadearth.director.DirectorPolicy.Settings directorSettings() {
@@ -124,6 +133,19 @@ public final class CoordinatorRuntime {
         requireReady(); return climate.cycle().view(campaign.campaign().activeTicks());
     }
     public dev.deadearth.difficulty.AdaptiveStore.Snapshot difficultyStatus() {requireReady();return adaptive.view(effectiveSeason(),campaign.campaign().activeTicks());}
+    public dev.deadearth.evolution.EvolutionController.Snapshot evolutionStatus(){
+        requireServerThread();
+        if(evolution!=null&&fault==null)return evolution.snapshot(epoch,enabled()?difficultyStatus().parasiteEvolutionRate():0,!enabled()||server.getPlayerCount()==0);
+        return new dev.deadearth.evolution.EvolutionController.Snapshot("unavailable",false,campaign.enabled()?campaign.campaign().campaignId():new UUID(0,0),epoch,0,"0".repeat(64),0,"Недоступно",0,0,0,null,0,true,"unavailable",List.of(),List.of(),List.of());
+    }
+    public dev.deadearth.evolution.EvolutionController.Shift shiftEvolution(UUID campaignId,UUID expectedEpoch,long revision,UUID request,int delta){
+        requireReady();
+        if(campaignId==null||expectedEpoch==null||request==null||revision<0||Math.abs(delta)!=1)
+            throw new IllegalArgumentException("Phase delta must be -1 or 1");
+        try{return evolution.shift(campaignId,expectedEpoch,epoch,revision,request,delta,difficultyStatus().parasiteEvolutionRate(),server.getPlayerCount()==0);}
+        catch(RuntimeException failure){disable(failure);throw failure;}
+    }
+    public dev.deadearth.evolution.EvolutionCatalog evolutionCatalog(){requireReady();return evolution.catalog();}
     public void playerLeft(UUID player){requireServerThread();statistics.forget(player);}
     public void testPressure(double value){requireReady();adaptive.testPressure(value);checkpoint();}
     public List<ClimateCycle.Window> climateForecast() {
@@ -218,6 +240,7 @@ public final class CoordinatorRuntime {
             var season=effectiveSeason();
             double pressure=dev.deadearth.difficulty.IntroDifficulty.pressure(campaign.campaign().activeTicks(),adaptive.pressure());
             dev.deadearth.climate.SeasonState.update(season,pressure);
+            evolution.advance(campaign.campaign().activeTicks(),server.getPlayerCount()>0,difficultyStatus().parasiteEvolutionRate());
             weather.tick(server.overworld(),season,server.getPlayerCount()>0,climate.cycle().view(campaign.campaign().activeTicks()).cycle());
             if (server.getPlayerCount()>0 && server.getTickCount()%i(NETWORK_REFRESH)==0)
                 for(var player:server.getPlayerList().getPlayers())
@@ -297,6 +320,7 @@ public final class CoordinatorRuntime {
         try {
             SavedDataAccess.checkpoint(server.overworld(), CampaignStore.NAME, campaign);
             SavedDataAccess.checkpoint(server.overworld(), dev.deadearth.difficulty.AdaptiveStore.NAME, adaptive);
+            evolution.checkpoint();
             SavedDataAccess.checkpoint(server.overworld(), ClimateStore.NAME, climate);
             SavedDataAccess.checkpoint(server.overworld(), ScenarioStore.NAME, scenarios);
             SavedDataAccess.checkpoint(server.overworld(), ObservationStore.NAME, observations);
@@ -306,6 +330,7 @@ public final class CoordinatorRuntime {
     private void disable(RuntimeException error) {
         if (fault == null) {
             fault = error.getClass().getSimpleName();
+            dev.deadearth.evolution.EvolutionState.clear(server);
             dev.deadearth.climate.SeasonState.reset();
             for(var player:server.getPlayerList().getPlayers()) try {
                 if(net.neoforged.neoforge.network.registration.NetworkRegistry.hasChannel(player.connection,dev.deadearth.climate.SeasonNetwork.State.TYPE.id()))

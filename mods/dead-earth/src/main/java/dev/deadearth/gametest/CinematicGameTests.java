@@ -27,6 +27,7 @@ public final class CinematicGameTests {
     @GameTest(template="empty",batch="cinematic_physical",timeoutTicks=80)
     public static void placedTraceDoesNotBlockLaterSoundOrWaveAnchor(GameTestHelper h) {
         var level=h.getLevel();var server=level.getServer();var director=DeadEarth.runtime(server).cinematics();
+        var oldPhase=dev.deadearth.evolution.EvolutionState.published(server);
         var base=new BlockPos(1800008,200,1800008);
         for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)level.getChunk(base.getX()/16+x,base.getZ()/16+z);
         for(int x=-16;x<32;x++)for(int z=-16;z<32;z++)level.setBlock(new BlockPos(1800000+x,200,1800000+z),Blocks.STONE.defaultBlockState(),3);
@@ -35,7 +36,7 @@ public final class CinematicGameTests {
             client.player().setPos(base.getX()+.5,201,base.getZ()+.5);client.player().setYRot(90);client.player().setXRot(0);
             var zone=ZoneLoaders.zones(server).stream().filter(v->v.loaders().stream().anyMatch(l->l.x()==base.getX())).findFirst().orElseThrow();
             var c=catalog();var op=new CinematicEngine.Operation(UUID.fromString("00000000-0000-4000-8000-000000000001"),UUID.randomUUID(),
-                CinematicEngine.freeze(c,"spore_lure"),"spore_lure",zone.id().toString(),CinematicEngine.State.WAITING,"pollen",0,0,4800,0,4,0,"",Set.of());
+                CinematicEngine.freeze(c,"false_siege"),"false_siege",zone.id().toString(),CinematicEngine.State.WAITING,c.events().get("false_siege").start(),0,0,c.events().get("false_siege").lifetimeTicks(),0,4,0,"",Set.of());
             director.emit(op,new CinematicCatalog.Action("trace","spore_1","approach",0),0,c);
             var traces=new ArrayList<TraceContent.TraceEntity>();
             for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++)for(var be:level.getChunk(base.getX()/16+x,base.getZ()/16+z).getBlockEntities().values())
@@ -47,10 +48,19 @@ public final class CinematicGameTests {
             director.emit(op,new CinematicCatalog.Action("sound","test","approach",0),0,loud);
             int heard=0;while((packet=client.channel().readOutbound())!=null)if(packet instanceof ClientboundSoundPacket)heard++;
             h.assertTrue(heard==1,"Existing own trace silenced the next spatial cue");
-            director.emit(op,new CinematicCatalog.Action("wave","scouts","approach",1),1,c);
-            h.assertTrue(director.livingOwned()>0,"Own trace prevented a valid native scout spawn");
+            var saved=CinematicCatalog.parse(op.frozenCatalog());
+            int before=director.livingOwned();
+            dev.deadearth.evolution.EvolutionState.publish(server,dev.deadearth.evolution.EvolutionCatalog.defaults(),0);
+            director.emit(op,new CinematicCatalog.Action("wave","flankers","approach",1),1,saved);
+            h.assertTrue(director.livingOwned()==before,"Restored wave bypassed phase zero");
+            dev.deadearth.evolution.EvolutionState.publish(server,dev.deadearth.evolution.EvolutionCatalog.defaults(),1);
+            director.emit(op,new CinematicCatalog.Action("wave","flankers","approach",1),1,c);
+            h.assertTrue(director.livingOwned()==before+1,"Own trace prevented a valid unlocked native scout spawn");
+            dev.deadearth.evolution.EvolutionState.publish(server,dev.deadearth.evolution.EvolutionCatalog.defaults(),0);
+            director.emit(op,new CinematicCatalog.Action("wave","flankers","approach",1),8,saved);
+            h.assertTrue(director.livingOwned()==before+1,"Queued wave ignored downgrade or removed the existing scout");
             traces.forEach(t->level.removeBlock(t.getBlockPos(),false));
-        } finally {level.removeBlock(base,false);}
+        } finally {level.removeBlock(base,false);dev.deadearth.evolution.EvolutionState.restore(server,oldPhase);}
         h.succeed();
     }
     @GameTest(template="empty",batch="cinematic_interaction",timeoutTicks=180)
@@ -61,6 +71,7 @@ public final class CinematicGameTests {
         for(int x=-16;x<32;x++)for(int z=-16;z<32;z++)level.setBlock(new BlockPos(1900000+x,200,1900000+z),Blocks.STONE.defaultBlockState(),3);
         level.setBlock(base,ZoneLoaderContent.LOADER.get().defaultBlockState(),3);
         var client=FoundationGameTests.attach(h);client.player().setPos(base.getX()+.5,201,base.getZ()+.5);
+        client.player().setGameMode(net.minecraft.world.level.GameType.SURVIVAL);
         // Only this isolated fixture enables automatic cinematic execution.
         boolean previous=dev.deadearth.config.DeadEarthConfig.b(dev.deadearth.config.DeadEarthConfig.DIRECTOR_ENABLED);
         UUID[] operation={null};

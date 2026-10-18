@@ -39,7 +39,7 @@ public final class CinematicDirector implements CinematicEngine.World {
     private final Map<UUID,List<TraceContent.TraceEntity>> marks=new HashMap<>();
     private final Map<UUID,LivingEntity> owned=new HashMap<>();
     private long lastTick=-1;
-    public record Brief(String status,String catalogRevision,long activeTicks,String season,double pressure,
+    public record Brief(String status,String catalogRevision,long activeTicks,String season,double pressure,int parasitePhase,
             CinematicEngine.Goal goal,List<CinematicEngine.History> recent,int active,int queued) {}
     public record OperatorStatus(int protocol,UUID campaignId,UUID worldEpoch,String catalogRevision,String sourceHash,
             boolean enabled,long activeTicks,List<CinematicEngine.Zone> zones) {}
@@ -73,7 +73,8 @@ public final class CinematicDirector implements CinematicEngine.World {
     private long now(){return runtime.campaign().campaign().activeTicks();}
     private boolean enabled(){return b(DIRECTOR_ENABLED)&&catalog!=null&&store.enabled()&&fault==null;}
     public CinematicEngine.Context context() {
-        if(catalog==null)return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.of());
+        int phase=dev.deadearth.evolution.EvolutionState.phase(server.overworld());
+        if(catalog==null)return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.of(),phase);
         var rules=catalog.rules();var history=runtime.snapshot().observations().history();
         var summaries=ZoneLoaders.summaries(server);var zones=new ArrayList<CinematicEngine.Zone>();
         for(var z:ZoneLoaders.zones(server)) {
@@ -87,7 +88,7 @@ public final class CinematicDirector implements CinematicEngine.World {
                 &&now()-h.tick()<=rules.count("deathMemoryTicks")&&players.stream().anyMatch(p->p.getUUID().equals(h.player()))).count();
             zones.add(new CinematicEngine.Zone(z.id().toString(),s.value(),s.armedRank(),s.emptyRank(),s.ageTicks(),s.complete(),s.overflow(),players.size(),playerScore,deaths));
         }
-        return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.copyOf(zones));
+        return new CinematicEngine.Context(now(),server.getPlayerCount(),runtime.effectiveSeason().name(),runtime.difficultyStatus().pressure(),List.copyOf(zones),phase);
     }
     public Brief brief() {
         runtime.requireServerThread();var context=context();var engine=store.enabled()?store.engine():null;
@@ -95,7 +96,7 @@ public final class CinematicDirector implements CinematicEngine.World {
         if(engine!=null)store.setDirty();
         var history=engine==null?List.<CinematicEngine.History>of():engine.history();
         return new Brief(!enabled()?fault!=null?fault:!store.enabled()?"unsupported_save":"disabled":context.online()==0?"no_players":goal==null?"waiting":"ready",
-            catalog==null?"":catalog.revision(),now(),context.season(),context.pressure(),goal,
+            catalog==null?"":catalog.revision(),now(),context.season(),context.pressure(),context.parasitePhase(),goal,
             history.subList(Math.max(0,history.size()-6),history.size()),engine==null?0:(int)engine.operations().stream().filter(o->o.state()!=CinematicEngine.State.QUEUED).count(),
             engine==null?0:(int)engine.operations().stream().filter(o->o.state()==CinematicEngine.State.QUEUED).count());
     }
@@ -282,10 +283,14 @@ public final class CinematicDirector implements CinematicEngine.World {
                 level.sendParticles(particle,point.getX()+.5,point.getY()+.3,point.getZ()+.5,32,2,.5,2,.015);
             }
             case "wave" -> {
-                var types=frozen.waves().get(action.key()).entities();
-                for(int i=0;i<count;i++)for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
+                var published=dev.deadearth.evolution.EvolutionState.published(server);
+                if(published==null)return;
+                var types=dev.deadearth.evolution.EvolutionWaves.plan(published.catalog(),published.phase(),action.key(),frozen.waves().get(action.key()).entities(),count);
+                for(int i=0;i<types.size();i++)for(int attempt=0;attempt<rules(op).count("approachAttempts");attempt++) {
                     var pos=anchor(op,action.role(),attempt+i*3);if(pos==null||!unseen(level,Vec3.atCenterOf(pos),frozen.rules().spawnMinDistance()))continue;
-                    var entity=BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(types.get(i%types.size()))).create(level);
+                    var type=BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.parse(types.get(i)));
+                    if(!dev.deadearth.evolution.EvolutionState.allowsEntity(level,type))break;
+                    var entity=type.create(level);
                     if(!(entity instanceof Mob mob)){if(entity!=null)entity.discard();break;}
                     mob.moveTo(pos.getX()+.5,pos.getY(),pos.getZ()+.5,0,0);
                     if(!level.noCollision(mob)||level.containsAnyLiquid(mob.getBoundingBox())){mob.discard();continue;}

@@ -26,7 +26,7 @@ public final class ConfigReviewGameTests {
   var random=(RandomSource)java.lang.reflect.Proxy.newProxyInstance(RandomSource.class.getClassLoader(),new Class[]{RandomSource.class},(proxy,method,args)->{
    if(method.getName().equals("nextDouble"))return .4d;return method.invoke(RandomSource.create(1),args);
   });
-  try {
+  try(var evolution=EvolutionNativeGameTests.phaseFiveWithPlayer(h)) {
    DAMAGE_INFLUENCE.set(0d);SeasonState.update(ClimateCycle.Phase.CALM,1.5);
    level.setBlock(pos,block.defaultBlockState(),2|16);level.setBlock(pos.above(),Blocks.STONE.defaultBlockState(),2|16);
    block.getClass().getMethod("randomTick",net.minecraft.world.level.block.state.BlockState.class,net.minecraft.server.level.ServerLevel.class,BlockPos.class,RandomSource.class).invoke(block,block.defaultBlockState(),level,pos,random);

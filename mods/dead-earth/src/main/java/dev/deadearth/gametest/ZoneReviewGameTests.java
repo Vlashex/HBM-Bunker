@@ -45,6 +45,11 @@ public final class ZoneReviewGameTests {
         var level=h.getLevel();var p=h.absolutePos(new BlockPos(3,2,3));var made=new ArrayList<Entity>();
         var target=p.east(32);var chunk=new net.minecraft.world.level.ChunkPos(target);boolean forced=level.getForcedChunks().contains(chunk.toLong());
         level.getChunkAt(target);level.setChunkForced(chunk.x,chunk.z,true);
+        // A forced chunk can be FULL/block-ticking without an entity-ticking player ticket.
+        var client=FoundationGameTests.attach(h);client.player().setPos(target.getX()+.5,target.getY(),target.getZ()+.5);
+        var closed=new java.util.concurrent.atomic.AtomicBoolean();
+        Runnable cleanup=()->{if(closed.compareAndSet(false,true)){for(var entity:made)entity.discard();if(!forced)level.setChunkForced(chunk.x,chunk.z,false);client.close();}};
+        h.runAfterDelay(99,cleanup);
         // Forced FULL chunks do not become entity-ticking after a fixed number of ticks.
         // Wait for the actual destination readiness; the existing 100-tick timeout bounds this.
         h.startSequence().thenWaitUntil(()->h.assertTrue(level.isPositionEntityTicking(target),"Destination sentry chunk is not entity-ticking")).thenExecute(()->{
@@ -57,7 +62,7 @@ public final class ZoneReviewGameTests {
             h.assertTrue(ZoneSentryIndex.sample(level,new net.minecraft.world.level.ChunkPos(p).toLong(),8).ids().size()==2,"Moving sentry left stale source entry");
             h.assertTrue(ZoneSentryIndex.sample(level,new net.minecraft.world.level.ChunkPos(target).toLong(),8).ids().contains(moved.getUUID()),"Moving sentry missing in destination index");
             moved.discard();h.assertTrue(ZoneSentryIndex.sample(level,new net.minecraft.world.level.ChunkPos(target).toLong(),8).ids().isEmpty(),"Removed sentry remained indexed");
-        } finally {for(var entity:made)entity.discard();if(!forced)level.setChunkForced(chunk.x,chunk.z,false);}
+        } finally {cleanup.run();}
         }).thenSucceed();
     }
 }

@@ -182,7 +182,12 @@ def cinematic_context(view, descriptor):
                     or h.get("outcome") not in {"repelled","contained","avoided","engaged","inconclusive","uncertain","expired","cancelled"}):
                 raise DirectorError("invalid_brief")
             history.append(dict(event=h["eventId"],outcome=h["outcome"]))
-        return goal,dict(season=view["season"],pressure=view["pressure"],options=projected,recent=history)
+        phase=view.get("parasitePhase")
+        if phase is not None and (type(phase) is not int or not 0 <= phase <= 5):
+            raise DirectorError("invalid_brief")
+        context=dict(season=view["season"],pressure=view["pressure"],options=projected,recent=history)
+        if phase is not None:context["parasite_phase"]=phase
+        return goal,context
     except (KeyError,TypeError,ValueError):
         raise DirectorError("invalid_brief") from None
 

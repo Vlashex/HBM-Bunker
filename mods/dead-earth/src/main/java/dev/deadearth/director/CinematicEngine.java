@@ -11,7 +11,10 @@ public final class CinematicEngine {
     public enum State { QUEUED, WAITING, APPLYING, COMPLETED, EXPIRED, CANCELLED, UNCERTAIN }
     public record Zone(String id,double value,long armed,long empty,long age,boolean complete,boolean overflow,
             int players,double playerScore,double losses) {}
-    public record Context(long now,int online,String season,double pressure,List<Zone> zones) {}
+    public record Context(long now,int online,String season,double pressure,List<Zone> zones,int parasitePhase) {
+        public Context {if(parasitePhase<0||parasitePhase>5)throw bad("parasite phase");}
+        public Context(long now,int online,String season,double pressure,List<Zone> zones){this(now,online,season,pressure,zones,5);}
+    }
     public record Option(String eventId,String zoneId,String title,String tactic,String faction,double weight,int budget) {}
     public record Goal(UUID id,UUID epoch,String catalogRevision,long created,long expires,List<Option> options) {}
     public record History(UUID requestId,UUID operationId,String eventId,String zoneId,long tick,String outcome,int spent) {}
@@ -101,6 +104,7 @@ public final class CinematicEngine {
             if(operations.values().stream().anyMatch(op->op.zoneId.equals(z.id)))continue;
             if(history.stream().anyMatch(h->h.zoneId.equals(z.id)&&c.now-h.tick<r.zoneCooldownTicks()))continue;
             for(var e:catalog.events().values()) {
+                if(c.parasitePhase==0&&!e.faction().equals("forest"))continue;
                 if(!e.seasons().contains(c.season)||z.value<e.minScore()||z.players<e.minPlayers()||e.heavy()&&c.now<heavyUntil)continue;
                 if(history.stream().anyMatch(h->h.eventId.equals(e.id())&&c.now-h.tick<e.cooldownTicks()))continue;
                 var factors=Map.of("value",Math.log1p(Math.max(0,z.value))/r.coefficient("valueNormalization"),"defense",Math.min(z.armed,32)/r.coefficient("defenseNormalization"),

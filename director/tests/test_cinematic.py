@@ -34,6 +34,16 @@ def reply(request):
     return success(dict(requestId=a["request_id"],goalId=a["goal_id"],accepted=True,code="queued",operationId=OP))
 
 class CinematicTests(unittest.TestCase):
+    def test_phase_context_is_read_only_and_rejects_invalid_phase(self):
+        from types import SimpleNamespace
+        view=brief();view["parasitePhase"]=3
+        _,context=host.cinematic_context(view,SimpleNamespace(world_epoch=EPOCH))
+        self.assertEqual(context["parasite_phase"],3)
+        for bad in (True,-1,6,"3"):
+            view["parasitePhase"]=bad
+            with self.subTest(phase=bad),self.assertRaises(DirectorError):
+                host.cinematic_context(view,SimpleNamespace(world_epoch=EPOCH))
+
     def director(self,client,model,journal):
         factory=getattr(host,"CinematicDirector",None)
         self.assertTrue(callable(factory),"live cinematic host is missing")

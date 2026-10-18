@@ -12,6 +12,7 @@ public final class CampaignStore extends SavedData {
     private CampaignState campaign;
     private CompoundTag unsupported;
     private boolean adaptiveRequired;
+    private boolean evolutionRequired;
 
     private CampaignStore() {}
 
@@ -30,6 +31,8 @@ public final class CampaignStore extends SavedData {
                 throw new IllegalArgumentException("Missing campaign fields");
             if(tag.contains("adaptiveRequired")&&!tag.contains("adaptiveRequired",Tag.TAG_BYTE))throw new IllegalArgumentException("Invalid adaptive marker");
             store.adaptiveRequired=tag.getBoolean("adaptiveRequired");
+            if(tag.contains("evolutionRequired")&&!tag.contains("evolutionRequired",Tag.TAG_BYTE))throw new IllegalArgumentException("Invalid evolution marker");
+            store.evolutionRequired=tag.getBoolean("evolutionRequired");
             store.campaign = CampaignState.fromValues(Map.of(
                     "schemaVersion", Integer.toString(tag.getInt("schemaVersion")),
                     "campaignId", tag.getString("campaignId"),
@@ -42,6 +45,8 @@ public final class CampaignStore extends SavedData {
     }
 
     public boolean adaptiveRequired(){return adaptiveRequired;}
+    public boolean evolutionRequired(){return evolutionRequired;}
+    public void requireEvolution(){evolutionRequired=true;setDirty();}
     public void requireAdaptive(){adaptiveRequired=true;setDirty();}
     public boolean enabled() { return unsupported == null; }
     public CampaignState campaign() {
@@ -62,6 +67,7 @@ public final class CampaignStore extends SavedData {
         if (!enabled()) return unsupported.copy();
         tag.putInt("schemaVersion", CampaignState.SCHEMA_VERSION);
         tag.putBoolean("adaptiveRequired",adaptiveRequired);
+        tag.putBoolean("evolutionRequired",evolutionRequired);
         tag.putString("campaignId", campaign.campaignId().toString());
         tag.putLong("revision", campaign.revision());
         tag.putLong("activeTicks", campaign.activeTicks());
