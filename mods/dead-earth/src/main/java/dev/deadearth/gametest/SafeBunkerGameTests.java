@@ -100,7 +100,7 @@ public final class SafeBunkerGameTests {
                 Map.of(wall.asLong(),BuiltInRegistries.BLOCK.getKey(Blocks.STONE_BRICKS),door.asLong(),BuiltInRegistries.BLOCK.getKey(Blocks.OAK_TRAPDOOR),chest.asLong(),BuiltInRegistries.BLOCK.getKey(Blocks.CHEST)),"native_capture");
             server.overworld().getDataStorage().set(SafeBunkerStore.NAME,store);SafeBunker.close(server);SafeBunker.tick(server,runtime);
             h.assertTrue(java.util.concurrent.CompletableFuture.supplyAsync(()->SafeBunker.intersectsSection(level,wall.getX()>>4,wall.getZ()>>4,level.getSectionIndex(wall.getY()))).join(),"Published worker section view was unavailable");
-            try(var client=FoundationGameTests.attach(h)){h.assertFalse(client.player().gameMode.destroyBlock(wall),"Player break bypassed protection");}
+            // Native player demolition is covered by BunkerRemodelGameTests.
             h.assertFalse(level.destroyBlock(wall,true),"destroyBlock removed original wall");
             h.assertFalse(level.setBlock(wall,Blocks.AIR.defaultBlockState(),3),"setBlock removed original wall");
             h.assertTrue(level.getChunkAt(wall).setBlockState(wall,Blocks.AIR.defaultBlockState(),false)==null,"Direct chunk write bypassed protection");

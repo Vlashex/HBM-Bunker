@@ -160,6 +160,10 @@ public final class SafeBunker {
         if(dev.deadearth.defense.DefenseMigration.migrationScope(level,pos))return false;
         var capture=CAPTURE.get();if(capture!=null&&capture.level==level)return false;
         var state=state(level);if(!active(state)||current.getBlock()==next.getBlock())return false;
+        // Native player demolition has a world/position-bound scope, including
+        // both door halves. Keep raw, mob and worker writes protected.
+        if(dev.deadearth.defense.DefensePolicy.currentScope()==dev.deadearth.defense.DefensePolicy.Scope.PLAYER
+                &&dev.deadearth.defense.DefensePolicy.allowed(level,pos))return false;
         var currentId=BuiltInRegistries.BLOCK.getKey(current.getBlock());var originalId=state.store.originals().get(pos.asLong());
         if(originalId!=null&&dev.deadearth.defense.DefenseMigration.equivalent(originalId,currentId))currentId=originalId;
         return state.store.blocksReplacement(pos,currentId,BuiltInRegistries.BLOCK.getKey(next.getBlock()),state.protectAll);

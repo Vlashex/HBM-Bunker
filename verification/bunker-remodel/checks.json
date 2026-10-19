@@ -1,0 +1,16 @@
+{
+  "java_unit": 211,
+  "java_failures": 0,
+  "native_game_tests": 23,
+  "native_failures": 0,
+  "packager_tests": 18,
+  "coordinator": "4.4.1",
+  "pack_version": "5.5.3",
+  "jar_sha256": "857ea7615980bef11da9ef05fdd21b8d07255b1c81a8dcc278f14dfca25abed3",
+  "same_world": true,
+  "same_protection_snapshot": true,
+  "server_state": "ready",
+  "director_running": true,
+  "admin_http": 200,
+  "public_release_updated": false
+}

@@ -176,3 +176,9 @@
   Ubuntu запускается через штатный systemctl, без отдельного bare dockerd.
   Не выполнять массовый restart WSL автоматически: Desktop содержит playit.
   Диагностика supervisor — logs/model-startup.log, ограничение120сек.
+
+- С5.5.3 игроки разбирают исходный бункер в grace period через позиционный
+  DefensePolicy.Scope.PLAYER; raw/mob guards и сохранённый deadline остаются.
+  Не заменять локальный допуск глобальным отключением SafeBunker.
+  GameTest namespace dead_earth_bunker_remodel входит в полный набор;
+  проверки дропа проводить в области, которую форсирует GameTest framework.
