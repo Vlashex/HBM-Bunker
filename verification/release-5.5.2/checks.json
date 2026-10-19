@@ -1,0 +1,18 @@
+{
+  "version": "5.5.2",
+  "root_tests": 18,
+  "director_tests": 141,
+  "dom_suites": 5,
+  "client_jars": 38,
+  "server_jars": 36,
+  "prism_tlauncher_game_files_identical": true,
+  "no_shaders": true,
+  "no_accounts_worlds_runtime": true,
+  "checksums": {
+    "HBM-Bunker-5.5.2-Prism.zip": "ab7cf22062e738005657a4fddf61282269eeb4f5b9acd09bb5164b7493165d5e",
+    "DEAD-EARTH-5.5.2-TLauncher.zip": "046646b4db8fec87dc74aa539f90ffeb4365469b4184fe6de8ae6bb74207f6c6",
+    "dead-earth-4.4.0.jar": "22b75ed4fefcde765168330af7bf95e123e0f42f73c5f5e98e6acb0722c7a23a",
+    "hbm-easy-balance-1.4.0-neoforge-1.21.1.jar": "5758578671e91b8cb53f3c1c5c148004ee2d599ac104021109eb1e8ec20c3e5e"
+  },
+  "game_retested": false
+}

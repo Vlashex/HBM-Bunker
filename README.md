@@ -7,7 +7,7 @@
 <p align="center">
   <a href="https://vlashex.github.io/HBM-Bunker/"><b>Сайт проекта ↗</b></a> &nbsp; / &nbsp;
   <a href="#быстрый-старт">Установка</a> &nbsp; / &nbsp;
-  <a href="docs/releases/5.5.1.md">Версия 5.5.1</a> &nbsp; / &nbsp;
+  <a href="docs/releases/5.5.2.md">Версия 5.5.2</a> &nbsp; / &nbsp;
   <a href="docs/DEAD-EARTH-ROADMAP.md">Roadmap</a> &nbsp; / &nbsp;
   <a href="CHANGELOG.md">История версий</a>
 </p>
@@ -79,7 +79,7 @@
 
 Текущий локальный срез — **5.4.0**, собственный координатор — **4.3.0**. В клиенте 36 внешних модов и 2 собственных JAR: всего **38**. Серверный набор — **36 JAR**. MakeUp и Iris удалены; Sodium остаётся на клиенте.
 
-> [Опубликованный релиз 5.3.0](https://github.com/Vlashex/HBM-Bunker/releases/tag/v5.3.0) содержит прежний состав. Выпуск 5.4.0 с фазами эволюции и без шейдеров подготовлен локально; опубликованные архивы не перезаписываются.
+> Актуальный выпуск: [DEAD EARTH 5.5.2](https://github.com/Vlashex/HBM-Bunker/releases/tag/v5.5.2). Клиенты Prism и TLauncher, фазы эволюции, аналитика и режимы ИИ; шейдеров/Iris нет.
 
 1. Получите `HBM-Bunker-5.4.0-Prism.zip` из локального релиза или соберите его по инструкции ниже.
 2. В PrismLauncher выберите **Добавить экземпляр → Импорт** и укажите ZIP.
