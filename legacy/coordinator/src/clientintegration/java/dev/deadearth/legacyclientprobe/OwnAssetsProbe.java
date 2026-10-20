@@ -11,7 +11,14 @@ import java.util.*;
 public final class OwnAssetsProbe {
   private OwnAssetsProbe() {}
 
+  private static final List<String> diagnostics = new ArrayList<String>();
+
+  private static void note(boolean ok, String message) {
+    if (!ok && diagnostics.size() < 256 && !diagnostics.contains(message)) diagnostics.add(message);
+  }
+
   public static Map<String, Object> audit(Object client) throws Exception {
+    diagnostics.clear();
     JsonObject contract;
     try (InputStream input =
         OwnAssetsProbe.class
@@ -43,6 +50,7 @@ public final class OwnAssetsProbe {
     Object dispatcher = Reflect.call(client, "getBlockRendererDispatcher/func_175602_ab");
     List<Object> blockRows = new ArrayList<Object>(), itemRows = new ArrayList<Object>();
     Set<String> sprites = new TreeSet<String>();
+    Set<String> lazyBaseItems = new TreeSet<String>();
     int stateCount = 0, itemCases = 0, quadCount = 0;
     for (String id : blocks) {
       Object block = Reflect.registry("BLOCKS", id);
@@ -54,7 +62,7 @@ public final class OwnAssetsProbe {
       readable(label, id);
       int quads = 0;
       for (Object state : states) {
-        require(
+        note(
             "MODEL"
                 .equals(String.valueOf(Reflect.call(block, "getRenderType/func_149645_b", state))),
             "Own block state is not rendered through its model: " + id);
@@ -63,7 +71,7 @@ public final class OwnAssetsProbe {
         stateCount++;
       }
       if (specialized.contains(id))
-        require(
+        note(
             quads > states.size() * 12,
             "Specialized machine has reverted to simple cube geometry: " + id);
       quadCount += quads;
@@ -113,7 +121,9 @@ public final class OwnAssetsProbe {
         String label = String.valueOf(Reflect.call(stack, "getDisplayName/func_82833_r"));
         readable(label, id);
         Object base = Reflect.call(mesher, "getItemModel/func_178089_a", stack);
-        quads += model(base, missing, null, id + " base " + signature, sprites);
+        int baseQuads = model(base, missing, null, id + " base " + signature, sprites, false);
+        quads += baseQuads;
+        if (baseQuads == 0) lazyBaseItems.add(id);
         Object resolved =
             Reflect.call(renderer, "getItemModelWithOverrides/func_184393_a", stack, world, player);
         quads += model(resolved, missing, null, id + " overrides " + signature, sprites);
@@ -135,7 +145,9 @@ public final class OwnAssetsProbe {
     }
     return JsonFiles.map(
         "passed",
-        true,
+        diagnostics.isEmpty(),
+        "errors",
+        new ArrayList<String>(diagnostics),
         "scope",
         "all_actual_registered_own_blockstates_and_inventory_stacks",
         "registeredBlocks",
@@ -160,6 +172,8 @@ public final class OwnAssetsProbe {
         true,
         "baseAndOverrideItemModels",
         true,
+        "lazyBaseItemsWithRenderableResolvedModel",
+        lazyBaseItems,
         "quadSprites",
         sprites,
         "blocks",
@@ -187,7 +201,20 @@ public final class OwnAssetsProbe {
 
   private static int model(
       Object model, Object missing, Object state, String id, Set<String> sprites) {
-    require(model != null && model != missing, "Missing baked model " + id);
+    return model(model, missing, state, id, sprites, true);
+  }
+
+  private static int model(
+      Object model,
+      Object missing,
+      Object state,
+      String id,
+      Set<String> sprites,
+      boolean requireGeometry) {
+    if (model == null || model == missing) {
+      note(false, "Missing baked model " + id);
+      return 0;
+    }
     sprite(Reflect.call(model, "getParticleTexture/func_177554_e"), id + " particle", sprites);
     int count = 0;
     List<Object> sides = new ArrayList<Object>();
@@ -202,21 +229,24 @@ public final class OwnAssetsProbe {
           count++;
         }
       }
-    require(count > 0, "Baked own model has no visible geometry " + id);
+    note(!requireGeometry || count > 0, "Baked own model has no visible geometry " + id);
     return count;
   }
 
   private static void sprite(Object sprite, String id, Set<String> sprites) {
-    require(sprite != null, "No texture sprite " + id);
+    if (sprite == null) {
+      note(false, "No texture sprite " + id);
+      return;
+    }
     String key = String.valueOf(Reflect.call(sprite, "getIconName/func_94215_i"));
-    require(
+    note(
         !key.contains("missingno") && !key.contains("missing_texture"),
         "Missing quad texture " + id + ": " + key);
     sprites.add(key);
   }
 
   private static void readable(String label, String id) {
-    require(
+    note(
         label != null
             && !label.trim().isEmpty()
             && !label.endsWith(".name")

@@ -104,6 +104,7 @@ public final class ClientProbe {
           && Reflect.get(event, "phase").toString().equals("END")
           && capture) capture();
     } catch (Throwable error) {
+      error.printStackTrace();
       finish(false, error.getClass().getSimpleName() + ": " + String.valueOf(error.getMessage()));
     }
   }
@@ -275,9 +276,13 @@ public final class ClientProbe {
       model(Reflect.call(mesher, "getItemModel/func_178089_a", stack), missing, id);
     }
     try {
-      report.put("ownAssets", OwnAssetsProbe.audit(client));
+      Map<String, Object> own = OwnAssetsProbe.audit(client);
+      report.put("ownAssets", own);
+      if (!Boolean.TRUE.equals(own.get("passed")))
+        throw new IllegalStateException(String.valueOf(own.get("errors")));
     } catch (Exception failure) {
-      throw new IllegalStateException("Complete own asset bake audit failed", failure);
+      throw new IllegalStateException(
+          "Complete own asset bake audit failed: " + failure.toString(), failure);
     }
     validateNames();
     Object colors = Reflect.get(client, "itemColors/field_184128_aI");

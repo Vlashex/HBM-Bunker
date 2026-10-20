@@ -1,3 +1,6 @@
 {
-  "parent": "exnihilocreatio:item/item_mesh_flint"
+  "parent": "exnihilocreatio:item/item_mesh_flint",
+  "textures": {
+    "particle": "minecraft:blocks/wool_colored_silver"
+  }
 }

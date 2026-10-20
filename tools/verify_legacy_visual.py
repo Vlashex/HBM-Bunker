@@ -3,6 +3,9 @@
 The wrapper compiles only VisualShowcase.java, preserves native/restore probe JARs
 outside mods, starts its own loopback server, prepares a third isolated client,
 runs the existing framebuffer probe, and sends normal stdin stop in finally.
+--retry-preparation only archives a failed pre-client preparation after normal stop;
+it retains the partial test platform and reuses the world, so the showcase builds
+its next platform above it (+3 native height clearance). Native gameplay is not rerun.
 No manual server/client, launcher profile, account, AI process or production world
 is read or controlled. All evidence is retained under this fork's work/ directory.
 
@@ -35,7 +38,7 @@ COMPANION='deadearth-visual-showcase.jar'
 SOURCE=ROOT/'legacy/coordinator/src/integration/java/dev/deadearth/legacyprobe/VisualShowcase.java'
 
 
-def owned_native(directory):
+def owned_native(directory,retry_preparation=False):
     supplied=Path(directory).absolute();target=supplied.resolve(strict=True);work=(ROOT/'work').resolve(strict=True)
     if os.path.normcase(str(supplied))!=os.path.normcase(str(target)) or target.parent!=work or not target.name.startswith('legacy-native-'):
         raise ValueError('Use a real, directly owned work/legacy-native-* fixture from the final native run')
@@ -60,9 +63,119 @@ def owned_native(directory):
     if epoch!=campaign['worldEpoch']:raise ValueError('Noncanonical saved world epoch')
     # A stopped native result plus free old/new ports is required before any configuration/JAR move.
     for test_port in sorted({port,verify_legacy_client.PORT}):legacy_server.free_port(test_port)
-    for name in ('visual-showcase-request.json','client-showcase.json','visual-verification.json',COMPANION):
-        if (target/name).exists() or (target/'mods'/name).exists():raise ValueError('This fixture already has visual evidence; preserve it and use a fresh successful native run')
+    if retry_preparation:
+        retry_preparation_inputs(target,epoch,report_name)
+    else:
+        for name in ('visual-showcase-request.json','client-showcase.json','visual-verification.json',COMPANION):
+            if (target/name).exists() or (target/'mods'/name).exists():raise ValueError('This fixture already has visual evidence; preserve it and use a fresh successful native run')
     return target,props,world,report_name,epoch
+
+
+def retry_preparation_inputs(target,epoch,report_name):
+    """Only the stopped, unsuccessful pre-client showcase attempt may be reset."""
+    request=verify_legacy_client.read_json(target/'visual-showcase-request.json')
+    result=verify_legacy_client.read_json(target/'visual-verification.json')
+    process=verify_legacy_client.read_json(target/'visual-server-process.json')
+    server=verify_legacy_client.read_json(target/'visual-showcase-server.json')
+    run_id=request.get('runId')
+    if not run_id or str(uuid.UUID(run_id))!=run_id:raise ValueError('Invalid prior visual run identity')
+    if request.get('schema')!=1 or request.get('kind')!='dead-earth-visual-showcase-request' or request.get('nativeReport')!=report_name:raise ValueError('Unexpected prior visual request')
+    for receipt in (request,result,process):
+        if receipt.get('schema')!=1 or receipt.get('runId')!=run_id or receipt.get('worldEpoch')!=epoch:raise ValueError('Prior visual receipts have inconsistent run/epoch')
+    for receipt in (request,result):
+        if Path(receipt.get('serverDirectory','')).resolve()!=target:raise ValueError('Prior visual receipt names another fixture')
+    marker_path=target/'client-showcase.json'
+    preparation_failed=(result.get('error')=='RuntimeError: Showcase server preparation failed; inspect visual-showcase-server.json'
+                        and not marker_path.exists() and server.get('passed') is False)
+    marker_admission_failed=False
+    if (result.get('error')=='ValueError: Showcase views must cover all three native seasons'
+            and marker_path.exists() and server.get('passed') is True):
+        _,marker=verify_legacy_client.fixture_marker(target)
+        marker_admission_failed=(marker.get('runId')==run_id and marker.get('worldEpoch')==epoch
+            and marker.get('purpose')=='complete-assets-and-worldgen-refactor'
+            and server.get('runId')==run_id and server.get('worldEpoch')==epoch)
+    model_audit_failed=False
+    if result.get('clientExitStatus')==1 and server.get('passed') is True and result.get('clientDirectory'):
+        supplied=Path(result['clientDirectory']).absolute();client=supplied.resolve(strict=True)
+        if client!=supplied or client.parent!=(ROOT/'work').resolve() or not client.name.startswith('legacy-client-'):
+            raise ValueError('Model audit client is not an owned isolated runtime')
+        verification=verify_legacy_client.read_json(client/'verification.json')
+        audit=verify_legacy_client.read_json(client/'game/client-report.json',8*1024*1024)
+        _,marker=verify_legacy_client.fixture_marker(target)
+        proof=verify_legacy_client.read_json(target/'resource-only-proof.json')
+        model_audit_failed=(verification==result.get('client') and verification.get('passed') is False
+            and verification.get('exitCode')==0 and verification.get('timedOut') is False
+            and verification.get('screenshots')==[] and audit.get('passed') is False
+            and (audit.get('error')=='IllegalStateException: Missing texture dead_earth:compact_mesh_string_v3' or str(audit.get('error','')).startswith('IllegalStateException: Complete own asset bake audit failed'))
+            and marker.get('runId')==run_id and marker.get('worldEpoch')==epoch
+            and verification.get('runId')==run_id and verification.get('worldEpoch')==epoch
+            and proof.get('passed') is True and proof.get('allNonAssetsEntriesIdentical') is True
+            and proof.get('allOtherAssetsIdentical') is True
+            and proof.get('finalJarSha256')==hashlib.sha256(legacy_port.compiled_jar(ROOT)).hexdigest())
+    if (result.get('passed') is not False or result.get('serverExitCode')!=0
+            or not (preparation_failed or marker_admission_failed or model_audit_failed)
+            or not model_audit_failed and ('clientDirectory' in result or 'client' in result or 'clientExitStatus' in result)
+            or process.get('state')!='stopped' or process.get('exitCode')!=0):
+        raise ValueError('Retry is only allowed after failed preparation, before any client, with normal server exit 0')
+    coordinator=target/'mods'/legacy_port.MOD_NAME
+    current=hashlib.sha256(legacy_port.compiled_jar(ROOT)).hexdigest()
+    if coordinator.is_symlink() or not coordinator.is_file() or hashlib.sha256(coordinator.read_bytes()).hexdigest()!=current:raise ValueError('Retry coordinator differs from current compiled slice')
+    backup=target/'visual-preserved-native-probes'
+    names={'deadearth-port-probe.jar.disabled','deadearth-restore-probe.jar','server.properties.before'}
+    if backup.is_symlink() or not backup.is_dir() or {p.name for p in backup.iterdir()}!=names:raise ValueError('Unexpected preserved native probe set')
+    hashes={}
+    for name in sorted(names):
+        path=backup/name
+        if path.is_symlink() or not path.is_file() or path.resolve().parent!=backup.resolve():raise ValueError('Unsafe preserved native probe')
+        hashes[name]=hashlib.sha256(path.read_bytes()).hexdigest()
+        if name!='server.properties.before' and (target/'mods'/name).exists():raise ValueError('Restoration would overwrite a native probe')
+    return dict(schema=1,kind='dead-earth-visual-preparation-retry',priorRunId=run_id,worldEpoch=epoch,
+        coordinatorSha256=current,preservedSha256=hashes,worldRetained=True,
+        limitation='Pre-client fixture preparation only; partial test platform retained. Native height/preflight builds the next platform +3 above it; no world rollback or repeated gameplay suite.')
+
+
+def archive_failed_preparation(target,epoch,report_name):
+    manifest=retry_preparation_inputs(target,epoch,report_name)
+    names=('visual-showcase-request.json','client-showcase.json','visual-showcase-server.json','visual-verification.json',
+           'visual-server-process.json','visual-server.log','visual-showcase-build','server.properties',
+           'visual-preserved-native-probes','mods/'+COMPANION)
+    copies=('logs','crash-reports','crafttweaker.log','mods/'+legacy_port.MOD_NAME)
+    # Validate the complete small evidence set before moving anything; never traverse linked paths.
+    for relative in (*names,*copies):
+        source=target/relative
+        if not source.exists():continue
+        for path in (source,*source.rglob('*')) if source.is_dir() else (source,):
+            if path.is_symlink() or not path.resolve().is_relative_to(target):raise ValueError('Unsafe linked visual evidence')
+    archive=target/('visual-failed-preparation-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')+'-'+uuid.uuid4().hex[:8])
+    archive.mkdir()
+    for relative in copies:
+        source=target/relative
+        if not source.exists():continue
+        destination=archive/relative;destination.parent.mkdir(parents=True,exist_ok=True)
+        if source.is_dir():shutil.copytree(source,destination)
+        else:shutil.copy2(source,destination)
+    for relative in names:
+        source=target/relative
+        if source.exists():
+            destination=archive/relative;destination.parent.mkdir(parents=True,exist_ok=True);source.rename(destination)
+    manifest['archivedSha256']={path.relative_to(archive).as_posix():hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted(archive.rglob('*')) if path.is_file()}
+    backup=archive/'visual-preserved-native-probes'
+    for name,expected in manifest['preservedSha256'].items():
+        source=backup/name
+        if hashlib.sha256(source.read_bytes()).hexdigest()!=expected:raise ValueError('Preserved native input hash changed during archive')
+        destination=target/'server.properties' if name=='server.properties.before' else target/'mods'/name
+        shutil.copy2(source,destination)
+        if hashlib.sha256(destination.read_bytes()).hexdigest()!=expected:raise ValueError('Restored native input hash mismatch')
+    prior=verify_legacy_client.read_json(archive/'visual-verification.json')
+    if prior.get('clientDirectory'):
+        client=Path(prior['clientDirectory']).resolve(strict=True)
+        for relative in ('verification.json','game/client-report.json'):
+            destination=archive/'failed-client'/relative;destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(client/relative,destination)
+        shutil.copy2(target/'resource-only-proof.json',archive/'resource-only-proof.json')
+    manifest['archiveDirectory']=str(archive);manifest['restoredNativeHashesVerified']=True
+    legacy_server.atomic_json(archive/'retry-manifest.json',manifest)
+    return manifest
 
 
 def compile_companion(target,forge_dir,javac):
@@ -99,24 +212,29 @@ def prepare_server(target,props,report_name,epoch,companion):
     run_id=str(uuid.uuid4())
     updated=dict(props,**{'server-ip':'127.0.0.1','server-port':verify_legacy_client.PORT,'online-mode':'false','enable-rcon':'false','enable-query':'false','spawn-monsters':'false','spawn-animals':'false','allow-flight':'true','gamemode':0,'view-distance':5,'motd':'DEAD EARTH CLIENT SHOWCASE '+run_id+' '+epoch})
     (target/'server.properties').write_text(''.join(str(k)+'='+str(v)+'\n' for k,v in updated.items()),encoding='utf-8')
-    request=dict(schema=1,kind='dead-earth-visual-showcase-request',purpose='sieve-surface-patch',runId=run_id,worldEpoch=epoch,serverDirectory=str(target),repositoryWork=str((ROOT/'work').resolve()),nativeReport=report_name,username=verify_legacy_client.USER,preparedAtUtc=datetime.now(timezone.utc).isoformat())
+    request=dict(schema=1,kind='dead-earth-visual-showcase-request',purpose='complete-assets-and-worldgen-refactor',runId=run_id,worldEpoch=epoch,serverDirectory=str(target),repositoryWork=str((ROOT/'work').resolve()),nativeReport=report_name,username=verify_legacy_client.USER,preparedAtUtc=datetime.now(timezone.utc).isoformat())
     legacy_server.atomic_json(target/'visual-showcase-request.json',request)
     return request
 
 
 def run(args):
     if not 120<=args.timeout<=1200 or not 1024<=args.memory_mb<=8192:raise ValueError('Timeout must be 120..1200 seconds; server memory must be 1024..8192 MiB')
-    target,props,world,report_name,epoch=owned_native(args.server_dir)
+    target,props,world,report_name,epoch=owned_native(args.server_dir,args.retry_preparation)
     java=legacy_server.java_executable(args.java8).resolve(strict=True)
     if not legacy_server.is_java8(java):raise ValueError('Explicit Java 8 runtime is required')
     lock=target/'runtime/legacy-visual';lock.mkdir(parents=True,exist_ok=True)
     with legacy_server.exclusive(lock/'showcase.lock') as acquired:
         if not acquired:raise ValueError('This native fixture already has an active visual supervisor')
         # Revalidate immediately before mutation, including both transport ports.
-        target,props,world,report_name,epoch=owned_native(target)
+        target,props,world,report_name,epoch=owned_native(target,args.retry_preparation)
+        retry=None
+        if args.retry_preparation:
+            retry=archive_failed_preparation(target,epoch,report_name)
+            target,props,world,report_name,epoch=owned_native(target)
         companion=compile_companion(target,args.forge_dir,args.javac)
         request=prepare_server(target,props,report_name,epoch,companion)
-        result=dict(schema=1,purpose='sieve-surface-patch',runId=request['runId'],worldEpoch=epoch,serverDirectory=str(target),passed=False,realAiInferenceTested=False)
+        result=dict(schema=1,purpose='complete-assets-and-worldgen-refactor',runId=request['runId'],worldEpoch=epoch,serverDirectory=str(target),passed=False,realAiInferenceTested=False)
+        if retry is not None:result['preparationRetry']=retry
         client_directory=None;process=None;exit_code=None;error=None
         command=[str(java),'-Xms512M','-Xmx'+str(args.memory_mb)+'M','-Djava.awt.headless=true','-Ddeadearth.testControls=true','-Ddeadearth.visualShowcase=true','-jar',str(legacy_server.server_jar(target)),'nogui']
         with (target/'visual-server.log').open('w',encoding='utf-8') as output:
@@ -158,6 +276,8 @@ def main(argv=None):
     parser.add_argument('--server-dir',required=True,type=Path,help='Successful, stopped, newly generated final native fixture')
     parser.add_argument('--forge-dir',required=True,type=Path,help='Read-only installed pinned Forge server runtime for compilation/client libraries')
     parser.add_argument('--javac',required=True,type=Path);parser.add_argument('--java8',required=True,type=Path)
+    parser.add_argument('--retry-preparation',action='store_true',help='Archive only a normally stopped pre-client preparation failure, retain test world and restore hash-checked native inputs')
+    parser.add_argument('--retry-model-audit',dest='retry_preparation',action='store_true',help='Retry only the known missing mesh-particle audit after a verified resources-only patch')
     parser.add_argument('--offline',action='store_true');parser.add_argument('--timeout',type=int,default=480);parser.add_argument('--memory-mb',type=int,default=4096)
     return run(parser.parse_args(argv))
 

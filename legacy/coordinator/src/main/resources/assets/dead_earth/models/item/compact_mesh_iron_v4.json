@@ -1,3 +1,6 @@
 {
-  "parent": "exnihilocreatio:item/item_mesh_iron"
+  "parent": "exnihilocreatio:item/item_mesh_iron",
+  "textures": {
+    "particle": "minecraft:blocks/wool_colored_gray"
+  }
 }

@@ -94,6 +94,7 @@ class SieveVisualTests(unittest.TestCase):
             for grade in ('string', 'flint', 'iron', 'diamond'):
                 self.assertEqual('exnihilocreatio:item/item_mesh_' + grade,
                                  read('models/item/compact_mesh_' + grade + '_v' + str(level) + '.json')['parent'])
+                self.assertEqual('minecraft:blocks/wool_colored_' + {'string':'white','flint':'silver','iron':'gray','diamond':'light_blue'}[grade], read('models/item/compact_mesh_' + grade + '_v' + str(level) + '.json')['textures']['particle'])
 
     def test_compressed_cubes_have_native_material_and_six_tinted_faces_only(self):
         rows = json.loads((ROOT / 'legacy/sieving/materials.json').read_text(encoding='utf-8'))['materials']

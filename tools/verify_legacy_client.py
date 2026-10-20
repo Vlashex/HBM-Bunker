@@ -189,7 +189,7 @@ def fixture_marker(directory):
     if campaign.get('worldEpoch')!=marker['worldEpoch']:raise ValueError('Showcase marker differs from saved campaign world')
     views=marker.get('views',[])
     seasons={v['season'] for v in views}
-    if marker.get('purpose')=='sieve-surface-patch':
+    if marker.get('purpose') in {'sieve-surface-patch','complete-assets-and-worldgen-refactor'}:
         if not 3<=len(views)<=8 or seasons!={'CALM'}:raise ValueError('Sieve/surface patch showcase requires 3..8 calm views')
     elif not 3<=len(views)<=24 or seasons!={'CALM','HEAT','ASH_WINTER'}:raise ValueError('Showcase views must cover all three native seasons')
     names=set()

@@ -72,7 +72,7 @@ def generate():
         for grade in ['string','flint','iron','diamond']:
             mesh_name='compact_mesh_'+grade+'_v'+str(level)
             # Ex Nihilo's item parents are real thin lattices with proper inventory transforms.
-            dump(assets+'models/item/'+mesh_name+'.json',{'parent':'exnihilocreatio:item/item_mesh_'+grade})
+            dump(assets+'models/item/'+mesh_name+'.json',{'parent':'exnihilocreatio:item/item_mesh_'+grade,'textures':{'particle':'minecraft:blocks/wool_colored_'+{'string':'white','flint':'silver','iron':'gray','diamond':'light_blue'}[grade]}})
             langs.append(('item.dead_earth.'+mesh_name+'.name',grade.title()+' Compact Mesh '+str(level)))
     tex={'red_sand':'minecraft:blocks/red_sand','crushed_andesite':'exnihilocreatio:blocks/crushed_andesite','crushed_diorite':'exnihilocreatio:blocks/crushed_diorite','crushed_granite':'exnihilocreatio:blocks/crushed_granite','skystone':'exnihilocreatio:blocks/blockskystonecrushed'}
     raw_tex=dict(tex,cobblestone='minecraft:blocks/cobblestone',dirt='minecraft:blocks/dirt',gravel='minecraft:blocks/gravel',sand='minecraft:blocks/sand',dust='exnihilocreatio:blocks/blockdust',nether_gravel='exnihilocreatio:blocks/blocknetherrackcrushed',ender_gravel='exnihilocreatio:blocks/blockendstonecrushed',soul_sand='minecraft:blocks/soul_sand')

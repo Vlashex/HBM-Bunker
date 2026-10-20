@@ -209,7 +209,6 @@ public final class VisualShowcase {
       // No visual fields, receipt cursors, progress counters or native RNG are forced.
       @SuppressWarnings("unchecked")
       List<Object> outputs = (List<Object>) Reflect.get(tile, "slots");
-      for (int slot = 2; slot < 29; slot++) outputs.set(slot, stack("minecraft:stone", 64, 0));
       require(
           empty(
               Reflect.call(
@@ -228,6 +227,9 @@ public final class VisualShowcase {
                   stack("dead_earth:compressed_" + materials[i] + "_" + (level - 1), 1, 0),
                   false)),
           "real loaded compressed material");
+      // New batches are admitted only while the previous output is empty.
+      // Apply fixture backpressure after native input admission, never by bypassing it.
+      for (int slot = 2; slot < 29; slot++) outputs.set(slot, stack("minecraft:stone", 64, 0));
       Map<String, Object> descriptor = block(x, y, z, id, 0);
       descriptor.put("visualMesh", grades[i]);
       descriptor.put("visualFill", 4);
@@ -335,7 +337,7 @@ public final class VisualShowcase {
   private void buildBonsai() {
     List<Map<String, Object>> blocks = new ArrayList<Map<String, Object>>();
     for (int meta = 0; meta < 2; meta++) {
-      int x = baseX + 20 + meta * 4, y = baseY + 2, z = baseZ + 9;
+      int x = baseX + 20 + meta * 4, y = baseY + 2, z = baseZ + 12;
       place(x, y - 1, z, meta == 0 ? "minecraft:stone" : "minecraft:chest", 0);
       place(x, y, z, "bonsaitrees:bonsaipot", meta);
       blocks.add(block(x, y, z, "bonsaitrees:bonsaipot", meta));
@@ -343,7 +345,7 @@ public final class VisualShowcase {
     requiredBlocks.add("bonsaitrees:bonsaipot");
     requiredItems.add("bonsaitrees:bonsaipot");
     views.add(
-        view("bonsai-ordinary-and-hopping", baseX + 22.5, baseY + 3.5, baseZ + 4.0, 0, 12, blocks));
+        view("bonsai-ordinary-and-hopping", baseX + 22.5, baseY + 3.5, baseZ + 7.0, 0, 12, blocks));
   }
 
   private void buildVista() {
@@ -484,7 +486,7 @@ public final class VisualShowcase {
     if (!nativeBonsaiFilled) {
       Object bonsai = Reflect.registry("BLOCKS", "bonsaitrees:bonsaipot");
       for (int meta = 0; meta < 2; meta++) {
-        Object at = Reflect.pos(baseX + 20 + meta * 4, baseY + 2, baseZ + 9);
+        Object at = Reflect.pos(baseX + 20 + meta * 4, baseY + 2, baseZ + 12);
         for (String id : new String[] {"minecraft:dirt", "minecraft:sapling"}) {
           Reflect.call(player, "setHeldItem/func_184611_a", hand, stack(id, 1, 0));
           require(
