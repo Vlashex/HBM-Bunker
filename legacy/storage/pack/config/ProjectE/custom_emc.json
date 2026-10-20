@@ -1,0 +1,37 @@
+{
+  "__comment": "Early-storage technology has no EMC. Merge these entries when extending the legacy pack.",
+  "entries": [
+    {
+      "item": "storagenetwork:master|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:request|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:kabel|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:storage_kabel|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|1",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|2",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|3",
+      "emc": 0
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "name": "master",
+      "output": "storagenetwork:master",
+      "count": 1,
+      "pattern": [
+        " R ",
+        "PCP",
+        " I "
+      ],
+      "key": {
+        "R": "minecraft:redstone",
+        "P": "ore:plankWood",
+        "C": "minecraft:chest",
+        "I": "hbm:plate_iron"
+      }
+    },
+    {
+      "name": "request",
+      "output": "storagenetwork:request",
+      "count": 1,
+      "pattern": [
+        " G ",
+        "PWP",
+        " K "
+      ],
+      "key": {
+        "G": "minecraft:glass",
+        "P": "ore:plankWood",
+        "W": "minecraft:crafting_table",
+        "K": "storagenetwork:kabel"
+      }
+    },
+    {
+      "name": "cable",
+      "output": "storagenetwork:kabel",
+      "count": 32,
+      "pattern": [
+        "NNN",
+        "GIG",
+        "NNN"
+      ],
+      "key": {
+        "N": "minecraft:iron_nugget",
+        "G": "minecraft:glass",
+        "I": "hbm:plate_iron"
+      }
+    },
+    {
+      "name": "link",
+      "output": "storagenetwork:storage_kabel",
+      "count": 8,
+      "pattern": [
+        " N ",
+        "KCK",
+        " N "
+      ],
+      "key": {
+        "N": "minecraft:iron_nugget",
+        "K": "storagenetwork:kabel",
+        "C": "minecraft:chest"
+      }
+    },
+    {
+      "name": "remote",
+      "output": "storagenetwork:remote:0",
+      "count": 1,
+      "pattern": [
+        " G ",
+        "SRS",
+        " K "
+      ],
+      "key": {
+        "G": "minecraft:glass",
+        "S": "hbm:plate_steel",
+        "R": "minecraft:redstone",
+        "K": "storagenetwork:kabel"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "minecraft": "1.12.2",
+  "forge": "14.23.5.2860",
+  "java": 8,
+  "memory_mb": 4096,
+  "installer": {
+    "filename": "forge-1.12.2-14.23.5.2860-installer.jar",
+    "url": "https://maven.minecraftforge.net/net/minecraftforge/forge/1.12.2-14.23.5.2860/forge-1.12.2-14.23.5.2860-installer.jar",
+    "sha256": "ea7c33ba95e3993a98d0e9e38168c0759ec323a18675a71d938e1f3f70e6e8e7",
+    "size": 4681950
+  }
+}

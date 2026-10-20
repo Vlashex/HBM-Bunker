@@ -1,3 +1,5 @@
+> **Локальный SRP-форк 1.12.2:** текущее состояние и отдельная сборка раннего хранения — `legacy/README.md`. Ниже сохранена документация исходной сборки 1.21.1.
+
 <p align="center">
   <a href="https://vlashex.github.io/HBM-Bunker/"><img src="docs/media/cover.svg" alt="DEAD EARTH — Земля помнит всё" width="100%"></a>
 </p>
