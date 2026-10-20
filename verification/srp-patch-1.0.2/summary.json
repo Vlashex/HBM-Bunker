@@ -26,7 +26,7 @@
   },
   "gameplayChanges": false,
   "fullGameRetested": false,
-  "installation": "pending-client-save-and-close",
+  "installation": "installed-and-running-after-user-closed-client",
   "artifacts": [
     {
       "filename": "DEAD-EARTH-SRP-1.0.2-Prism.zip",
@@ -43,5 +43,22 @@
       "sha256": "70d6df3a2c6b3d6ce24383e4608c4bea1c893307e2ca068fbe127f1edbd2c7c4",
       "bytes": 126006060
     }
-  ]
+  ],
+  "runtime": {
+    "checkedAtUtc": "2026-10-20T08:37:59.268536+00:00",
+    "serverReady": true,
+    "modelReady": true,
+    "serverVersion": "1.0.2",
+    "clientHandshakeVersion": "1.0.2",
+    "clientConnectionEstablished": true,
+    "serverConfirmedJoin": true,
+    "runningOwnedClientCount": 1,
+    "adminConsoleUrl": "http://127.0.0.1:8766/#console",
+    "adminConsoleHttpStatus": 200,
+    "consoleListCommandState": "completed",
+    "sameWorldPreserved": true,
+    "previousOwnJarBackedUp": true,
+    "guiScreenshotsChecked": false,
+    "performanceTestRun": false
+  }
 }

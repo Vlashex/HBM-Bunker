@@ -22,5 +22,11 @@ helper is tools/legacy_locale_probe.py, with --expect legacy-missing for old.
 
 38 existing legacy Python checks passed. Archives built successfully.
 No additional client/server, performance test or GPU/GL verification ran.
-The current client remains open; installation awaits saving and closing it.
-The report does not claim the user has already received the patch.
+After the user saved and closed the client, the patch was installed into the
+owned server and both prepared client profiles, with previous own JARs
+backed up. Exactly one client was started and completed the Forge handshake
+with dead_earth@1.0.2; the dedicated server confirmed its player joined.
+The existing server world and singleplayer saves were preserved. Admin
+HTTP on port 8766 responds, console reports ready, and a real read-only
+list command completed through the admin HTTP endpoint and RCON. No
+automated screenshot/UI text inspection or performance test ran.
