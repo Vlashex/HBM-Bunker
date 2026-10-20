@@ -149,6 +149,9 @@ class Director:
 
 def cinematic_context(view, descriptor):
     try:
+        from .parasites import capabilities, factions
+        parasite_system,phase_maximum=capabilities(view)
+        allowed_factions=factions(parasite_system)
         goal=view["goal"]
         if (type(goal) is not dict or set(goal)!={"id","epoch","catalogRevision","created","expires","options"}
                 or not _uuid(goal["id"]) or goal["epoch"]!=descriptor.world_epoch
@@ -170,7 +173,7 @@ def cinematic_context(view, descriptor):
             if (type(o) is not dict or set(o)!={"eventId","zoneId","title","tactic","faction","weight","budget"}
                     or not _uuid(o["zoneId"]) or type(o["eventId"]) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",o["eventId"])
                     or type(o["tactic"]) is not str or not re.fullmatch(r"[a-z][a-z0-9_]{0,63}",o["tactic"])
-                    or not valid_narrative("distant_sound",o["title"]) or o["faction"] not in {"forest","parasites","mixed"}
+                    or not valid_narrative("distant_sound",o["title"]) or o["faction"] not in allowed_factions
                     or type(o["weight"]) not in (int,float) or not math.isfinite(o["weight"]) or not 0 < o["weight"] <= 10000
                     or type(o["budget"]) is not int or not 1 <= o["budget"] <= 32):
                 raise DirectorError("invalid_brief")
@@ -185,9 +188,10 @@ def cinematic_context(view, descriptor):
                 raise DirectorError("invalid_brief")
             history.append(dict(event=h["eventId"],outcome=h["outcome"]))
         phase=view.get("parasitePhase")
-        if phase is not None and (type(phase) is not int or not 0 <= phase <= 5):
+        if phase is not None and (type(phase) is not int or not 0 <= phase <= phase_maximum):
             raise DirectorError("invalid_brief")
-        context=dict(season=view["season"],pressure=view["pressure"],options=projected,recent=history)
+        context=dict(season=view["season"],pressure=view["pressure"],options=projected,recent=history,
+                     parasite_system=parasite_system,parasite_phase_maximum=phase_maximum)
         if phase is not None:context["parasite_phase"]=phase
         return goal,context
     except (KeyError,TypeError,ValueError):

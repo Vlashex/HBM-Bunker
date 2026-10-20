@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "version": "0.2.0",
+  "artifacts": [
+    {
+      "name": "DEAD-EARTH-SRP-0.2.0-Prism.zip",
+      "bytes": 102690355,
+      "sha256": "6056dcc93a7d9bcf0a4a3e283632e1fd938a8206503968ba414e6f87d3d5308b",
+      "entries": 24
+    },
+    {
+      "name": "DEAD-EARTH-SRP-0.2.0-Server-Overlay.zip",
+      "bytes": 102611340,
+      "sha256": "98796c081478468d2d68cab843b3316850fb2265a086bf61f059a9e894939191",
+      "entries": 56
+    }
+  ],
+  "java_class_major": 52,
+  "content_matches_sources": true,
+  "runtime_data_included": false
+}

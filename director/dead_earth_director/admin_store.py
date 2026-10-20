@@ -121,7 +121,7 @@ class Telemetry:
                 campaign,epoch=snapshot.get("campaignId"),snapshot.get("worldEpoch")
                 if not _uuid(campaign) or not _uuid(epoch): raise ValueError("invalid_snapshot")
                 scope=campaign+":"+epoch
-                snap=_pick(snapshot,("campaignId","worldEpoch","activeTicks","onlinePlayers","observations","climate","climateEffectsEnabled","difficulty","zones"))
+                snap=_pick(snapshot,("campaignId","worldEpoch","activeTicks","onlinePlayers","parasiteSystem","parasitePhaseMaximum","parasitePhase","observations","climate","climateEffectsEnabled","difficulty","zones"))
                 analytics=admin_analytics.project(queue.get("analytics"))
                 # Store the operation archive separately: a large optional analytics payload
                 # must not make the basic observer snapshot exceed its byte budget.

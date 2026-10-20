@@ -39,6 +39,15 @@ async function test(){
  await get('ae-validate').listeners.click();assert.equal(get('ae-publish').disabled,false,'validated saved draft can publish');
  await api.perform('preview',{event_id:catalog.events[0].id,zone_id:'zone',world_epoch:'epoch',catalog_revision:'a'.repeat(64)});
  const posted=calls.find(c=>c.options.method==='POST');assert.equal(posted.options.headers['X-Dead-Earth-Operator'],'operator-test');assert(!('command' in JSON.parse(posted.options.body)));
+ const originalWaves=structuredClone(fixture.catalog.waves);
+ fixture.catalog.waves={native:{entities:['srparasites:sim_human','minecraft:zombie']}};
+ api.discard();await api.refresh();api.newDraft();
+ assert.deepEqual(labeled('Угроза').children.map(option=>option.value),['parasites','siege','mixed'],'Native catalog exposes siege and excludes forest');
+ const faction=labeled('Угроза');faction.value='siege';faction.listeners.change();assert.equal(api.inspect().event.faction,'siege');
+ fixture.catalog.waves.modern={entities:['mutationcraft:assimilated_human']};
+ api.discard();await api.refresh();api.newDraft();
+ assert.deepEqual(labeled('Угроза').children.map(option=>option.value),['parasites','forest','mixed'],'A mixed or modern catalog keeps modern faction bounds');
+ fixture.catalog.waves=originalWaves;
  fail=true;await api.perform('run',{event_id:catalog.events[0].id,zone_id:'zone',world_epoch:'epoch',catalog_revision:'a'.repeat(64)});
  assert.match(ids.get('authoring-result').textContent,/могло выполниться/);
  assert.equal(calls.filter(c=>c.url.endsWith('/run')).length,1,'uncertain request must not be retried');

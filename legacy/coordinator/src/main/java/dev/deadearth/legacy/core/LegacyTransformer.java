@@ -1,0 +1,7 @@
+package dev.deadearth.legacy.core;
+import net.minecraft.launchwrapper.IClassTransformer;
+import org.objectweb.asm.*;
+import org.objectweb.asm.tree.*;
+public final class LegacyTransformer implements IClassTransformer {
+ public byte[] transform(String name,String transformedName,byte[] bytes){if(bytes==null||!"net.minecraft.world.World".equals(transformedName))return bytes;ClassNode c=new ClassNode();new ClassReader(bytes).accept(c,0);boolean found=false;for(MethodNode m:c.methods)if((m.name.equals("func_180501_a")||m.name.equals("setBlockState"))&&m.desc.equals("(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/state/IBlockState;I)Z")){InsnList guard=new InsnList();LabelNode pass=new LabelNode();guard.add(new VarInsnNode(Opcodes.ALOAD,0));guard.add(new VarInsnNode(Opcodes.ALOAD,1));guard.add(new MethodInsnNode(Opcodes.INVOKESTATIC,"dev/deadearth/legacy/MutationGuard","allow","(Ljava/lang/Object;Ljava/lang/Object;)Z",false));guard.add(new JumpInsnNode(Opcodes.IFNE,pass));guard.add(new InsnNode(Opcodes.ICONST_0));guard.add(new InsnNode(Opcodes.IRETURN));guard.add(pass);guard.add(new FrameNode(Opcodes.F_SAME,0,null,0,null));m.instructions.insert(guard);found=true;}if(!found)throw new IllegalStateException("DEAD EARTH world guard target absent");ClassWriter writer=new ClassWriter(ClassWriter.COMPUTE_MAXS);c.accept(writer);return writer.toByteArray();}
+}

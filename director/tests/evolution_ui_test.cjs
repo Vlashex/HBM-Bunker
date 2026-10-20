@@ -36,6 +36,16 @@ async function test(){
  assert.match(get('evolution-pause').textContent,/игроков|Пауза/);
  fixture.server.phase=5;fixture.server.nextPhasePoints=null;await api.refresh();
  assert.equal(get('evolution-plus').disabled,true);assert.equal(get('evolution-minus').disabled,false);
+ assert.match(get('evolution-phase').textContent,/5 \/ 5/,'Modern status defaults to five phases');
+ fixture.server.parasiteSystem='srp';fixture.server.phaseMaximum=10;fixture.server.phase=9;await api.refresh();
+ assert.match(get('evolution-phase').textContent,/9 \/ 10/);assert.equal(get('evolution-plus').disabled,false,'SRP phase nine can advance');
+ fixture.server.phase=10;await api.refresh();
+ assert.match(get('evolution-phase').textContent,/10 \/ 10/);assert.equal(get('evolution-plus').disabled,true);assert.equal(get('evolution-minus').disabled,false);
+ const boundaryPosts=calls.filter(call=>call.options.method==='POST').length;await api.shift(1);
+ assert.equal(calls.filter(call=>call.options.method==='POST').length,boundaryPosts,'SRP maximum blocks sending a higher shift');
+ delete fixture.server.parasiteSystem;fixture.server.phaseMaximum=10;await api.refresh();
+ assert.equal(get('evolution-plus').disabled,true);assert.equal(get('evolution-minus').disabled,true,'An unmarked phase ten is not actionable');
+ delete fixture.server.phaseMaximum;
  fixture.server.phase=2;fixture.server.paused=false;fixture.server.status='ready';fixture.server.revision=7;await api.refresh();
  let release;held=new Promise(resolve=>{release=resolve;});const first=api.shift(1);await api.shift(1);
  assert.equal(get('evolution-minus').disabled,true);assert.equal(get('evolution-plus').disabled,true);

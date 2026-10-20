@@ -1,0 +1,695 @@
+{
+  "schema": 1,
+  "probe": "native_srp_forge_1_12_2",
+  "activeTicks": 220,
+  "phase": 0,
+  "nativePhase": 0,
+  "zoneCount": 6,
+  "receiptCount": 23,
+  "bridgeFixtureReset": true,
+  "bridgePlayerRetained": true,
+  "checks": [
+    {
+      "name": "coordinator loaded",
+      "passed": true
+    },
+    {
+      "name": "native SRP loaded",
+      "passed": true
+    },
+    {
+      "name": "native Epic Siege loaded",
+      "passed": true
+    },
+    {
+      "name": "native HBM loaded",
+      "passed": true
+    },
+    {
+      "name": "own relay registered",
+      "passed": true
+    },
+    {
+      "name": "Epic Siege AI scope preserves native parasites and enables zombies",
+      "passed": true
+    },
+    {
+      "name": "six-anchor configuration",
+      "passed": true
+    },
+    {
+      "name": "native_dependencies",
+      "passed": true
+    },
+    {
+      "name": "fresh test has no survival players",
+      "passed": true
+    },
+    {
+      "name": "offline active clock and evolution pause",
+      "passed": true
+    },
+    {
+      "name": "native gain is locked",
+      "passed": true
+    },
+    {
+      "name": "native kill gain cannot bypass lock",
+      "passed": true
+    },
+    {
+      "name": "no_player_pause_and_native_lock",
+      "passed": true
+    },
+    {
+      "name": "spawn grace includes 16 by 32 boundary",
+      "passed": true
+    },
+    {
+      "name": "spawn grace has finite boundary",
+      "passed": true
+    },
+    {
+      "name": "player-side world mutation remains available",
+      "passed": true
+    },
+    {
+      "name": "actual World write blocks native parasite caller",
+      "passed": true
+    },
+    {
+      "name": "native writer allowed outside grace",
+      "passed": true
+    },
+    {
+      "name": "transformed_world_write_guard",
+      "passed": true
+    },
+    {
+      "name": "in-world fake player is survival",
+      "passed": true
+    },
+    {
+      "name": "online active clock advances exact virtual ticks",
+      "passed": true
+    },
+    {
+      "name": "online survival pressure advances native-backed evolution points",
+      "passed": true
+    },
+    {
+      "name": "native phase synchronized after advancement",
+      "passed": true
+    },
+    {
+      "name": "survival_player_advances_active_clock",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 1",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 2",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 3",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 4",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 5",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 6",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 7",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 8",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 9",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 10",
+      "passed": true
+    },
+    {
+      "name": "operator status exposes phase ten",
+      "passed": true
+    },
+    {
+      "name": "stale epoch rejected",
+      "passed": true
+    },
+    {
+      "name": "stale campaign rejected",
+      "passed": true
+    },
+    {
+      "name": "stale revision rejected",
+      "passed": true
+    },
+    {
+      "name": "stale commands have no phase effect",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 9",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 8",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 7",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 6",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 5",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 4",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 3",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 2",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 1",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 0",
+      "passed": true
+    },
+    {
+      "name": "phase_zero_to_ten_CAS_round_trip",
+      "passed": true
+    },
+    {
+      "name": "unloaded anchor fixture",
+      "passed": true
+    },
+    {
+      "name": "unloaded anchor cannot allocate zone",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 0",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 0",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 0",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 0",
+      "passed": true
+    },
+    {
+      "name": "overlapping anchor rejected before reaching cap",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 1",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 1",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 1",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 1",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 2",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 2",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 2",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 2",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 3",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 3",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 3",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 3",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 4",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 4",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 4",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 4",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 5",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 5",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 5",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 5",
+      "passed": true
+    },
+    {
+      "name": "six distinct physical zones",
+      "passed": true
+    },
+    {
+      "name": "seventh anchor cannot exceed cap",
+      "passed": true
+    },
+    {
+      "name": "rejected anchor owns no chunk ticket",
+      "passed": true
+    },
+    {
+      "name": "loaded_relays_six_tickets_no_overlap",
+      "passed": true
+    },
+    {
+      "name": "anchor prerequisite",
+      "passed": true
+    },
+    {
+      "name": "unopened chest retains deferred loot",
+      "passed": true
+    },
+    {
+      "name": "iron resource price configured",
+      "passed": true
+    },
+    {
+      "name": "bounded zone scan sums two real chests: complete=true, emc=8192, error=",
+      "passed": true
+    },
+    {
+      "name": "deferred loot chest counted separately",
+      "passed": true
+    },
+    {
+      "name": "valuation does not generate deferred loot",
+      "passed": true
+    },
+    {
+      "name": "two_chests_and_unopened_loot",
+      "passed": true
+    },
+    {
+      "name": "repeated scale preserves native max health",
+      "passed": true
+    },
+    {
+      "name": "repeated scale preserves health fraction",
+      "passed": true
+    },
+    {
+      "name": "health modifier is reused without stacking",
+      "passed": true
+    },
+    {
+      "name": "native_health_scaling_is_idempotent",
+      "passed": true
+    },
+    {
+      "name": "wave anchor prerequisite",
+      "passed": true
+    },
+    {
+      "name": "phase zero rejects locked form and allows scout",
+      "passed": true
+    },
+    {
+      "name": "native wave has safe loaded approach",
+      "passed": true
+    },
+    {
+      "name": "phase-gated wave emits no locked entities",
+      "passed": true
+    },
+    {
+      "name": "phase ten allows configured form",
+      "passed": true
+    },
+    {
+      "name": "real native allowed wave emits exactly once",
+      "passed": true
+    },
+    {
+      "name": "phase downgrade does not erase already emitted entity",
+      "passed": true
+    },
+    {
+      "name": "phase_gated_native_wave_emission",
+      "passed": true
+    },
+    {
+      "name": "physical zone has typed catalogue options",
+      "passed": true
+    },
+    {
+      "name": "finite typed operation admitted",
+      "passed": true
+    },
+    {
+      "name": "native queue request replay shares operation",
+      "passed": true
+    },
+    {
+      "name": "native queue finite head count",
+      "passed": true
+    },
+    {
+      "name": "native world adapter executes first typed effect",
+      "passed": true
+    },
+    {
+      "name": "native operation never exceeds allocation",
+      "passed": true
+    },
+    {
+      "name": "typed_queue_replay_and_native_effect",
+      "passed": true
+    },
+    {
+      "name": "campaign checkpoint exists",
+      "passed": true
+    },
+    {
+      "name": "campaign restores same identity",
+      "passed": true
+    },
+    {
+      "name": "durable_campaign_checkpoint",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "passed": true
+}

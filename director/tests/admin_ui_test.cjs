@@ -40,6 +40,12 @@ vm.runInContext(fs.readFileSync(path.join(__dirname,'../dead_earth_director/admi
 vm.runInContext('data=fixture;render()',context);
 assert.match(ids.get('connection-top').textContent,/доступен/);
 assert.match(ids.get('season-content').textContent,/Пепельная зима/);
+assert.match(ids.get('season-content').textContent,/Развитие леса/,'Modern forest facts remain visible');
+vm.runInContext('fixture.snapshot.parasiteSystem="srp";fixture.snapshot.parasitePhaseMaximum=10;fixture.snapshot.parasitePhase=10;fixture.snapshot.climate.phase="HEAT";render()',context);
+assert.doesNotMatch(ids.get('season-content').textContent,/лес/i,'Native SRP overview must not advertise a forest faction');
+assert.doesNotMatch(ids.get('pressure-chart').children[0].attributes['aria-label'],/лес/i,'Native SRP chart must not include forest rate');
+assert.equal(vm.runInContext('tr("siege")',context),'Осада');
+vm.runInContext('delete fixture.snapshot.parasiteSystem;delete fixture.snapshot.parasitePhaseMaximum;delete fixture.snapshot.parasitePhase;fixture.snapshot.climate.phase="ASH_WINTER";render()',context);
 const chart=ids.get('pressure-chart').children[0];
 const line=chart.children.find(c=>c.tagName==='path');
 assert.match(line.attributes.d,/L/,'Reduced continuous samples must connect despite wall time spacing');

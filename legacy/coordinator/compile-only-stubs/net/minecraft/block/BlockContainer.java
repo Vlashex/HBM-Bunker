@@ -1,0 +1,1 @@
+package net.minecraft.block; public abstract class BlockContainer extends Block {protected BlockContainer(net.minecraft.block.material.Material m){} public abstract net.minecraft.tileentity.TileEntity func_149915_a(net.minecraft.world.World w,int m);}

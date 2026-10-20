@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "description": "Консервативный авторский допуск сущностей в волны режиссёра по фазе кампании 0..10. Это не утверждение о точных нативных фазах появления SRP: нативная эволюция и её спавн остаются у SRP. Buglin допускается с 0, Rupter с 2, ассимилированные разведчики с 3, примитивные с 5, адаптированные с 7, тяжёлые чистые формы с 8; фазы 9 и 10 сохраняют допуск. Ванильные зомби и кадавры доступны с 0. Каждую будущую выдачу волны и сохранённую очередь надо повторно ограничивать текущей фазой; отсутствующий ID запрещён, уже существующие существа при снижении фазы не удаляются.",
+  "entities": {
+    "srparasites:buglin": 0,
+    "srparasites:rupter": 2,
+    "srparasites:sim_human": 3,
+    "srparasites:sim_villager": 3,
+    "srparasites:sim_cow": 3,
+    "srparasites:sim_wolf": 3,
+    "srparasites:sim_bigspider": 3,
+    "srparasites:pri_longarms": 5,
+    "srparasites:pri_reeker": 5,
+    "srparasites:pri_manducater": 5,
+    "srparasites:pri_yelloweye": 5,
+    "srparasites:ada_longarms": 7,
+    "srparasites:ada_reeker": 7,
+    "srparasites:ada_manducater": 7,
+    "srparasites:ada_yelloweye": 7,
+    "srparasites:warden": 8,
+    "srparasites:marauder": 8,
+    "srparasites:grunt": 8,
+    "minecraft:zombie": 0,
+    "minecraft:husk": 0
+  }
+}

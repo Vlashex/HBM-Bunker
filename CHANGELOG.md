@@ -1,3 +1,11 @@
+## SRP fork 0.2.0 — core port
+
+- Forge/Java8 coordinator, original SRP1.9.21 + Epic Siege13.169; native phase0–10, controlled active-time evolution and configurable adaptive difficulty.
+- Own bounded zone relays, loaded inventory scoring, spawn grace, shared starter supply and persistent scenario queue.
+- 15 SRP/siege events, registered sound catalog, ground trace assets; phase-aware wave admission.
+- Native capability-aware Python director, MCP profile, admin phase controls/editor and isolated server supervisor.
+- This is a core integration port; modern world generation, thick winter terrain, defense tiers and remaining modpack content are not claimed as ported.
+
 # SRP fork — Unreleased
 
 - Добавлен отдельный срез Simple Storage Network для 1.12.2 с дешёвыми HBM-рецептами.

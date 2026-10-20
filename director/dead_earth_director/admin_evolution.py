@@ -5,6 +5,7 @@ import re
 
 from .admin_console import RconFailure, rcon_command, settings
 from .bridge import BridgeError, _json, _uuid
+from .parasites import capabilities
 
 FIELDS=('status enabled campaignId worldEpoch revision configRevision phase name progress points '
         'phaseStartPoints nextPhasePoints rate paused migration unlockedEntities abilities history').split()
@@ -42,12 +43,14 @@ def evolution_dto(value):
     # Default Gson omits nullable fields in the native command response.
     value=dict(value);value.setdefault('nextPhasePoints',None)
     require(all(key in value for key in FIELDS))
+    try:parasite_system,phase_maximum=capabilities(value,'phaseMaximum')
+    except ValueError:raise EvolutionError('unsupported') from None
     require(value['status'] in ('ready','paused','disabled','unsupported_save','configuration_error','unavailable'))
     require(type(value['enabled']) is bool and type(value['paused']) is bool)
     require(canonical_uuid(value['campaignId']) and canonical_uuid(value['worldEpoch']))
     require(type(value['revision']) is int and 0<=value['revision']<=LONG_MAX)
     require(type(value['configRevision']) is str and re.fullmatch(r'[0-9a-f]{64}',value['configRevision']))
-    require(type(value['phase']) is int and 0<=value['phase']<=5)
+    require(type(value['phase']) is int and 0<=value['phase']<=phase_maximum)
     require(type(value['name']) is str and len(value['name'])<=256)
     require(number(value['progress'],0,1))
     require(all(number(value[key]) for key in ('points','phaseStartPoints','rate')))
@@ -61,11 +64,13 @@ def evolution_dto(value):
         require(type(row) is dict and all(key in row for key in ('atTick','from','to','source')))
         row=dict(row);row.setdefault('requestId',None)
         require(type(row['atTick']) is int and 0<=row['atTick']<=LONG_MAX)
-        require(all(type(row[key]) is int and 0<=row[key]<=5 for key in ('from','to')))
+        require(all(type(row[key]) is int and 0<=row[key]<=phase_maximum for key in ('from','to')))
         require(type(row['source']) is str and len(row['source'])<=128)
         require(row['requestId'] is None or canonical_uuid(row['requestId']))
         history.append({key:row[key] for key in ('atTick','from','to','source','requestId')})
     result={key:value[key] for key in FIELDS};result['history']=history
+    if parasite_system=='srp':result.update(parasiteSystem='srp',phaseMaximum=phase_maximum)
+    elif 'phaseMaximum' in value:result['phaseMaximum']=phase_maximum
     return result
 
 

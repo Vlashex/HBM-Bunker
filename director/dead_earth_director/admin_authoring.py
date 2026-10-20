@@ -11,6 +11,7 @@ import time
 
 from .admin_console import RconFailure, rcon_command, settings
 from .bridge import BridgeError, _json, _uuid
+from .parasites import catalog_system, factions
 
 MAX_BODY=262144
 ID=re.compile(r'[a-z][a-z0-9_]{0,63}\Z')
@@ -48,7 +49,7 @@ def validate_event(event,catalog):
     fields(event,'id title tactic faction weight minScore minPlayers seasons cooldownTicks lifetimeTicks heavy affinity start nodes','event')
     identifier(event['id'],'id');identifier(event['tactic'],'tactic');identifier(event['start'],'start')
     require(type(event['title']) is str and len(event['title'])<=120,'title')
-    require(event['faction'] in ('parasites','forest','mixed'),'faction')
+    require(type(event['faction']) is str and event['faction'] in factions(catalog_system(catalog)),'faction')
     require(type(event['heavy']) is bool,'heavy')
     number(event['weight'],.01,100,'weight');number(event['minScore'],-1e12,1e12,'minScore')
     number(event['minPlayers'],1,6,'minPlayers',True)

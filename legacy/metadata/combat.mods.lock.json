@@ -1,0 +1,90 @@
+[
+  {
+    "filename": "SimpleStorageNetwork-1.12.2-2.0.1.jar",
+    "url": "https://cdn.modrinth.com/data/cVIr8Vz1/versions/JdylTyat/SimpleStorageNetwork-1.12.2-2.0.1.jar",
+    "version": "1.12.2-2.0.1",
+    "mod_id": "storagenetwork",
+    "size": 447132,
+    "sha256": "41caa348d9810bea1811b043e2075263206f8b1b4b35f085d5cc7ca479b08bdd",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "CraftTweaker2-1.12-4.1.20.698.jar",
+    "url": "https://cdn.modrinth.com/data/Xg35A4rS/versions/YRKoIQBv/CraftTweaker2-1.12-4.1.20.698.jar",
+    "version": "4.1.20.698",
+    "mod_id": "crafttweaker",
+    "size": 1589140,
+    "sha256": "b2e5e443f18d0d5bcfd1364f9ec89565e6a1e2ad4568b899c590aa5507978b27",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "NTM-CE-1.12.2-2.6.1.0.jar",
+    "url": "https://edge.forgecdn.net/files/8873/889/NTM-CE-1.12.2-2.6.1.0.jar",
+    "version": "2.6.1.0",
+    "mod_id": "hbm",
+    "size": 74721336,
+    "sha256": "43b0a3f71e58cca548d3ff1aa01faf45ad2eaa5477adfcaa9d161300b589266d",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "!mixinbooter-11.18.jar",
+    "url": "https://cdn.modrinth.com/data/G1ckZuWK/versions/mh9NHkIa/%21mixinbooter-11.18.jar",
+    "version": "11.18",
+    "mod_id": "mixinbooter",
+    "size": 2451781,
+    "sha256": "ac6779132ca4df1a4f6319f3edc605c9d9b6c8ff6889e851472e2b41ecce273e",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "jei_1.12.2-4.22.0.1034.jar",
+    "url": "https://cdn.modrinth.com/data/u6dRKJwZ/versions/SkCQc9zS/jei_1.12.2-4.22.0.1034.jar",
+    "version": "4.22.0.1034",
+    "mod_id": "jei",
+    "size": 715518,
+    "sha256": "e069347966155efd050fe18f060162a0406c194528c7c16974263c8879c3a8a2",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "CTM-MC1.12.2-1.0.2.31.jar",
+    "url": "https://mediafilez.forgecdn.net/files/2915/363/CTM-MC1.12.2-1.0.2.31.jar",
+    "version": "MC1.12.2-1.0.2.31",
+    "mod_id": "ctm",
+    "size": 199045,
+    "sha256": "433f441dc9c0aa75a4168df832900720ddadac1f22cc3bba4e4f25ca789b268b",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "client"
+  },
+  {
+    "filename": "SRParasites-1.12.2v1.9.21.jar",
+    "url": "https://cdn.modrinth.com/data/MJX7HTHx/versions/sGgSorId/SRParasites-1.12.2v1.9.21.jar",
+    "version": "1.9.21",
+    "mod_id": "srparasites",
+    "size": 27022807,
+    "sha256": "f803ab3882bc8047858a23e2376aaa8fb87d7e54a324b9183b4a033ee076ddea",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "EpicSiegeMod-13.169.jar",
+    "url": "https://mediafilez.forgecdn.net/files/3356/157/EpicSiegeMod-13.169.jar",
+    "version": "13.169",
+    "mod_id": "epicsiegemod",
+    "size": 323692,
+    "sha256": "398b7558dce5bf903df4afc6c143347d3245959f19c98d23f2f0312fb0a9c127",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  }
+]

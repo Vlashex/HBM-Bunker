@@ -10,14 +10,15 @@ window.DeadEarthEvolution=(()=>{
   conflicting_request:'Эта квитанция относится к другому действию. Изменение не отправлено.',invalid_evolution_request:'Некорректный запрос эволюции. Обновите состояние.',operator_session_required:'Сессия оператора изменилась. Обновите состояние.'};
  const text=(tag,value)=>{const node=document.createElement(tag);node.textContent=String(value);return node;};
  const note=value=>{byId('evolution-result').textContent=value;};
- function permitted(){const server=state?.server;return !sending&&state?.state==='ready'&&server?.enabled&&['ready','paused'].includes(server.status)&&Number.isSafeInteger(server.revision)&&Number.isInteger(server.phase);}
- function controls(){byId('evolution-minus').disabled=!permitted()||state.server.phase<=0;byId('evolution-plus').disabled=!permitted()||state.server.phase>=5;}
+ function phaseMaximum(server){return server?.parasiteSystem==='srp'&&server.phaseMaximum===10?10:5;}
+ function permitted(){const server=state?.server;return !sending&&state?.state==='ready'&&server?.enabled&&['ready','paused'].includes(server.status)&&Number.isSafeInteger(server.revision)&&Number.isInteger(server.phase)&&server.phase>=0&&server.phase<=phaseMaximum(server);}
+ function controls(){byId('evolution-minus').disabled=!permitted()||state.server.phase<=0;byId('evolution-plus').disabled=!permitted()||state.server.phase>=phaseMaximum(state.server);}
  function list(id,items,empty){const node=byId(id);node.replaceChildren();for(const item of items||[])node.append(text('li',item));if(!items?.length)node.append(text('li',empty));}
  function render(){
   initialized=true;
   const server=state?.server,online=state?.state==='ready'&&server;
   byId('evolution-state').textContent=online?(!server.enabled&&['ready','paused'].includes(server.status)?messages.disabled:messages[server.status]||messages.ready):(messages[state?.state]||messages.offline);
-  byId('evolution-phase').textContent=online?'Фаза '+server.phase+' / 5':'Фаза —';
+  byId('evolution-phase').textContent=online?'Фаза '+server.phase+' / '+phaseMaximum(server):'Фаза —';
   byId('evolution-name').textContent=online?server.name:'Нет свежего состояния';
   const progress=online?Math.max(0,Math.min(1,server.progress)):0;
   byId('evolution-progress').value=progress;byId('evolution-progress').setAttribute('aria-valuetext',format.format(progress*100)+'%');
@@ -39,7 +40,7 @@ window.DeadEarthEvolution=(()=>{
   finally{clearTimeout(timer);loading=false;}
  }
  async function shift(delta){
-  if(!permitted()||![-1,1].includes(delta)||(delta<0&&state.server.phase<=0)||(delta>0&&state.server.phase>=5))return;
+  if(!permitted()||![-1,1].includes(delta)||(delta<0&&state.server.phase<=0)||(delta>0&&state.server.phase>=phaseMaximum(state.server)))return;
   const server=state.server,nonce=state.nonce,requestId=crypto.randomUUID();
   const payload={request_id:requestId,campaign_id:server.campaignId,world_epoch:server.worldEpoch,revision:server.revision,delta};
   sending=true;controls();note('Изменение фазы… Квитанция '+requestId);

@@ -7,8 +7,16 @@ from mcp.server.mcpserver.exceptions import ToolError
 from .bridge import BridgeClient, BridgeError, _arguments
 
 
+SRP_OPERATIONS=frozenset({'get_snapshot','get_cinematic_brief','get_cinematic_queue','get_history',
+                          'list_catalog','choose_cinematic','get_event_analytics','cancel_scenario'})
+
+
 class BoundedMCPServer(MCPServer):
+    allowed_operations=None
+
     async def call_tool(self, name, arguments, context=None):
+        if self.allowed_operations is not None and name not in self.allowed_operations:
+            raise ToolError("unknown_operation")
         # Validate the raw dict before SDK/Pydantic can discard or coerce fields.
         raw = {} if arguments is None else arguments
         if type(raw) is not dict:
@@ -22,13 +30,17 @@ class BoundedMCPServer(MCPServer):
 
     async def list_tools(self):
         tools = await super().list_tools()
+        if self.allowed_operations is not None:
+            tools=[tool for tool in tools if tool.name in self.allowed_operations]
         for tool in tools:
             tool.input_schema["additionalProperties"] = False
         return tools
 
 
-def create_server(client: BridgeClient) -> MCPServer:
+def create_server(client: BridgeClient, profile: str = "modern") -> MCPServer:
+    if profile not in ("modern","srp"):raise ValueError("invalid_profile")
     server = BoundedMCPServer("Dead Earth")
+    server.allowed_operations=SRP_OPERATIONS if profile=="srp" else None
     read = ToolAnnotations(read_only_hint=True, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
     write = ToolAnnotations(read_only_hint=False, destructive_hint=False, idempotent_hint=True, open_world_hint=False)
 
@@ -74,13 +86,13 @@ def create_server(client: BridgeClient) -> MCPServer:
         return await invoke("preview_director", dict(request_id=request_id, goal_id=goal_id, variant=variant, text=text))
 
     @server.tool(annotations=read)
-    async def get_history(limit: int = 20) -> dict[str, Any]:
+    async def get_history(limit: int = 20) -> dict[str, Any] | list[Any]:
         """Последние 1–100 наблюдений; старые сведения не являются текущим состоянием."""
         return await invoke("get_history", {"limit": limit})
 
     @server.tool(annotations=read)
     async def list_catalog() -> dict[str, Any]:
-        """Каталог реализованных сценариев. Сигнал и три варианта радиосообщения известной станции."""
+        """Каталог реализованных сервером сценариев и интерактивных событий."""
         return {"entries": await invoke("list_catalog", {})}
 
     @server.tool(annotations=read)
@@ -104,7 +116,7 @@ def create_server(client: BridgeClient) -> MCPServer:
 
     @server.tool(annotations=write)
     async def cancel_scenario(scenario_id: str, revision: int) -> dict[str, Any]:
-        """Отменить будущий сигнал с ожидаемой ревизией; исполненный эффект не откатывается."""
+        """Отменить ожидающий сценарий с заданной ревизией; исполненный эффект не откатывается."""
         return await invoke("cancel_scenario", {"scenario_id": scenario_id, "revision": revision})
 
     return server
