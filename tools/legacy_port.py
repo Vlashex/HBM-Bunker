@@ -17,7 +17,7 @@ except ImportError:
     import legacy_storage as storage
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.0.4'
+VERSION = '1.1.0'
 PACK_NAME = 'DEAD-EARTH-SRP-' + VERSION
 MOD_NAME = 'dead-earth-srp-coordinator-' + VERSION + '.jar'
 FORGE = '1.12.2-14.23.5.2860'
@@ -71,7 +71,7 @@ def full_pins(root=ROOT):
         ids.add(row['mod_id']); names.add(name.casefold())
     required = set(base) | {'appliedenergistics2','mysticalagriculture','cucumber','projecte','rftools',
         'rftoolspower','mcjtylib_ng','xnet','exnihilocreatio','excompressum','forgelin',
-        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap'}
+        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap','bonsaitrees'}
     if ids != required: raise ValueError('Unexpected full-fork composition: ' + str(ids ^ required))
     return rows
 
@@ -260,9 +260,15 @@ def entries(side, root=ROOT):
     result['mod-map.json'] = (root / 'legacy/metadata/mod-map.json').read_bytes()
     if side == 'client':
         result['instance.cfg'] = ('[General]\nInstanceType=OneSix\n'
-            'name=DEAD EARTH SRP 1.0.4 (1.12.2)\nOverrideMemory=true\n'
+            'name=DEAD EARTH SRP 1.1.0 (1.12.2)\nOverrideMemory=true\n'
             'MinMemAlloc=1024\nMaxMemAlloc=4096\n').encode('utf-8')
     else:
+        for path in files(root / 'legacy/docker'):
+            relative = path.relative_to(root / 'legacy/docker').as_posix()
+            if (relative in {'compose.yaml', 'runtime.py', 'model_store.py', 'README.md', 'START.bat', 'STOP.bat', '.env.example', 'secrets.env.example', '.gitignore'}
+                    or relative.startswith('Dockerfile.')) and '/' not in relative:
+                result['legacy/docker/' + relative] = path.read_bytes()
+        result['tools/legacy_compose.py'] = (root / 'tools/legacy_compose.py').read_bytes()
         for path in files(root / 'director/dead_earth_director'):
             relative = path.relative_to(root / 'director/dead_earth_director')
             if any(part in {'runtime', '__pycache__', '.venv'} for part in relative.parts): continue
@@ -285,6 +291,17 @@ def entries(side, root=ROOT):
     return result
 
 
+def validate_generated(root=ROOT):
+    try:
+        from . import legacy_full_recipes, legacy_siege
+    except ImportError:
+        import legacy_full_recipes, legacy_siege
+    for name, expected in legacy_full_recipes.products(root).items():
+        if (root / name).read_bytes() != expected:
+            raise ValueError('Generated artifact is stale: ' + name)
+    legacy_siege.check(root)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     actions = parser.add_subparsers(dest='action', required=True)
@@ -299,6 +316,7 @@ def main(argv=None):
         if args.action == 'fetch': fetch()
         elif args.action == 'compile': compile_coordinator(args.javac, args.forge_dir, args.tests)
         else:
+            validate_generated()
             for side, suffix in (('client', 'Prism'), ('server', 'Server-Overlay')):
                 data = storage.zip_bytes(entries(side))
                 output = ROOT / 'dist' / (PACK_NAME + '-' + suffix + '.zip')

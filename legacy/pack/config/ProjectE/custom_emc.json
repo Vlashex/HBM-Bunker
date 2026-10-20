@@ -1,5 +1,5 @@
 {
-  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit.",
+  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json.",
   "entries": [
     {
       "item": "appliedenergistics2:material|0",
@@ -156,6 +156,38 @@
     {
       "item": "hbm:ore_uranium|0",
       "emc": 4096
+    },
+    {
+      "item": "hbm:powder_aluminium|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:powder_beryllium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:powder_copper|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:powder_gold|0",
+      "emc": 2048
+    },
+    {
+      "item": "hbm:powder_iron|0",
+      "emc": 256
+    },
+    {
+      "item": "hbm:powder_lead|0",
+      "emc": 256
+    },
+    {
+      "item": "hbm:powder_titanium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:powder_tungsten|0",
+      "emc": 768
     },
     {
       "item": "hbm:sulfur|0",

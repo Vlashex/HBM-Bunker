@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "mode": "xray",
+  "sightRadius": 64,
+  "targetCreativePlayers": false,
+  "maximumRayCells": 128,
+  "maximumTransparentCells": 16,
+  "maximumRaysPerTick": 64,
+  "maximumTargetsPerEntity": 4,
+  "transparentBlocks": [
+    "minecraft:glass",
+    "minecraft:stained_glass",
+    "minecraft:glass_pane",
+    "minecraft:stained_glass_pane"
+  ]
+}

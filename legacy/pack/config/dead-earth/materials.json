@@ -1,0 +1,640 @@
+{
+  "schema": 1,
+  "policy": {
+    "convertTaggedStacks": false,
+    "convertCapabilityStacks": false,
+    "inventoryIntervalTicks": 20,
+    "inventorySlotsPerPass": 9,
+    "forms": [
+      "ingot",
+      "dust",
+      "nugget",
+      "plate"
+    ],
+    "retainRegistryEntries": true,
+    "excludedEquivalences": [
+      "silicon boule / AE2 silicon",
+      "certus quartz / nether quartz",
+      "ore piece / ore block",
+      "ore chunk / ore block",
+      "tiny dust / full dust",
+      "nuclear fuel / raw uranium",
+      "different HBM materials or isotopes"
+    ]
+  },
+  "materials": [
+    {
+      "material": "iron",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "minecraft:iron_ingot:0",
+          "oreNames": [
+            "ingotIron"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_iron:3"
+          ],
+          "value": 256,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_iron:0",
+          "oreNames": [
+            "dustIron"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_iron:2"
+          ],
+          "value": 256,
+          "allowEmc": true
+        },
+        {
+          "form": "nugget",
+          "canonical": "minecraft:iron_nugget:0",
+          "oreNames": [
+            "nuggetIron"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_iron:0",
+          "oreNames": [
+            "plateIron"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "gold",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "minecraft:gold_ingot:0",
+          "oreNames": [
+            "ingotGold"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_gold:3"
+          ],
+          "value": 2048,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_gold:0",
+          "oreNames": [
+            "dustGold"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_gold:2"
+          ],
+          "value": 2048,
+          "allowEmc": true
+        },
+        {
+          "form": "nugget",
+          "canonical": "minecraft:gold_nugget:0",
+          "oreNames": [
+            "nuggetGold"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_gold:0",
+          "oreNames": [
+            "plateGold"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "copper",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_copper:0",
+          "oreNames": [
+            "ingotCopper"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_copper:3"
+          ],
+          "value": 128,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_copper:0",
+          "oreNames": [
+            "dustCopper"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_copper:2"
+          ],
+          "value": 128,
+          "allowEmc": true
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_copper:0",
+          "oreNames": [
+            "plateCopper"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:copper_essence",
+        "output": "hbm:ingot_copper:0",
+        "count": 6,
+        "pattern": [
+          "EEE",
+          "E E",
+          "EEE"
+        ],
+        "nativeOreName": "ingotCopper",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "aluminium",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_aluminium:0",
+          "oreNames": [
+            "ingotAluminium",
+            "ingotAluminum"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_aluminium:3"
+          ],
+          "value": 128,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_aluminium:0",
+          "oreNames": [
+            "dustAluminium",
+            "dustAluminum"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_aluminium:2"
+          ],
+          "value": 128,
+          "allowEmc": true
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_aluminium:0",
+          "oreNames": [
+            "plateAluminium",
+            "plateAluminum"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:aluminum_essence",
+        "output": "hbm:ingot_aluminium:0",
+        "count": 8,
+        "pattern": [
+          "EEE",
+          "E E",
+          "EEE"
+        ],
+        "nativeOreName": "ingotAluminum",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "lead",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_lead:0",
+          "oreNames": [
+            "ingotLead"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_lead:3"
+          ],
+          "value": 256,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_lead:0",
+          "oreNames": [
+            "dustLead"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_lead:2"
+          ],
+          "value": 256,
+          "allowEmc": true
+        },
+        {
+          "form": "nugget",
+          "canonical": "hbm:nugget_lead:0",
+          "oreNames": [
+            "nuggetLead"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_lead:0",
+          "oreNames": [
+            "plateLead"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:lead_essence",
+        "output": "hbm:ingot_lead:0",
+        "count": 4,
+        "pattern": [
+          "EEE",
+          "E E",
+          "EEE"
+        ],
+        "nativeOreName": "ingotLead",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "titanium",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_titanium:0",
+          "oreNames": [
+            "ingotTitanium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_titanium:3"
+          ],
+          "value": 512,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_titanium:0",
+          "oreNames": [
+            "dustTitanium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_titanium:2"
+          ],
+          "value": 512,
+          "allowEmc": true
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_titanium:0",
+          "oreNames": [
+            "plateTitanium"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:titanium_essence",
+        "output": "hbm:ingot_titanium:0",
+        "count": 2,
+        "pattern": [
+          "EEE",
+          "E E",
+          "EEE"
+        ],
+        "nativeOreName": "ingotTitanium",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "tungsten",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_tungsten:0",
+          "oreNames": [
+            "ingotTungsten"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_tungsten:3"
+          ],
+          "value": 768,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_tungsten:0",
+          "oreNames": [
+            "dustTungsten"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_tungsten:2"
+          ],
+          "value": 768,
+          "allowEmc": true
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:tungsten_essence",
+        "output": "hbm:ingot_tungsten:0",
+        "count": 2,
+        "pattern": [
+          "EEE",
+          "E E",
+          "EEE"
+        ],
+        "nativeOreName": "ingotTungsten",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "beryllium",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_beryllium:0",
+          "oreNames": [
+            "ingotBeryllium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_beryllium:3"
+          ],
+          "value": 512,
+          "allowEmc": true
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_beryllium:0",
+          "oreNames": [
+            "dustBeryllium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_beryllium:2"
+          ],
+          "value": 512,
+          "allowEmc": true
+        },
+        {
+          "form": "nugget",
+          "canonical": "hbm:nugget_beryllium:0",
+          "oreNames": [
+            "nuggetBeryllium"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "cobalt",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_cobalt:0",
+          "oreNames": [
+            "ingotCobalt"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_cobalt:3"
+          ],
+          "value": 768,
+          "allowEmc": false
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_cobalt:0",
+          "oreNames": [
+            "dustCobalt"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_cobalt:2"
+          ],
+          "value": 768,
+          "allowEmc": false
+        },
+        {
+          "form": "nugget",
+          "canonical": "hbm:nugget_cobalt:0",
+          "oreNames": [
+            "nuggetCobalt"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "boron",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_boron:0",
+          "oreNames": [
+            "ingotBoron"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_boron:3"
+          ],
+          "allowEmc": false
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_boron:0",
+          "oreNames": [
+            "dustBoron"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_boron:2"
+          ],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "uranium",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_uranium:0",
+          "oreNames": [
+            "ingotUranium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_uranium:3"
+          ],
+          "value": 4096,
+          "allowEmc": false
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_uranium:0",
+          "oreNames": [
+            "dustUranium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_uranium:2"
+          ],
+          "value": 4096,
+          "allowEmc": false
+        },
+        {
+          "form": "nugget",
+          "canonical": "hbm:nugget_uranium:0",
+          "oreNames": [
+            "nuggetUranium"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "thorium",
+      "forms": [
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_thorium:0",
+          "oreNames": [
+            "dustThorium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_thorium:2"
+          ],
+          "value": 4096,
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "lithium",
+      "forms": [
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_lithium:0",
+          "oreNames": [
+            "dustLithium"
+          ],
+          "legacyAliases": [
+            "exnihilocreatio:item_ore_lithium:2"
+          ],
+          "value": 512,
+          "allowEmc": false
+        }
+      ]
+    },
+    {
+      "material": "sulfur",
+      "forms": [
+        {
+          "form": "dust",
+          "canonical": "hbm:sulfur:0",
+          "oreNames": [
+            "dustSulfur",
+            "dustSulphur"
+          ],
+          "legacyAliases": [],
+          "value": 64,
+          "allowEmc": true
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:sulfur_essence",
+        "output": "hbm:sulfur:0",
+        "count": 8,
+        "pattern": [
+          "EEE",
+          "   ",
+          "   "
+        ],
+        "nativeOreName": "dustSulfur",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "niter",
+      "forms": [
+        {
+          "form": "dust",
+          "canonical": "hbm:niter:0",
+          "oreNames": [
+            "dustSaltpeter",
+            "dustNiter",
+            "dustNitre"
+          ],
+          "legacyAliases": [],
+          "value": 64,
+          "allowEmc": true
+        }
+      ],
+      "crop": {
+        "essence": "mysticalagriculture:saltpeter_essence",
+        "output": "hbm:niter:0",
+        "count": 5,
+        "pattern": [
+          "EEE",
+          "   ",
+          "   "
+        ],
+        "nativeOreName": "dustSaltpeter",
+        "seedEnable": 2
+      }
+    },
+    {
+      "material": "steel",
+      "forms": [
+        {
+          "form": "ingot",
+          "canonical": "hbm:ingot_steel:0",
+          "oreNames": [
+            "ingotSteel"
+          ],
+          "legacyAliases": [],
+          "value": 512,
+          "allowEmc": false
+        },
+        {
+          "form": "dust",
+          "canonical": "hbm:powder_steel:0",
+          "oreNames": [
+            "dustSteel"
+          ],
+          "legacyAliases": [],
+          "value": 512,
+          "allowEmc": false
+        },
+        {
+          "form": "plate",
+          "canonical": "hbm:plate_steel:0",
+          "oreNames": [
+            "plateSteel"
+          ],
+          "legacyAliases": [],
+          "allowEmc": false
+        }
+      ]
+    }
+  ]
+}

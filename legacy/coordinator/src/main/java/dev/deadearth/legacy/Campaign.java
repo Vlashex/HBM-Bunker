@@ -1,18 +1,141 @@
 package dev.deadearth.legacy;
+
+import dev.deadearth.legacy.kernel.*;
 import java.nio.file.*;
 import java.util.*;
-import dev.deadearth.legacy.kernel.*;
-/** Own format: never reinterpret a modern world. Unreadable saves abort startup without overwriting. */
+
+/**
+ * Own format: never reinterpret a modern world. Unreadable saves abort startup without overwriting.
+ */
 public final class Campaign {
- public String starterState="NONE";
- public int schema=1;public String campaignId=UUID.randomUUID().toString(),worldEpoch=UUID.randomUUID().toString();
- public long activeTicks=0,revision=0;public double points=0;public int phase=0;public boolean paused=false;
- public List<Map<String,Object>> history=new ArrayList<Map<String,Object>>();public Map<String,Receipt> receipts=new LinkedHashMap<String,Receipt>();
- public Map<String,Player> players=new LinkedHashMap<String,Player>();public List<Zone> zones=new ArrayList<Zone>();public Set<String> owned=new HashSet<String>();public Map<String,String> ownership=new LinkedHashMap<String,String>();
- public List<Map<String,Object>> traces=new ArrayList<Map<String,Object>>();
- public CinematicEngine.Snapshot cinematic;public Map<String,Map<String,Object>> analytics=new LinkedHashMap<String,Map<String,Object>>();
- public static final class Receipt {public String fingerprint;public com.google.gson.JsonObject result;public Receipt(String f,Object r){fingerprint=f;result=JsonFiles.JSON.toJsonTree(r).getAsJsonObject();}}
- public static final class Player {public double damage=0;public int deaths=0,kills=0;public long lastLoss=0;}
- public static final class Zone {public String id=UUID.randomUUID().toString(),name,scanError="";public int dimension,x,y,z;public double value=0;public long resourceEmc=0,armedRank=0,emptyRank=0,scannedAt=0;public boolean complete=false;public int ignoredLootContainers=0,unknownTurrets=0;}
- public static Campaign open(Path p)throws Exception{if(!Files.exists(p))return new Campaign();com.google.gson.JsonObject raw=JsonFiles.read(p,4194304);for(String field:Arrays.asList("schema","campaignId","worldEpoch","activeTicks","revision","points","phase","paused","history","receipts","players","zones","owned","ownership","cinematic","analytics","traces","starterState"))if(!raw.has(field)||raw.get(field).isJsonNull())throw new IllegalStateException("Incomplete existing campaign: "+field);for(String field:Arrays.asList("history","zones","owned","traces"))if(!raw.get(field).isJsonArray())throw new IllegalStateException("Invalid campaign array");for(String field:Arrays.asList("receipts","players","ownership","cinematic","analytics"))if(!raw.get(field).isJsonObject())throw new IllegalStateException("Invalid campaign object");for(String field:Arrays.asList("schema","activeTicks","revision","phase"))if(!raw.get(field).getAsJsonPrimitive().isNumber()||!raw.get(field).getAsString().matches("[0-9]{1,18}"))throw new IllegalStateException("Invalid campaign number");if(!raw.getAsJsonPrimitive("paused").isBoolean()||!raw.getAsJsonPrimitive("points").isNumber())throw new IllegalStateException("Invalid campaign type");Set<String> savedOwned=new HashSet<String>();for(com.google.gson.JsonElement value:raw.getAsJsonArray("owned"))if(!savedOwned.add(value.getAsString()))throw new IllegalStateException("Duplicate owned UUID");if(raw.has("cinematic")&&!raw.get("cinematic").isJsonNull()){com.google.gson.JsonObject queue=raw.getAsJsonObject("cinematic");if(queue.has("operations"))for(com.google.gson.JsonElement value:queue.getAsJsonArray("operations")){com.google.gson.JsonObject op=value.getAsJsonObject();if(op.has("latched")){Set<String> unique=new HashSet<String>();for(com.google.gson.JsonElement latch:op.getAsJsonArray("latched"))if(!unique.add(latch.getAsString()))throw new IllegalStateException("Duplicate saved signal");}}}Campaign c=JsonFiles.JSON.fromJson(raw,Campaign.class);if(c.schema!=1||c.activeTicks<0||c.revision<0||!Settings.finite(c.points,0,Integer.MAX_VALUE)||c.phase<0||c.phase>10||c.receipts==null||c.receipts.size()>2048||c.players==null||c.zones==null||c.zones.size()>16||c.analytics==null||c.owned==null||c.owned.size()>64||c.ownership==null||!c.ownership.keySet().equals(c.owned)||c.traces==null||c.traces.size()>48||c.players.size()>256||c.analytics.size()>512||!Arrays.asList("NONE","CLAIMED","DELIVERED").contains(c.starterState))throw new IllegalStateException("Unsupported campaign save");UUID.fromString(c.campaignId);UUID.fromString(c.worldEpoch);for(Map.Entry<String,String> e:c.ownership.entrySet()){UUID.fromString(e.getKey());UUID.fromString(e.getValue());}for(Zone z:c.zones)UUID.fromString(z.id);return c;}
+  public String starterState = "NONE";
+  public int schema = 1;
+  public String campaignId = UUID.randomUUID().toString(),
+      worldEpoch = UUID.randomUUID().toString();
+  public long activeTicks = 0, revision = 0;
+  public double points = 0;
+  public int phase = 0;
+  public boolean paused = false;
+  public List<Map<String, Object>> history = new ArrayList<Map<String, Object>>();
+  public Map<String, Receipt> receipts = new LinkedHashMap<String, Receipt>();
+  public Map<String, Player> players = new LinkedHashMap<String, Player>();
+  public List<Zone> zones = new ArrayList<Zone>();
+  public Set<String> owned = new HashSet<String>();
+  public Map<String, String> ownership = new LinkedHashMap<String, String>();
+  public List<Map<String, Object>> traces = new ArrayList<Map<String, Object>>();
+  public CinematicEngine.Snapshot cinematic;
+  public Map<String, Map<String, Object>> analytics =
+      new LinkedHashMap<String, Map<String, Object>>();
+
+  public static final class Receipt {
+    public String fingerprint;
+    public com.google.gson.JsonObject result;
+
+    public Receipt(String f, Object r) {
+      fingerprint = f;
+      result = JsonFiles.JSON.toJsonTree(r).getAsJsonObject();
+    }
+  }
+
+  public static final class Player {
+    public double damage = 0;
+    public int deaths = 0, kills = 0;
+    public long lastLoss = 0;
+  }
+
+  public static final class Zone {
+    public String id = UUID.randomUUID().toString(), name, scanError = "";
+    public int dimension, x, y, z;
+    public double value = 0;
+    public long resourceEmc = 0, armedRank = 0, emptyRank = 0, scannedAt = 0;
+    public boolean complete = false;
+    public int ignoredLootContainers = 0, unknownTurrets = 0;
+  }
+
+  public static Campaign open(Path p) throws Exception {
+    if (!Files.exists(p)) return new Campaign();
+    com.google.gson.JsonObject raw = JsonFiles.read(p, 4194304);
+    for (String field :
+        Arrays.asList(
+            "schema",
+            "campaignId",
+            "worldEpoch",
+            "activeTicks",
+            "revision",
+            "points",
+            "phase",
+            "paused",
+            "history",
+            "receipts",
+            "players",
+            "zones",
+            "owned",
+            "ownership",
+            "cinematic",
+            "analytics",
+            "traces",
+            "starterState"))
+      if (!raw.has(field) || raw.get(field).isJsonNull())
+        throw new IllegalStateException("Incomplete existing campaign: " + field);
+    for (String field : Arrays.asList("history", "zones", "owned", "traces"))
+      if (!raw.get(field).isJsonArray()) throw new IllegalStateException("Invalid campaign array");
+    for (String field : Arrays.asList("receipts", "players", "ownership", "cinematic", "analytics"))
+      if (!raw.get(field).isJsonObject())
+        throw new IllegalStateException("Invalid campaign object");
+    for (String field : Arrays.asList("schema", "activeTicks", "revision", "phase"))
+      if (!raw.get(field).getAsJsonPrimitive().isNumber()
+          || !raw.get(field).getAsString().matches("[0-9]{1,18}"))
+        throw new IllegalStateException("Invalid campaign number");
+    if (!raw.getAsJsonPrimitive("paused").isBoolean()
+        || !raw.getAsJsonPrimitive("points").isNumber())
+      throw new IllegalStateException("Invalid campaign type");
+    Set<String> savedOwned = new HashSet<String>();
+    for (com.google.gson.JsonElement value : raw.getAsJsonArray("owned"))
+      if (!savedOwned.add(value.getAsString()))
+        throw new IllegalStateException("Duplicate owned UUID");
+    if (raw.has("cinematic") && !raw.get("cinematic").isJsonNull()) {
+      com.google.gson.JsonObject queue = raw.getAsJsonObject("cinematic");
+      if (queue.has("operations"))
+        for (com.google.gson.JsonElement value : queue.getAsJsonArray("operations")) {
+          com.google.gson.JsonObject op = value.getAsJsonObject();
+          if (op.has("latched")) {
+            Set<String> unique = new HashSet<String>();
+            for (com.google.gson.JsonElement latch : op.getAsJsonArray("latched"))
+              if (!unique.add(latch.getAsString()))
+                throw new IllegalStateException("Duplicate saved signal");
+          }
+        }
+    }
+    Campaign c = JsonFiles.JSON.fromJson(raw, Campaign.class);
+    if (c.schema != 1
+        || c.activeTicks < 0
+        || c.revision < 0
+        || !Settings.finite(c.points, 0, Integer.MAX_VALUE)
+        || c.phase < 0
+        || c.phase > 10
+        || c.receipts == null
+        || c.receipts.size() > 2048
+        || c.players == null
+        || c.zones == null
+        || c.zones.size() > 16
+        || c.analytics == null
+        || c.owned == null
+        || c.owned.size() > 64
+        || c.ownership == null
+        || !c.ownership.keySet().equals(c.owned)
+        || c.traces == null
+        || c.traces.size() > 48
+        || c.players.size() > 256
+        || c.analytics.size() > 512
+        || !Arrays.asList("NONE", "CLAIMED", "DELIVERED").contains(c.starterState))
+      throw new IllegalStateException("Unsupported campaign save");
+    UUID.fromString(c.campaignId);
+    UUID.fromString(c.worldEpoch);
+    for (Map.Entry<String, String> e : c.ownership.entrySet()) {
+      UUID.fromString(e.getKey());
+      UUID.fromString(e.getValue());
+    }
+    for (Zone z : c.zones) UUID.fromString(z.id);
+    return c;
+  }
 }

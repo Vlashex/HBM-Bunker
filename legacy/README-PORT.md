@@ -1,4 +1,4 @@
-# DEAD EARTH SRP 1.0.4
+# DEAD EARTH SRP 1.1.0
 
 В готовых архивах этот документ находится в корне как `README-PORT.md`.
 Версии и контрольные суммы модов — `full.mods.lock.json`, таблица переноса —
@@ -16,7 +16,7 @@ Epic Siege 13.169 и собственный координатор. OV, Mutation
 | Механика | Реализация форка |
 | --- | --- |
 | Металлургия, энергетика, оружие, турели | HBM CE 2.6.1.0; сталь и пластины проходят через HBM |
-| Эволюция и осады | SRP 0–10, Epic Siege для zombie/husk; единый автомат сложности |
+| Эволюция и осады | SRP 0–10, Epic Siege для наземных SRP и zombie/husk; групповая ответная агрессия животных; единый автомат сложности |
 | Пустошь | Инертный пепел, камень и обломки, мёртвые стволы, мелкие/крупные кратеры, грязная вода |
 | Климат | Жара/затишье/зима; погода, воздействия, туман, частицы, многослойный лёд и снег сверху и сбоку |
 | Бункер | Общий стартовый V1-бункер, 6 реле, земля и саженцы; перестройка игроками разрешена |
@@ -114,10 +114,10 @@ Shift с пустой рукой возвращает не начатое сыр
 
 ## Клиент
 
-- **Prism:** импортировать `DEAD-EARTH-SRP-1.0.4-Prism.zip` как новый экземпляр;
+- **Prism:** импортировать `DEAD-EARTH-SRP-1.1.0-Prism.zip` как новый экземпляр;
   выбрать Java 8 x64. Начальный лимит памяти 4096 MiB.
 - **TLauncher:** отдельная папка игры, точный Forge 2860 и
-  `DEAD-EARTH-SRP-1.0.4-TLauncher.zip`; пошаговая инструкция внутри архива.
+  `DEAD-EARTH-SRP-1.1.0-TLauncher.zip`; пошаговая инструкция внутри архива.
 - Docker/Python/модели клиентам не нужны. Миры, аккаунты и адрес действующего
   сервера в архивы не входят. Клиент 1.12.2 не подключается к modern-серверу.
 
@@ -197,3 +197,11 @@ The coordinator now declares the Minecraft 1.12.2 resource format (3).
 Without pack.mcmeta, Forge treated its resources as legacy format 2 and
 looked for uppercase language filenames, skipping the shipped lowercase
 Russian and English translations. No sieve processing or world data changes.
+
+
+## Запуск 1.1.0 в Docker Desktop
+
+START-SERVER.bat и STOP-SERVER.bat используют единый Compose: Minecraft,
+туннель, ИИ и админка. Однократная подготовка мира и офлайн-импорт закреплённых
+моделей описаны в legacy/docker/README.md. Непосредственно в Windows работает
+только клиент. Настройки и секреты конкретного ПК в архив не входят.

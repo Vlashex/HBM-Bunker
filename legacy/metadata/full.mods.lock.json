@@ -301,5 +301,17 @@
     "minecraft": "1.12.2",
     "loader": "forge",
     "side": "client"
+  },
+  {
+    "filename": "bonsaitrees-1.1.4-b170.jar",
+    "url": "https://mediafilez.forgecdn.net/files/2846/217/bonsaitrees-1.1.4-b170.jar",
+    "version": "1.1.4-b170",
+    "mod_id": "bonsaitrees",
+    "size": 658780,
+    "sha256": "c56c407c3e157f2e2d831d415938b0393d7d11aa5248bdbe584847d98b9d2a30",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both",
+    "source": "https://www.curseforge.com/minecraft/mc-mods/bonsai-trees/files/2846217"
   }
 ]

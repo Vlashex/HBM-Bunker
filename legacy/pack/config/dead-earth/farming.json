@@ -7,5 +7,11 @@
   "outputSlots": 9,
   "harvestAttemptsPerTick": 16,
   "maxNativeDrops": 32,
-  "maxQueuedTrays": 4096
+  "maxQueuedTrays": 4096,
+  "acceleratorsEnabled": true,
+  "acceleratorBlock": "mysticalagriculture:growth_accelerator",
+  "acceleratorDepth": 8,
+  "maxAccelerators": 4,
+  "growthPerAccelerator": 1,
+  "maxGrowthMultiplier": 5
 }

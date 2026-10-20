@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "radius": 64,
+  "maximumTrackedGoals": 128,
+  "maximumActiveGoals": 16,
+  "maximumRelays": 64,
+  "entityVisitsPerTick": 32,
+  "tileVisitsPerTick": 32,
+  "workStepsPerTick": 8,
+  "repathTicks": 20,
+  "workIntervalTicks": 20,
+  "damagePerHit": 100,
+  "relayHitPoints": 1000,
+  "reach": 3.0,
+  "meleePriorityRadius": 4.0,
+  "navigationSpeed": 1.1
+}

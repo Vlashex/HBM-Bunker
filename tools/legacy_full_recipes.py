@@ -3,6 +3,10 @@ import argparse
 import json
 import re
 from pathlib import Path
+try:
+    from tools import legacy_materials
+except ModuleNotFoundError:
+    import legacy_materials
 
 ROOT = Path(__file__).resolve().parents[1]
 ITEM = re.compile(r'[a-z0-9_]+:[a-z0-9_./]+(?::[0-9]+)?\Z')
@@ -98,6 +102,7 @@ def products(root=ROOT):
             raise ValueError('Invalid native sieve reward')
         required.update((drop['input'], drop['output']))
     positives = dict(emc['allowlist'])
+    positives.update(legacy_materials.raw_values(root))
     compressed = compressed_raw_values(root, positives)
     positives.update(compressed)
     for item, value in positives.items():
@@ -126,9 +131,16 @@ def products(root=ROOT):
         result[path] = (json.dumps(value, indent=2) + '\n').encode()
     heavy = json.loads((root / 'legacy/sieving/heavy-entries.json').read_text(encoding='utf-8'))
     result['legacy/pack/config/ExCompressum/HeavySieve.json'] = (json.dumps({'options': {'loss for default generated rewards (out of 9)': 0}, 'defaults': {}, 'custom': {'entries': heavy}}, indent=2) + '\n').encode()
+    result.update(legacy_materials.products(root))
+    for group in legacy_materials.load(root)[1]: required.add(group['canonical'])
+    # Canonical entries and legacy same-form aliases share zone prices.
     coordinator = json.loads((root / 'legacy/pack/config/dead-earth/coordinator.json').read_text(encoding='utf-8'))
+    coordinator['resourcePrices'].update(legacy_materials.zone_values(root))
     for item, value in compressed.items(): coordinator['resourcePrices'][item.replace('|', ':')] = value
     result['legacy/pack/config/dead-earth/coordinator.json'] = (json.dumps(coordinator, indent=2) + '\n').encode()
+    generated_progression = json.loads(result['legacy/pack/config/dead-earth/progression.json'])
+    generated_progression['requiredItems'] = sorted(required)
+    result['legacy/pack/config/dead-earth/progression.json'] = (json.dumps(generated_progression, indent=2) + '\n').encode()
     return result
 
 

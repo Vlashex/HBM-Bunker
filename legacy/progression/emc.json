@@ -13,8 +13,6 @@
     "minecraft:obsidian|0": 64,
     "minecraft:coal|0": 128,
     "minecraft:coal|1": 32,
-    "minecraft:iron_ingot|0": 256,
-    "minecraft:gold_ingot|0": 2048,
     "minecraft:diamond|0": 8192,
     "minecraft:emerald|0": 16384,
     "minecraft:redstone|0": 64,
@@ -48,21 +46,13 @@
     "minecraft:fish|0": 64,
     "minecraft:fish|1": 64,
     "appliedenergistics2:material|0": 256,
-    "hbm:sulfur|0": 64,
-    "hbm:niter|0": 64,
     "hbm:fluorite|0": 128,
     "hbm:ore_copper|0": 128,
-    "hbm:ingot_copper|0": 128,
     "hbm:ore_aluminium|0": 128,
-    "hbm:ingot_aluminium|0": 128,
     "hbm:ore_lead|0": 256,
-    "hbm:ingot_lead|0": 256,
     "hbm:ore_titanium|0": 512,
-    "hbm:ingot_titanium|0": 512,
     "hbm:ore_tungsten|0": 768,
-    "hbm:ingot_tungsten|0": 768,
     "hbm:ore_beryllium|0": 512,
-    "hbm:ingot_beryllium|0": 512,
     "hbm:ore_cobalt|0": 768,
     "hbm:ore_uranium|0": 4096,
     "hbm:ore_thorium|0": 4096,
@@ -166,5 +156,5 @@
     "storagenetwork:request|0",
     "storagenetwork:storage_kabel|0"
   ],
-  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit."
+  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json."
 }
