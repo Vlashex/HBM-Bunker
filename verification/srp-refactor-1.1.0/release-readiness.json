@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "version": "1.1.0",
+  "tag": "srp-v1.1.0",
+  "readyForRelease": true,
+  "checkedAtUtc": "2026-10-20T14:03:00.225569+00:00",
+  "requiredChecks": {
+    "nativeFull": true,
+    "restart": true,
+    "clientAudit": true,
+    "manualVisual": true,
+    "composeE2E": true,
+    "aiManualReview": true,
+    "publicTunnel": true,
+    "gracefulLifecycle": true,
+    "unitAndDom": true,
+    "resourceEquivalence": true,
+    "staticAssets": true,
+    "runtimeInstall": true,
+    "sourceAndGameArchivesPrivateDataScan": true,
+    "verificationArchivePrivateDataScan": true,
+    "finalDocsReviewed": true,
+    "archiveJarMatches": true
+  },
+  "assets": [
+    {
+      "path": "dist/DEAD-EARTH-SRP-1.1.0-Prism.zip",
+      "name": "DEAD-EARTH-SRP-1.1.0-Prism.zip",
+      "size": 128359438,
+      "sha256": "b0a65c00d43665aaedd385ddd32e6ded75867e6b96a9493593d78a775b0fac47"
+    },
+    {
+      "path": "dist/DEAD-EARTH-SRP-1.1.0-TLauncher.zip",
+      "name": "DEAD-EARTH-SRP-1.1.0-TLauncher.zip",
+      "size": 132986689,
+      "sha256": "75a2bf1e751f984066a543351a72212b649e8487f4faa90699ecfcafae95af6c"
+    },
+    {
+      "path": "dist/DEAD-EARTH-SRP-1.1.0-Server-Overlay.zip",
+      "name": "DEAD-EARTH-SRP-1.1.0-Server-Overlay.zip",
+      "size": 121818011,
+      "sha256": "00f6b18d21a3e9734916f929e6ef4e533c13558dd3043afe2683e0981bea3532"
+    },
+    {
+      "path": "dist/DEAD-EARTH-SRP-1.1.0-Verification.zip",
+      "name": "DEAD-EARTH-SRP-1.1.0-Verification.zip",
+      "size": 902339,
+      "sha256": "f49facf4c6f0c2ef8d949babe3605da809b16cf22e03ff62dc34b857322b0ee1"
+    },
+    {
+      "path": "dist/SHA256SUMS.txt",
+      "name": "SHA256SUMS.txt",
+      "size": 408,
+      "sha256": "0604d31e0f3cad725f667f57a6cba200dc9c7915b368ff6c7eb002162df4ee4e"
+    }
+  ],
+  "coordinatorSha256": "ccbd76362d16064f461e0c2ca0aa9ba58c0f69214165021f77ea2afffeaebafa",
+  "verificationArchiveScan": {
+    "name": "DEAD-EARTH-SRP-1.1.0-Verification.zip",
+    "entries": 22,
+    "passed": true,
+    "coordinatorMatches": false
+  },
+  "serverState": "stopped",
+  "clientState": "closed",
+  "publicationAuthorization": "User authorized V1 stable release and GitHub push after final checks on 2026-10-20.",
+  "limits": [
+    "Functional/integration release gate, not a performance benchmark or long cooperative soak.",
+    "Terrain vista screenshot is inconclusive; native world generation checked separately in three regions.",
+    "Real frozen AI inference was reviewed; no live model-driven attack was admitted in the user world."
+  ]
+}

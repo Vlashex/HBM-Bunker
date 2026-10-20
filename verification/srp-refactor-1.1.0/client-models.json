@@ -1,0 +1,3218 @@
+{
+  "schema": 1,
+  "runId": "d9b84456-7c26-4261-bdef-8700c5d05487",
+  "worldEpoch": "5c0685d0-f238-4af0-9b4b-97f13ffbc7d7",
+  "probe": "actual_forge_1_12_2_client",
+  "screenshots": [
+    {
+      "view": "open-sieves-native-and-loaded-compact",
+      "file": "screenshots/00-open-sieves-native-and-loaded-compact.png",
+      "width": 1280,
+      "height": 720,
+      "season": "CALM",
+      "renderedAfterStableTicks": 40
+    },
+    {
+      "view": "compressed-native-l1-and-own-l2-l3-l4",
+      "file": "screenshots/01-compressed-native-l1-and-own-l2-l3-l4.png",
+      "width": 1280,
+      "height": 720,
+      "season": "CALM",
+      "renderedAfterStableTicks": 40
+    },
+    {
+      "view": "industrial-relay-ore-processor-and-charger",
+      "file": "screenshots/02-industrial-relay-ore-processor-and-charger.png",
+      "width": 1280,
+      "height": 720,
+      "season": "CALM",
+      "renderedAfterStableTicks": 40
+    },
+    {
+      "view": "bonsai-ordinary-and-hopping",
+      "file": "screenshots/03-bonsai-ordinary-and-hopping.png",
+      "width": 1280,
+      "height": 720,
+      "season": "CALM",
+      "renderedAfterStableTicks": 40
+    },
+    {
+      "view": "actual-generated-wasteland-vista",
+      "file": "screenshots/04-actual-generated-wasteland-vista.png",
+      "width": 1280,
+      "height": 720,
+      "season": "CALM",
+      "renderedAfterStableTicks": 40
+    }
+  ],
+  "checks": [
+    {
+      "model": "exnihilocreatio:block_sieve",
+      "texture": "minecraft:blocks/stone",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_sieve_v3",
+      "texture": "minecraft:blocks/log_oak",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_sieve_v4",
+      "texture": "minecraft:blocks/log_oak",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_sieve_v5",
+      "texture": "minecraft:blocks/log_oak",
+      "ok": true
+    },
+    {
+      "model": "excompressum:compressed_block",
+      "texture": "excompressum:blocks/compressed_dust",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_2",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_3",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_4",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_dirt_2",
+      "texture": "excompressum:blocks/compressed_dirt",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_dirt_3",
+      "texture": "excompressum:blocks/compressed_dirt",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_dirt_4",
+      "texture": "excompressum:blocks/compressed_dirt",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:zone_relay",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:fortune_processor",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:charger",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "bonsaitrees:bonsaipot",
+      "texture": "bonsaitrees:blocks/bonsaipot",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:zone_relay",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:fortune_processor",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:charger",
+      "texture": "hbm:blocks/deco_steel",
+      "ok": true
+    },
+    {
+      "model": "bonsaitrees:bonsaipot",
+      "texture": "bonsaitrees:blocks/bonsaipot",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_mesh_string_v3",
+      "texture": "minecraft:blocks/wool_colored_white",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_mesh_iron_v4",
+      "texture": "minecraft:blocks/wool_colored_gray",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compact_mesh_diamond_v5",
+      "texture": "minecraft:blocks/wool_colored_light_blue",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_2",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_3",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "model": "dead_earth:compressed_gravel_4",
+      "texture": "excompressum:blocks/compressed_gravel",
+      "ok": true
+    },
+    {
+      "localizedOwnItemCount": 103,
+      "language": "ru_ru",
+      "ok": true
+    },
+    {
+      "showcaseInventory": [
+        "dead_earth:compact_mesh_diamond_v5",
+        "dead_earth:charger",
+        "dead_earth:compressed_gravel_4",
+        "bonsaitrees:bonsaipot",
+        "dead_earth:compressed_gravel_3",
+        "dead_earth:compressed_gravel_2",
+        "dead_earth:zone_relay",
+        "dead_earth:compact_mesh_iron_v4",
+        "dead_earth:compact_mesh_string_v3",
+        "dead_earth:fortune_processor"
+      ],
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "exnihilocreatio:block_sieve",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v3",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v3",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v4",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v4",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v5",
+      "ok": true
+    },
+    {
+      "scene": "open-sieves-native-and-loaded-compact",
+      "block": "dead_earth:compact_sieve_v5",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "excompressum:compressed_block",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_gravel_2",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_gravel_3",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_gravel_4",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "excompressum:compressed_block",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_dirt_2",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_dirt_3",
+      "ok": true
+    },
+    {
+      "scene": "compressed-native-l1-and-own-l2-l3-l4",
+      "block": "dead_earth:compressed_dirt_4",
+      "ok": true
+    },
+    {
+      "scene": "industrial-relay-ore-processor-and-charger",
+      "block": "dead_earth:zone_relay",
+      "ok": true
+    },
+    {
+      "scene": "industrial-relay-ore-processor-and-charger",
+      "block": "dead_earth:fortune_processor",
+      "ok": true
+    },
+    {
+      "scene": "industrial-relay-ore-processor-and-charger",
+      "block": "dead_earth:charger",
+      "ok": true
+    },
+    {
+      "scene": "bonsai-ordinary-and-hopping",
+      "block": "bonsaitrees:bonsaipot",
+      "ok": true
+    },
+    {
+      "scene": "bonsai-ordinary-and-hopping",
+      "block": "bonsaitrees:bonsaipot",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:stone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:cobblestone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:gravel",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:stonebrick",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:cobblestone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:gravel",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:stone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:cobblestone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "minecraft:stone",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    },
+    {
+      "scene": "actual-generated-wasteland-vista",
+      "block": "dead_earth:ash",
+      "ok": true
+    }
+  ],
+  "ownAssets": {
+    "passed": true,
+    "errors": [],
+    "scope": "all_actual_registered_own_blockstates_and_inventory_stacks",
+    "registeredBlocks": 214,
+    "registeredItems": 103,
+    "environmentalBlocksWithoutItems": 129,
+    "blockStatesChecked": 1870,
+    "specializedBlockModels": [
+      "dead_earth:charger",
+      "dead_earth:fortune_processor",
+      "dead_earth:zone_relay"
+    ],
+    "inventoryStackCases": 109,
+    "quadSpritesChecked": 166836,
+    "allBlockStates": true,
+    "defaultAndCreativeSubitems": true,
+    "damagedToolVariants": true,
+    "baseAndOverrideItemModels": true,
+    "lazyBaseItemsWithRenderableResolvedModel": [
+      "dead_earth:charger",
+      "dead_earth:fortune_processor",
+      "dead_earth:zone_relay"
+    ],
+    "quadSprites": [
+      "dead_earth:block/defense_door_lower_v1",
+      "dead_earth:block/defense_door_lower_v2",
+      "dead_earth:block/defense_door_lower_v3",
+      "dead_earth:block/defense_door_upper_v1",
+      "dead_earth:block/defense_door_upper_v2",
+      "dead_earth:block/defense_door_upper_v3",
+      "dead_earth:block/defense_hatch_v1",
+      "dead_earth:block/defense_hatch_v2",
+      "dead_earth:block/defense_hatch_v3",
+      "dead_earth:block/defense_steel_v1",
+      "dead_earth:block/defense_steel_v2",
+      "dead_earth:block/defense_steel_v3",
+      "dead_earth:blocks/ash",
+      "dead_earth:blocks/trace_ash_1",
+      "dead_earth:blocks/trace_ash_2",
+      "dead_earth:blocks/trace_ash_3",
+      "dead_earth:blocks/trace_ash_4",
+      "dead_earth:blocks/trace_ash_5",
+      "dead_earth:blocks/trace_ash_6",
+      "dead_earth:blocks/trace_cable_1",
+      "dead_earth:blocks/trace_cable_2",
+      "dead_earth:blocks/trace_cable_3",
+      "dead_earth:blocks/trace_cable_4",
+      "dead_earth:blocks/trace_cable_5",
+      "dead_earth:blocks/trace_cable_6",
+      "dead_earth:blocks/trace_claw_1",
+      "dead_earth:blocks/trace_claw_2",
+      "dead_earth:blocks/trace_claw_3",
+      "dead_earth:blocks/trace_claw_4",
+      "dead_earth:blocks/trace_claw_5",
+      "dead_earth:blocks/trace_claw_6",
+      "dead_earth:blocks/trace_drag_1",
+      "dead_earth:blocks/trace_drag_2",
+      "dead_earth:blocks/trace_drag_3",
+      "dead_earth:blocks/trace_drag_4",
+      "dead_earth:blocks/trace_drag_5",
+      "dead_earth:blocks/trace_drag_6",
+      "dead_earth:blocks/trace_foot_1",
+      "dead_earth:blocks/trace_foot_2",
+      "dead_earth:blocks/trace_foot_3",
+      "dead_earth:blocks/trace_foot_4",
+      "dead_earth:blocks/trace_foot_5",
+      "dead_earth:blocks/trace_foot_6",
+      "dead_earth:blocks/trace_fracture_1",
+      "dead_earth:blocks/trace_fracture_2",
+      "dead_earth:blocks/trace_fracture_3",
+      "dead_earth:blocks/trace_fracture_4",
+      "dead_earth:blocks/trace_fracture_5",
+      "dead_earth:blocks/trace_fracture_6",
+      "dead_earth:blocks/trace_spore_1",
+      "dead_earth:blocks/trace_spore_2",
+      "dead_earth:blocks/trace_spore_3",
+      "dead_earth:blocks/trace_spore_4",
+      "dead_earth:blocks/trace_spore_5",
+      "dead_earth:blocks/trace_spore_6",
+      "dead_earth:blocks/trace_tendril_1",
+      "dead_earth:blocks/trace_tendril_2",
+      "dead_earth:blocks/trace_tendril_3",
+      "dead_earth:blocks/trace_tendril_4",
+      "dead_earth:blocks/trace_tendril_5",
+      "dead_earth:blocks/trace_tendril_6",
+      "dead_earth:item/defense_door_v1",
+      "dead_earth:item/defense_door_v2",
+      "dead_earth:item/defense_door_v3",
+      "excompressum:blocks/compressed_cobblestone",
+      "excompressum:blocks/compressed_dirt",
+      "excompressum:blocks/compressed_dust",
+      "excompressum:blocks/compressed_ender_gravel",
+      "excompressum:blocks/compressed_gravel",
+      "excompressum:blocks/compressed_nether_gravel",
+      "excompressum:blocks/compressed_sand",
+      "excompressum:blocks/compressed_soul_sand",
+      "excompressum:blocks/diamond_mesh",
+      "excompressum:blocks/flint_mesh",
+      "excompressum:blocks/iron_mesh",
+      "excompressum:blocks/string_mesh",
+      "exnihilocreatio:blocks/blockdust",
+      "exnihilocreatio:blocks/blockendstonecrushed",
+      "exnihilocreatio:blocks/blocknetherrackcrushed",
+      "exnihilocreatio:blocks/blockskystonecrushed",
+      "exnihilocreatio:blocks/crushed_andesite",
+      "exnihilocreatio:blocks/crushed_diorite",
+      "exnihilocreatio:blocks/crushed_granite",
+      "hbm:blocks/block_steel",
+      "hbm:blocks/concrete_hazard",
+      "hbm:blocks/control_panel0",
+      "hbm:blocks/deco_steel",
+      "hbm:blocks/machine_coal_side",
+      "hbm:blocks/machine_controller",
+      "hbm:blocks/machine_controller_back",
+      "hbm:items/dead_earth_hammer_v1",
+      "hbm:items/dead_earth_hammer_v2",
+      "hbm:items/dead_earth_hammer_v3",
+      "hbm:items/dead_earth_mining_gadget_v1",
+      "hbm:items/dead_earth_mining_gadget_v2",
+      "hbm:items/dead_earth_mining_gadget_v3",
+      "minecraft:blocks/cobblestone",
+      "minecraft:blocks/concrete_lime",
+      "minecraft:blocks/concrete_orange",
+      "minecraft:blocks/dirt",
+      "minecraft:blocks/gold_block",
+      "minecraft:blocks/gravel",
+      "minecraft:blocks/hardened_clay",
+      "minecraft:blocks/ice",
+      "minecraft:blocks/iron_block",
+      "minecraft:blocks/leaves_acacia",
+      "minecraft:blocks/leaves_big_oak",
+      "minecraft:blocks/leaves_birch",
+      "minecraft:blocks/leaves_jungle",
+      "minecraft:blocks/leaves_oak",
+      "minecraft:blocks/leaves_spruce",
+      "minecraft:blocks/log_oak",
+      "minecraft:blocks/red_sand",
+      "minecraft:blocks/sand",
+      "minecraft:blocks/snow",
+      "minecraft:blocks/soul_sand",
+      "minecraft:blocks/wool_colored_gray",
+      "minecraft:blocks/wool_colored_light_blue",
+      "minecraft:blocks/wool_colored_silver",
+      "minecraft:blocks/wool_colored_white"
+    ],
+    "blocks": [
+      {
+        "id": "dead_earth:ash",
+        "name": "Пепел",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:charger",
+        "name": "Зарядник",
+        "validStates": 1,
+        "quadsChecked": 192,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compact_sieve_v3",
+        "name": "Сито III",
+        "validStates": 475,
+        "quadsChecked": 50920,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compact_sieve_v4",
+        "name": "Сито IV",
+        "validStates": 475,
+        "quadsChecked": 50920,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compact_sieve_v5",
+        "name": "Сито V",
+        "validStates": 475,
+        "quadsChecked": 50920,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_1",
+        "name": "Сжатая акациевая листва ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_2",
+        "name": "Сжатая акациевая листва ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_3",
+        "name": "Сжатая акациевая листва ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_4",
+        "name": "Сжатая акациевая листва ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_1",
+        "name": "Сжатая берёзовая листва ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_2",
+        "name": "Сжатая берёзовая листва ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_3",
+        "name": "Сжатая берёзовая листва ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_4",
+        "name": "Сжатая берёзовая листва ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_2",
+        "name": "Сжатый булыжник ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_3",
+        "name": "Сжатый булыжник ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_4",
+        "name": "Сжатый булыжник ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_1",
+        "name": "Сжатый дроблёный андезит ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_2",
+        "name": "Сжатый дроблёный андезит ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_3",
+        "name": "Сжатый дроблёный андезит ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_4",
+        "name": "Сжатый дроблёный андезит ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_1",
+        "name": "Сжатый дроблёный диорит ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_2",
+        "name": "Сжатый дроблёный диорит ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_3",
+        "name": "Сжатый дроблёный диорит ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_4",
+        "name": "Сжатый дроблёный диорит ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_1",
+        "name": "Сжатый дроблёный гранит ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_2",
+        "name": "Сжатый дроблёный гранит ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_3",
+        "name": "Сжатый дроблёный гранит ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_4",
+        "name": "Сжатый дроблёный гранит ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_1",
+        "name": "Сжатая листва тёмного дуба ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_2",
+        "name": "Сжатая листва тёмного дуба ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_3",
+        "name": "Сжатая листва тёмного дуба ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_4",
+        "name": "Сжатая листва тёмного дуба ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dirt_2",
+        "name": "Сжатая земля ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dirt_3",
+        "name": "Сжатая земля ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dirt_4",
+        "name": "Сжатая земля ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dust_2",
+        "name": "Сжатая пыль ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dust_3",
+        "name": "Сжатая пыль ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_dust_4",
+        "name": "Сжатая пыль ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_2",
+        "name": "Сжатый эндерский гравий ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_3",
+        "name": "Сжатый эндерский гравий ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_4",
+        "name": "Сжатый эндерский гравий ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_gravel_2",
+        "name": "Сжатый гравий ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_gravel_3",
+        "name": "Сжатый гравий ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_gravel_4",
+        "name": "Сжатый гравий ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_1",
+        "name": "Сжатая тропическая листва ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_2",
+        "name": "Сжатая тропическая листва ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_3",
+        "name": "Сжатая тропическая листва ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_4",
+        "name": "Сжатая тропическая листва ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_2",
+        "name": "Сжатый незерский гравий ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_3",
+        "name": "Сжатый незерский гравий ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_4",
+        "name": "Сжатый незерский гравий ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_1",
+        "name": "Сжатая дубовая листва ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_2",
+        "name": "Сжатая дубовая листва ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_3",
+        "name": "Сжатая дубовая листва ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_4",
+        "name": "Сжатая дубовая листва ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_1",
+        "name": "Сжатый красный песок ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_2",
+        "name": "Сжатый красный песок ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_3",
+        "name": "Сжатый красный песок ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_4",
+        "name": "Сжатый красный песок ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_sand_2",
+        "name": "Сжатый песок ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_sand_3",
+        "name": "Сжатый песок ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_sand_4",
+        "name": "Сжатый песок ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_skystone_1",
+        "name": "Сжатый дроблёный небесный камень ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_skystone_2",
+        "name": "Сжатый дроблёный небесный камень ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_skystone_3",
+        "name": "Сжатый дроблёный небесный камень ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_skystone_4",
+        "name": "Сжатый дроблёный небесный камень ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_2",
+        "name": "Сжатый песок душ ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_3",
+        "name": "Сжатый песок душ ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_4",
+        "name": "Сжатый песок душ ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_1",
+        "name": "Сжатая еловая листва ×9",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_2",
+        "name": "Сжатая еловая листва ×81",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_3",
+        "name": "Сжатая еловая листва ×729",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_4",
+        "name": "Сжатая еловая листва ×6561",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:crop_tray",
+        "name": "Грядка",
+        "validStates": 1,
+        "quadsChecked": 72,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_door_v1",
+        "name": "Дверь бункера V1",
+        "validStates": 64,
+        "quadsChecked": 640,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_door_v2",
+        "name": "Дверь бункера V2",
+        "validStates": 64,
+        "quadsChecked": 640,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_door_v3",
+        "name": "Дверь бункера V3",
+        "validStates": 64,
+        "quadsChecked": 640,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_hatch_v1",
+        "name": "Люк бункера V1",
+        "validStates": 16,
+        "quadsChecked": 192,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_hatch_v2",
+        "name": "Люк бункера V2",
+        "validStates": 16,
+        "quadsChecked": 192,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_hatch_v3",
+        "name": "Люк бункера V3",
+        "validStates": 16,
+        "quadsChecked": 192,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_wall_v1",
+        "name": "Блок бункера V1",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_wall_v2",
+        "name": "Блок бункера V2",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:defense_wall_v3",
+        "name": "Блок бункера V3",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:fortune_processor",
+        "name": "Обогатитель руды",
+        "validStates": 1,
+        "quadsChecked": 360,
+        "inventoryItem": true
+      },
+      {
+        "id": "dead_earth:season_lake_ice",
+        "name": "Лёд",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_1",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_2",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_3",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_4",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_5",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_6",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_7",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_0_8",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_1",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_2",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_3",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_4",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_5",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_6",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_7",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_1_8",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_1",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_2",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_3",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_4",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_5",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_6",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_7",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_2_8",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_1",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_2",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_3",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_4",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_5",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_6",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_7",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_3_8",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_1",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_2",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_3",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_4",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_5",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_6",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_7",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_rime_4_8",
+        "name": "Наледь",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_1",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_2",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_3",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_4",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_5",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_6",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_7",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_0_8",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_1",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_2",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_3",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_4",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_5",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_6",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_7",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_1_8",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_1",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_2",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_3",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_4",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_5",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_6",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_7",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_2_8",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_1",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_2",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_3",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_4",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_5",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_6",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_7",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_3_8",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_1",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_2",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_3",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_4",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_5",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_6",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_7",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:season_snow_4_8",
+        "name": "Снег",
+        "validStates": 1,
+        "quadsChecked": 12,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_1",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_2",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_3",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_4",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_5",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_ash_6",
+        "name": "Следы гари",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_1",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_2",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_3",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_4",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_5",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_cable_6",
+        "name": "Оборванный кабель",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_1",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_2",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_3",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_4",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_5",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_claw_6",
+        "name": "Следы когтей",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_1",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_2",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_3",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_4",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_5",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_drag_6",
+        "name": "След волочения",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_1",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_2",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_3",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_4",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_5",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_foot_6",
+        "name": "Следы лап",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_1",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_2",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_3",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_4",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_5",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_fracture_6",
+        "name": "Трещины",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_1",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_2",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_3",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_4",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_5",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_spore_6",
+        "name": "Споровый налёт",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_1",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_2",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_3",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_4",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_5",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:trace_tendril_6",
+        "name": "Следы корней",
+        "validStates": 1,
+        "quadsChecked": 2,
+        "inventoryItem": false
+      },
+      {
+        "id": "dead_earth:zone_relay",
+        "name": "Загрузчик чанков",
+        "validStates": 1,
+        "quadsChecked": 264,
+        "inventoryItem": true
+      }
+    ],
+    "items": [
+      {
+        "id": "dead_earth:ash",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:charger",
+        "stackCases": 1,
+        "quadsChecked": 192,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_diamond_v3",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_diamond_v4",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_diamond_v5",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_flint_v3",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_flint_v4",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_flint_v5",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_iron_v3",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_iron_v4",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_iron_v5",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_string_v3",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_string_v4",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_mesh_string_v5",
+        "stackCases": 1,
+        "quadsChecked": 384,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_sieve_v3",
+        "stackCases": 1,
+        "quadsChecked": 192,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_sieve_v4",
+        "stackCases": 1,
+        "quadsChecked": 192,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compact_sieve_v5",
+        "stackCases": 1,
+        "quadsChecked": 192,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_acacia_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_birch_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_cobblestone_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_andesite_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_diorite_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_crushed_granite_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dark_oak_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dirt_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dirt_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dirt_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dust_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dust_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_dust_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_ender_gravel_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_gravel_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_gravel_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_gravel_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_jungle_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_nether_gravel_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_oak_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_red_sand_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_sand_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_sand_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_sand_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_skystone_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_skystone_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_skystone_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_skystone_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_soul_sand_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:compressed_spruce_leaves_4",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:crop_tray",
+        "stackCases": 1,
+        "quadsChecked": 144,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_door_v1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_door_v2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_door_v3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_hatch_v1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_hatch_v2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_hatch_v3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_wall_v1",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_wall_v2",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:defense_wall_v3",
+        "stackCases": 1,
+        "quadsChecked": 24,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:fortune_processor",
+        "stackCases": 1,
+        "quadsChecked": 360,
+        "nativeDynamic": false
+      },
+      {
+        "id": "dead_earth:hammer_v1",
+        "stackCases": 3,
+        "quadsChecked": 168,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:hammer_v2",
+        "stackCases": 3,
+        "quadsChecked": 168,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:hammer_v3",
+        "stackCases": 3,
+        "quadsChecked": 168,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:mining_gadget_v1",
+        "stackCases": 1,
+        "quadsChecked": 80,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:mining_gadget_v2",
+        "stackCases": 1,
+        "quadsChecked": 80,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:mining_gadget_v3",
+        "stackCases": 1,
+        "quadsChecked": 80,
+        "nativeDynamic": true
+      },
+      {
+        "id": "dead_earth:zone_relay",
+        "stackCases": 1,
+        "quadsChecked": 264,
+        "nativeDynamic": false
+      }
+    ]
+  },
+  "localizedItems": [
+    {
+      "id": "dead_earth:defense_door_v1",
+      "name": "Дверь бункера V1"
+    },
+    {
+      "id": "dead_earth:fortune_processor",
+      "name": "Обогатитель руды"
+    },
+    {
+      "id": "dead_earth:defense_door_v2",
+      "name": "Дверь бункера V2"
+    },
+    {
+      "id": "dead_earth:defense_door_v3",
+      "name": "Дверь бункера V3"
+    },
+    {
+      "id": "dead_earth:defense_hatch_v2",
+      "name": "Люк бункера V2"
+    },
+    {
+      "id": "dead_earth:defense_hatch_v1",
+      "name": "Люк бункера V1"
+    },
+    {
+      "id": "dead_earth:defense_hatch_v3",
+      "name": "Люк бункера V3"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_granite_1",
+      "name": "Сжатый дроблёный гранит ×9"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_granite_2",
+      "name": "Сжатый дроблёный гранит ×81"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_granite_3",
+      "name": "Сжатый дроблёный гранит ×729"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_granite_4",
+      "name": "Сжатый дроблёный гранит ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_ender_gravel_4",
+      "name": "Сжатый эндерский гравий ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_ender_gravel_2",
+      "name": "Сжатый эндерский гравий ×81"
+    },
+    {
+      "id": "dead_earth:compressed_ender_gravel_3",
+      "name": "Сжатый эндерский гравий ×729"
+    },
+    {
+      "id": "dead_earth:charger",
+      "name": "Зарядник"
+    },
+    {
+      "id": "dead_earth:compressed_red_sand_2",
+      "name": "Сжатый красный песок ×81"
+    },
+    {
+      "id": "dead_earth:compressed_red_sand_3",
+      "name": "Сжатый красный песок ×729"
+    },
+    {
+      "id": "dead_earth:compressed_red_sand_4",
+      "name": "Сжатый красный песок ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_red_sand_1",
+      "name": "Сжатый красный песок ×9"
+    },
+    {
+      "id": "dead_earth:compressed_oak_leaves_4",
+      "name": "Сжатая дубовая листва ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_oak_leaves_2",
+      "name": "Сжатая дубовая листва ×81"
+    },
+    {
+      "id": "dead_earth:compressed_oak_leaves_3",
+      "name": "Сжатая дубовая листва ×729"
+    },
+    {
+      "id": "dead_earth:compressed_oak_leaves_1",
+      "name": "Сжатая дубовая листва ×9"
+    },
+    {
+      "id": "dead_earth:crop_tray",
+      "name": "Грядка"
+    },
+    {
+      "id": "dead_earth:compressed_dirt_2",
+      "name": "Сжатая земля ×81"
+    },
+    {
+      "id": "dead_earth:compressed_dirt_4",
+      "name": "Сжатая земля ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_dirt_3",
+      "name": "Сжатая земля ×729"
+    },
+    {
+      "id": "dead_earth:compact_mesh_diamond_v3",
+      "name": "Алмазная сетка III"
+    },
+    {
+      "id": "dead_earth:compact_mesh_diamond_v4",
+      "name": "Алмазная сетка IV"
+    },
+    {
+      "id": "dead_earth:compact_mesh_diamond_v5",
+      "name": "Алмазная сетка V"
+    },
+    {
+      "id": "dead_earth:ash",
+      "name": "Пепел"
+    },
+    {
+      "id": "dead_earth:compressed_spruce_leaves_2",
+      "name": "Сжатая еловая листва ×81"
+    },
+    {
+      "id": "dead_earth:compressed_spruce_leaves_1",
+      "name": "Сжатая еловая листва ×9"
+    },
+    {
+      "id": "dead_earth:compressed_spruce_leaves_4",
+      "name": "Сжатая еловая листва ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_spruce_leaves_3",
+      "name": "Сжатая еловая листва ×729"
+    },
+    {
+      "id": "dead_earth:compressed_cobblestone_3",
+      "name": "Сжатый булыжник ×729"
+    },
+    {
+      "id": "dead_earth:compressed_cobblestone_2",
+      "name": "Сжатый булыжник ×81"
+    },
+    {
+      "id": "dead_earth:compressed_cobblestone_4",
+      "name": "Сжатый булыжник ×6561"
+    },
+    {
+      "id": "dead_earth:hammer_v1",
+      "name": "Молот 3×3"
+    },
+    {
+      "id": "dead_earth:hammer_v2",
+      "name": "Молот 5×5"
+    },
+    {
+      "id": "dead_earth:hammer_v3",
+      "name": "Молот 7×7"
+    },
+    {
+      "id": "dead_earth:zone_relay",
+      "name": "Загрузчик чанков"
+    },
+    {
+      "id": "dead_earth:defense_wall_v3",
+      "name": "Блок бункера V3"
+    },
+    {
+      "id": "dead_earth:defense_wall_v1",
+      "name": "Блок бункера V1"
+    },
+    {
+      "id": "dead_earth:defense_wall_v2",
+      "name": "Блок бункера V2"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_andesite_1",
+      "name": "Сжатый дроблёный андезит ×9"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_andesite_2",
+      "name": "Сжатый дроблёный андезит ×81"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_andesite_3",
+      "name": "Сжатый дроблёный андезит ×729"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_andesite_4",
+      "name": "Сжатый дроблёный андезит ×6561"
+    },
+    {
+      "id": "dead_earth:mining_gadget_v2",
+      "name": "Электробур 5×5"
+    },
+    {
+      "id": "dead_earth:mining_gadget_v1",
+      "name": "Электробур 3×3"
+    },
+    {
+      "id": "dead_earth:mining_gadget_v3",
+      "name": "Электробур 7×7"
+    },
+    {
+      "id": "dead_earth:compact_mesh_iron_v3",
+      "name": "Железная сетка III"
+    },
+    {
+      "id": "dead_earth:compact_mesh_iron_v4",
+      "name": "Железная сетка IV"
+    },
+    {
+      "id": "dead_earth:compact_mesh_iron_v5",
+      "name": "Железная сетка V"
+    },
+    {
+      "id": "dead_earth:compressed_gravel_2",
+      "name": "Сжатый гравий ×81"
+    },
+    {
+      "id": "dead_earth:compressed_gravel_4",
+      "name": "Сжатый гравий ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_gravel_3",
+      "name": "Сжатый гравий ×729"
+    },
+    {
+      "id": "dead_earth:compressed_acacia_leaves_4",
+      "name": "Сжатая акациевая листва ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_acacia_leaves_3",
+      "name": "Сжатая акациевая листва ×729"
+    },
+    {
+      "id": "dead_earth:compressed_acacia_leaves_2",
+      "name": "Сжатая акациевая листва ×81"
+    },
+    {
+      "id": "dead_earth:compressed_acacia_leaves_1",
+      "name": "Сжатая акациевая листва ×9"
+    },
+    {
+      "id": "dead_earth:compressed_birch_leaves_3",
+      "name": "Сжатая берёзовая листва ×729"
+    },
+    {
+      "id": "dead_earth:compressed_birch_leaves_4",
+      "name": "Сжатая берёзовая листва ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_birch_leaves_1",
+      "name": "Сжатая берёзовая листва ×9"
+    },
+    {
+      "id": "dead_earth:compressed_birch_leaves_2",
+      "name": "Сжатая берёзовая листва ×81"
+    },
+    {
+      "id": "dead_earth:compressed_sand_3",
+      "name": "Сжатый песок ×729"
+    },
+    {
+      "id": "dead_earth:compressed_sand_2",
+      "name": "Сжатый песок ×81"
+    },
+    {
+      "id": "dead_earth:compressed_sand_4",
+      "name": "Сжатый песок ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_soul_sand_3",
+      "name": "Сжатый песок душ ×729"
+    },
+    {
+      "id": "dead_earth:compressed_soul_sand_2",
+      "name": "Сжатый песок душ ×81"
+    },
+    {
+      "id": "dead_earth:compressed_soul_sand_4",
+      "name": "Сжатый песок душ ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_dust_4",
+      "name": "Сжатая пыль ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_dust_3",
+      "name": "Сжатая пыль ×729"
+    },
+    {
+      "id": "dead_earth:compressed_dust_2",
+      "name": "Сжатая пыль ×81"
+    },
+    {
+      "id": "dead_earth:compressed_nether_gravel_4",
+      "name": "Сжатый незерский гравий ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_nether_gravel_2",
+      "name": "Сжатый незерский гравий ×81"
+    },
+    {
+      "id": "dead_earth:compressed_nether_gravel_3",
+      "name": "Сжатый незерский гравий ×729"
+    },
+    {
+      "id": "dead_earth:compact_mesh_flint_v4",
+      "name": "Кремнёвая сетка IV"
+    },
+    {
+      "id": "dead_earth:compact_mesh_flint_v3",
+      "name": "Кремнёвая сетка III"
+    },
+    {
+      "id": "dead_earth:compact_mesh_flint_v5",
+      "name": "Кремнёвая сетка V"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_diorite_4",
+      "name": "Сжатый дроблёный диорит ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_diorite_3",
+      "name": "Сжатый дроблёный диорит ×729"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_diorite_2",
+      "name": "Сжатый дроблёный диорит ×81"
+    },
+    {
+      "id": "dead_earth:compressed_crushed_diorite_1",
+      "name": "Сжатый дроблёный диорит ×9"
+    },
+    {
+      "id": "dead_earth:compressed_dark_oak_leaves_1",
+      "name": "Сжатая листва тёмного дуба ×9"
+    },
+    {
+      "id": "dead_earth:compressed_dark_oak_leaves_2",
+      "name": "Сжатая листва тёмного дуба ×81"
+    },
+    {
+      "id": "dead_earth:compressed_dark_oak_leaves_3",
+      "name": "Сжатая листва тёмного дуба ×729"
+    },
+    {
+      "id": "dead_earth:compressed_dark_oak_leaves_4",
+      "name": "Сжатая листва тёмного дуба ×6561"
+    },
+    {
+      "id": "dead_earth:compressed_skystone_3",
+      "name": "Сжатый дроблёный небесный камень ×729"
+    },
+    {
+      "id": "dead_earth:compressed_skystone_2",
+      "name": "Сжатый дроблёный небесный камень ×81"
+    },
+    {
+      "id": "dead_earth:compressed_skystone_1",
+      "name": "Сжатый дроблёный небесный камень ×9"
+    },
+    {
+      "id": "dead_earth:compressed_skystone_4",
+      "name": "Сжатый дроблёный небесный камень ×6561"
+    },
+    {
+      "id": "dead_earth:compact_mesh_string_v4",
+      "name": "Нитяная сетка IV"
+    },
+    {
+      "id": "dead_earth:compact_mesh_string_v3",
+      "name": "Нитяная сетка III"
+    },
+    {
+      "id": "dead_earth:compact_mesh_string_v5",
+      "name": "Нитяная сетка V"
+    },
+    {
+      "id": "dead_earth:compact_sieve_v3",
+      "name": "Сито III"
+    },
+    {
+      "id": "dead_earth:compact_sieve_v4",
+      "name": "Сито IV"
+    },
+    {
+      "id": "dead_earth:compact_sieve_v5",
+      "name": "Сито V"
+    },
+    {
+      "id": "dead_earth:compressed_jungle_leaves_1",
+      "name": "Сжатая тропическая листва ×9"
+    },
+    {
+      "id": "dead_earth:compressed_jungle_leaves_2",
+      "name": "Сжатая тропическая листва ×81"
+    },
+    {
+      "id": "dead_earth:compressed_jungle_leaves_3",
+      "name": "Сжатая тропическая листва ×729"
+    },
+    {
+      "id": "dead_earth:compressed_jungle_leaves_4",
+      "name": "Сжатая тропическая листва ×6561"
+    }
+  ],
+  "compressedGravelTints": [
+    11776947,
+    9211020,
+    7039851
+  ],
+  "mods": [
+    {
+      "id": "minecraft",
+      "version": "1.12.2"
+    },
+    {
+      "id": "mcp",
+      "version": "9.42"
+    },
+    {
+      "id": "mixinbooter",
+      "version": "11.18"
+    },
+    {
+      "id": "FML",
+      "version": "8.0.99.99"
+    },
+    {
+      "id": "forge",
+      "version": "14.23.5.2860"
+    },
+    {
+      "id": "hbmcore",
+      "version": "1.12.2-4.0.1"
+    },
+    {
+      "id": "ctm",
+      "version": "MC1.12.2-1.0.2.31"
+    },
+    {
+      "id": "appliedenergistics2",
+      "version": "rv6-stable-7"
+    },
+    {
+      "id": "bonsaitrees",
+      "version": "1.1.4"
+    },
+    {
+      "id": "crafttweaker",
+      "version": "4.1.20"
+    },
+    {
+      "id": "ctgui",
+      "version": "1.0.0"
+    },
+    {
+      "id": "jei",
+      "version": "4.22.0.1034"
+    },
+    {
+      "id": "crafttweakerjei",
+      "version": "2.0.3"
+    },
+    {
+      "id": "cucumber",
+      "version": "1.1.3"
+    },
+    {
+      "id": "epicsiegemod",
+      "version": "13.169"
+    },
+    {
+      "id": "forgelin",
+      "version": "1.8.4"
+    },
+    {
+      "id": "exnihilocreatio",
+      "version": "1.12.2-0.4.7.2"
+    },
+    {
+      "id": "inventorysorter",
+      "version": "1.13.3+57"
+    },
+    {
+      "id": "mysticalagriculture",
+      "version": "1.7.5"
+    },
+    {
+      "id": "hbm",
+      "version": "2.6.1.0"
+    },
+    {
+      "id": "projecte",
+      "version": "1.12.2-PE1.4.1"
+    },
+    {
+      "id": "mcjtylib_ng",
+      "version": "3.5.4"
+    },
+    {
+      "id": "rftools",
+      "version": "7.73"
+    },
+    {
+      "id": "srparasites",
+      "version": "1.9.21"
+    },
+    {
+      "id": "xlfoodmod",
+      "version": "1.12.2-1.9.2"
+    },
+    {
+      "id": "dead_earth",
+      "version": "1.1.0"
+    },
+    {
+      "id": "deadearth_client_probe",
+      "version": "1.0.0"
+    },
+    {
+      "id": "entityculling",
+      "version": "@VER@"
+    },
+    {
+      "id": "excompressum",
+      "version": "3.0.32"
+    },
+    {
+      "id": "waila",
+      "version": "1.8.26"
+    },
+    {
+      "id": "journeymap",
+      "version": "1.12.2-5.7.1"
+    },
+    {
+      "id": "rftoolspower",
+      "version": "1.2.0"
+    },
+    {
+      "id": "simpledifficulty",
+      "version": "0.3.9"
+    },
+    {
+      "id": "storagenetwork",
+      "version": "2.0.1"
+    },
+    {
+      "id": "vintagefix",
+      "version": "0.7.2"
+    },
+    {
+      "id": "xnet",
+      "version": "1.8.2"
+    }
+  ],
+  "openGL": {
+    "vendor": "NVIDIA Corporation",
+    "renderer": "NVIDIA GeForce RTX 2060 SUPER/PCIe/SSE2",
+    "version": "4.6.0 NVIDIA 595.97"
+  },
+  "viewsComplete": true,
+  "holding": false,
+  "holdSeconds": 0,
+  "seasonsObserved": [
+    0
+  ],
+  "passed": true,
+  "error": null,
+  "readyHandshake": true,
+  "clientTicks": 253,
+  "heldSeconds": 0
+}

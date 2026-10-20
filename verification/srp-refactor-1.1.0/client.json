@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "passed": true,
+  "clientExitCode": 0,
+  "serverExitCode": 0,
+  "screenshots": [
+    {
+      "view": "open-sieves-native-and-loaded-compact",
+      "file": "screenshots/00-open-sieves-native-and-loaded-compact.png",
+      "sha256": "121a923ac0190cc93010da64b8d72cfea21bbd582bb46d696a6a97f6c5d7f0eb",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "view": "compressed-native-l1-and-own-l2-l3-l4",
+      "file": "screenshots/01-compressed-native-l1-and-own-l2-l3-l4.png",
+      "sha256": "922828c53cde0f5a4a7c44dec273a8dc65e70fed5cc37e2b0227769322b1590b",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "view": "industrial-relay-ore-processor-and-charger",
+      "file": "screenshots/02-industrial-relay-ore-processor-and-charger.png",
+      "sha256": "c19d595a2267a6263d4aa91bae633be1144cfbdbca995158f15969666eec177c",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "view": "bonsai-ordinary-and-hopping",
+      "file": "screenshots/03-bonsai-ordinary-and-hopping.png",
+      "sha256": "58a00bcf7eb5c6ddd421efdd35c414bf83b44657f9c9b9616ab4ef25503e1651",
+      "width": 1280,
+      "height": 720
+    },
+    {
+      "view": "actual-generated-wasteland-vista",
+      "file": "screenshots/04-actual-generated-wasteland-vista.png",
+      "sha256": "a03417ae449659b37960cfc7b928f9562135b07ae09335f00294a9d0445019e5",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "allOwnRegistryModelsPassed": true,
+  "calmViewsOnly": true,
+  "finalGameJarSha256": "ccbd76362d16064f461e0c2ca0aa9ba58c0f69214165021f77ea2afffeaebafa"
+}

@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "source": "report.json",
+  "reviewer": "independent_manual_agent_review",
+  "technical_e2e_passed": true,
+  "manual_review_completed": true,
+  "scope": "one frozen single and one frozen dual selection; no live world admission; no A/B or broad strategy claim",
+  "frozen_context": {
+    "season": "CALM",
+    "parasite_phase": 0,
+    "pressure": 0.10986374436666678,
+    "recent": []
+  },
+  "single_public_output": {
+    "option": 2
+  },
+  "dual_public_outputs": {
+    "proposal": {
+      "option": 2
+    },
+    "critic": {
+      "option": 2,
+      "reason_codes": [
+        "repetition",
+        "pressure"
+      ]
+    },
+    "final": {
+      "option": 2
+    }
+  },
+  "selected_event": "interrupted_harvest",
+  "selection_assessment": "acceptable_interactive_low_pressure_choice_with_strong_score_weight",
+  "selection_support": [
+    "The selected event has the highest offered weight3.5569; every other offered option is1.0 or0.7004.",
+    "Current catalog marks the event non-heavy and starts with a tendril trace plus sound, not an immediate wave.",
+    "A wave occurs only after mining/breaking; water contains the incident, burning or timeout retreats."
+  ],
+  "quality_limitations": [
+    "Both modes chose the same option; this sample gives no evidence that dual mode improved the choice.",
+    "Critic repetition reason is unsupported by attack history because recent is empty. Duplicate IDs in offered alternatives are not evidence of repeated prior attacks.",
+    "The empty-history frozen context cannot establish adaptation to previous failures or tactical diversity. No internal reasoning was collected or invented."
+  ],
+  "operator_end_state": {
+    "mode": "single",
+    "host_ack": "applied_online_live",
+    "critic_resident_before_release": true,
+    "critic_size_vram_before_release": 0,
+    "critic_residents_after_release": []
+  },
+  "service_end_state": {
+    "running": 5,
+    "healthy": 4,
+    "playit_external_connectivity_in_scope": false
+  },
+  "world_mutations_from_verifier": false,
+  "model_pins_changed": false,
+  "compose_started_or_stopped": false,
+  "rootIndependentReview": {
+    "reviewed": true,
+    "context": {
+      "season": "CALM",
+      "pressure": 0.10986374436666678,
+      "phase": 0,
+      "recent": []
+    },
+    "singleOutput": {
+      "option": 2
+    },
+    "dualProposal": 2,
+    "dualCritic": 2,
+    "selectedEvent": "interrupted_harvest",
+    "judgement": "Acceptable permitted non-heavy resource pressure: native event starts with clues and sound; mining/breaking can trigger a bounded low wave; water, fire or timeout provide alternatives.",
+    "criticReasonLimitation": "repetition has no supporting history because recent is empty; it is not accepted as a factual observation. pressure is compatible with the supplied context but not evidence of improved tactics.",
+    "dualImprovementProven": false,
+    "modelWeightsChanged": false
+  }
+}

@@ -1,0 +1,218 @@
+{
+  "product_version": "1.1.0",
+  "full_lock_count": 27,
+  "server_native_pin_count": 24,
+  "elapsed_seconds": 122.53,
+  "passed": false,
+  "recipe_error_count": 0,
+  "assertion_count": 309,
+  "full_group_count": 21,
+  "failures": [
+    {
+      "name": "actual native ESM/SRP acquisition, movement, retaliation and digging: java.lang.AssertionError: native group retaliation and physical attack finish within 180 real ticks",
+      "passed": false
+    },
+    {
+      "name": "native_epic_siege_live_gameplay",
+      "passed": false,
+      "error": "java.lang.IllegalStateException: actual native ESM/SRP acquisition, movement, retaliation and digging: java.lang.AssertionError: native group retaliation and physical attack finish within 180 real ticks"
+    }
+  ],
+  "status": "intermediate_not_release_approval",
+  "confirmed_modules": {
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "sidedAutomation": true
+    },
+    "bonsai": {
+      "passed": true,
+      "nativePlantingClicks": true,
+      "nativeGrowth": true,
+      "nativeAxeHarvest": true,
+      "nativeHoppingExport": true,
+      "bufferPreservedWithoutDestination": true,
+      "craftedThroughHbm": true,
+      "forcedDropsOrProgress": false,
+      "manualNativeTileTicks": 103,
+      "ordinaryServerTileRegistration": true,
+      "output": {
+        "minecraft:apple:0": 2,
+        "minecraft:log:0": 1,
+        "minecraft:stick:0": 1
+      },
+      "timingRestored": true
+    },
+    "materials": {
+      "ready": true,
+      "aliases": 6,
+      "testedSameFormCases": 2,
+      "absentOptionalAliases": [
+        "exnihilocreatio:item_ore_copper:3",
+        "exnihilocreatio:item_ore_copper:2",
+        "exnihilocreatio:item_ore_aluminium:3",
+        "exnihilocreatio:item_ore_lead:2"
+      ],
+      "nativeFurnace": true,
+      "canonicalCropRecipes": 7,
+      "cropRegistrations": [
+        {
+          "material": "copper",
+          "essence": "mysticalagriculture:copper_essence",
+          "seed": "mysticalagriculture:copper_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_copper:0",
+          "count": 6
+        },
+        {
+          "material": "aluminium",
+          "essence": "mysticalagriculture:aluminum_essence",
+          "seed": "mysticalagriculture:aluminum_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_aluminium:0",
+          "count": 8
+        },
+        {
+          "material": "lead",
+          "essence": "mysticalagriculture:lead_essence",
+          "seed": "mysticalagriculture:lead_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_lead:0",
+          "count": 4
+        },
+        {
+          "material": "titanium",
+          "essence": "mysticalagriculture:titanium_essence",
+          "seed": "mysticalagriculture:titanium_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_titanium:0",
+          "count": 2
+        },
+        {
+          "material": "tungsten",
+          "essence": "mysticalagriculture:tungsten_essence",
+          "seed": "mysticalagriculture:tungsten_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_tungsten:0",
+          "count": 2
+        },
+        {
+          "material": "sulfur",
+          "essence": "mysticalagriculture:sulfur_essence",
+          "seed": "mysticalagriculture:sulfur_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:sulfur:0",
+          "count": 8
+        },
+        {
+          "material": "niter",
+          "essence": "mysticalagriculture:saltpeter_essence",
+          "seed": "mysticalagriculture:saltpeter_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:niter:0",
+          "count": 5
+        }
+      ],
+      "boundedInventoryCountConserved": true,
+      "taggedStacksPreserved": true,
+      "pieceChunkAndUniqueResourcesPreserved": true,
+      "statistics": {
+        "aliases": 6,
+        "migratedStacks": 1,
+        "migratedItems": 53,
+        "furnaceOutputs": 0,
+        "sieveOutputs": 0,
+        "protectedStackChecks": 2
+      }
+    },
+    "relaySiege": {
+      "passed": true,
+      "error": null,
+      "normalServerTicks": 517,
+      "assertions": 3243,
+      "nativeTaskScheduler": true,
+      "injectedTargetOrDamageProgress": false,
+      "ownNavigationChunkLoads": 0,
+      "cases": [
+        {
+          "case": "husk_breaches_and_destroys_real_relay",
+          "passed": true,
+          "normalTicks": 253,
+          "hp": 1000,
+          "nativeDropCount": 1,
+          "tileInvalidated": true,
+          "ticketWasAllocated": false,
+          "ticketReleasedOrAbsent": true,
+          "movementObserved": true,
+          "serializedPartialHp": true
+        },
+        {
+          "case": "parasite_respects_v3_hp",
+          "passed": true,
+          "normalTicks": 100,
+          "startingHp": 8000,
+          "remainingHp": 7800,
+          "relayHp": 1000
+        },
+        {
+          "case": "protected_bunker_relay",
+          "passed": true,
+          "normalTicks": 40,
+          "relayHp": 1000
+        },
+        {
+          "case": "existing_relay_task_suspends_offline",
+          "passed": true,
+          "normalOfflineTicks": 40,
+          "hpStableAfterTransition": 1000
+        }
+      ],
+      "statistics": {
+        "ready": true,
+        "loadedRelays": 9,
+        "trackedGoals": 1,
+        "activeGoals": 0,
+        "acquired": 3,
+        "navigationAttempts": 16,
+        "relayHits": 10,
+        "defenseHits": 2,
+        "relayBreaks": 1,
+        "ordinaryBreaks": 2,
+        "guardDenials": 0,
+        "loadedAreaAdmission": true
+      }
+    }
+  },
+  "global_sight": {
+    "case": "global_mob_xray",
+    "passed": true,
+    "nativeObservers": [
+      "minecraft:skeleton",
+      "minecraft:bat",
+      "srparasites:buglin",
+      "minecraft:cow"
+    ],
+    "opaqueHbmWall": true,
+    "distance": 40,
+    "configuredRadius": 64,
+    "coversEsmBlacklistedMobs": true,
+    "nativeFollowRangeIncreased": true,
+    "creativeExcluded": true,
+    "unloadedTargetDoesNotLoad": true
+  }
+}

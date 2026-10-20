@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "passed": true,
+  "legacyUnitTests": 89,
+  "additionalVisualRetryTests": 1,
+  "updatedSieveVisualRegressionTests": 9,
+  "updatedComposeRegressionTests": 13,
+  "directorUnitTests": 159,
+  "adminDomTestPassed": true,
+  "countsAreNotAddedForRepeatedSubsets": true,
+  "performanceBenchmarksRun": false
+}

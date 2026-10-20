@@ -1,0 +1,419 @@
+{
+  "schema": 1,
+  "kind": "compose_desktop_linux_e2e",
+  "passed": true,
+  "checks": [
+    {
+      "name": "five_running_and_all_configured_healthchecks_healthy",
+      "passed": true
+    },
+    {
+      "name": "admin_health",
+      "passed": true
+    },
+    {
+      "name": "admin_dashboard_live_srp",
+      "passed": true
+    },
+    {
+      "name": "human_console_ready",
+      "passed": true
+    },
+    {
+      "name": "human_console_read_only_command_completed",
+      "passed": true
+    },
+    {
+      "name": "dual_mode_available",
+      "passed": true
+    },
+    {
+      "name": "actual_primary_frozen_selection_valid",
+      "passed": true
+    },
+    {
+      "name": "actual_primary_and_critic_frozen_selection_valid",
+      "passed": true
+    },
+    {
+      "name": "previously_loaded_critic_confirmed_unloaded",
+      "passed": true
+    },
+    {
+      "name": "five_services_still_running",
+      "passed": true
+    }
+  ],
+  "live_world_admission": false,
+  "world_mutating_commands": false,
+  "models_mocked": false,
+  "manual_review_required": true,
+  "compose_before": {
+    "services": [
+      {
+        "service": "admin",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "director",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "minecraft",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "ollama",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "playit",
+        "state": "running",
+        "health": "not_configured"
+      }
+    ],
+    "running": 5,
+    "healthy": 4,
+    "playit_tunnel_connectivity_tested": false,
+    "private_backend_and_rcon": true
+  },
+  "admin": {
+    "product": "dead-earth-admin-v1",
+    "connection": "online",
+    "online_players": 0,
+    "phase": 0
+  },
+  "console": {
+    "command": "list",
+    "state": "completed",
+    "nonempty_output": true,
+    "output_characters": 29
+  },
+  "single_ack": {
+    "desired_mode": "single",
+    "active_mode": "single",
+    "host_state": "online",
+    "host_run_mode": "live",
+    "state": "applied",
+    "critic_memory": "released",
+    "revision": "ec87318b-367c-49a8-9759-a16fcd293ee9",
+    "dual_available": true
+  },
+  "single_inference": {
+    "passed": true,
+    "action": "inference",
+    "mode": "single",
+    "context": {
+      "season": "CALM",
+      "pressure": 0.10986374436666678,
+      "options": [
+        {
+          "option": 0,
+          "event": "spore_lure",
+          "title": "Заражённая приманка",
+          "tactic": "lure",
+          "faction": "parasites",
+          "weight": 0.7004
+        },
+        {
+          "option": 1,
+          "event": "defense_probe",
+          "title": "Проверка обороны",
+          "tactic": "weakness_probe",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 2,
+          "event": "interrupted_harvest",
+          "title": "Заражённая выработка",
+          "tactic": "resource_pressure",
+          "faction": "parasites",
+          "weight": 3.5569
+        },
+        {
+          "option": 3,
+          "event": "false_siege",
+          "title": "Ложная осада",
+          "tactic": "feint",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 4,
+          "event": "relay_echo",
+          "title": "Эхо у ворот",
+          "tactic": "signal_investigation",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 5,
+          "event": "false_siege",
+          "title": "Ложная осада",
+          "tactic": "feint",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 6,
+          "event": "relay_echo",
+          "title": "Эхо у ворот",
+          "tactic": "signal_investigation",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 7,
+          "event": "defense_probe",
+          "title": "Проверка обороны",
+          "tactic": "weakness_probe",
+          "faction": "siege",
+          "weight": 1.0
+        }
+      ],
+      "recent": [],
+      "parasite_system": "srp",
+      "parasite_phase_maximum": 10,
+      "parasite_phase": 0
+    },
+    "choice": {
+      "option": 2
+    },
+    "selected_event": "interrupted_harvest",
+    "metrics": {
+      "ai_mode": "single",
+      "elapsed_ms": 51502,
+      "prompt_tokens": 868,
+      "output_tokens": 7
+    },
+    "primary": {
+      "model": "qwen3.5:4b",
+      "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "critic": null,
+    "cpu_request_options": {
+      "num_gpu": 0,
+      "num_thread": 4,
+      "num_ctx": 4096,
+      "keep_alive": 0
+    },
+    "frozen_context": true,
+    "live_world_admission": false,
+    "manual_review_required": true
+  },
+  "dual_ack": {
+    "desired_mode": "dual",
+    "active_mode": "dual",
+    "host_state": "online",
+    "host_run_mode": "live",
+    "state": "applied",
+    "critic_memory": "released",
+    "revision": "c69c3b62-5158-4240-8207-cd27cb253ba7",
+    "dual_available": true
+  },
+  "dual_inference": {
+    "passed": true,
+    "action": "inference",
+    "mode": "dual",
+    "context": {
+      "season": "CALM",
+      "pressure": 0.10986374436666678,
+      "options": [
+        {
+          "option": 0,
+          "event": "spore_lure",
+          "title": "Заражённая приманка",
+          "tactic": "lure",
+          "faction": "parasites",
+          "weight": 0.7004
+        },
+        {
+          "option": 1,
+          "event": "defense_probe",
+          "title": "Проверка обороны",
+          "tactic": "weakness_probe",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 2,
+          "event": "interrupted_harvest",
+          "title": "Заражённая выработка",
+          "tactic": "resource_pressure",
+          "faction": "parasites",
+          "weight": 3.5569
+        },
+        {
+          "option": 3,
+          "event": "false_siege",
+          "title": "Ложная осада",
+          "tactic": "feint",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 4,
+          "event": "relay_echo",
+          "title": "Эхо у ворот",
+          "tactic": "signal_investigation",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 5,
+          "event": "false_siege",
+          "title": "Ложная осада",
+          "tactic": "feint",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 6,
+          "event": "relay_echo",
+          "title": "Эхо у ворот",
+          "tactic": "signal_investigation",
+          "faction": "siege",
+          "weight": 1.0
+        },
+        {
+          "option": 7,
+          "event": "defense_probe",
+          "title": "Проверка обороны",
+          "tactic": "weakness_probe",
+          "faction": "siege",
+          "weight": 1.0
+        }
+      ],
+      "recent": [],
+      "parasite_system": "srp",
+      "parasite_phase_maximum": 10,
+      "parasite_phase": 0
+    },
+    "choice": {
+      "option": 2
+    },
+    "selected_event": "interrupted_harvest",
+    "metrics": {
+      "ai_mode": "dual",
+      "elapsed_ms": 68536,
+      "remaining_ms": 21464,
+      "proposal_option": 2,
+      "final_option": 2,
+      "outcome": "critic_agreed",
+      "revision_count": 0,
+      "stages": [
+        {
+          "stage": "proposal",
+          "model": "qwen3.5:4b",
+          "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04",
+          "status": "valid",
+          "option": 2,
+          "reason_codes": [],
+          "prompt_tokens": 868,
+          "output_tokens": 7,
+          "elapsed_ms": 47247,
+          "remaining_ms": 42753
+        },
+        {
+          "stage": "critique",
+          "model": "dead-earth-critic:2b-q4",
+          "digest": "1e2d21a4f03ab9e4a9c1976a4b7e88f21de61d65f2c5485d8fde8942be73f1e7",
+          "status": "valid",
+          "option": 2,
+          "reason_codes": [
+            "repetition",
+            "pressure"
+          ],
+          "prompt_tokens": 844,
+          "output_tokens": 18,
+          "elapsed_ms": 21263,
+          "remaining_ms": 21479
+        }
+      ]
+    },
+    "primary": {
+      "model": "qwen3.5:4b",
+      "digest": "d8b0f5e9760cd1682034f292d7ef72ec46f432149be0df7574bf2d6e92e38c04"
+    },
+    "critic": {
+      "model": "dead-earth-critic:2b-q4",
+      "digest": "1e2d21a4f03ab9e4a9c1976a4b7e88f21de61d65f2c5485d8fde8942be73f1e7"
+    },
+    "cpu_request_options": {
+      "num_gpu": 0,
+      "num_thread": 4,
+      "num_ctx": 4096,
+      "keep_alive": 0
+    },
+    "frozen_context": true,
+    "live_world_admission": false,
+    "manual_review_required": true
+  },
+  "critic_before_single": {
+    "passed": true,
+    "action": "warm_critic",
+    "load_only": true,
+    "num_gpu": 0,
+    "critic_residents": [
+      {
+        "name": "dead-earth-critic:2b-q4",
+        "digest": "1e2d21a4f03ab9e4a9c1976a4b7e88f21de61d65f2c5485d8fde8942be73f1e7",
+        "size_vram": 0
+      }
+    ]
+  },
+  "final_single_ack": {
+    "desired_mode": "single",
+    "active_mode": "single",
+    "host_state": "online",
+    "host_run_mode": "live",
+    "state": "applied",
+    "critic_memory": "released",
+    "revision": "2c1fdcf8-ee60-47c6-bba9-37e46876e396",
+    "dual_available": true
+  },
+  "critic_after_single": {
+    "passed": true,
+    "action": "residents",
+    "critic_residents": []
+  },
+  "compose_after": {
+    "services": [
+      {
+        "service": "admin",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "director",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "minecraft",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "ollama",
+        "state": "running",
+        "health": "healthy"
+      },
+      {
+        "service": "playit",
+        "state": "running",
+        "health": "not_configured"
+      }
+    ],
+    "running": 5,
+    "healthy": 4,
+    "playit_tunnel_connectivity_tested": false,
+    "private_backend_and_rcon": true
+  },
+  "cleanup": "single_retained"
+}

@@ -1,0 +1,76 @@
+{
+  "checked_at_utc": "2026-10-20T12:53:00.111587+00:00",
+  "container": {
+    "id": "5c3551d56608",
+    "running": true,
+    "restart_count": 0,
+    "uptime_seconds": 119.7
+  },
+  "log_audit": {
+    "raw_logs_published": false,
+    "lines_checked": 7,
+    "classifications": {
+      "daemon_started": 1,
+      "ipc_bind_failure": 0,
+      "ipc_error": 0,
+      "error_level": 0,
+      "warning_level": 3,
+      "connection_messages": 1
+    },
+    "warning_details": {
+      "socket_group_missing": 1,
+      "control_session_expired_reconnecting": 2,
+      "control_pong_timeout": 0,
+      "unclassified": 0
+    },
+    "warning_audit_at_utc": "2026-10-20T12:54:17.490278+00:00",
+    "warning_notes": [
+      "The official image lacks the optional local playit group; IPC stays inside a private mode-0700 directory.",
+      "Control session reconnection warnings occurred; public Minecraft status subsequently succeeded. No long-duration availability claim is made."
+    ]
+  },
+  "public_tunnel": {
+    "hostname": "practically-startup.tun.ply.gg",
+    "srv_target": "practically-startup.tun.ply.gg",
+    "srv_port": 64354,
+    "srv_priority": 1,
+    "srv_weight": 1
+  },
+  "minecraft_status": {
+    "local": {
+      "reachable": true,
+      "version": "1.12.2",
+      "protocol": 340,
+      "motd": "DEAD EARTH SRP 1.0.0 - LOCAL PLAYTEST",
+      "players_online": 0,
+      "players_max": 6,
+      "latency_ms": 31.0
+    },
+    "public": {
+      "reachable": true,
+      "version": "1.12.2",
+      "protocol": 340,
+      "motd": "DEAD EARTH SRP 1.0.0 - LOCAL PLAYTEST",
+      "players_online": 0,
+      "players_max": 6,
+      "latency_ms": 1547.0
+    }
+  },
+  "comparison": {
+    "both_reachable": true,
+    "same_motd": true,
+    "same_version": true,
+    "same_protocol": true
+  },
+  "fix": {
+    "ipc_directory": "/run/playit",
+    "tmpfs": "1m,mode=0700",
+    "readonly_root_preserved": true,
+    "source": "https://github.com/playit-cloud/playit-agent/blob/master/packages/playit-ipc/src/paths.rs"
+  },
+  "limits": [
+    "Minecraft status protocol only; no player login or remote friend connection was performed.",
+    "Tunnel tested from this PC through its public hostname and current SRV record.",
+    "No account/key changes or container restarts performed by this probe."
+  ]
+}

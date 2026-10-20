@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "cycle_id": "d4fc6c82-6a6f-4660-ba25-01f786078363",
+  "scope": "One authorized START.bat -> health checks -> STOP.bat lifecycle; no inference request or player login",
+  "started_at_utc": "2026-10-20T13:03:33.674692+00:00",
+  "before": [],
+  "start_exit_code": 0,
+  "start_elapsed_seconds": 100.02,
+  "after_start": [
+    {
+      "service": "admin",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "director",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "minecraft",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "ollama",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0
+    },
+    {
+      "service": "playit",
+      "state": "running",
+      "health": "",
+      "exit_code": 0
+    }
+  ],
+  "model_process_check": {
+    "resident_models": 0
+  },
+  "stop_exit_code": 0,
+  "stop_elapsed_seconds": 6.34,
+  "after_stop": [],
+  "minecraft_receipt": {
+    "schema": 1,
+    "state": "stopped",
+    "exit_code": 0,
+    "started_at": 1792501420.203988,
+    "stopped_at": 1792501520.9810572
+  },
+  "save_markers": {
+    "saving_players": true,
+    "saving_worlds": true,
+    "saving_chunks": true,
+    "dimensions_unloaded": true
+  },
+  "configuration": {
+    "global_timeout_override": false,
+    "minecraft_grace_seconds": 120,
+    "director_grace_seconds": 110,
+    "playit_grace_seconds": 15,
+    "playit_signal": "SIGINT"
+  },
+  "completed_at_utc": "2026-10-20T13:05:22.497883+00:00",
+  "passed": true,
+  "limits": [
+    "No player login, AI inference request, new weights, account/key changes, game/mod/config deployment, or neighboring stack operation was performed.",
+    "Playit public routing was verified separately before this lifecycle; this cycle targets startup health and actual graceful stop."
+  ],
+  "docker_exit_events": [
+    {
+      "service": "playit",
+      "exit_code": 0,
+      "time_unix": 1792501516
+    },
+    {
+      "service": "admin",
+      "exit_code": 0,
+      "time_unix": 1792501516
+    },
+    {
+      "service": "director",
+      "exit_code": 0,
+      "time_unix": 1792501517
+    },
+    {
+      "service": "ollama",
+      "exit_code": 0,
+      "time_unix": 1792501517
+    },
+    {
+      "service": "minecraft",
+      "exit_code": 0,
+      "time_unix": 1792501521
+    }
+  ],
+  "playit_graceful_exit_confirmed": true
+}

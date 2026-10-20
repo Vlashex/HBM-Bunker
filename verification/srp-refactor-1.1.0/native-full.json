@@ -1,0 +1,2446 @@
+{
+  "schema": 2,
+  "product_version": "1.1.0",
+  "scope": "full_fork_server_normal_terrain",
+  "full_lock_count": 27,
+  "server_native_pin_count": 24,
+  "client_only_not_installed": [
+    "ctm",
+    "entityculling",
+    "journeymap"
+  ],
+  "recipe_errors": [],
+  "recipe_error_count": 0,
+  "real_ai_inference_tested": false,
+  "client_visuals_tested": false,
+  "server_directory": "work/legacy-native-20261020T131427173953Z-880c3ad4",
+  "log": "work/legacy-native-20261020T131427173953Z-880c3ad4/native-server.log",
+  "report": "work/legacy-native-20261020T131427173953Z-880c3ad4/port-probe.json",
+  "elapsed_seconds": 128.66,
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "bridge_report": "work/legacy-native-20261020T131427173953Z-880c3ad4/bridge-native-checks.json",
+  "bridge_validation": {
+    "schema": 1,
+    "passed": true,
+    "checks": [
+      {
+        "name": "real cached snapshot received",
+        "passed": true
+      },
+      {
+        "name": "real snapshot matches campaign and epoch",
+        "passed": true
+      },
+      {
+        "name": "real snapshot exposes SRP phases zero through ten",
+        "passed": true
+      },
+      {
+        "name": "real snapshot cache age is bounded and current",
+        "passed": true
+      },
+      {
+        "name": "retained survival player remains online",
+        "passed": true
+      },
+      {
+        "name": "real native queue received",
+        "passed": true
+      },
+      {
+        "name": "real native brief is ready for model selection",
+        "passed": true
+      },
+      {
+        "name": "actual director projects native SRP phase into model context",
+        "passed": true
+      },
+      {
+        "name": "actual director passes bounded native options",
+        "passed": true
+      },
+      {
+        "name": "actual native model options contain no forest faction",
+        "passed": true
+      },
+      {
+        "name": "actual director removes credentials and physical allocation from model context",
+        "passed": true
+      },
+      {
+        "name": "mocked selector admits a real native operation through CinematicDirector",
+        "passed": true
+      },
+      {
+        "name": "real director journal records native operation receipt",
+        "passed": true
+      },
+      {
+        "name": "real protocol replay preserves the operation UUID",
+        "passed": true
+      },
+      {
+        "name": "real selected operation appears in native queue or history",
+        "passed": true
+      },
+      {
+        "name": "rejected real protocol request has bounded complete response",
+        "passed": true
+      },
+      {
+        "name": "real socket rejects invalid credentials",
+        "passed": true
+      },
+      {
+        "name": "rejected real protocol request has bounded complete response",
+        "passed": true
+      },
+      {
+        "name": "real socket rejects stale world epoch",
+        "passed": true
+      },
+      {
+        "name": "actual admin observer collects native bridge data",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP /api/health succeeds",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP response is bounded",
+        "passed": true
+      },
+      {
+        "name": "actual admin health identifies its product",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP /api/dashboard succeeds",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP response is bounded",
+        "passed": true
+      },
+      {
+        "name": "actual HTTP dashboard exposes the collected native SRP snapshot",
+        "passed": true
+      },
+      {
+        "name": "actual HTTP dashboard exposes native queue",
+        "passed": true
+      }
+    ],
+    "python_source": "packaged_server_overlay",
+    "model_kind": "fixed_selection_stub",
+    "real_inference_tested": false,
+    "model_selection_tested": true,
+    "brief_status": "ready",
+    "director_state": "queued",
+    "restart_sentinels": {
+      "sentinels": {
+        "created": true,
+        "manifest": "full-persistence-expected.json",
+        "cropScope": "retained seed and soil",
+        "machineScope": "real produced output, retained input and FE",
+        "coatingScope": "physical own block identities only",
+        "pendingRestartTested": false
+      },
+      "passed": true
+    }
+  },
+  "assertion_count": 309,
+  "baseline_assertion_count": 209,
+  "full_group_count": 21,
+  "full_groups": {
+    "starter": {
+      "dimensions": "7x7x5",
+      "receipt": "DELIVERED",
+      "relayCount": 6,
+      "graceTicks": 216000
+    },
+    "worldgen": {
+      "nativePass": true,
+      "inertAsh": true,
+      "physicalAshColumns": 8094,
+      "actualDeterministicCuts": 1972,
+      "selectedChunkX": 149,
+      "selectedChunkZ": 186,
+      "landSearchBiomeOnly": true,
+      "nativeWrites": 56519,
+      "observedPrePassChunks": 75,
+      "preservedVanillaOreSamples": 1622,
+      "preservedHbmOreSamples": 0,
+      "nativeVanillaOrePreservationTested": true,
+      "nativeHbmOrePreservationTested": false,
+      "deferredCallbacksNotObserved": true,
+      "deferredHbmOreGenerationTested": false,
+      "observedNativeReservationChunks": 12,
+      "preservedNativeHbmArchitectureSamples": 5,
+      "nativeHbmArchitecturePreservationTested": true,
+      "nativeReservationObserved": true,
+      "sampledIndependentRegions": 3,
+      "regionsWithAtLeast256PaletteSoilColumns": 3,
+      "paintedSoilChunks": 75,
+      "observedNaturalSoilColumns": 17140,
+      "paletteNaturalSoilColumns": 17135,
+      "nativeFeatureCoveredSoilColumns": 4,
+      "nativeGeologyColumns": 1,
+      "nativeGeologyDetails": [
+        {
+          "x": 2438,
+          "z": 3009,
+          "chunkX": 152,
+          "chunkZ": 188,
+          "site": 0,
+          "originalY": 68,
+          "originalSurface": "minecraft:grass#0",
+          "finalY": 61,
+          "finalSurface": "minecraft:stone#1",
+          "reservation": null,
+          "planReason": "new_chunk",
+          "protectedColumns": 0,
+          "unsafeColumns": 0,
+          "plannedStateAtFinalGround": null
+        }
+      ],
+      "unexpectedNaturalSurfaceColumns": 0,
+      "unconvertedNaturalSoilColumns": 0,
+      "observedReservedSoilColumns": 3048,
+      "reservedPaintedSoilColumns": 3048,
+      "reservedPaintedChunks": 12,
+      "protectedNativeHbmCells": 411,
+      "nativeChunkLoadLifecycle": {
+        "nativeForgeLoadEvents": true,
+        "unpopulatedFirstPass": true,
+        "populatedSaveProtected": true,
+        "unknownSaveProtected": true,
+        "paintedUnpopulatedProtected": true,
+        "unknownMarkerSaveReload": true,
+        "legacyProtectionSaveReload": true,
+        "noDuplicatePass": true
+      },
+      "existingChunkPreserved": true,
+      "counts": {
+        "generated": 771,
+        "writes": 377800,
+        "new_chunk": 140,
+        "surface_columns": 120643,
+        "crater_columns": 16965,
+        "protected_columns": 21073,
+        "unsafe_columns": 307,
+        "architecture": 373,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.DepthDeposit": 39,
+        "hbm_footprint": 249,
+        "surface_only_chunks": 168,
+        "unsafe_cut": 9,
+        "reservation_native_structure_box": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.DepthDeposit": 43,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.OilBubble": 6,
+        "reservation_pending_dynamic_layout:com.hbm.world.OilBubble": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOre": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOilDeposit": 9,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOilDeposit": 73,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOre": 14,
+        "reservation_phased_structure_box": 6,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.MeteoriteStructure": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.MeteoriteStructure": 5,
+        "reservation_pending_validation_layout:com.hbm.world.Satellite": 11,
+        "reservation_pending_origin:com.hbm.world.Satellite": 1,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.LanternBehemoth": 1,
+        "existing_skipped": 6
+      }
+    },
+    "progression": {
+      "nativeRecipes": true,
+      "previousBookNbtRequired": true,
+      "rawOnlyEmc": true,
+      "sieveProviderRuns": 1
+    },
+    "materials": {
+      "ready": true,
+      "aliases": 6,
+      "testedSameFormCases": 2,
+      "absentOptionalAliases": [
+        "exnihilocreatio:item_ore_copper:3",
+        "exnihilocreatio:item_ore_copper:2",
+        "exnihilocreatio:item_ore_aluminium:3",
+        "exnihilocreatio:item_ore_lead:2"
+      ],
+      "nativeFurnace": true,
+      "canonicalCropRecipes": 7,
+      "cropRegistrations": [
+        {
+          "material": "copper",
+          "essence": "mysticalagriculture:copper_essence",
+          "seed": "mysticalagriculture:copper_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_copper:0",
+          "count": 6
+        },
+        {
+          "material": "aluminium",
+          "essence": "mysticalagriculture:aluminum_essence",
+          "seed": "mysticalagriculture:aluminum_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_aluminium:0",
+          "count": 8
+        },
+        {
+          "material": "lead",
+          "essence": "mysticalagriculture:lead_essence",
+          "seed": "mysticalagriculture:lead_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_lead:0",
+          "count": 4
+        },
+        {
+          "material": "titanium",
+          "essence": "mysticalagriculture:titanium_essence",
+          "seed": "mysticalagriculture:titanium_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_titanium:0",
+          "count": 2
+        },
+        {
+          "material": "tungsten",
+          "essence": "mysticalagriculture:tungsten_essence",
+          "seed": "mysticalagriculture:tungsten_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:ingot_tungsten:0",
+          "count": 2
+        },
+        {
+          "material": "sulfur",
+          "essence": "mysticalagriculture:sulfur_essence",
+          "seed": "mysticalagriculture:sulfur_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:sulfur:0",
+          "count": 8
+        },
+        {
+          "material": "niter",
+          "essence": "mysticalagriculture:saltpeter_essence",
+          "seed": "mysticalagriculture:saltpeter_seeds",
+          "nativeTypeEnabled": true,
+          "actualCraftMatches": true,
+          "matureHarvestVerified": true,
+          "output": "hbm:niter:0",
+          "count": 5
+        }
+      ],
+      "boundedInventoryCountConserved": true,
+      "taggedStacksPreserved": true,
+      "pieceChunkAndUniqueResourcesPreserved": true,
+      "statistics": {
+        "aliases": 6,
+        "migratedStacks": 1,
+        "migratedItems": 53,
+        "furnaceOutputs": 0,
+        "sieveOutputs": 0,
+        "protectedStackChecks": 2
+      }
+    },
+    "connectedSieves": {
+      "width": 5,
+      "nativeTiles": 25,
+      "rawConsumed": 25,
+      "centerClicks": 2,
+      "advancedTiles": 25,
+      "progressPerTile": 0.1,
+      "outsideRadiusUnchanged": true,
+      "nativeHbmRewardDraw": true,
+      "rewardDrawUsesControlledRng": true,
+      "manualPlayerClass": "net.minecraft.entity.player.EntityPlayerMP",
+      "fullCycleDropsTested": false
+    },
+    "compactSieves": {
+      "nativeRawDraws": 81,
+      "nativeRewardMatch": true,
+      "hbmProvider": true,
+      "noInputWithoutMesh": true,
+      "oneOf64Accepted": true,
+      "noDrawBeforeWork": true,
+      "fourStrokeWholeBatch": true,
+      "hiddenBankNbtRoundTrip": true,
+      "packedBreakAndPlace": true,
+      "cachedHandlerRejectedAfterBreak": true,
+      "fullInventoryOverflowConserved": true,
+      "legacyPendingMigratedOnce": true,
+      "legacySurplusRefunded": true,
+      "emptyFrameUpgradeable": true
+    },
+    "tools": {
+      "ownNativeTools": 6,
+      "presetAreas": [
+        3,
+        5,
+        7
+      ],
+      "nativeBatteries": 3,
+      "highAnvilEventOutputs": 3,
+      "anvilUiPickupTested": false
+    },
+    "ae2": {
+      "physicalDrive": true,
+      "storedIron": 1234,
+      "cursorSteps": 11,
+      "zoneDelta": 315904
+    },
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "sidedAutomation": true
+    },
+    "bonsai": {
+      "passed": true,
+      "nativePlantingClicks": true,
+      "nativeGrowth": true,
+      "nativeAxeHarvest": true,
+      "nativeHoppingExport": true,
+      "bufferPreservedWithoutDestination": true,
+      "craftedThroughHbm": true,
+      "forcedDropsOrProgress": false,
+      "manualNativeTileTicks": 103,
+      "ordinaryServerTileRegistration": true,
+      "output": {
+        "minecraft:apple:0": 2,
+        "minecraft:log:0": 1,
+        "minecraft:stick:0": 1
+      },
+      "timingRestored": true
+    },
+    "defense": {
+      "tiers": 3,
+      "doorSharedHp": true,
+      "realEsmDig": true,
+      "playerDrops": true,
+      "realOrdinaryExplosion": true
+    },
+    "machinery": {
+      "nativeHbmCharging": true,
+      "nativeOreDrops": true,
+      "blockedOutputTransactional": true,
+      "pendingNbtRoundTrip": true
+    },
+    "climate": {
+      "topAndSides": true,
+      "nativeIcePreserved": true,
+      "inventoryOperable": true,
+      "changes": 24,
+      "maximumCells": 4314,
+      "maximumSections": 2,
+      "forceLoads": 0
+    },
+    "climateClockAndPackets": {
+      "acceleratedNativeWeather": true,
+      "seasonMultipliers": [
+        0.5,
+        1.8
+      ],
+      "nativeCodecBytes": 21,
+      "malformedPacketDisabled": true,
+      "clientNetworkDeliveryTested": false,
+      "clientVisualsTested": false
+    },
+    "recipes": {
+      "nativeLogFiles": 1,
+      "errors": []
+    },
+    "siege": {
+      "passed": true,
+      "error": null,
+      "normalServerTicks": 258,
+      "assertions": 13705,
+      "nativeAiScheduler": true,
+      "chaseAndBreachInjectedDigTicks": false,
+      "liveCases": [
+        {
+          "case": "dedicated_server_forge_permissions",
+          "passed": true,
+          "clientTooltipClassAbsent": true,
+          "nativeEsmCancellationObserved": true,
+          "forgeGriefingEvents": 4,
+          "forgeDestroyEvents": 2,
+          "blockOverridePreserved": true
+        },
+        {
+          "case": "global_mob_xray",
+          "passed": true,
+          "nativeObservers": [
+            "minecraft:skeleton",
+            "minecraft:bat",
+            "srparasites:buglin",
+            "minecraft:cow"
+          ],
+          "opaqueHbmWall": true,
+          "distance": 40,
+          "configuredRadius": 64,
+          "coversEsmBlacklistedMobs": true,
+          "nativeFollowRangeIncreased": true,
+          "creativeExcluded": true,
+          "unloadedTargetDoesNotLoad": true
+        },
+        {
+          "case": "native_cached_target_guards",
+          "passed": true,
+          "ordinaryDirt": true,
+          "container": false,
+          "hbm": false,
+          "bedrock": false,
+          "mobGriefing": true,
+          "grace": true
+        },
+        {
+          "case": "cow_group_retaliation",
+          "passed": true,
+          "normalTicks": 35,
+          "unprovokedTargets": 0,
+          "sameSpeciesGroup": true,
+          "otherSpeciesNeutral": true,
+          "unhitResponderMoved": 2.4801397651249655,
+          "unhitResponderHpLost": 1.0,
+          "actualPlayerHpLost": 1.0
+        },
+        {
+          "case": "native_opaque_xray_acquisition_breach_attack",
+          "entity": "srparasites:sim_human",
+          "passed": true,
+          "normalTicks": 165,
+          "opaqueWallTargetAcquiredNaturally": true,
+          "injectedTarget": false,
+          "nativeTaskSelectedBlock": true,
+          "nativeTaskAdvancedDig": true,
+          "remainingBarrierBlocks": 1,
+          "physicallyCrossed": true,
+          "actualPlayerHpLost": 2.29388427734375
+        },
+        {
+          "case": "live_srp_v3_completion_guard",
+          "passed": true,
+          "remainingHp": 7900,
+          "forcedCompletionOnlyForDefenseBoundary": true
+        },
+        {
+          "case": "native_srp_chase_and_attack",
+          "entity": "srparasites:sim_human",
+          "passed": true,
+          "normalTicks": 25,
+          "distanceMoved": 5.928440838986862,
+          "actualPlayerHpLost": 1.854248046875,
+          "nativeCustomTasksPreserved": true
+        },
+        {
+          "case": "native_srp_chase_and_attack",
+          "entity": "srparasites:pri_longarms",
+          "passed": true,
+          "normalTicks": 17,
+          "distanceMoved": 4.79514592167435,
+          "actualPlayerHpLost": 3.2755126953125,
+          "nativeCustomTasksPreserved": true
+        },
+        {
+          "case": "native_srp_chase_and_attack",
+          "entity": "srparasites:ada_longarms",
+          "passed": true,
+          "normalTicks": 16,
+          "distanceMoved": 9.28049084577612,
+          "actualPlayerHpLost": 5.618408203125,
+          "nativeCustomTasksPreserved": true
+        }
+      ],
+      "diagnostics": [
+        {
+          "reason": "animals_before_provocation",
+          "stage": 0,
+          "stageTicks": 0,
+          "observedGroup": false,
+          "player": {
+            "class": "net.minecraft.entity.player.EntityPlayerMP",
+            "health": 1000.0,
+            "invulnerable": false,
+            "disableDamage": false,
+            "creative": false,
+            "spectator": false,
+            "position": [
+              444.5,
+              180.0,
+              531.5
+            ],
+            "inWorldPlayers": true
+          },
+          "cow": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 0,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              531.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 25.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "herd": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 0,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              440.5,
+              180.0,
+              532.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 17.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "otherSpecies": {
+            "type": "minecraft:pig",
+            "class": "net.minecraft.entity.passive.EntityPig",
+            "ticksExisted": 0,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              528.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 34.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 5,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 6,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 7,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 8,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "actor": null
+        },
+        {
+          "reason": "animals_after_actual_player_hit",
+          "stage": 0,
+          "stageTicks": 20,
+          "observedGroup": false,
+          "player": {
+            "class": "net.minecraft.entity.player.EntityPlayerMP",
+            "health": 1000.0,
+            "invulnerable": false,
+            "disableDamage": false,
+            "creative": false,
+            "spectator": false,
+            "position": [
+              444.5,
+              180.0,
+              531.5
+            ],
+            "inWorldPlayers": true
+          },
+          "cow": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 20,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              531.5
+            ],
+            "onGround": true,
+            "health": 9.0,
+            "target": "none",
+            "revengeTarget": "combat_player",
+            "revengeTimer": 20,
+            "distanceSqToPlayer": 25.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "herd": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 20,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              440.5,
+              180.0,
+              532.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 17.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "otherSpecies": {
+            "type": "minecraft:pig",
+            "class": "net.minecraft.entity.passive.EntityPig",
+            "ticksExisted": 20,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              528.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 34.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 5,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 6,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 7,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 8,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "actor": null
+        },
+        {
+          "reason": "animals_tick_21",
+          "stage": 0,
+          "stageTicks": 21,
+          "observedGroup": false,
+          "player": {
+            "class": "net.minecraft.entity.player.EntityPlayerMP",
+            "health": 1000.0,
+            "invulnerable": false,
+            "disableDamage": false,
+            "creative": false,
+            "spectator": false,
+            "position": [
+              444.5,
+              180.0,
+              531.5
+            ],
+            "inWorldPlayers": true
+          },
+          "cow": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 21,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.09999999403954,
+              180.36080000519752,
+              531.5
+            ],
+            "onGround": false,
+            "health": 9.0,
+            "target": "none",
+            "revengeTarget": "combat_player",
+            "revengeTimer": 20,
+            "distanceSqToPlayer": 29.290176708123546,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "herd": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 21,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              440.5,
+              180.0,
+              532.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 17.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "otherSpecies": {
+            "type": "minecraft:pig",
+            "class": "net.minecraft.entity.passive.EntityPig",
+            "ticksExisted": 21,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              528.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 34.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 5,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 6,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 7,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 8,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "actor": null
+        },
+        {
+          "reason": "animals_tick_30",
+          "stage": 0,
+          "stageTicks": 30,
+          "observedGroup": true,
+          "player": {
+            "class": "net.minecraft.entity.player.EntityPlayerMP",
+            "health": 1000.0,
+            "invulnerable": false,
+            "disableDamage": false,
+            "creative": false,
+            "spectator": false,
+            "position": [
+              444.5,
+              180.0,
+              531.5
+            ],
+            "inWorldPlayers": true
+          },
+          "cow": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 30,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              437.7117759919098,
+              180.0,
+              531.5
+            ],
+            "onGround": true,
+            "health": 9.0,
+            "target": "combat_player",
+            "revengeTarget": "combat_player",
+            "revengeTimer": 20,
+            "distanceSqToPlayer": 46.07998518401213,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": true
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": true
+              }
+            ]
+          },
+          "herd": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 30,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              441.97288784315805,
+              180.0,
+              532.166713138158
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "combat_player",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 6.830802261850872,
+            "committedPlayerDamage": 0.0,
+            "noPath": false,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": true
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "otherSpecies": {
+            "type": "minecraft:pig",
+            "class": "net.minecraft.entity.passive.EntityPig",
+            "ticksExisted": 30,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              528.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 34.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 5,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 6,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 7,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 8,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "actor": null
+        },
+        {
+          "reason": "animals_real_group_melee_committed",
+          "stage": 0,
+          "stageTicks": 35,
+          "observedGroup": true,
+          "player": {
+            "class": "net.minecraft.entity.player.EntityPlayerMP",
+            "health": 999.0,
+            "invulnerable": false,
+            "disableDamage": false,
+            "creative": false,
+            "spectator": false,
+            "position": [
+              444.5,
+              180.0,
+              531.5
+            ],
+            "inWorldPlayers": true
+          },
+          "cow": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 35,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              437.515906394816,
+              180.0,
+              531.5
+            ],
+            "onGround": true,
+            "health": 9.0,
+            "target": "combat_player",
+            "revengeTarget": "combat_player",
+            "revengeTimer": 20,
+            "distanceSqToPlayer": 48.777563485972045,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": true
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": true
+              }
+            ]
+          },
+          "herd": {
+            "type": "minecraft:cow",
+            "class": "net.minecraft.entity.passive.EntityCow",
+            "ticksExisted": 35,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              442.9112148484769,
+              180.0,
+              531.9193656838951
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "combat_player",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 2.7001058345290607,
+            "committedPlayerDamage": 1.0,
+            "noPath": false,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 2,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 4,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 5,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 6,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 7,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": true
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "otherSpecies": {
+            "type": "minecraft:pig",
+            "class": "net.minecraft.entity.passive.EntityPig",
+            "ticksExisted": 35,
+            "isDead": false,
+            "inLoadedEntityList": true,
+            "position": [
+              439.5,
+              180.0,
+              528.5
+            ],
+            "onGround": true,
+            "health": 10.0,
+            "target": "none",
+            "revengeTarget": "none",
+            "revengeTimer": 0,
+            "distanceSqToPlayer": 34.0,
+            "committedPlayerDamage": 0.0,
+            "noPath": true,
+            "tasks": [
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAISwimming",
+                "priority": 0,
+                "mutex": 4,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIMate",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAITempt",
+                "priority": 4,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIFollowParent",
+                "priority": 5,
+                "mutex": 0,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIWander",
+                "priority": 6,
+                "mutex": 1,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAIWatchClosest",
+                "priority": 7,
+                "mutex": 2,
+                "executing": false
+              },
+              {
+                "class": "net.minecraft.entity.ai.EntityAILookIdle",
+                "priority": 8,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAttackMelee",
+                "priority": 3,
+                "mutex": 3,
+                "executing": false
+              },
+              {
+                "class": "funwayguy.epicsiegemod.ai.ESM_EntityAIAvoidExplosion",
+                "priority": 1,
+                "mutex": 1,
+                "executing": false
+              }
+            ],
+            "targetTasks": [
+              {
+                "class": "net.minecraft.entity.ai.EntityAIHurtByTarget",
+                "priority": 3,
+                "mutex": 1,
+                "executing": false
+              }
+            ]
+          },
+          "actor": null
+        }
+      ],
+      "playerImplementation": "net.minecraft.entity.player.EntityPlayerMP",
+      "playerDamageMocked": false,
+      "fixtureAnimalsAllowed": true,
+      "fixtureNaturalSpawningDisabled": true,
+      "animalsProactive": false,
+      "groupRetaliation": true,
+      "allCasesPassed": true
+    },
+    "relaySiege": {
+      "passed": true,
+      "error": null,
+      "normalServerTicks": 567,
+      "assertions": 3783,
+      "nativeTaskScheduler": true,
+      "injectedTargetOrDamageProgress": false,
+      "ownNavigationChunkLoads": 0,
+      "cases": [
+        {
+          "case": "husk_breaches_and_destroys_real_relay",
+          "passed": true,
+          "normalTicks": 289,
+          "hp": 1000,
+          "nativeDropCount": 1,
+          "tileInvalidated": true,
+          "ticketWasAllocated": false,
+          "ticketReleasedOrAbsent": true,
+          "movementObserved": true,
+          "serializedPartialHp": true
+        },
+        {
+          "case": "parasite_respects_v3_hp",
+          "passed": true,
+          "normalTicks": 146,
+          "acquisitionWaitTicks": 46,
+          "ordinaryTicksAfterAcquisition": 100,
+          "acquisitionBudget": {
+            "purpose": "defense",
+            "loadedTiles": 786,
+            "loadedEntities": 102,
+            "worldCount": 4,
+            "tileVisitsPerTick": 32,
+            "entityVisitsPerTick": 32,
+            "deadlineTicks": 138,
+            "deadlineDerivedFromProductionScanBudgets": true
+          },
+          "startingHp": 8000,
+          "remainingHp": 7600,
+          "totalWallHpLost": 400,
+          "observedNativeDefenseHits": 4,
+          "observedLocalWallHits": 4,
+          "maximumHitsFromConfiguredInterval": 6,
+          "configuredWorkIntervalTicks": 20,
+          "configuredDamagePerHit": 100,
+          "relayHp": 1000
+        },
+        {
+          "case": "protected_bunker_relay",
+          "passed": true,
+          "normalTicks": 40,
+          "relayHp": 1000
+        },
+        {
+          "case": "existing_relay_task_suspends_offline",
+          "passed": true,
+          "normalOfflineTicks": 40,
+          "hpStableAfterTransition": 1000,
+          "acquisitionWaitTicks": 52,
+          "acquisitionBudget": {
+            "purpose": "offline",
+            "loadedTiles": 786,
+            "loadedEntities": 101,
+            "worldCount": 4,
+            "tileVisitsPerTick": 32,
+            "entityVisitsPerTick": 32,
+            "deadlineTicks": 138,
+            "deadlineDerivedFromProductionScanBudgets": true
+          }
+        }
+      ],
+      "statistics": {
+        "ready": true,
+        "loadedRelays": 9,
+        "trackedGoals": 1,
+        "activeGoals": 0,
+        "acquired": 3,
+        "navigationAttempts": 18,
+        "relayHits": 10,
+        "defenseHits": 4,
+        "relayBreaks": 1,
+        "ordinaryBreaks": 2,
+        "guardDenials": 0,
+        "loadedAreaAdmission": true
+      },
+      "diagnostics": [
+        {
+          "reason": "defense_acquisition_setup",
+          "stage": 1,
+          "stageTicks": 0,
+          "loadedTiles": 786,
+          "loadedEntities": 102,
+          "survivalPlayers": 1,
+          "playerPresent": true,
+          "playerHealth": 20.0,
+          "playerSurvival": true,
+          "mobGriefing": "true",
+          "relayBlockLoaded": true,
+          "relayTileInvalid": false,
+          "relayTileInLoadedList": true,
+          "statisticsBeforeCleanup": {
+            "ready": true,
+            "loadedRelays": 8,
+            "trackedGoals": 0,
+            "activeGoals": 0,
+            "acquired": 1,
+            "navigationAttempts": 13,
+            "relayHits": 10,
+            "defenseHits": 0,
+            "relayBreaks": 1,
+            "ordinaryBreaks": 2,
+            "guardDenials": 0,
+            "loadedAreaAdmission": true
+          },
+          "acquisitionBudget": {
+            "purpose": "defense",
+            "loadedTiles": 786,
+            "loadedEntities": 102,
+            "worldCount": 4,
+            "tileVisitsPerTick": 32,
+            "entityVisitsPerTick": 32,
+            "deadlineTicks": 138,
+            "deadlineDerivedFromProductionScanBudgets": true
+          },
+          "acquiredAtStageTick": -1,
+          "ordinaryTicksAfterAcquisition": 0,
+          "nativeDefenseHitDelta": 0,
+          "wallRemainingHp": [
+            8000,
+            8000,
+            8000
+          ],
+          "actor": {
+            "type": "srparasites:sim_human",
+            "isDead": false,
+            "alive": true,
+            "ticksExisted": 0,
+            "inLoadedEntityList": true,
+            "chunkLoaded": true,
+            "position": [
+              503.5,
+              180.0,
+              531.5
+            ],
+            "targetKey": ""
+          }
+        },
+        {
+          "reason": "defense_task_acquired",
+          "stage": 1,
+          "stageTicks": 46,
+          "loadedTiles": 786,
+          "loadedEntities": 99,
+          "survivalPlayers": 1,
+          "playerPresent": true,
+          "playerHealth": 20.0,
+          "playerSurvival": true,
+          "mobGriefing": "true",
+          "relayBlockLoaded": true,
+          "relayTileInvalid": false,
+          "relayTileInLoadedList": true,
+          "statisticsBeforeCleanup": {
+            "ready": true,
+            "loadedRelays": 9,
+            "trackedGoals": 1,
+            "activeGoals": 0,
+            "acquired": 2,
+            "navigationAttempts": 13,
+            "relayHits": 10,
+            "defenseHits": 0,
+            "relayBreaks": 1,
+            "ordinaryBreaks": 2,
+            "guardDenials": 0,
+            "loadedAreaAdmission": true
+          },
+          "acquisitionBudget": {
+            "purpose": "defense",
+            "loadedTiles": 786,
+            "loadedEntities": 102,
+            "worldCount": 4,
+            "tileVisitsPerTick": 32,
+            "entityVisitsPerTick": 32,
+            "deadlineTicks": 138,
+            "deadlineDerivedFromProductionScanBudgets": true
+          },
+          "acquiredAtStageTick": 46,
+          "ordinaryTicksAfterAcquisition": 0,
+          "nativeDefenseHitDelta": 0,
+          "wallRemainingHp": [
+            8000,
+            8000,
+            8000
+          ],
+          "actor": {
+            "type": "srparasites:sim_human",
+            "isDead": false,
+            "alive": true,
+            "ticksExisted": 46,
+            "inLoadedEntityList": true,
+            "chunkLoaded": true,
+            "position": [
+              503.5,
+              180.0,
+              531.5
+            ],
+            "targetKey": "0:509:180:531"
+          }
+        },
+        {
+          "reason": "defense_work_window_complete",
+          "stage": 1,
+          "stageTicks": 146,
+          "loadedTiles": 786,
+          "loadedEntities": 99,
+          "survivalPlayers": 1,
+          "playerPresent": true,
+          "playerHealth": 20.0,
+          "playerSurvival": true,
+          "mobGriefing": "true",
+          "relayBlockLoaded": true,
+          "relayTileInvalid": false,
+          "relayTileInLoadedList": true,
+          "statisticsBeforeCleanup": {
+            "ready": true,
+            "loadedRelays": 9,
+            "trackedGoals": 1,
+            "activeGoals": 1,
+            "acquired": 2,
+            "navigationAttempts": 18,
+            "relayHits": 10,
+            "defenseHits": 4,
+            "relayBreaks": 1,
+            "ordinaryBreaks": 2,
+            "guardDenials": 0,
+            "loadedAreaAdmission": true
+          },
+          "acquisitionBudget": {
+            "purpose": "defense",
+            "loadedTiles": 786,
+            "loadedEntities": 102,
+            "worldCount": 4,
+            "tileVisitsPerTick": 32,
+            "entityVisitsPerTick": 32,
+            "deadlineTicks": 138,
+            "deadlineDerivedFromProductionScanBudgets": true
+          },
+          "acquiredAtStageTick": 46,
+          "ordinaryTicksAfterAcquisition": 100,
+          "nativeDefenseHitDelta": 4,
+          "wallRemainingHp": [
+            8000,
+            7600,
+            8000
+          ],
+          "actor": {
+            "type": "srparasites:sim_human",
+            "isDead": false,
+            "alive": true,
+            "ticksExisted": 146,
+            "inLoadedEntityList": true,
+            "chunkLoaded": true,
+            "position": [
+              505.2917985042837,
+              180.0,
+              531.5
+            ],
+            "targetKey": "0:509:180:531"
+          }
+        },
+        {
+          "reason": "offline_acquisition_setup",
+          "stage": 3,
+          "stageTicks": 0,
+          "loadedTiles": 786,
+          "loadedEntities": 101,
+          "survivalPlayers": 1,
+          "playerPresent": true,
+          "playerHealth": 20.0,
+          "playerSurvival": true,
+          "mobGriefing": "false",
+          "relayBlockLoaded": true,
+          "relayTileInvalid": false,
+          "relayTileInLoadedList": true,
+          "statisticsBeforeCleanup": {
+            "ready": true,
+            "loadedRelays": 8,
+            "trackedGoals": 0,
+            "activeGoals": 0,
+            "acquired": 2,
+            "navigationAttempts": 18,
+            "relayHits": 10,
+            "defenseHits": 4,
+            "relayBreaks": 1,
+            "ordinaryBreaks": 2,
+            "guardDenials": 0,
+            "loadedAreaAdmission": true
+          },
+          "actor": {
+            "type": "minecraft:husk",
+            "isDead": false,
+            "alive": true,
+            "ticksExisted": 0,
+            "inLoadedEntityList": true,
+            "chunkLoaded": true,
+            "position": [
+              507.5,
+              180.0,
+              531.5
+            ],
+            "targetKey": ""
+          }
+        },
+        {
+          "reason": "offline_task_acquired",
+          "stage": 3,
+          "stageTicks": 52,
+          "loadedTiles": 786,
+          "loadedEntities": 100,
+          "survivalPlayers": 1,
+          "playerPresent": true,
+          "playerHealth": 20.0,
+          "playerSurvival": true,
+          "mobGriefing": "false",
+          "relayBlockLoaded": true,
+          "relayTileInvalid": false,
+          "relayTileInLoadedList": true,
+          "statisticsBeforeCleanup": {
+            "ready": true,
+            "loadedRelays": 9,
+            "trackedGoals": 1,
+            "activeGoals": 0,
+            "acquired": 3,
+            "navigationAttempts": 18,
+            "relayHits": 10,
+            "defenseHits": 4,
+            "relayBreaks": 1,
+            "ordinaryBreaks": 2,
+            "guardDenials": 0,
+            "loadedAreaAdmission": true
+          },
+          "actor": {
+            "type": "minecraft:husk",
+            "isDead": false,
+            "alive": true,
+            "ticksExisted": 52,
+            "inLoadedEntityList": true,
+            "chunkLoaded": true,
+            "position": [
+              507.5,
+              180.0,
+              531.5
+            ],
+            "targetKey": "0:509:180:531"
+          }
+        }
+      ]
+    },
+    "compactSieveGameplay": {
+      "lastPlayerInteraction": {
+        "case": 6,
+        "loaded": true,
+        "block": "dead_earth:compact_sieve_v3",
+        "heldBefore": 0,
+        "sneaking": false,
+        "result": "PASS",
+        "heldAfter": 0
+      },
+      "cases": [
+        {
+          "tier": 3,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 3,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 4,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 4,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 5,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 5,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 3,
+          "mode": "native_hoppers",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        }
+      ],
+      "normalPlacementOnly": true,
+      "manualLifecycleOrProgressCalls": false,
+      "observedServerTicks": 71,
+      "maximumGlobalNativeDrawsPerTick": 256,
+      "nativeHopperOutputItems": 2,
+      "fourWorkClicksWholeBatch": true,
+      "noDrawBeforeFirstWork": true,
+      "noLootBeforeFourthWork": true,
+      "noExtraCollectionClick": true,
+      "chatPackets": 0,
+      "passed": true
+    }
+  },
+  "failures": [],
+  "compiledGameSnapshot": {
+    "schema": 1,
+    "version": "1.1.0",
+    "sources_sha256": "6c57c813bb9a51aa288e0a3f7cd7c8ecc9ec8873f922e8fee65b5eaff9f58cc2",
+    "jar_sha256": "32279af52e6b5a082d1b07aaa134fa9321f7589fab534459993a07b3170add80"
+  }
+}

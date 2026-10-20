@@ -1,5 +1,25 @@
 ## Приоритетные правила SRP-форка
 
+- Пользователь разрешил20.10.2026 push этой ветки и стабильный выпуск V1
+  (техническая1.1.0, tag srp-v1.1.0) после успешных финальных проверок.
+  Это не разрешение на перезапись modern/main или на публикацию секретов.
+
+- Срез SRP1.1.0: всё серверное окружение запускает `legacy/START-SERVER.bat`
+  через `legacy/docker/compose.yaml` в Docker Desktop, явный context `desktop-linux`.
+  Не возвращать отдельные Windows/Ubuntu runtime-процессы сервера/ИИ.
+  Общий network namespace Minecraft держит bridge/RCON на loopback;
+  наружу только Windows127.0.0.1:25565 и :8766. Playit остаётся внутри Compose.
+  Модели CPU, один resident backend; single/dual — последовательный совет.
+  Не печатать .env/secrets.env, descriptor, raw docker inspect/logs с ключами.
+  Старые данные и Ollama volume сохранены; текущая установка описана
+  `work/current-playtest.json`, не угадывать её по старым PID.
+- Материалы: `legacy/materials/catalog.json` — единственный источник равноценных
+  форм, EMC и цен зон. Генераторы проверяются сборщиком; NBT/ForgeCaps не терять.
+  ESM требует полных профилей из `legacy/combat/esm-profiles.json`.
+  Зрение через любые блоки не делает нейтральных животных агрессивными заранее.
+  Полный финальный native-тест включает настоящий EntityPlayerMP для урона,
+  отдельный GL-клиент проверяет bake/sprites всех собственных объектов.
+
 - Этот checkout: C:\projects\DEAD-EARTH-SRP, ветка fork/srp-1.12.2.
 - Целевой новый код/конфиги находятся в legacy/; исходная modern-сборка в корне сохранена как база для переноса.
 - Для legacy/ действуют Minecraft 1.12.2 / Forge, а не ограничение NeoForge из исторических правил ниже.

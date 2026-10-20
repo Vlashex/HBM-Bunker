@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "passed": true,
+  "version": "1.1.0",
+  "state": "installed",
+  "planId": "070332cfae2e8df308f50f84bb7047ab3e968d56e98f27cbff61f9781658bd51",
+  "replacedFiles": 27,
+  "archivedJars": 1,
+  "backupCreated": true,
+  "worldAndPrivateDataUntouched": true,
+  "installedJars": [
+    {
+      "kind": "server",
+      "jar": "dead-earth-srp-coordinator-1.1.0.jar",
+      "sha256": "ccbd76362d16064f461e0c2ca0aa9ba58c0f69214165021f77ea2afffeaebafa"
+    },
+    {
+      "kind": "client",
+      "jar": "dead-earth-srp-coordinator-1.1.0.jar",
+      "sha256": "ccbd76362d16064f461e0c2ca0aa9ba58c0f69214165021f77ea2afffeaebafa"
+    }
+  ],
+  "serverState": "stopped",
+  "clientState": "closed",
+  "preferredClientCount": 1,
+  "motdUpdated": true,
+  "currentPlaytestMetadataPromoted": true,
+  "limits": [
+    "The second legacy client is preserved as a previous installation and was not started.",
+    "No world, secret, account file or AI journal was replaced."
+  ]
+}

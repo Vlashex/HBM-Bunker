@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "passed": true,
+  "onlyAssetsChanged": true,
+  "oldJarSha256": "32279af52e6b5a082d1b07aaa134fa9321f7589fab534459993a07b3170add80",
+  "finalJarSha256": "ccbd76362d16064f461e0c2ca0aa9ba58c0f69214165021f77ea2afffeaebafa",
+  "unchangedClassTreeSha256": "7c6a381dfe0de3ee34c0434a2d530b5309c91ed59db42fd1a9b4b83a88d9ef43",
+  "allNonAssetsEntriesIdentical": true,
+  "allOtherAssetsIdentical": true,
+  "changedEntries": [
+    "assets/dead_earth/models/item/compact_mesh_diamond_v3.json",
+    "assets/dead_earth/models/item/compact_mesh_diamond_v4.json",
+    "assets/dead_earth/models/item/compact_mesh_diamond_v5.json",
+    "assets/dead_earth/models/item/compact_mesh_flint_v3.json",
+    "assets/dead_earth/models/item/compact_mesh_flint_v4.json",
+    "assets/dead_earth/models/item/compact_mesh_flint_v5.json",
+    "assets/dead_earth/models/item/compact_mesh_iron_v3.json",
+    "assets/dead_earth/models/item/compact_mesh_iron_v4.json",
+    "assets/dead_earth/models/item/compact_mesh_iron_v5.json",
+    "assets/dead_earth/models/item/compact_mesh_string_v3.json",
+    "assets/dead_earth/models/item/compact_mesh_string_v4.json",
+    "assets/dead_earth/models/item/compact_mesh_string_v5.json"
+  ],
+  "particleResolution": "concrete vanilla wool texture per native Ex Nihilo grade; no upward reference"
+}
