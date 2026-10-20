@@ -1,0 +1,298 @@
+{
+  "name": "dead-earth-srp",
+  "x-dead-earth": {
+    "purpose": "Forge server, private AI services, operator admin and existing Playit tunnel",
+    "network": "Bridge with outbound NAT; game bridge and RCON remain in shared loopback namespace",
+    "models": "Pinned primary and optional critic share one CPU backend; single mode unloads critic"
+  },
+  "services": {
+    "minecraft": {
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "build": {
+        "context": "../..",
+        "dockerfile": "legacy/docker/Dockerfile.minecraft"
+      },
+      "image": "dead-earth-srp-minecraft:local",
+      "init": true,
+      "networks": [
+        "campaign"
+      ],
+      "ports": [
+        "127.0.0.1:25565:25565",
+        "127.0.0.1:8766:8766"
+      ],
+      "environment": {
+        "DEAD_EARTH_MEMORY_MB": "${DEAD_EARTH_MINECRAFT_MEMORY_MB:-4096}"
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${DEAD_EARTH_SERVER_DATA:?Run legacy_compose.py prepare first}",
+          "target": "/srv/dead-earth",
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "tmpfs": [
+        "/tmp:size=256m"
+      ],
+      "mem_limit": "${DEAD_EARTH_MINECRAFT_CONTAINER_MEMORY:-5g}",
+      "pids_limit": 512,
+      "stop_grace_period": "120s",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "/opt/dead-earth/runtime.py",
+          "health",
+          "minecraft"
+        ],
+        "interval": "15s",
+        "timeout": "8s",
+        "start_period": "90s",
+        "retries": 8
+      }
+    },
+    "ollama": {
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "image": "ollama/ollama:0.40.6@sha256:265409e1d931028a8f7d5a32bcbafddd7bffbc6cc629d77efe9560adf692a5e7",
+      "networks": [
+        "campaign"
+      ],
+      "cpus": 4,
+      "mem_limit": "6g",
+      "memswap_limit": "6g",
+      "pids_limit": 256,
+      "tmpfs": [
+        "/tmp:size=256m"
+      ],
+      "environment": {
+        "OLLAMA_HOST": "0.0.0.0:11434",
+        "OLLAMA_CONTEXT_LENGTH": "4096",
+        "OLLAMA_NUM_PARALLEL": "1",
+        "OLLAMA_MAX_LOADED_MODELS": "1",
+        "OLLAMA_MAX_QUEUE": "1",
+        "OLLAMA_KEEP_ALIVE": "0",
+        "OLLAMA_NO_CLOUD": "1",
+        "OLLAMA_VULKAN": "0",
+        "CUDA_VISIBLE_DEVICES": "-1",
+        "OMP_NUM_THREADS": "4"
+      },
+      "volumes": [
+        "models:/root/.ollama"
+      ],
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "ollama",
+          "list"
+        ],
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 6
+      }
+    },
+    "director": {
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "build": {
+        "context": "../..",
+        "dockerfile": "legacy/docker/Dockerfile.director"
+      },
+      "image": "dead-earth-srp-director:local",
+      "init": true,
+      "network_mode": "service:minecraft",
+      "depends_on": {
+        "minecraft": {
+          "condition": "service_healthy",
+          "restart": true
+        },
+        "ollama": {
+          "condition": "service_healthy"
+        }
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${DEAD_EARTH_SERVER_DATA:?Run legacy_compose.py prepare first}",
+          "target": "/srv/dead-earth",
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "tmpfs": [
+        "/tmp:size=64m"
+      ],
+      "mem_limit": "256m",
+      "pids_limit": 64,
+      "stop_grace_period": "110s",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "/opt/dead-earth/runtime.py",
+          "health",
+          "director"
+        ],
+        "interval": "15s",
+        "timeout": "5s",
+        "start_period": "20s",
+        "retries": 6
+      }
+    },
+    "admin": {
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "build": {
+        "context": "../..",
+        "dockerfile": "legacy/docker/Dockerfile.director"
+      },
+      "image": "dead-earth-srp-director:local",
+      "command": [
+        "admin"
+      ],
+      "init": true,
+      "network_mode": "service:minecraft",
+      "depends_on": {
+        "minecraft": {
+          "condition": "service_healthy",
+          "restart": true
+        },
+        "ollama": {
+          "condition": "service_healthy"
+        }
+      },
+      "volumes": [
+        {
+          "type": "bind",
+          "source": "${DEAD_EARTH_SERVER_DATA:?Run legacy_compose.py prepare first}",
+          "target": "/srv/dead-earth",
+          "bind": {
+            "create_host_path": false
+          }
+        }
+      ],
+      "tmpfs": [
+        "/tmp:size=64m"
+      ],
+      "mem_limit": "256m",
+      "pids_limit": 64,
+      "stop_grace_period": "20s",
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "python3",
+          "/opt/dead-earth/runtime.py",
+          "health",
+          "admin"
+        ],
+        "interval": "15s",
+        "timeout": "5s",
+        "retries": 6
+      }
+    },
+    "playit": {
+      "restart": "unless-stopped",
+      "read_only": true,
+      "cap_drop": [
+        "ALL"
+      ],
+      "security_opt": [
+        "no-new-privileges:true"
+      ],
+      "logging": {
+        "driver": "json-file",
+        "options": {
+          "max-size": "10m",
+          "max-file": "2"
+        }
+      },
+      "image": "ghcr.io/playit-cloud/playit-agent:1.0@sha256:5b7748d3e8564f1cac3d3a295a23640136fbf774c76a9509bd262d16b324b06b",
+      "network_mode": "service:minecraft",
+      "depends_on": {
+        "minecraft": {
+          "condition": "service_healthy",
+          "restart": true
+        }
+      },
+      "env_file": [
+        {
+          "path": "secrets.env",
+          "required": true
+        }
+      ],
+      "mem_limit": "128m",
+      "pids_limit": 64,
+      "tmpfs": [
+        "/tmp:size=32m"
+      ],
+      "stop_grace_period": "15s"
+    }
+  },
+  "networks": {
+    "campaign": {
+      "driver": "bridge"
+    }
+  },
+  "volumes": {
+    "models": {
+      "name": "${DEAD_EARTH_MODEL_VOLUME:-dead-earth-srp-models}"
+    }
+  }
+}

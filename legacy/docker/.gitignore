@@ -1,0 +1,5 @@
+# Local deployment settings and credentials are never part of a release.
+.env
+secrets.env
+state/
+!.env.example

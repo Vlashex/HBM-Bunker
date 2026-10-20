@@ -1,0 +1,11 @@
+# host/admin use only the Python standard library. No Windows wheel lock,
+# training dependencies, GPU toolkit or model weights belong in this image.
+FROM python:3.12-slim-bookworm@sha256:34386ef0cb081344d7ec1c103ba398e6e9f64e9ab3a1509accc92a4e24a07258
+WORKDIR /srv/dead-earth
+COPY director/dead_earth_director /opt/dead-earth/director/dead_earth_director
+COPY legacy/docker/runtime.py /opt/dead-earth/runtime.py
+COPY legacy/docker/model_store.py /opt/dead-earth/model_store.py
+ENV PYTHONPATH=/opt/dead-earth/director PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 DEAD_EARTH_CONTAINER_MODE=1
+ENTRYPOINT ["python3", "/opt/dead-earth/runtime.py"]
+CMD ["director"]

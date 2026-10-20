@@ -9,6 +9,7 @@ import unicodedata
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, build_opener, ProxyHandler, HTTPRedirectHandler
 from .bridge import _json, BridgeError
+from .network import model_endpoint_allowed
 from .tactics import selection_schema,selection_prompt,parse_selection,parasite_guidance
 
 VARIANTS = ("distant_sound", "radio_static", "spore_trace")
@@ -49,8 +50,7 @@ class ModelSettings:
     maximum_tokens: int = 160
 
     def __post_init__(self):
-        match = re.fullmatch(r"http://127\.0\.0\.1:([0-9]{1,5})", self.url)
-        if not match or not 1 <= int(match[1]) <= 65535:
+        if not model_endpoint_allowed(self.url):
             raise ModelError("model_endpoint_not_loopback")
         if not re.fullmatch(r"[a-z0-9._:/-]{1,160}", self.model) or not re.fullmatch(r"[0-9a-f]{64}", self.digest):
             raise ModelError("model_not_pinned")

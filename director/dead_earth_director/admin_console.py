@@ -11,6 +11,7 @@ import struct
 import threading
 import time
 import uuid
+from .network import server_binding_allowed
 
 
 def read_properties(path):
@@ -31,7 +32,7 @@ def read_properties(path):
 def settings(root):
     p=read_properties(root/'server.properties')
     password=p.get('rcon.password','')
-    if p.get('server-ip')!='127.0.0.1': return 'unsafe_binding',None,password
+    if not server_binding_allowed(p.get('server-ip')): return 'unsafe_binding',None,password
     if p.get('enable-rcon')!='true' or not password: return 'not_configured',None,password
     port=int(p.get('rcon.port','25575'))
     if not 1<=port<=65535 or '\\' in password: raise ValueError('properties_format')

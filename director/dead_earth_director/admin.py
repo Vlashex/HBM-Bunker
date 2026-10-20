@@ -18,6 +18,7 @@ from .admin_evolution import Evolution, EvolutionError
 from .bridge import _json
 from . import admin_analytics
 from .ai_control import ModeControl,ControlError
+from .network import admin_bind
 
 STATIC = Path(__file__).with_name("admin_web")
 PRODUCT = "dead-earth-admin-v1"
@@ -345,7 +346,7 @@ def make_server(app, port=8765):
             except (OSError,sqlite3.Error):return self.send_body(503,b'{"error":"evolution_unavailable_outcome_unknown"}')
         def reject(self): self.send_body(405,b'{"error":"read_only"}')
         do_PUT=do_DELETE=do_PATCH=do_OPTIONS=reject
-    return ThreadingHTTPServer(("127.0.0.1",port),Handler)
+    return ThreadingHTTPServer((admin_bind(),port),Handler)
 
 
 def main():

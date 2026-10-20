@@ -1,0 +1,9 @@
+**
+!director/
+!director/dead_earth_director/
+!director/dead_earth_director/**
+!legacy/
+!legacy/docker/
+!legacy/docker/runtime.py
+**/__pycache__
+**/*.pyc
