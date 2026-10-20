@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "version": "1.0.2",
+  "coordinatorSha256": "a3418af87491af12a51467bf709f024a157155c1fcf63f796571f6a9dd7fcb36",
+  "sourceSha256": "2d077927a13e8c2d3906768e554661d13c45f66a93a87d6d9593a881e3904762",
+  "nativeLocale": {
+    "oldRussian": {
+      "resolved": 0,
+      "expected": 193
+    },
+    "newRussian": {
+      "resolved": 193,
+      "expected": 193
+    },
+    "newEnglish": {
+      "resolved": 193,
+      "expected": 193
+    },
+    "javaRuntime": "PrismLauncher jre-legacy / Java 8",
+    "guiStarted": false
+  },
+  "unitTests": {
+    "command": "director/.venv/Scripts/python.exe -m unittest discover -s tests -p 'test_legacy*.py' -q",
+    "tests": 38,
+    "passed": true
+  },
+  "gameplayChanges": false,
+  "fullGameRetested": false,
+  "installation": "pending-client-save-and-close",
+  "artifacts": [
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.2-Prism.zip",
+      "sha256": "811d36f27e0ce4544353d1921ffdbe73d177b18524cff711aef13d18b88bc25f",
+      "bytes": 121378032
+    },
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.2-Server-Overlay.zip",
+      "sha256": "75db9a2abb90ed017e8517fa18118dcba73765bad355ec074660d0327b4256f9",
+      "bytes": 121268532
+    },
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.2-TLauncher.zip",
+      "sha256": "70d6df3a2c6b3d6ce24383e4608c4bea1c893307e2ca068fbe127f1edbd2c7c4",
+      "bytes": 126006060
+    }
+  ]
+}

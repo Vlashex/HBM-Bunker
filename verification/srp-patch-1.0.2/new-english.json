@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "jar": "C:\\projects\\DEAD-EARTH-SRP\\work\\legacy-coordinator\\mod.jar",
+  "language": "en_us",
+  "packFormat": 3,
+  "selectedAdapter": "net.minecraftforge.fml.client.FMLFileResourcePack",
+  "resourceDomains": [
+    "hbm",
+    "dead_earth",
+    "dead_earth_worldgen",
+    "dead_earth_machinery"
+  ],
+  "expectedNames": 193,
+  "resolvedNames": 193,
+  "unresolvedNames": 0,
+  "samples": [
+    {
+      "key": "tile.dead_earth.zone_relay.name",
+      "expected": "Chunk Loader",
+      "actual": "Chunk Loader",
+      "presentInNativeLocale": true
+    },
+    {
+      "key": "tile.dead_earth.compact_sieve_v3.name",
+      "expected": "Compact Sieve 3 (81)",
+      "actual": "Compact Sieve 3 (81)",
+      "presentInNativeLocale": true
+    },
+    {
+      "key": "item.dead_earth.compact_mesh_diamond_v5.name",
+      "expected": "Diamond Compact Mesh 5",
+      "actual": "Diamond Compact Mesh 5",
+      "presentInNativeLocale": true
+    },
+    {
+      "key": "tile.dead_earth.compressed_gravel_2.name",
+      "expected": "Gravel x81",
+      "actual": "Gravel x81",
+      "presentInNativeLocale": true
+    }
+  ],
+  "failures": [],
+  "passed": true,
+  "jarSha256": "a3418af87491af12a51467bf709f024a157155c1fcf63f796571f6a9dd7fcb36",
+  "expectedResult": "translated",
+  "expectationMet": true
+}

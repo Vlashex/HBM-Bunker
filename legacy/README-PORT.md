@@ -1,4 +1,4 @@
-# DEAD EARTH SRP 1.0.1
+# DEAD EARTH SRP 1.0.2
 
 В готовых архивах этот документ находится в корне как `README-PORT.md`.
 Версии и контрольные суммы модов — `full.mods.lock.json`, таблица переноса —
@@ -103,10 +103,10 @@ Shift с пустой рукой возвращает сетку после па
 
 ## Клиент
 
-- **Prism:** импортировать `DEAD-EARTH-SRP-1.0.1-Prism.zip` как новый экземпляр;
+- **Prism:** импортировать `DEAD-EARTH-SRP-1.0.2-Prism.zip` как новый экземпляр;
   выбрать Java 8 x64. Начальный лимит памяти 4096 MiB.
 - **TLauncher:** отдельная папка игры, точный Forge 2860 и
-  `DEAD-EARTH-SRP-1.0.1-TLauncher.zip`; пошаговая инструкция внутри архива.
+  `DEAD-EARTH-SRP-1.0.2-TLauncher.zip`; пошаговая инструкция внутри архива.
 - Docker/Python/модели клиентам не нужны. Миры, аккаунты и адрес действующего
   сервера в архивы не входят. Клиент 1.12.2 не подключается к modern-серверу.
 
@@ -179,3 +179,10 @@ py -3 tools/legacy_port.py build
 остаются необязательные рецепты Ex Nihilo для отсутствующих Forestry/Thermal;
 собственные CraftTweaker-рецепты загружены без ошибок.
 Историческое свидетельство core 0.2.0 не заменяет проверки полного состава.
+
+## Patch 1.0.2: resource pack metadata
+
+The coordinator now declares the Minecraft 1.12.2 resource format (3).
+Without pack.mcmeta, Forge treated its resources as legacy format 2 and
+looked for uppercase language filenames, skipping the shipped lowercase
+Russian and English translations. No sieve processing or world data changes.

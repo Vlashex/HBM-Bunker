@@ -1,0 +1,19 @@
+{
+  "oldSha256": "23cb9522af2cfa58c1d6e4a73b95d241722aee6147bf014a10f1be2d7c9f016c",
+  "newSha256": "a3418af87491af12a51467bf709f024a157155c1fcf63f796571f6a9dd7fcb36",
+  "added": [
+    "pack.mcmeta"
+  ],
+  "removed": [],
+  "changed": [
+    "META-INF/MANIFEST.MF",
+    "dev/deadearth/legacy/DeadEarthLegacy.class",
+    "mcmod.info"
+  ],
+  "versionOnly": [
+    "META-INF/MANIFEST.MF",
+    "dev/deadearth/legacy/DeadEarthLegacy.class",
+    "mcmod.info"
+  ],
+  "unchangedClassCount": 137
+}
