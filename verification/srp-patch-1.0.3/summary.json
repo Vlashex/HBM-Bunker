@@ -1,0 +1,141 @@
+{
+  "schema": 1,
+  "version": "1.0.3",
+  "coordinatorSha256": "2b42c2f1fae28543cff098e8a1da1caf8e83fdf37c9f9c530dd730d2bc06e52e",
+  "sourceSha256": "c3b861eed8ac6c2ccdc5bc71d968538b8fc2ec586ed480c4a249d1fd6fea0919",
+  "unitChecks": 38,
+  "nativePassed": true,
+  "nativeChecks": 290,
+  "nativeGroupCount": 15,
+  "restartPassed": true,
+  "restartChecks": 46,
+  "sieveGameplay": {
+    "lastPlayerInteraction": {
+      "case": 6,
+      "loaded": true,
+      "block": "dead_earth:compact_sieve_v3",
+      "heldBefore": 0,
+      "sneaking": false,
+      "result": "PASS",
+      "heldAfter": 0
+    },
+    "cases": [
+      {
+        "tier": 3,
+        "mode": "survival",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 81,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 3,
+        "mode": "creative",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 81,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 4,
+        "mode": "survival",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 729,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 4,
+        "mode": "creative",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 729,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 5,
+        "mode": "survival",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 6561,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 5,
+        "mode": "creative",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 6561,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      },
+      {
+        "tier": 3,
+        "mode": "native_hoppers",
+        "naturallyTracked": true,
+        "matchingMeshRequired": true,
+        "slotLimit": 1,
+        "workClicks": 4,
+        "normalTickDraws": 81,
+        "remainingRawDraws": 0,
+        "completedBatches": 1,
+        "exactNativeRewards": true
+      }
+    ],
+    "normalPlacementOnly": true,
+    "manualLifecycleOrProgressCalls": false,
+    "observedServerTicks": 71,
+    "maximumGlobalNativeDrawsPerTick": 256,
+    "nativeHopperOutputItems": 2,
+    "fourWorkClicksWholeBatch": true,
+    "noDrawBeforeFirstWork": true,
+    "noLootBeforeFourthWork": true,
+    "noExtraCollectionClick": true,
+    "chatPackets": 0,
+    "passed": true
+  },
+  "realAiInferenceTested": false,
+  "automatedClientVisualsTested": false,
+  "performanceTestRun": false,
+  "installation": "installed-one-client-launched",
+  "artifacts": [
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.3-Prism.zip",
+      "sha256": "e48ad6edd610f9ed56b05b2de98d12c091d6621823807e0ec7dc2843764d4f74",
+      "bytes": 121381122
+    },
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.3-Server-Overlay.zip",
+      "sha256": "2858cfee24098a2903caed9be4c62177535478b9c3f2e43a78d91f670db73065",
+      "bytes": 121271622
+    },
+    {
+      "filename": "DEAD-EARTH-SRP-1.0.3-TLauncher.zip",
+      "sha256": "716fc158e1c7165d8a6271ce8b0d73e578dcd874378e8681e100c4adb3f7fb80",
+      "bytes": 126009150
+    }
+  ]
+}

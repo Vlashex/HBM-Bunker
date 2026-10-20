@@ -65,14 +65,21 @@ public final class RestartSentinels {
         Object sieve=tile(world,positions.get(8)),sieveInventory=inventory(sieve);
         require(empty(Reflect.call(sieveInventory,"insertItem",1,stack("dead_earth:compact_mesh_diamond_v3",1),false)),"matching compact mesh rejected");
         require(empty(Reflect.call(sieveInventory,"insertItem",0,stack("dead_earth:compressed_gravel_2",1),false)),"matching compact compressed input rejected");
-        // Isolated blocked-output fixture; the pending reward itself is produced by the native registry.
-        @SuppressWarnings("unchecked") List<Object> sieveSlots=(List<Object>)Reflect.get(sieve,"slots");for(int i=2;i<29;i++)sieveSlots.set(i,stack("minecraft:barrier",64));
-        java.lang.reflect.Method step=Reflect.type("dev.deadearth.legacy.sieving.SieveTile").getDeclaredMethod("step");step.setAccessible(true);
-        for(int i=0;i<81&&Reflect.get(sieve,"pending")==null;i++)step.invoke(sieve);
-        require(Reflect.get(sieve,"pending")!=null&&empty(Reflect.call(sieveInventory,"getStackInSlot",0)),"compact input not spent once into a blocked native reward");
+        // Standalone restart helper: no dependency on another probe JAR removed before restart.
+        Object profile=Reflect.make("com.mojang.authlib.GameProfile",new UUID(0x195dab410c704d11L,33),"SieveRestartBank");
+        Object sieveWorker=Reflect.call(Reflect.type("net.minecraftforge.common.util.FakePlayerFactory"),"get",world,profile);
+        Reflect.call(sieveWorker,"setPosition/func_70107_b",x+16.5,y+1.0,z+.5);
+        Object inventory=Reflect.get(sieveWorker,"inventory/field_71071_by");for(int slot=0;slot<36;slot++)Reflect.call(inventory,"setInventorySlotContents/func_70299_a",slot,stack("minecraft:barrier",64));
+        Object workHand=Reflect.get(Reflect.type("net.minecraft.util.EnumHand"),"OFF_HAND");Reflect.call(sieveWorker,"setSneaking/func_70095_a",false);Reflect.call(sieveWorker,"setHeldItem/func_184611_a",workHand,Reflect.get(Reflect.type("net.minecraft.item.ItemStack"),"EMPTY/field_190927_a"));
+        for(int stroke=0;stroke<3;stroke++)Reflect.call(sieve,"interact",sieveWorker,workHand);
+        java.lang.reflect.Method sieveStep=Reflect.type("dev.deadearth.legacy.sieving.SieveTile").getDeclaredMethod("step");sieveStep.setAccessible(true);
+        for(int roll=0;roll<81;roll++)sieveStep.invoke(sieve);
+        require(((Number)Reflect.get(sieve,"manualStrokes")).intValue()==3&&((Number)Reflect.get(sieve,"remaining")).intValue()==0&&((Number)Reflect.get(sieve,"draws")).longValue()==81,"compact third-stroke cursor not settled");
+        require(!String.valueOf(Reflect.get(sieve,"raw")).isEmpty()&&!((List<?>)Reflect.get(sieve,"bank")).isEmpty()&&empty(Reflect.call(sieveInventory,"getStackInSlot",0)),"compact reserved input and real private reward bank missing");
+        for(int slot=2;slot<29;slot++)require(empty(Reflect.call(sieveInventory,"getStackInSlot",slot))&&empty(Reflect.call(sieveInventory,"extractItem",slot,64,true)),"third-stroke rewards must remain inaccessible");
         Reflect.call(sieve,"markDirty/func_70296_d");
         for(Object t:new Object[]{tray,processor,drive})Reflect.call(t,"markDirty/func_70296_d");
-        Map<String,Object> expected=map("schema",1,"worldEpoch",r.campaign.worldEpoch,"campaignId",r.campaign.campaignId,"createdJvmStart",ManagementFactory.getRuntimeMXBean().getStartTime(),"worldDirectory",r.worldDirectory.toRealPath().toString(),"x",x,"y",y,"z",z,"blocks",Arrays.asList(IDS),"defenseHP",1750,"seed",fieldTag(tray,"Seed").toString(),"soil",fieldTag(tray,"Soil").toString(),"machineItems",items(inv),"machineEnergy",number(energy,"getEnergyStored"),"cell",tag(Reflect.call(Reflect.call(drive,"getInternalInventory"),"getStackInSlot",0)).toString(),"storedIron",1234,"cropPendingRestartTested",false,"machinePendingRestartTested",false,"coatingGenerationTestedHere",false,"compactSieveTile",tileTag(sieve).toString(),"compactPendingRestartTested",true);
+        Map<String,Object> expected=map("schema",1,"worldEpoch",r.campaign.worldEpoch,"campaignId",r.campaign.campaignId,"createdJvmStart",ManagementFactory.getRuntimeMXBean().getStartTime(),"worldDirectory",r.worldDirectory.toRealPath().toString(),"x",x,"y",y,"z",z,"blocks",Arrays.asList(IDS),"defenseHP",1750,"seed",fieldTag(tray,"Seed").toString(),"soil",fieldTag(tray,"Soil").toString(),"machineItems",items(inv),"machineEnergy",number(energy,"getEnergyStored"),"cell",tag(Reflect.call(Reflect.call(drive,"getInternalInventory"),"getStackInSlot",0)).toString(),"storedIron",1234,"cropPendingRestartTested",false,"machinePendingRestartTested",false,"coatingGenerationTestedHere",false,"compactSieveTile",tileTag(sieve).toString(),"compactPendingRestartTested",false,"compactRewardBankRestartTested",true);
         JsonFiles.write(EXPECTED,expected);return map("created",true,"manifest",EXPECTED.toString(),"cropScope","retained seed and soil","machineScope","real produced output, retained input and FE","coatingScope","physical own block identities only","pendingRestartTested",false);
     }
 
@@ -85,7 +92,7 @@ public final class RestartSentinels {
         require(LegacyDefense.remaining(world,positions.get(0))==e.get("defenseHP").getAsInt(),"damaged V2 HP changed");Object tray=tile(world,positions.get(1));sameNbt(e.get("seed").getAsString(),fieldTag(tray,"Seed"),"seed");sameNbt(e.get("soil").getAsString(),fieldTag(tray,"Soil"),"soil");
         Object processor=tile(world,positions.get(2)),inv=inventory(processor);JsonArray expectedItems=e.getAsJsonArray("machineItems");require(number(inv,"getSlots")==expectedItems.size(),"processor slot count changed");for(int i=0;i<expectedItems.size();i++)sameNbt(expectedItems.get(i).getAsString(),tag(Reflect.call(inv,"getStackInSlot",i)),"processor slot "+i);require(number(power(processor),"getEnergyStored")==e.get("machineEnergy").getAsInt(),"processor FE changed");
         Object drive=tile(world,positions.get(3));sameNbt(e.get("cell").getAsString(),tag(Reflect.call(Reflect.call(drive,"getInternalInventory"),"getStackInSlot",0)),"physical native AE2 cell");require(iron(drive,r)==e.get("storedIron").getAsLong(),"native AE2 contents changed");
-        sameNbt(e.get("compactSieveTile").getAsString(),tileTag(tile(world,positions.get(8))),"compact sieve spent input, locked mesh, pending draw and blocked inventory");
-        return map("realJvmRestart",true,"damagedDefenseHP",true,"cropSeedAndSoil",true,"machineNativeOutputInputAndFE",true,"physicalAe2CellAndContent",true,"ownLakeIceSnowRime",true,"cropPendingRestartTested",false,"machinePendingRestartTested",false,"coatingGenerationTestedHere",false,"compactSievePendingAcrossRealJvmRestart",true);
+        sameNbt(e.get("compactSieveTile").getAsString(),tileTag(tile(world,positions.get(8))),"compact sieve reserved input, third stroke, native cursor and hidden reward bank");
+        return map("realJvmRestart",true,"damagedDefenseHP",true,"cropSeedAndSoil",true,"machineNativeOutputInputAndFE",true,"physicalAe2CellAndContent",true,"ownLakeIceSnowRime",true,"cropPendingRestartTested",false,"machinePendingRestartTested",false,"coatingGenerationTestedHere",false,"compactSievePendingAcrossRealJvmRestart",false,"compactSieveRewardBankAcrossRealJvmRestart",true);
     }
 }

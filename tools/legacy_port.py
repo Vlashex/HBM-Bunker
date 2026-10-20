@@ -17,7 +17,7 @@ except ImportError:
     import legacy_storage as storage
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.0.2'
+VERSION = '1.0.3'
 PACK_NAME = 'DEAD-EARTH-SRP-' + VERSION
 MOD_NAME = 'dead-earth-srp-coordinator-' + VERSION + '.jar'
 FORGE = '1.12.2-14.23.5.2860'
@@ -260,7 +260,7 @@ def entries(side, root=ROOT):
     result['mod-map.json'] = (root / 'legacy/metadata/mod-map.json').read_bytes()
     if side == 'client':
         result['instance.cfg'] = ('[General]\nInstanceType=OneSix\n'
-            'name=DEAD EARTH SRP 1.0.2 (1.12.2)\nOverrideMemory=true\n'
+            'name=DEAD EARTH SRP 1.0.3 (1.12.2)\nOverrideMemory=true\n'
             'MinMemAlloc=1024\nMaxMemAlloc=4096\n').encode('utf-8')
     else:
         for path in files(root / 'director/dead_earth_director'):

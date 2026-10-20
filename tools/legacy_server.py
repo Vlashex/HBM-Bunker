@@ -16,7 +16,7 @@ import tomllib
 import urllib.request
 
 HIDDEN = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
-EXPECTED_MARKER = {'schema': 1, 'pack': 'DEAD-EARTH-SRP', 'version': '1.0.2',
+EXPECTED_MARKER = {'schema': 1, 'pack': 'DEAD-EARTH-SRP', 'version': '1.0.3',
                    'runtime': 'forge-1.12.2-14.23.5.2860', 'kind': 'full-fork'}
 CRITICAL_PROPERTIES = frozenset({'server-ip', 'server-port', 'level-name', 'enable-rcon',
     'rcon.port', 'rcon.password', 'online-mode', 'white-list', 'enforce-whitelist'})
@@ -30,7 +30,7 @@ def owned_root(value):
         raise ValueError('Use the real, dedicated core-port server directory, without junction aliases')
     marker = root / 'legacy-port.json'
     if marker.is_symlink() or json.loads(marker.read_text(encoding='utf-8')) != EXPECTED_MARKER:
-        raise ValueError('This folder is not a DEAD EARTH SRP 1.0.2 full-fork server overlay')
+        raise ValueError('This folder is not a DEAD EARTH SRP 1.0.3 full-fork server overlay')
     for name in ('logs', 'runtime', 'director', 'director/runtime', 'config', 'mods', 'server.properties', 'eula.txt'):
         if not (root / name).resolve().is_relative_to(root):
             raise ValueError('Server inputs and writable directories must remain inside the owned folder')
@@ -239,7 +239,7 @@ def run(args, root):
         ai_stop, admin_stop = state_dir / 'director.stop', state_dir / 'admin.stop'
         for path in (ai_stop, admin_stop): path.unlink(missing_ok=True)
         receipt = dict(schema=1, root=str(root), run_id=run_id, supervisor_pid=os.getpid(),
-                       started_at=time.time(), state='starting', version='1.0.2', model_ready=False)
+                       started_at=time.time(), state='starting', version='1.0.3', model_ready=False)
         def status(state, **values):
             receipt.update(state=state, **values); atomic_json(receipt_path, receipt)
         descriptor = world / 'dead_earth_bridge.json'

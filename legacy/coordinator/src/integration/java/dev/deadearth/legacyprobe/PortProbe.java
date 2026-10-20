@@ -56,7 +56,7 @@ public final class PortProbe {
         if(event.phase!=net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END||nativeFinished)return;
         if(sieveGameplay!=null){
             if(sieveGameplay.poll()){
-                runFull("native_automatic_sieve_gameplay",()->{Map<String,Object> result=sieveGameplay.result();fullGroups.put("compactSieveGameplay",result);require(Boolean.TRUE.equals(result.get("passed")),"actual equipment insertion and normal server ticks: "+result.get("error"));});
+                runFull("native_manual_batch_sieve_gameplay",()->{Map<String,Object> result=sieveGameplay.result();fullGroups.put("compactSieveGameplay",result);require(Boolean.TRUE.equals(result.get("passed")),"actual equipment insertion and normal server ticks: "+result.get("error"));});
                 sieveGameplay=null;finishNative();
             }
             return;

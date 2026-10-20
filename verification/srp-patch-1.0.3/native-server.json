@@ -1,0 +1,467 @@
+{
+  "schema": 2,
+  "product_version": "1.0.3",
+  "scope": "full_fork_server_normal_terrain",
+  "full_lock_count": 25,
+  "server_native_pin_count": 23,
+  "client_only_not_installed": [
+    "ctm",
+    "entityculling"
+  ],
+  "recipe_errors": [],
+  "recipe_error_count": 0,
+  "real_ai_inference_tested": false,
+  "client_visuals_tested": false,
+  "server_directory": "C:\\projects\\DEAD-EARTH-SRP\\work\\legacy-native-20261020T085635395952Z-dbf36fcd",
+  "log": "C:\\projects\\DEAD-EARTH-SRP\\work\\legacy-native-20261020T085635395952Z-dbf36fcd\\native-server.log",
+  "report": "C:\\projects\\DEAD-EARTH-SRP\\work\\legacy-native-20261020T085635395952Z-dbf36fcd\\port-probe.json",
+  "elapsed_seconds": 103.25,
+  "exit_code": 0,
+  "timed_out": false,
+  "passed": true,
+  "bridge_report": "C:\\projects\\DEAD-EARTH-SRP\\work\\legacy-native-20261020T085635395952Z-dbf36fcd\\bridge-native-checks.json",
+  "bridge_validation": {
+    "schema": 1,
+    "passed": true,
+    "checks": [
+      {
+        "name": "real cached snapshot received",
+        "passed": true
+      },
+      {
+        "name": "real snapshot matches campaign and epoch",
+        "passed": true
+      },
+      {
+        "name": "real snapshot exposes SRP phases zero through ten",
+        "passed": true
+      },
+      {
+        "name": "real snapshot cache age is bounded and current",
+        "passed": true
+      },
+      {
+        "name": "retained survival player remains online",
+        "passed": true
+      },
+      {
+        "name": "real native queue received",
+        "passed": true
+      },
+      {
+        "name": "real native brief is ready for model selection",
+        "passed": true
+      },
+      {
+        "name": "actual director projects native SRP phase into model context",
+        "passed": true
+      },
+      {
+        "name": "actual director passes bounded native options",
+        "passed": true
+      },
+      {
+        "name": "actual native model options contain no forest faction",
+        "passed": true
+      },
+      {
+        "name": "actual director removes credentials and physical allocation from model context",
+        "passed": true
+      },
+      {
+        "name": "mocked selector admits a real native operation through CinematicDirector",
+        "passed": true
+      },
+      {
+        "name": "real director journal records native operation receipt",
+        "passed": true
+      },
+      {
+        "name": "real protocol replay preserves the operation UUID",
+        "passed": true
+      },
+      {
+        "name": "real selected operation appears in native queue or history",
+        "passed": true
+      },
+      {
+        "name": "rejected real protocol request has bounded complete response",
+        "passed": true
+      },
+      {
+        "name": "real socket rejects invalid credentials",
+        "passed": true
+      },
+      {
+        "name": "rejected real protocol request has bounded complete response",
+        "passed": true
+      },
+      {
+        "name": "real socket rejects stale world epoch",
+        "passed": true
+      },
+      {
+        "name": "actual admin observer collects native bridge data",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP /api/health succeeds",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP response is bounded",
+        "passed": true
+      },
+      {
+        "name": "actual admin health identifies its product",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP /api/dashboard succeeds",
+        "passed": true
+      },
+      {
+        "name": "actual admin HTTP response is bounded",
+        "passed": true
+      },
+      {
+        "name": "actual HTTP dashboard exposes the collected native SRP snapshot",
+        "passed": true
+      },
+      {
+        "name": "actual HTTP dashboard exposes native queue",
+        "passed": true
+      }
+    ],
+    "python_source": "packaged_server_overlay",
+    "model_kind": "fixed_selection_stub",
+    "real_inference_tested": false,
+    "model_selection_tested": true,
+    "brief_status": "ready",
+    "director_state": "queued",
+    "restart_sentinels": {
+      "sentinels": {
+        "created": true,
+        "manifest": "full-persistence-expected.json",
+        "cropScope": "retained seed and soil",
+        "machineScope": "real produced output, retained input and FE",
+        "coatingScope": "physical own block identities only",
+        "pendingRestartTested": false
+      },
+      "passed": true
+    }
+  },
+  "assertion_count": 290,
+  "baseline_assertion_count": 202,
+  "full_group_count": 15,
+  "full_groups": {
+    "starter": {
+      "dimensions": "7x7x5",
+      "receipt": "DELIVERED",
+      "relayCount": 6,
+      "graceTicks": 216000
+    },
+    "worldgen": {
+      "nativePass": true,
+      "inertAsh": true,
+      "physicalAshColumns": 8207,
+      "actualDeterministicCuts": 2158,
+      "selectedChunkX": 149,
+      "selectedChunkZ": 186,
+      "landSearchBiomeOnly": true,
+      "nativeWrites": 56699,
+      "observedPrePassChunks": 75,
+      "preservedVanillaOreSamples": 1617,
+      "preservedHbmOreSamples": 0,
+      "nativeVanillaOrePreservationTested": true,
+      "nativeHbmOrePreservationTested": false,
+      "deferredCallbacksNotObserved": true,
+      "deferredHbmOreGenerationTested": false,
+      "observedNativeReservationChunks": 12,
+      "preservedNativeHbmArchitectureSamples": 2,
+      "nativeHbmArchitecturePreservationTested": true,
+      "nativeReservationObserved": true,
+      "sampledIndependentRegions": 3,
+      "regionsWithAtLeast256PaletteSoilColumns": 3,
+      "paintedSoilChunks": 75,
+      "observedNaturalSoilColumns": 17141,
+      "paletteNaturalSoilColumns": 17104,
+      "nativeFeatureCoveredSoilColumns": 35,
+      "nativeGeologyColumns": 2,
+      "nativeGeologyDetails": [
+        {
+          "x": 2438,
+          "z": 3009,
+          "chunkX": 152,
+          "chunkZ": 188,
+          "site": 0,
+          "originalY": 68,
+          "originalSurface": "minecraft:grass#0",
+          "finalY": 61,
+          "finalSurface": "minecraft:stone#1",
+          "reservation": null,
+          "planReason": "new_chunk",
+          "protectedColumns": 0,
+          "unsafeColumns": 0,
+          "plannedStateAtFinalGround": null
+        },
+        {
+          "x": 2453,
+          "z": 3003,
+          "chunkX": 153,
+          "chunkZ": 187,
+          "site": 0,
+          "originalY": 67,
+          "originalSurface": "minecraft:grass#0",
+          "finalY": 63,
+          "finalSurface": "minecraft:stone#1",
+          "reservation": null,
+          "planReason": "new_chunk",
+          "protectedColumns": 0,
+          "unsafeColumns": 0,
+          "plannedStateAtFinalGround": null
+        }
+      ],
+      "unexpectedNaturalSurfaceColumns": 0,
+      "unconvertedNaturalSoilColumns": 0,
+      "observedReservedSoilColumns": 3069,
+      "reservedPaintedSoilColumns": 3069,
+      "reservedPaintedChunks": 12,
+      "existingChunkPreserved": true,
+      "counts": {
+        "generated": 772,
+        "writes": 379491,
+        "new_chunk": 430,
+        "surface_columns": 121408,
+        "crater_columns": 19826,
+        "protected_columns": 3975,
+        "unsafe_columns": 46,
+        "unsafe_rim": 36,
+        "unsafe_cut": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.DepthDeposit": 39,
+        "hbm_footprint": 249,
+        "architecture": 55,
+        "reservation_native_structure_box": 13,
+        "surface_only_chunks": 109,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.DepthDeposit": 43,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.OilBubble": 6,
+        "reservation_pending_dynamic_layout:com.hbm.world.OilBubble": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOre": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOilDeposit": 9,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOilDeposit": 73,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOre": 14,
+        "reservation_phased_structure_box": 6,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.MeteoriteStructure": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.MeteoriteStructure": 5,
+        "reservation_pending_validation_layout:com.hbm.world.Satellite": 11,
+        "reservation_pending_origin:com.hbm.world.Satellite": 1,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.LanternBehemoth": 1,
+        "existing_skipped": 1
+      }
+    },
+    "progression": {
+      "nativeRecipes": true,
+      "previousBookNbtRequired": true,
+      "rawOnlyEmc": true,
+      "sieveProviderRuns": 1
+    },
+    "connectedSieves": {
+      "width": 5,
+      "nativeTiles": 25,
+      "rawConsumed": 25,
+      "centerClicks": 2,
+      "advancedTiles": 25,
+      "progressPerTile": 0.1,
+      "outsideRadiusUnchanged": true,
+      "nativeHbmRewardDraw": true,
+      "rewardDrawUsesControlledRng": true,
+      "manualPlayerClass": "net.minecraft.entity.player.EntityPlayerMP",
+      "fullCycleDropsTested": false
+    },
+    "compactSieves": {
+      "nativeRawDraws": 81,
+      "nativeRewardMatch": true,
+      "hbmProvider": true,
+      "noInputWithoutMesh": true,
+      "oneOf64Accepted": true,
+      "noDrawBeforeWork": true,
+      "fourStrokeWholeBatch": true,
+      "hiddenBankNbtRoundTrip": true,
+      "packedBreakAndPlace": true,
+      "cachedHandlerRejectedAfterBreak": true,
+      "fullInventoryOverflowConserved": true,
+      "legacyPendingMigratedOnce": true,
+      "legacySurplusRefunded": true,
+      "emptyFrameUpgradeable": true
+    },
+    "tools": {
+      "ownNativeTools": 6,
+      "presetAreas": [
+        3,
+        5,
+        7
+      ],
+      "nativeBatteries": 3,
+      "highAnvilEventOutputs": 3,
+      "anvilUiPickupTested": false
+    },
+    "ae2": {
+      "physicalDrive": true,
+      "storedIron": 1234,
+      "cursorSteps": 11,
+      "zoneDelta": 315904
+    },
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "outputOnlyAutomation": true
+    },
+    "defense": {
+      "tiers": 3,
+      "doorSharedHp": true,
+      "realEsmDig": true,
+      "playerDrops": true,
+      "realOrdinaryExplosion": true
+    },
+    "machinery": {
+      "nativeHbmCharging": true,
+      "nativeOreDrops": true,
+      "blockedOutputTransactional": true,
+      "pendingNbtRoundTrip": true
+    },
+    "climate": {
+      "topAndSides": true,
+      "nativeIcePreserved": true,
+      "inventoryOperable": true,
+      "changes": 24,
+      "maximumCells": 4314,
+      "maximumSections": 2,
+      "forceLoads": 0
+    },
+    "climateClockAndPackets": {
+      "acceleratedNativeWeather": true,
+      "seasonMultipliers": [
+        0.5,
+        1.8
+      ],
+      "nativeCodecBytes": 21,
+      "malformedPacketDisabled": true,
+      "clientNetworkDeliveryTested": false,
+      "clientVisualsTested": false
+    },
+    "recipes": {
+      "nativeLogFiles": 1,
+      "errors": []
+    },
+    "compactSieveGameplay": {
+      "lastPlayerInteraction": {
+        "case": 6,
+        "loaded": true,
+        "block": "dead_earth:compact_sieve_v3",
+        "heldBefore": 0,
+        "sneaking": false,
+        "result": "PASS",
+        "heldAfter": 0
+      },
+      "cases": [
+        {
+          "tier": 3,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 3,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 4,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 4,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 5,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 5,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        },
+        {
+          "tier": 3,
+          "mode": "native_hoppers",
+          "naturallyTracked": true,
+          "matchingMeshRequired": true,
+          "slotLimit": 1,
+          "workClicks": 4,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1,
+          "exactNativeRewards": true
+        }
+      ],
+      "normalPlacementOnly": true,
+      "manualLifecycleOrProgressCalls": false,
+      "observedServerTicks": 71,
+      "maximumGlobalNativeDrawsPerTick": 256,
+      "nativeHopperOutputItems": 2,
+      "fourWorkClicksWholeBatch": true,
+      "noDrawBeforeFirstWork": true,
+      "noLootBeforeFourthWork": true,
+      "noExtraCollectionClick": true,
+      "chatPackets": 0,
+      "passed": true
+    }
+  },
+  "failures": []
+}
