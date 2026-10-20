@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "version": "1.0.4",
+  "coordinatorSha256": "2eea81fc81a2250def8f7f1016b140a650e97e8da99048caebe3e37798779396",
+  "sourceSha256": "506b1f4a4b1870c0532105526e6db616a13ee859bab9363f0a7cc1a550e439f3",
+  "unitChecks": 38,
+  "pureWorldgenAssertions": 354657,
+  "nativePassed": true,
+  "nativeChecks": 290,
+  "nativeGroupCount": 15,
+  "restartPassed": true,
+  "restartChecks": 47,
+  "worldgen": {
+    "nativePass": true,
+    "inertAsh": true,
+    "physicalAshColumns": 8095,
+    "actualDeterministicCuts": 1972,
+    "selectedChunkX": 149,
+    "selectedChunkZ": 186,
+    "landSearchBiomeOnly": true,
+    "nativeWrites": 56480,
+    "observedPrePassChunks": 75,
+    "preservedVanillaOreSamples": 1616,
+    "preservedHbmOreSamples": 0,
+    "nativeVanillaOrePreservationTested": true,
+    "nativeHbmOrePreservationTested": false,
+    "deferredCallbacksNotObserved": true,
+    "deferredHbmOreGenerationTested": false,
+    "observedNativeReservationChunks": 12,
+    "preservedNativeHbmArchitectureSamples": 5,
+    "nativeHbmArchitecturePreservationTested": true,
+    "nativeReservationObserved": true,
+    "sampledIndependentRegions": 3,
+    "regionsWithAtLeast256PaletteSoilColumns": 3,
+    "paintedSoilChunks": 75,
+    "observedNaturalSoilColumns": 17130,
+    "paletteNaturalSoilColumns": 17125,
+    "nativeFeatureCoveredSoilColumns": 4,
+    "nativeGeologyColumns": 1,
+    "nativeGeologyDetails": [
+      {
+        "x": 2438,
+        "z": 3009,
+        "chunkX": 152,
+        "chunkZ": 188,
+        "site": 0,
+        "originalY": 68,
+        "originalSurface": "minecraft:grass#0",
+        "finalY": 61,
+        "finalSurface": "minecraft:stone#1",
+        "reservation": null,
+        "planReason": "new_chunk",
+        "protectedColumns": 0,
+        "unsafeColumns": 0,
+        "plannedStateAtFinalGround": null
+      }
+    ],
+    "unexpectedNaturalSurfaceColumns": 0,
+    "unconvertedNaturalSoilColumns": 0,
+    "observedReservedSoilColumns": 3048,
+    "reservedPaintedSoilColumns": 3048,
+    "reservedPaintedChunks": 12,
+    "protectedNativeHbmCells": 411,
+    "nativeChunkLoadLifecycle": {
+      "nativeForgeLoadEvents": true,
+      "unpopulatedFirstPass": true,
+      "populatedSaveProtected": true,
+      "unknownSaveProtected": true,
+      "paintedUnpopulatedProtected": true,
+      "unknownMarkerSaveReload": true,
+      "legacyProtectionSaveReload": true,
+      "noDuplicatePass": true
+    },
+    "existingChunkPreserved": true,
+    "counts": {
+      "generated": 770,
+      "writes": 377946,
+      "new_chunk": 138,
+      "surface_columns": 120648,
+      "crater_columns": 16978,
+      "protected_columns": 20995,
+      "unsafe_columns": 308,
+      "architecture": 375,
+      "reservation_pending_dynamic_layout:com.hbm.world.feature.DepthDeposit": 39,
+      "hbm_footprint": 248,
+      "surface_only_chunks": 169,
+      "unsafe_cut": 9,
+      "reservation_native_structure_box": 13,
+      "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.DepthDeposit": 42,
+      "reservation_native_index_jobsByOriginChunk:com.hbm.world.OilBubble": 6,
+      "reservation_pending_dynamic_layout:com.hbm.world.OilBubble": 13,
+      "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOre": 13,
+      "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOilDeposit": 9,
+      "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOilDeposit": 73,
+      "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOre": 14,
+      "reservation_phased_structure_box": 6,
+      "reservation_native_index_jobsByOriginChunk:com.hbm.world.MeteoriteStructure": 2,
+      "reservation_pending_dynamic_layout:com.hbm.world.MeteoriteStructure": 5,
+      "reservation_pending_validation_layout:com.hbm.world.Satellite": 11,
+      "reservation_pending_origin:com.hbm.world.Satellite": 1,
+      "reservation_pending_dynamic_layout:com.hbm.world.feature.LanternBehemoth": 1,
+      "existing_skipped": 6
+    }
+  },
+  "scope": {
+    "performanceTests": false,
+    "automatedGlVisuals": false,
+    "newAiInference": false,
+    "existingWorldRetrogen": false
+  },
+  "installation": {
+    "state": "ready_awaiting_client_close",
+    "currentVersion": "1.0.3",
+    "preferredClientCount": 1
+  },
+  "archives": [
+    {
+      "name": "DEAD-EARTH-SRP-1.0.4-Prism.zip",
+      "sha256": "5635538424770618b0a0c7762c77789eaebff340df11a360a765d8f2dc9e2f70",
+      "coordinatorMatches": true
+    },
+    {
+      "name": "DEAD-EARTH-SRP-1.0.4-TLauncher.zip",
+      "sha256": "de5e5e3c636ee29f04b8786de24d2276a284ef615b642fcd9522cd52537bc587",
+      "coordinatorMatches": true
+    },
+    {
+      "name": "DEAD-EARTH-SRP-1.0.4-Server-Overlay.zip",
+      "sha256": "cf9df30dbc1c6fce901332d7196f5634fbbc9c6e605c44f7841af2d9ac2e692d",
+      "coordinatorMatches": true
+    }
+  ]
+}

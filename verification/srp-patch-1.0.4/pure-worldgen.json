@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "coordinatorSha256": "2eea81fc81a2250def8f7f1016b140a650e97e8da99048caebe3e37798779396",
+  "exitCode": 0,
+  "stdout": "WastelandChecks: 354657 checks passed\n",
+  "stderr": ""
+}

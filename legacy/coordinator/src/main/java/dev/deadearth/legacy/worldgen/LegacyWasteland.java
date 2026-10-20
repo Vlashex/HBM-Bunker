@@ -13,7 +13,7 @@ public final class LegacyWasteland {
     private static WastelandSettings settings;
     private static Object ash;
     private static boolean installed,modelsRegistered;
-    // Loaded chunks are NEVER retrogen candidates, even if their durable marker is missing.
+    // Existing populated chunks never get retrogen. Unpopulated saved edges still get their first pass.
     private static final Map<Object,Integer> completed=Collections.synchronizedMap(new WeakHashMap<Object,Integer>());
     private static final Map<String,Object> paletteStates=new HashMap<String,Object>();
     private static final Map<String,Long> counters=new LinkedHashMap<String,Long>();
@@ -113,13 +113,24 @@ public final class LegacyWasteland {
         }
         if(name.equals("net.minecraftforge.event.world.ChunkDataEvent$Load")){
             Object world=Reflect.call(event,"getWorld");
-            if(!(Boolean)Reflect.get(world,"isRemote/field_72995_K")&&Reflect.dimension(world)==0)
-                completed.put(Reflect.call(event,"getChunk"),Integer.valueOf(((Number)Reflect.call(Reflect.call(event,"getData"),
-                    "getInteger/func_74762_e","DeadEarthWasteland")).intValue()==1?1:0));return;
+            if(!(Boolean)Reflect.get(world,"isRemote/field_72995_K")&&Reflect.dimension(world)==0){
+                Object chunk=Reflect.call(event,"getChunk"),data=Reflect.call(event,"getData");
+                int marker=((Number)Reflect.call(data,"getInteger/func_74762_e","DeadEarthWasteland")).intValue();
+                Object level=Reflect.call(data,"getCompoundTag/func_74775_l","Level");
+                boolean known=(Boolean)Reflect.call(level,"hasKey/func_150297_b","TerrainPopulated",1);
+                boolean populated=(Boolean)Reflect.call(level,"getBoolean/func_74767_n","TerrainPopulated");
+                // A saved, not-yet-populated edge is still NEW terrain. Let its first
+                // native population call paint it; never retrogen populated/unknown saves.
+                // 1 = painted; 2 = protected legacy save. Preserve unknown nonzero
+                // values too: protection must survive a subsequent save/reload.
+                if(marker!=0)completed.put(chunk,Integer.valueOf(marker));
+                else if(!known||populated)completed.put(chunk,Integer.valueOf(2));
+                else completed.remove(chunk);
+            }return;
         }
         if(name.equals("net.minecraftforge.event.world.ChunkDataEvent$Save")){
             Object chunk=Reflect.call(event,"getChunk");Integer marker=completed.get(chunk);
-            if(marker!=null&&marker==1)Reflect.call(Reflect.call(event,"getData"),"setInteger/func_74768_a","DeadEarthWasteland",1);return;
+            if(marker!=null&&marker!=0)Reflect.call(Reflect.call(event,"getData"),"setInteger/func_74768_a","DeadEarthWasteland",marker.intValue());return;
         }
         if(name.equals("net.minecraftforge.event.world.WorldEvent$Unload")){
             Object world=Reflect.call(event,"getWorld");if(!(Boolean)Reflect.get(world,"isRemote/field_72995_K")){

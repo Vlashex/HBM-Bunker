@@ -36,16 +36,21 @@ public final class WastelandSurface {
     static boolean plant(String s){String id=id(s);return id.equals("minecraft:tallgrass")||id.equals("minecraft:double_plant")
         ||id.equals("minecraft:deadbush")||id.equals("minecraft:yellow_flower")||id.equals("minecraft:red_flower")
         ||id.equals("minecraft:brown_mushroom")||id.equals("minecraft:red_mushroom")||id.equals("minecraft:snow_layer")
-        ||id.equals("minecraft:reeds")||id.equals("minecraft:waterlily")
+        ||id.equals("minecraft:reeds")||id.equals("minecraft:waterlily")||id.equals("minecraft:vine")
+        ||id.equals("minecraft:cactus")||id.equals("minecraft:sapling")||id.equals("minecraft:pumpkin")||id.equals("minecraft:melon_block")
         ||id.equals("hbm:plant_flower")||id.equals("hbm:plant_tall")||id.equals("hbm:plant_dead")||id.equals("hbm:reeds");}
     static boolean ore(String s){String id=id(s);return id.endsWith("_ore")||id.endsWith(":ore")
         ||id.startsWith("hbm:ore_")||id.startsWith("hbm:stone_resource")||id.startsWith("hbm:ore")||id.equals("hbm:basalt_ore");}
     /** Ordinary ore follows excavated terrain; dedicated bedrock deposits remain protected. */
     public static boolean dedicatedBedrock(String s){String name=id(s);return name.equals("minecraft:bedrock")
         ||name.startsWith("hbm:ore_bedrock")||name.equals("hbm:sellafield_bedrock");}
-    static boolean excavatable(Terrain terrain,String s){return !dedicatedBedrock(s)&&(natural(s)||terrain.ordinaryOre(s));}
+    public static boolean nativeHbm(String state){return id(state).startsWith("hbm:");}
+    private static boolean foliage(String s){String name=id(s);return name.equals("minecraft:leaves")||name.equals("minecraft:leaves2")
+        ||name.equals("minecraft:brown_mushroom_block")||name.equals("minecraft:red_mushroom_block");}
+    private static boolean cover(String s){String name=id(s);return air(s)||plant(s)||foliage(s)||name.equals("minecraft:log")||name.equals("minecraft:log2");}
+    static boolean excavatable(Terrain terrain,String s){return !nativeHbm(s)&&!dedicatedBedrock(s)&&(natural(s)||terrain.ordinaryOre(s));}
     /** Natural mossy/cobble and ordinary ores are intentionally NOT architecture evidence. */
-    public static boolean architecture(String s){return !air(s)&&!water(s)&&!natural(s)&&!plant(s)&&!ore(s)
+    public static boolean architecture(String s){return !air(s)&&!water(s)&&!natural(s)&&!plant(s)&&!foliage(s)&&!ore(s)
         &&!id(s).equals("minecraft:bedrock")&&!id(s).equals("minecraft:lava")&&!id(s).equals("minecraft:flowing_lava");}
     private static Plan protectedPlan(String reason){return new Plan(new ArrayList<Write>(),reason,false);}
     /** Conservative lower edge of any surface edit/guard band, using only this already loaded chunk.
@@ -53,8 +58,8 @@ public final class WastelandSurface {
     static int minimumAffectedY(Terrain t,WastelandSettings s){
         int depth=Math.max(s.small.depthMax,s.large.depthMax)+s.coatingDepth+2,minimum=255;
         for(int x=0;x<16;x++)for(int z=0;z<16;z++){
-            int y=Math.min(255,t.height(x,z)-1);if(y<1)continue;
-            while(y>0&&(air(t.state(x,y,z))||plant(t.state(x,y,z))))y--;
+            int y=Math.min(255,t.height(x,z)+1);if(y<1)continue;
+            while(y>0&&cover(t.state(x,y,z)))y--;
             String ground=t.state(x,y,z);
             if(water(ground)||y<depth+2||y>=254||!excavatable(t,ground))continue;
             minimum=Math.min(minimum,Math.max(1,y-depth));
@@ -79,9 +84,9 @@ public final class WastelandSurface {
         // Structural evidence guards a local foundation band, not the coating of the whole chunk.
         // Native deferred/bounding-box reservations separately forbid all excavation in this chunk.
         for(int x=0;x<16;x++)for(int z=0;z<16;z++){
-            int i=x*16+z,top=Math.min(255,t.height(x,z)-1),y=top;
+            int i=x*16+z,top=Math.min(255,t.height(x,z)+1),y=top;
             if(top<1){ground[i]=0;tops[i]=top;continue;}
-            while(y>0&&(air(t.state(x,y,z))||plant(t.state(x,y,z))))y--;
+            while(y>0&&cover(t.state(x,y,z)))y--;
             wet[i]=water(t.state(x,y,z));ground[i]=y;tops[i]=top;
             for(int scan=Math.max(1,y-maxDepth);scan<=top;scan++){
                 String old=t.state(x,scan,z);boolean deposit=dedicatedBedrock(old);
@@ -93,7 +98,7 @@ public final class WastelandSurface {
                 }
             }
         }
-        List<Write> writes=new ArrayList<Write>();int surfaces=0,displaced=0,protectedCount=0,unsafe=0;boolean permitsCraters=false;
+        List<Write> writes=new ArrayList<Write>(),vegetationWrites=new ArrayList<Write>();int surfaces=0,displaced=0,protectedCount=0,unsafe=0;boolean permitsCraters=false;
         for(int x=0;x<16;x++)for(int z=0;z<16;z++){
             int i=x*16+z,g=ground[i],target=g;if(guarded[i])protectedCount++;
             if(g<1||g>=255)continue;
@@ -111,7 +116,7 @@ public final class WastelandSurface {
             if(editable){
                 for(int y=Math.max(1,target-s.coatingDepth+1);y<=Math.max(g,target)&&y<255;y++){
                     String old=t.state(x,y,z),next;
-                    if(t.tile(x,y,z)||dedicatedBedrock(old))continue;
+                    if(nativeHbm(old)||t.tile(x,y,z)||dedicatedBedrock(old))continue;
                     if(y>target)next="minecraft:air#0"; // Only reached after complete cut/fill preflight.
                     else if(y>g)next=coating;
                     else if(natural(old)&&!t.ordinaryOre(old)&&(!surfaceOnly||surfaceSoil(old)))next=coating;
@@ -123,17 +128,19 @@ public final class WastelandSurface {
             }
             // Repaint-only/reserved columns also lose natural plants; water blocks are never touched.
             for(int y=Math.max(target+1,g+1);y<=tops[i]&&y<255;y++){
-                String old=t.state(x,y,z);if(plant(old)&&!t.tile(x,y,z))writes.add(new Write(x,y,z,"minecraft:air#0"));
+                String old=t.state(x,y,z);if(!nativeHbm(old)&&!t.tile(x,y,z)){if(plant(old)||foliage(old))vegetationWrites.add(new Write(x,y,z,"minecraft:air#0"));}
             }
         }
         if(writes.size()+s.trunkMax+1>s.maxWrites)return protectedPlan("write_budget");
         if(!reserved)addTrunk(t,writes,seed,s,cx,cz,guarded);
+        // Surface coating has priority; dense vegetation must never cancel a whole chunk.
+        for(Write vegetation:vegetationWrites){if(writes.size()>=s.maxWrites)break;writes.add(vegetation);}
         return new Plan(writes,reason,permitsCraters,surfaces,displaced,protectedCount,unsafe);
     }
     /** Reject the whole column's displacement before writing; its safe surface coat still runs. */
     private static String unsafeDisplacement(Terrain t,int x,int z,int ground,int target,int coatingDepth){
         for(int y=Math.max(1,target-coatingDepth+1);y<=Math.max(ground,target);y++){
-            String old=t.state(x,y,z);if(t.tile(x,y,z)||dedicatedBedrock(old))return "unsafe_cut";
+            String old=t.state(x,y,z);if(nativeHbm(old)||t.tile(x,y,z)||dedicatedBedrock(old))return "unsafe_cut";
             if(y>target&&!excavatable(t,old)&&!air(old)&&!plant(old))return "unsafe_cut";
             if(y>ground&&!air(old)&&!plant(old))return "unsafe_rim";
         }return null;
@@ -145,7 +152,7 @@ public final class WastelandSurface {
         if(guarded[x*16+z])return;
         Map<Long,String> overlay=new HashMap<Long,String>();for(Write w:writes)overlay.put(key(w.x,w.y,w.z),w.state);
         int y=Math.min(254,t.height(x,z)+Math.max(s.small.rim,s.large.rim));while(y>1&&air(at(t,overlay,x,y,z)))y--;
-        if(!natural(at(t,overlay,x,y,z))||water(at(t,overlay,x,y,z)))return;
+        if(nativeHbm(at(t,overlay,x,y,z))||!natural(at(t,overlay,x,y,z))||water(at(t,overlay,x,y,z)))return;
         int height=WastelandField.between(WastelandField.hash(k,cx,cz,3),s.trunkMin,s.trunkMax);
         if(y+height>=255)return;
         String log="minecraft:log#"+(12+WastelandField.between(WastelandField.hash(k,cx,cz,4),0,1));

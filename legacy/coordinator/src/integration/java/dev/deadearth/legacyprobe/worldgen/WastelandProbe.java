@@ -15,7 +15,7 @@ public final class WastelandProbe {
     private WastelandProbe(){}
     private static final class Sample {
         final int cx,cz;final int[] ground=new int[256];final String[] surface=new String[256];
-        final Map<Long,String> ores=new LinkedHashMap<Long,String>(),architecture=new LinkedHashMap<Long,String>();
+        final Map<Long,String> ores=new LinkedHashMap<Long,String>(),architecture=new LinkedHashMap<Long,String>(),hbmCells=new LinkedHashMap<Long,String>();
         boolean reserved;int site;String reservation,planReason;int protectedColumns,unsafeColumns;
         final Map<Long,String> planned=new HashMap<Long,String>();
         Sample(int x,int z){cx=x;cz=z;}
@@ -59,7 +59,7 @@ public final class WastelandProbe {
         require(!originals.isEmpty(),"native pre-pass terrain was actually observed");
         require(value(after,"generated")>value(before,"generated"),"new chunks ran native pass");
         long writes=value(after,"writes")-value(before,"writes");require(writes>0,"native wasteland actually changed terrain, not only protected/empty plans; before="+before+", after="+after);
-        int physicalAsh=0,actualCuts=0,vanillaOres=0,hbmOres=0,reservedChunks=0,preservedArchitecture=0;
+        int physicalAsh=0,actualCuts=0,vanillaOres=0,hbmOres=0,reservedChunks=0,preservedArchitecture=0,preservedHbmCells=0;
         int soilColumns=0,paletteSoilColumns=0,nativeCoveredSoilColumns=0,unconvertedSoilColumns=0,reservedSoilColumns=0,reservedPaintedSoilColumns=0;
         int nativeGeologyColumns=0,unexpectedSurfaceColumns=0;
         List<Map<String,Object>> unconvertedDetails=new ArrayList<Map<String,Object>>(),nativeGeologyDetails=new ArrayList<Map<String,Object>>();
@@ -101,6 +101,7 @@ public final class WastelandProbe {
                 require(at(chunk,s,ore.getKey()).equals(ore.getValue()),"naturally generated deep ore survives the surface pass: "+ore.getValue());
                 if(ore.getValue().startsWith("hbm:"))hbmOres++;else vanillaOres++;
             }
+            for(Map.Entry<Long,String> cell:s.hbmCells.entrySet()){require(at(chunk,s,cell.getKey()).equals(cell.getValue()),"every observed HBM cell remains exact: "+cell.getValue());preservedHbmCells++;}
             for(Map.Entry<Long,String> block:s.architecture.entrySet()){
                 require(at(chunk,s,block.getKey()).equals(block.getValue()),"actual native HBM architecture survives the surface pass: "+block.getValue());preservedArchitecture++;
             }
@@ -134,7 +135,50 @@ public final class WastelandProbe {
         report.put("observedNaturalSoilColumns",soilColumns);report.put("paletteNaturalSoilColumns",paletteSoilColumns);report.put("nativeFeatureCoveredSoilColumns",nativeCoveredSoilColumns);
         report.put("nativeGeologyColumns",nativeGeologyColumns);report.put("nativeGeologyDetails",nativeGeologyDetails);report.put("unexpectedNaturalSurfaceColumns",unexpectedSurfaceColumns);
         report.put("unconvertedNaturalSoilColumns",unconvertedSoilColumns);report.put("observedReservedSoilColumns",reservedSoilColumns);report.put("reservedPaintedSoilColumns",reservedPaintedSoilColumns);report.put("reservedPaintedChunks",paintedReservedChunks.size());
+        report.put("protectedNativeHbmCells",preservedHbmCells);report.put("nativeChunkLoadLifecycle",loadLifecycle(world,sites,generate,tested));
         report.put("existingChunkPreserved",true);report.put("counts",LegacyWasteland.diagnostics());return report;
+    }
+    /** Real Forge load event objects exercise the production listener; never posts to unrelated mods. */
+    @SuppressWarnings("unchecked") private static Map<String,Object> loadLifecycle(Object world,int[][] sites,Method generate,Sample existing)throws Exception{
+        Map<Object,Integer> marks=(Map<Object,Integer>)Reflect.get(LegacyWasteland.class,"completed");Object listener=Reflect.get(LegacyWasteland.class,"LISTENER");
+        Object old=chunk(world,existing.cx,existing.cz);long preserved=fingerprint(old,existing.cx,existing.cz);
+        loadEvent(listener,old,0,Boolean.TRUE);generate.invoke(null,world,existing.cx,existing.cz);
+        require(fingerprint(old,existing.cx,existing.cz)==preserved,"populated unmarked save never gets retrogen");
+        saveReload(listener,old,marks,2);generate.invoke(null,world,existing.cx,existing.cz);
+        require(fingerprint(old,existing.cx,existing.cz)==preserved,"populated-save protection survives save/reload with false population flag");
+        loadEvent(listener,old,0,null);require(marks.containsKey(old),"unknown legacy population data stays protected");
+        saveReload(listener,old,marks,2);generate.invoke(null,world,existing.cx,existing.cz);
+        require(fingerprint(old,existing.cx,existing.cz)==preserved,"unknown population protection survives save/reload");
+        loadEvent(listener,old,7,Boolean.FALSE);saveReload(listener,old,marks,7);generate.invoke(null,world,existing.cx,existing.cz);
+        require(fingerprint(old,existing.cx,existing.cz)==preserved,"unknown future marker remains exact and protected across save/reload");
+        loadEvent(listener,old,1,Boolean.FALSE);require(Integer.valueOf(1).equals(marks.get(old)),"already painted but unpopulated save is not painted twice");
+        saveReload(listener,old,marks,1);
+        Object fresh=null;int fx=0,fz=0;
+        outer:for(int[] site:sites)for(int dx=0;dx<6;dx++)for(int dz=0;dz<6;dz++){
+            if(dx<5&&dz<5)continue;Object candidate=chunk(world,site[0]+dx,site[1]+dz);
+            if(!marks.containsKey(candidate)){fresh=candidate;fx=site[0]+dx;fz=site[1]+dz;break outer;}
+        }
+        require(fresh!=null,"real loaded native unpopulated edge exists");
+        loadEvent(listener,fresh,0,Boolean.FALSE);require(!marks.containsKey(fresh),"saved unpopulated edge remains eligible for FIRST population");
+        long before=value(LegacyWasteland.diagnostics(),"generated");generate.invoke(null,world,fx,fz);
+        require(value(LegacyWasteland.diagnostics(),"generated")==before+1&&Integer.valueOf(1).equals(marks.get(fresh)),"first generation callback after load is actually executed once");
+        long now=fingerprint(fresh,fx,fz);generate.invoke(null,world,fx,fz);require(now==fingerprint(fresh,fx,fz),"repeated callback cannot run a second crater pass");
+        return JsonFiles.map("nativeForgeLoadEvents",true,"unpopulatedFirstPass",true,"populatedSaveProtected",true,"unknownSaveProtected",true,"paintedUnpopulatedProtected",true,"unknownMarkerSaveReload",true,"legacyProtectionSaveReload",true,"noDuplicatePass",true);
+    }
+    private static void saveReload(Object listener,Object chunk,Map<Object,Integer> marks,int expected){
+        Object data=Reflect.make("net.minecraft.nbt.NBTTagCompound"),level=Reflect.make("net.minecraft.nbt.NBTTagCompound");
+        Reflect.call(level,"setBoolean/func_74757_a","TerrainPopulated",false);Reflect.call(data,"setTag/func_74782_a","Level",level);
+        Reflect.call(listener,"event",Reflect.make("net.minecraftforge.event.world.ChunkDataEvent$Save",chunk,data));
+        require(((Number)Reflect.call(data,"getInteger/func_74762_e","DeadEarthWasteland")).intValue()==expected,"save persists painted/protected/unknown marker exactly");
+        marks.remove(chunk);Reflect.call(listener,"event",Reflect.make("net.minecraftforge.event.world.ChunkDataEvent$Load",chunk,data));
+        require(Integer.valueOf(expected).equals(marks.get(chunk)),"reload reconstructs durable marker protection");
+    }
+    private static void loadEvent(Object listener,Object chunk,int marker,Boolean populated){
+        Object data=Reflect.make("net.minecraft.nbt.NBTTagCompound"),level=Reflect.make("net.minecraft.nbt.NBTTagCompound");
+        Reflect.call(data,"setInteger/func_74768_a","DeadEarthWasteland",marker);
+        if(populated!=null)Reflect.call(level,"setBoolean/func_74757_a","TerrainPopulated",populated.booleanValue());
+        Reflect.call(data,"setTag/func_74782_a","Level",level);
+        Object event=Reflect.make("net.minecraftforge.event.world.ChunkDataEvent$Load",chunk,data);Reflect.call(listener,"event",event);
     }
     private static Map<String,Object> detail(Sample s,int x,int z,int originalGround,int finalGround,String finalSurface){
         return JsonFiles.map("x",s.cx*16+x,"z",s.cz*16+z,"chunkX",s.cx,"chunkZ",s.cz,"site",s.site,"originalY",originalGround,
@@ -145,8 +189,8 @@ public final class WastelandProbe {
         for(int i=0;i<sites.length;i++)if(x>=sites[i][0]&&x<sites[i][0]+5&&z>=sites[i][1]&&z<sites[i][1]+5)return i;return -1;
     }
     private static int ground(Object chunk,int absoluteX,int absoluteZ,int localX,int localZ){
-        int y=Math.min(254,((Number)Reflect.call(chunk,"getHeightValue/func_76611_b",localX,localZ)).intValue()-1);
-        while(y>0&&plantOrAir(state(chunk,absoluteX,y,absoluteZ)))y--;return Math.max(0,y);
+        int y=Math.min(254,((Number)Reflect.call(chunk,"getHeightValue/func_76611_b",localX,localZ)).intValue()+1);
+        while(y>0&&groundCover(state(chunk,absoluteX,y,absoluteZ)))y--;return Math.max(0,y);
     }
     /** Query only the biome provider before loading any terrain; an ocean is not a crater fixture. */
     private static int[] landSite(Object world,int cx,int cz){
@@ -169,16 +213,17 @@ public final class WastelandProbe {
     private static Sample snapshot(Object world,int cx,int cz){
         Sample s=new Sample(cx,cz);Object chunk=chunk(world,cx,cz);
         for(int x=0;x<16;x++)for(int z=0;z<16;z++){
-            int top=Math.min(254,((Number)Reflect.call(chunk,"getHeightValue/func_76611_b",x,z)).intValue()-1),g=top;
-            while(g>0&&plantOrAir(state(chunk,cx*16+x,g,cz*16+z)))g--;
+            int top=Math.min(254,((Number)Reflect.call(chunk,"getHeightValue/func_76611_b",x,z)).intValue()+1),g=top;
+            while(g>0&&groundCover(state(chunk,cx*16+x,g,cz*16+z)))g--;
             int i=x*16+z;s.ground[i]=g;s.surface[i]=state(chunk,cx*16+x,Math.max(0,g),cz*16+z);
             // Sparse deep samples are below the largest allowed affected band of this shipped config.
             if((x&1)==0&&(z&1)==0)for(int y=4;y<=Math.min(48,g-32);y+=2){String old=state(chunk,cx*16+x,y,cz*16+z);if(ore(old))s.ores.put(cellKey(x,y,z),old);}
-            for(int y=Math.max(1,g-28);y<=top;y++){String old=state(chunk,cx*16+x,y,cz*16+z);if(old.startsWith("hbm:")&&WastelandSurface.architecture(old))s.architecture.put(cellKey(x,y,z),old);}
+            for(int y=Math.max(1,g-28);y<=top;y++){String old=state(chunk,cx*16+x,y,cz*16+z);if(old.startsWith("hbm:")){s.hbmCells.put(cellKey(x,y,z),old);if(WastelandSurface.architecture(old))s.architecture.put(cellKey(x,y,z),old);}}
         }return s;
     }
-    private static boolean plantOrAir(String state){String id=WastelandSurface.id(state);return id.equals("minecraft:air")||id.equals("minecraft:tallgrass")||id.equals("minecraft:double_plant")||id.equals("minecraft:deadbush")||id.equals("minecraft:snow_layer")||id.equals("minecraft:yellow_flower")||id.equals("minecraft:red_flower")||id.equals("minecraft:reeds")||id.equals("minecraft:waterlily")
-        ||id.equals("minecraft:brown_mushroom")||id.equals("minecraft:red_mushroom")||id.equals("hbm:plant_flower")||id.equals("hbm:plant_tall")||id.equals("hbm:plant_dead")||id.equals("hbm:reeds");}
+    private static boolean groundCover(String state){String id=WastelandSurface.id(state);return id.equals("minecraft:air")||id.equals("minecraft:tallgrass")||id.equals("minecraft:double_plant")||id.equals("minecraft:deadbush")||id.equals("minecraft:snow_layer")||id.equals("minecraft:yellow_flower")||id.equals("minecraft:red_flower")||id.equals("minecraft:reeds")||id.equals("minecraft:waterlily")
+        ||id.equals("minecraft:vine")||id.equals("minecraft:cactus")||id.equals("minecraft:sapling")||id.equals("minecraft:pumpkin")||id.equals("minecraft:melon_block")
+        ||id.equals("minecraft:leaves")||id.equals("minecraft:leaves2")||id.equals("minecraft:log")||id.equals("minecraft:log2")||id.equals("minecraft:red_mushroom_block")||id.equals("minecraft:brown_mushroom_block")||id.equals("minecraft:brown_mushroom")||id.equals("minecraft:red_mushroom")||id.equals("hbm:plant_flower")||id.equals("hbm:plant_tall")||id.equals("hbm:plant_dead")||id.equals("hbm:reeds");}
     private static boolean ore(String state){String id=WastelandSurface.id(state);return id.startsWith("hbm:ore_")||id.equals("minecraft:coal_ore")||id.equals("minecraft:iron_ore")||id.equals("minecraft:gold_ore")||id.equals("minecraft:redstone_ore")||id.equals("minecraft:lapis_ore")||id.equals("minecraft:diamond_ore")||id.equals("minecraft:emerald_ore");}
     private static long chunkKey(int x,int z){return (x&0xffffffffL)|((long)z<<32);}
     private static long cellKey(int x,int y,int z){return ((long)x<<12)|((long)z<<8)|y;}

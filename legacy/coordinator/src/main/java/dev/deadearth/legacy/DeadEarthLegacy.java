@@ -15,7 +15,7 @@ import dev.deadearth.legacy.machinery.LegacyMachinery;
 import dev.deadearth.legacy.progression.LegacyProgression;
 import dev.deadearth.legacy.sieving.LegacySieving;
 import dev.deadearth.legacy.gameplay.*;
-@Mod(modid="dead_earth",name="DEAD EARTH SRP",version="1.0.3",dependencies="required-after:srparasites@[1.9.21];required-after:epicsiegemod@[13.169];required-after:hbm;after:appliedenergistics2;after:mysticalagriculture;after:exnihilocreatio;after:projecte;after:xlfoodmod;after:rftools;after:inventorysorter",acceptedMinecraftVersions="[1.12.2]")
+@Mod(modid="dead_earth",name="DEAD EARTH SRP",version="1.0.4",dependencies="required-after:srparasites@[1.9.21];required-after:epicsiegemod@[13.169];required-after:hbm;after:appliedenergistics2;after:mysticalagriculture;after:exnihilocreatio;after:projecte;after:xlfoodmod;after:rftools;after:inventorysorter",acceptedMinecraftVersions="[1.12.2]")
 public final class DeadEarthLegacy {
  @Mod.Instance("dead_earth") public static DeadEarthLegacy instance;
  public static volatile LegacyRuntime runtime;public static Path config;public static Object relay;

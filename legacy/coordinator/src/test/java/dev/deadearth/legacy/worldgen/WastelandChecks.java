@@ -74,6 +74,7 @@ public final class WastelandChecks {
         }
         Fixture deepOre=new Fixture();deepOre.deepOre=true;
         check(WastelandSurface.plan(deepOre,91241,s,0,0,false).craters,"unaffected underground ores cannot disable all craters");
+        coveredSoilAndHbmCells();
         reservedSurfaceAndLocalProtection();
         oreRichBorders();
         for(String protectedOre:Arrays.asList("minecraft:bedrock#0","hbm:ore_bedrock_coltan#0","hbm:ore_bedrock_block#0","hbm:ore_bedrock_oil#0")){
@@ -86,6 +87,55 @@ public final class WastelandChecks {
         check(log,"sparse dead trunks are present without leaves");
         s.maxWrites=1;boolean invalid=false;try{s.validate();}catch(IllegalArgumentException expected){invalid=true;}
         check(invalid,"unsafe whole-chunk budgets are rejected before generation");
+    }
+    private static void coveredSoilAndHbmCells(){
+        WastelandSettings s=new WastelandSettings();s.trunkChance=0;s.small.chance=0;s.large.chance=0;s.validate();
+        for(boolean reserved:new boolean[]{false,true}){
+            Fixture f=new Fixture();f.extraTop=91;
+            String[] underneath={"hbm:stone_gneiss#0","hbm:ore_iron#0","hbm:brick_concrete#0","minecraft:chest#0","future:structure#7","minecraft:bedrock#0"};
+            for(int x=0;x<16;x++)for(int z=0;z<16;z++){
+                f.cells.put(key(x,80,z),"minecraft:grass#0");f.cells.put(key(x,79,z),underneath[(x+z)%underneath.length]);
+                f.cells.put(key(x,87,z),(x&1)==0?"minecraft:leaves#4":"minecraft:leaves2#0");
+            }
+            for(int y=81;y<=86;y++)f.cells.put(key(8,y,8),"minecraft:log#0");
+            f.cells.put(key(4,81,4),"hbm:plant_flower#0");f.cells.put(key(5,81,5),"hbm:reeds#0");
+            Map<String,String> painted=overlay(WastelandSurface.plan(f,91241,s,0,0,reserved));
+            for(int x=0;x<16;x++)for(int z=0;z<16;z++){
+                check(at(f,painted,x,80,z).equals(WastelandField.surface(91241,s,x,z)),"grass under canopy repainted regardless of underground geology/structures");
+                check(at(f,painted,x,79,z).equals(underneath[(x+z)%underneath.length]),"exact underground native block retained");
+                check(at(f,painted,x,87,z).equals("minecraft:air#0"),"native foliage removed after coating soil underneath");
+            }
+            for(int y=81;y<=86;y++)check(at(f,painted,8,y,8).equals("minecraft:log#0"),"dead trunk stays in place");
+            check(at(f,painted,4,81,4).equals("hbm:plant_flower#0")&&at(f,painted,5,81,5).equals("hbm:reeds#0"),"HBM plant cells are exceptions too");
+            for(WastelandSurface.Write w:WastelandSurface.plan(f,91241,s,0,0,reserved).writes)check(!WastelandSurface.nativeHbm(f.state(w.x,w.y,w.z)),"no HBM cell is ever a write target");
+        }
+        for(String cover:Arrays.asList("minecraft:vine#1","minecraft:cactus#0","minecraft:sapling#5","minecraft:pumpkin#0","minecraft:melon_block#0")){
+            Fixture f=new Fixture();f.extraTop=84;f.cells.put(key(8,80,8),cover.startsWith("minecraft:cactus")?"minecraft:sand#0":"minecraft:grass#0");
+            f.cells.put(key(8,81,8),cover);f.cells.put(key(8,82,8),cover);
+            Map<String,String> painted=overlay(WastelandSurface.plan(f,91241,s,0,0,false));
+            check(at(f,painted,8,80,8).equals(WastelandField.surface(91241,s,8,8)),"native cover cannot hide soil: "+cover);
+            check(at(f,painted,8,81,8).equals("minecraft:air#0")&&at(f,painted,8,82,8).equals("minecraft:air#0"),"native vegetation cleared: "+cover);
+        }
+        // Cleanup is optional when its canopy alone exceeds the configured write budget.
+        Fixture dense=new Fixture();dense.extraTop=220;
+        for(int x=0;x<16;x++)for(int z=0;z<16;z++)for(int y=81;y<=220;y++)dense.cells.put(key(x,y,z),"minecraft:leaves#0");
+        WastelandSurface.Plan densePlan=WastelandSurface.plan(dense,91241,s,0,0,true);Map<String,String> densePainted=overlay(densePlan);
+        check(densePlan.writes.size()<=s.maxWrites,"dense canopy cleanup remains bounded");
+        for(int x=0;x<16;x++)for(int z=0;z<16;z++)check(at(dense,densePainted,x,80,z).equals(WastelandField.surface(91241,s,x,z)),"dense canopy cannot cancel surface coating");
+        for(String protectedState:Arrays.asList("hbm:stone_gneiss#0","hbm:stone_depth#0","hbm:basalt#0","hbm:ore_iron#0","hbm:plant_flower#0","hbm:brick_concrete#0")){
+            Fixture f=new Fixture();f.special=protectedState;
+            Map<String,String> painted=overlay(WastelandSurface.plan(f,91241,s,0,0,false));
+            check(at(f,painted,8,80,8).equals(protectedState),"HBM surface cell retained exactly: "+protectedState);
+            check(at(f,painted,0,80,0).equals(WastelandField.surface(91241,s,0,0)),"one HBM block never skips surrounding surface");
+        }
+        WastelandSettings bowl=new WastelandSettings();bowl.trunkChance=0;bowl.small.chance=0;bowl.large=new WastelandSettings.Band(128,1,64,64,18,18,2);bowl.validate();
+        WastelandField.Crater c=WastelandField.candidates(993571,bowl,0,0).get(0);int cx=Math.floorDiv(c.x,16),cz=Math.floorDiv(c.z,16);
+        Fixture ore=new Fixture();ore.cells.put(key(8,78,8),"hbm:ore_iron#0");
+        WastelandSurface.Plan p=WastelandSurface.plan(ore,993571,bowl,cx,cz,false);Map<String,String> painted=overlay(p);int cuts=0;
+        for(int x=0;x<16;x++)for(int z=0;z<16;z++)if(top(ore,painted,x,z)<80)cuts++;
+        check(p.craters&&cuts>100,"HBM exemption is local; unrelated crater columns still excavate");
+        check(at(ore,painted,8,78,8).equals("hbm:ore_iron#0"),"crater never cuts HBM ore");
+        check(at(ore,painted,8,80,8).equals(WastelandField.surface(993571,bowl,cx*16+8,cz*16+8)),"soil above protected HBM ore is still coated");
     }
     /** Catches whole-chunk early returns that conflate terrain excavation with exact natural repainting. */
     private static void reservedSurfaceAndLocalProtection(){
@@ -134,11 +184,13 @@ public final class WastelandChecks {
         // An actual obstruction outside a stale height map must only suppress that column's rim.
         s.small=new WastelandSettings.Band(32,1,9,9,3,3,3);s.validate();boolean rim=false;
         for(int cx=-2;cx<=2&&!rim;cx++)for(int cz=-2;cz<=2&&!rim;cz++)for(int x=0;x<16&&!rim;x++)for(int z=0;z<16&&!rim;z++){
-            if(WastelandField.displacement(771,s,cx*16+x,cz*16+z)<=0)continue;
-            Fixture obstruction=new Fixture();obstruction.cells.put(key(x,81,z),"future:unknown_structure#0");
+            if(WastelandField.displacement(771,s,cx*16+x,cz*16+z)<3)continue;
+            // Product now checks two cells above the height map; stale obstruction stays beyond that band.
+            Fixture obstruction=new Fixture();obstruction.cells.put(key(x,83,z),"future:unknown_structure#0");
             WastelandSurface.Plan safe=WastelandSurface.plan(obstruction,771,s,cx,cz,false);Map<String,String> result=overlay(safe);
             check(!safe.writes.isEmpty(),"one unsafe rim cannot cancel all surface writes");
-            check(at(obstruction,result,x,81,z).equals("future:unknown_structure#0"),"unsafe rim never fills/cuts an unknown cell");
+            check(safe.unsafeColumns>0,"unsafe-rim preflight actually rejects a local displacement");
+            check(at(obstruction,result,x,83,z).equals("future:unknown_structure#0"),"unsafe rim never fills/cuts an unknown cell");
             check(at(obstruction,result,x,80,z).equals(WastelandField.surface(771,s,cx*16+x,cz*16+z)),"unsafe rim column receives only its natural surface");rim=true;
         }
         check(rim,"unsafe-rim regression exercised a positive displacement");
@@ -151,7 +203,7 @@ public final class WastelandChecks {
         Map<String,Integer> forward=new HashMap<String,Integer>(),reverse=new HashMap<String,Integer>();
         for(int order=0;order<2;order++)for(int ix=0;ix<5;ix++)for(int iz=0;iz<5;iz++){
             int cx=centerX+(order==0?ix:4-ix)-2,cz=centerZ+(order==0?iz:4-iz)-2;
-            Fixture ordinary=new Fixture(),ore=new Fixture();ore.oreRich=new String[]{"minecraft:iron_ore#0","hbm:ore_iron#0","mysticalagriculture:prosperity_ore#0","ore_dictionary_fixture:resource#2"}[Math.floorMod(cx+cz,4)];
+            Fixture ordinary=new Fixture(),ore=new Fixture();ore.oreRich=new String[]{"minecraft:iron_ore#0","mysticalagriculture:prosperity_ore#0","ore_dictionary_fixture:resource#2"}[Math.floorMod(cx+cz,3)];
             WastelandSurface.Plan clean=WastelandSurface.plan(ordinary,seed,s,cx,cz,false);
             WastelandSurface.Plan rich=WastelandSurface.plan(ore,seed,s,cx,cz,false);
             check(rich.craters,"ordinary ores cannot suppress local displacement");
@@ -183,9 +235,9 @@ public final class WastelandChecks {
     private static Map<String,String> overlay(WastelandSurface.Plan p){Map<String,String> m=new HashMap<String,String>();for(WastelandSurface.Write w:p.writes)m.put(key(w.x,w.y,w.z),w.state);return m;}
     private static int top(Fixture f,Map<String,String> overlay,int x,int z){for(int y=100;y>0;y--){String s=overlay.get(key(x,y,z));if(s==null)s=f.state(x,y,z);if(!s.equals("minecraft:air#0"))return y;}return 0;}
     private static final class Fixture implements WastelandSurface.Terrain {
-        boolean mossy,hasTile,water,deepOre,plantHeight;String special,oreRich;
+        boolean mossy,hasTile,water,deepOre,plantHeight;int extraTop;String special,oreRich;
         final Map<String,String> cells=new HashMap<String,String>();
-        public int height(int x,int z){bounds(x,80,z);return water?85:plantHeight?83:81;}
+        public int height(int x,int z){bounds(x,80,z);return Math.max(extraTop,water?85:plantHeight?83:81);}
         public String state(int x,int y,int z){
             bounds(x,y,z);String cell=cells.get(key(x,y,z));if(cell!=null)return cell;if(water&&y>80&&y<=84)return "minecraft:water#0";
             if(special!=null&&x==8&&z==8&&y==80)return special;

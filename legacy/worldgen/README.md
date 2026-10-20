@@ -1,10 +1,10 @@
 # Native 1.12.2 wasteland policy
 
-The native Overworld terrain, biome map and ore generators remain in control. The wasteland pass runs after native/HBM world generators and edits only its current newly populated chunk. It never repaints chunks read from disk, looks up or generates a neighbor, or adds ambient radiation. The palette contains only inert native stone/rubble and the independent `dead_earth:ash` block. Other dimensions and underwater terrain remain native.
+The native Overworld terrain, biome map and ore generators remain in control. The wasteland pass runs after native/HBM world generators and edits only its current newly populated chunk. It never repaints existing populated chunks, looks up or generates a neighbor, or adds ambient radiation. Saved, explicitly unpopulated and unmarked edges still receive their first generation pass. The palette contains only inert native stone/rubble and the independent `dead_earth:ash` block. Other dimensions and underwater terrain remain native.
 
 ## Craters and ordinary ores
 
-Crater geometry is a deterministic absolute-coordinate field: many small craters and rare large bowls. Native ordinary ores do **not** reserve a column or chunk. Ordinary ores include native BlockOre subclasses and OreDictionary `ore*` blocks, including metadata variants and ores from other pinned mods; registry names alone do not decide protection. Ordinary ore blocks lying strictly above the final bowl floor and within the excavated terrain are removed together with the surrounding stone. Ore cells at the final bowl floor and below it remain their exact native state, including the thin coating band; the pass never moves ores, synthesizes new ore deposits, replaces native ore generation, or changes native underground distribution outside the excavated volume. Surface ore, mossy cobblestone and natural cobblestone cannot leave pillars or ore-rich flat patches in a bowl.
+Crater geometry is a deterministic absolute-coordinate field: many small craters and rare large bowls. Non-HBM ordinary ores do **not** reserve a column or chunk. Ordinary ores include native BlockOre subclasses and OreDictionary `ore*` blocks, including metadata variants and ores from other pinned mods; registry names alone do not decide protection. Ordinary ore blocks lying strictly above the final bowl floor and within the excavated terrain are removed together with the surrounding stone. Ore cells at the final bowl floor and below it remain their exact native state, including the thin coating band; the pass never moves ores, synthesizes new ore deposits, replaces native ore generation, or changes native underground distribution outside the excavated volume. Non-HBM surface ore, mossy cobblestone and natural cobblestone cannot leave pillars or ore-rich flat patches in a bowl. All `hbm:*` cells are explicit exceptions: neither ores nor geologic stones, plants or architecture can be overwritten. A crater touching an HBM cell falls back to safe local surface coating, while neighboring columns remain eligible for excavation.
 
 ## Protected features
 
@@ -12,7 +12,7 @@ Excavation and surface repainting have separate safety decisions. Native CUSTOM 
 
 Existing architecture, unknown constructed blocks, tile entities and dedicated deposits protect their columns plus a two-cell local footing band from craters. Known masonry and stone foundations in that band remain exact; exposed natural soil around the feature is still repainted. An unsafe cut/rim rejects that column's displacement before any write and retains safe soil repainting; it cannot cancel the whole chunk. Vanilla bedrock and dedicated HBM bedrock deposits (`ore_bedrock*`, including coltan/oil/deposit blocks, and `sellafield_bedrock`) are never overwritten. Ordinary ore is separate from structural protection. Geometry outside a guarded footprint still follows the absolute crater field.
 
-Natural plants above newly generated ground are removed even when a column has zero crater displacement or an HBM reservation; no water cells are removed. Only exact vanilla surface village/temple/mansion generators and vanilla TREE/GRASS decoration are suppressed. HBM custom architecture and generators, mineshafts, strongholds, ocean monuments, ores and other dimensions retain native behavior. Native HBM plants and geologic stones are classified separately from constructed architecture.
+Non-HBM natural plants above newly generated ground are removed within the bounded cleanup budget even when a column has zero crater displacement or an HBM reservation; no water cells are removed. Only exact vanilla surface village/temple/mansion generators and vanilla TREE/GRASS decoration are suppressed. HBM custom architecture and generators, mineshafts, strongholds, ocean monuments, ores and other dimensions retain native behavior. Native HBM plants and geologic stones are classified separately from constructed architecture and kept exact as HBM cell exceptions.
 
 ## Bounds, configuration and verification
 
@@ -23,3 +23,27 @@ The deferred `WastelandChecks` assertions include homogeneous ore-rich multi-chu
 `WastelandProbe` observes native terrain before the product pass across three independent fresh land-biome regions. It requires positive inert surface coverage across multiple regions and at least eight chunks, reports every observed natural-soil column and any unconverted grass/dirt/sand island, and requires physical repainting on actual HBM-reserved natural land while retaining its height. Genuine native architecture and deep ore samples are compared exactly. The prior `>0 ash` criterion alone could pass while hundreds of reserved/unsafe chunks stayed vanilla; it is no longer enough. Diagnostics keep reservation reasons and add surface/crater/protected/unsafe column counts and surface-only chunks. New assertions are authored for the integrated final verification stage; they do not by themselves claim a completed native run.
 
 The native coverage assertion separates actual surviving soil from inert native granite/diorite (`minecraft:stone#1/#3`). Adjacent vanilla decoration may write those stone veins after a chunk's pass; they remain permitted native geology, are counted separately with exact coordinates, and are not presented as exact configured-palette evidence. All exposed grass/dirt/sand and any other unexpected natural surface still fail. A stopped-world offline NBT audit of the first 1.0.1 fixture found zero exposed soil across all 75 populated marked probe chunks; its two aggregate failures were caused by equating a non-palette surface with soil. `worldgen-probe-diagnostics.json` now persists sites and bounded pre/post/reservation/product-plan details before aggregate coverage assertions, including on failure.
+
+## Surface continuity patch1.0.4
+
+The ground search sees soil underneath vanilla leaves/logs and huge mushroom
+blocks, with a two-cell allowance for transparent plants above the height map.
+Foliage is removed while trunks remain. Coating does not depend on underground
+architecture/ore; excavation retains its local safety checks. ALL hbm namespace
+blocks (including ordinary geology, ores and plants) are exact cell exceptions.
+No such block can be a paint/clear/cut target. Neighboring soil is still coated.
+Optional vegetation removal never consumes the surface-coating write budget.
+Vines, cactus, saplings, pumpkins and melons cannot hide their soil either.
+
+ChunkDataEvent.Load distinguishes an existing populated save from an explicitly
+unpopulated, unmarked saved edge. The latter remains eligible for its FIRST
+generation pass; existing populated/unknown saves and already painted chunks
+remain protected against retrogen. Nonzero future markers are retained exactly;
+unmarked populated/unknown saves receive a durable protected marker on save.
+No existing player terrain is repainted.
+
+Offline read-only audit of historical test saves found saved unpopulated edges
+and marked grass under leaves. Those old saves do not establish a defect in
+the1.0.3 surface pass; they establish concrete missing input cases. New native
+coverage includes soil under organic cover, all observed HBM cells and actual
+Forge load-event listener behavior, without loading extra chunks for inspection.
