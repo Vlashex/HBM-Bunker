@@ -183,7 +183,11 @@ class Compose:
             if service in self.health_services and health != 'healthy':
                 raise CheckFailure('compose_service_not_healthy_' + service)
             for mapping in row.get('Publishers') or []:
-                if mapping.get('TargetPort') in (11434, 25575):
+                # Compose ps also includes Dockerfile EXPOSE as PublishedPort=0; it has no
+                # host mapping. A private target with any real/unknown published port is refused.
+                if (mapping.get('TargetPort') in (11434, 25575)
+                        and not (type(mapping.get('PublishedPort')) is int
+                                 and mapping['PublishedPort'] == 0)):
                     raise CheckFailure('private_model_or_rcon_port_published')
             summary.append(dict(service=service, state='running', health=health or 'not_configured'))
         return dict(services=summary, running=5,

@@ -234,7 +234,7 @@ def compose_command(action, directory=DOCKER_DIR):
     common = ["docker", "--context", "desktop-linux", "compose", "--project-name", "dead-earth-srp",
               "--env-file", str(directory / ".env"), "-f", str(directory / "compose.yaml")]
     actions = {"check": ["config", "--quiet"], "up": ["up", "-d", "--build", "--wait", "--wait-timeout", "240"],
-               "stop": ["down", "--timeout", "120"], "status": ["ps", "--format", "json"],
+               "stop": ["down"], "status": ["ps", "--format", "json"],
                "build": ["build"]}
     if action not in actions:
         raise ValueError("Unsupported Compose action")

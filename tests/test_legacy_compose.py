@@ -130,6 +130,9 @@ class ComposeMigrationTests(unittest.TestCase):
                 self.assertNotIn("host", command)
                 self.assertNotIn("pull", command)
             self.assertIn("--quiet", compose.compose_command("check", directory))
+            self.assertNotIn("--timeout", compose.compose_command("stop", directory))
+            self.assertEqual(compose.compose_command("stop", directory)[-1], "down")
+            self.assertNotIn("down --timeout", (ROOT / "legacy/docker/STOP.bat").read_text())
             with self.assertRaises(ValueError):
                 compose.compose_command("up", directory)
             (directory / "secrets.env").write_text("SECRET_KEY=private-fixture\n")
@@ -233,6 +236,12 @@ class ComposeNetworkTests(unittest.TestCase):
         self.assertEqual(ollama["mem_limit"], "6g")
         self.assertIn("@sha256:", ollama["image"])
         self.assertEqual(services["playit"]["env_file"][0]["path"], "secrets.env")
+        self.assertTrue(services["playit"]["read_only"])
+        self.assertIn("/run/playit:size=1m,mode=0700", services["playit"]["tmpfs"])
+        self.assertEqual(services["playit"]["stop_signal"], "SIGINT")
+        self.assertEqual(services["playit"]["stop_grace_period"], "15s")
+        self.assertEqual(services["minecraft"]["stop_grace_period"], "120s")
+        self.assertEqual(services["director"]["stop_grace_period"], "110s")
 
 
 class OfflineModelImportTests(unittest.TestCase):

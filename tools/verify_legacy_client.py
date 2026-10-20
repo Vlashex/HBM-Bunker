@@ -308,9 +308,40 @@ def run(args):
     (target/'verification.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
     print(json.dumps(result,indent=2));return 0 if result['passed'] else 1
 
+def interactive_compose_server(root):
+    # Client-only transport admission. The Windows supervisor/RCON retains its stricter
+    # legacy_server.properties() policy; the game command still connects to 127.0.0.1.
+    work=(ROOT/'work').resolve(strict=True)
+    if root==work or not root.is_relative_to(work):raise ValueError('Compose manual client requires an owned server beneath this fork work/')
+    marker=read_json(root/'compose-server.json',16384)
+    if (type(marker.get('schema')) is not int or marker['schema']!=1
+            or marker.get('pack')!='DEAD-EARTH-SRP' or marker.get('network')!='shared-loopback'):
+        raise ValueError('Invalid Compose local-client network marker')
+    if str(uuid.UUID(marker['deployment_id']))!=marker['deployment_id']:raise ValueError('Invalid Compose deployment identity')
+    props={}
+    for raw in (root/'server.properties').read_text(encoding='utf-8-sig').splitlines():
+        line=raw.strip()
+        if not line or line.startswith(('#','!')):continue
+        key,sep,value=line.partition('=');key=key.strip();value=value.strip()
+        if (not sep or key in props or '\\' in key or value.endswith('\\')
+                or key in legacy_server.CRITICAL_PROPERTIES and '\\' in value):
+            raise ValueError('Ambiguous Compose server.properties')
+        props[key]=value
+    if props.get('server-ip')!='' or props.get('server-port')!='25565':raise ValueError('Compose manual client requires the shared loopback game port 25565')
+    world=(root/props.get('level-name','world')).resolve()
+    if world==root or not world.is_relative_to(root) or marker.get('world_name')!=props.get('level-name','world'):
+        raise ValueError('Compose world differs from its owned deployment marker')
+    if props.get('enable-rcon')=='true':
+        rcon=int(props.get('rcon.port','25575'))
+        if not props.get('rcon.password') or not 1<=rcon<=65535 or rcon==25565:raise ValueError('Invalid private Compose RCON configuration')
+    return props,world,25565
+
 def interactive_server(path):
     root=legacy_server.owned_root(path)
-    props,world,port=legacy_server.properties(root)
+    if (root/'compose-server.json').exists():
+        props,world,port=interactive_compose_server(root)
+    else:
+        props,world,port=legacy_server.properties(root)
     if props.get('online-mode')!='false':raise ValueError('Offline local manual clients require the explicitly owned server online-mode=false')
     return root,props,port
 

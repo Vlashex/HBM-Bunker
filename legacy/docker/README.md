@@ -22,6 +22,11 @@ director, admin и playit используют **network_mode: service:minecraft
 Дескриптор моста сохраняет проверки UUID кампании, эпохи и токена.
 Playit продолжает обращаться к 127.0.0.1:25565 без правки туннеля в аккаунте.
 
+Playit 1.0 запускает штатный playitd: его локальный IPC-сокет находится в
+/run/playit/playitd.sock. Для этого каталога выделен отдельный tmpfs 1 MiB
+с правами 0700; корневая файловая система остаётся только для чтения.
+Сокет не публикуется и не разделяется с Windows или другими сервисами. Это [штатный Linux IPC-путь Playit](https://github.com/playit-cloud/playit-agent/blob/master/packages/playit-ipc/src/paths.rs).
+
 Minecraft внутри контейнера слушает все интерфейсы, но игровой порт и порт
 админки опубликованы **только на loopback Windows**. RCON 25575 остаётся
 внутри контейнерной сети. Консоль доступна только человеку через отдельные
@@ -92,12 +97,15 @@ docker --context desktop-linux compose --env-file legacy/docker/.env -f legacy/d
 не вызывается; автозагрузки весов нет.
 
 ~~~powershell
-docker --context desktop-linux compose --env-file legacy/docker/.env -f legacy/docker/compose.yaml down --timeout 120
+docker --context desktop-linux compose --env-file legacy/docker/.env -f legacy/docker/compose.yaml down
 ~~~
 
 Или **legacy/docker/STOP.bat**. Флаг --volumes не используется. При SIGTERM
 Minecraft получает save-all flush и stop через закрытый stdin. На сохранение
-выделено до 120 секунд. Режиссёру даётся закончить текущий ограниченный запрос.
+выделено до 120 секунд. Режиссёру даётся до 110 секунд закончить текущий
+ограниченный запрос; Playit получает SIGINT и до 15 секунд на штатную остановку.
+Общий --timeout не задаётся: Compose использует stop_grace_period каждого сервиса.
+SIGINT поддерживает [официальный playitd](https://github.com/playit-cloud/playit-agent/blob/master/packages/playitd/src/daemon.rs).
 
 При обновлении модов сначала останавливается Compose и обновляется именно
 его каталог данных; prepare поверх существующего каталога не запускается.

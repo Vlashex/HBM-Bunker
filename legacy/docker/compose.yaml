@@ -280,9 +280,11 @@
       "mem_limit": "128m",
       "pids_limit": 64,
       "tmpfs": [
-        "/tmp:size=32m"
+        "/tmp:size=32m",
+        "/run/playit:size=1m,mode=0700"
       ],
-      "stop_grace_period": "15s"
+      "stop_grace_period": "15s",
+      "stop_signal": "SIGINT"
     }
   },
   "networks": {
@@ -292,7 +294,8 @@
   },
   "volumes": {
     "models": {
-      "name": "${DEAD_EARTH_MODEL_VOLUME:-dead-earth-srp-models}"
+      "name": "${DEAD_EARTH_MODEL_VOLUME:-dead-earth-srp-models}",
+      "external": true
     }
   }
 }
