@@ -1,0 +1,9 @@
+tile.dead_earth.crop_tray.name=Automatic Crop Tray
+dead_earth.farming.tooltip=Retains one native seed and one dirt. Outputs support hoppers and XNet.
+dead_earth.farming.instructions=Insert dirt, then a crop seed. Empty hand: collect. Sneak + empty hand: retrieve seed and soil.
+dead_earth.farming.inventory_full=Your inventory cannot hold the items.
+dead_earth.farming.needs_soil=Insert one dirt block.
+dead_earth.farming.needs_seed=Insert a vanilla, Mystical Agriculture or XL Food crop seed.
+dead_earth.farming.output_full=Harvest ready. Clear the output inventory.
+dead_earth.farming.needs_light=The crop needs more light.
+dead_earth.farming.growing=Growing: %s seconds remaining.

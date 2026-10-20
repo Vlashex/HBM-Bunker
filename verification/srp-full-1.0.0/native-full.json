@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "full_fork_server_normal_terrain",
+  "source_snapshot": "native3_before_final_worldgen_vertical_reservation_fix",
+  "coordinator_jar_sha256": "a0e1a4f37025164915daa09d5b4123de5dceb3703a5f37e13bfe1c263af5cf45",
+  "product_version": "1.0.0",
+  "recorded_check_count": 282,
+  "baseline_recorded_check_count": 200,
+  "full_group_count": 12,
+  "recorded_checks_include_group_outcomes": true,
+  "full_lock_count": 25,
+  "server_native_pin_count": 23,
+  "client_only_not_installed": [
+    "ctm",
+    "entityculling"
+  ],
+  "recipe_error_count": 0,
+  "failures": [],
+  "full_groups": {
+    "starter": {
+      "dimensions": "7x7x5",
+      "receipt": "DELIVERED",
+      "relayCount": 6,
+      "graceTicks": 216000
+    },
+    "worldgen": {
+      "nativePass": true,
+      "inertAsh": true,
+      "physicalAshColumns": 933,
+      "actualDeterministicCuts": 382,
+      "landSearchBiomeOnly": true,
+      "nativeWrites": 6538,
+      "observedPrePassChunks": 25,
+      "preservedVanillaOreSamples": 542,
+      "preservedHbmOreSamples": 0,
+      "nativeVanillaOrePreservationTested": true,
+      "nativeHbmOrePreservationTested": false,
+      "deferredCallbacksNotObserved": true,
+      "deferredHbmOreGenerationTested": false,
+      "observedNativeReservationChunks": 16,
+      "preservedNativeHbmArchitectureSamples": 0,
+      "nativeHbmArchitecturePreservationTested": false,
+      "nativeReservationObserved": true,
+      "existingChunkPreserved": true,
+      "counts": {
+        "generated": 720,
+        "writes": 44074,
+        "new_chunk": 95,
+        "reservation_native_index_jobsByOriginChunk": 244,
+        "hbm_footprint": 601,
+        "reservation_pending_dynamic_layout": 334,
+        "architecture": 15,
+        "reservation_native_structure_box": 13,
+        "unsafe_rim": 9,
+        "reservation_pending_validation_layout": 6,
+        "reservation_pending_origin": 1,
+        "reservation_phased_structure_box": 3,
+        "existing_skipped": 1
+      }
+    },
+    "progression": {
+      "nativeRecipes": true,
+      "previousBookNbtRequired": true,
+      "rawOnlyEmc": true,
+      "sieveProviderRuns": 1
+    },
+    "tools": {
+      "ownNativeTools": 6,
+      "presetAreas": [
+        3,
+        5,
+        7
+      ],
+      "nativeBatteries": 3,
+      "highAnvilEventOutputs": 3,
+      "anvilUiPickupTested": false
+    },
+    "ae2": {
+      "physicalDrive": true,
+      "storedIron": 1234,
+      "cursorSteps": 11,
+      "zoneDelta": 315904
+    },
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "outputOnlyAutomation": true
+    },
+    "defense": {
+      "tiers": 3,
+      "doorSharedHp": true,
+      "realEsmDig": true,
+      "playerDrops": true,
+      "realOrdinaryExplosion": true
+    },
+    "machinery": {
+      "nativeHbmCharging": true,
+      "nativeOreDrops": true,
+      "blockedOutputTransactional": true,
+      "pendingNbtRoundTrip": true
+    },
+    "climate": {
+      "topAndSides": true,
+      "nativeIcePreserved": true,
+      "inventoryOperable": true,
+      "changes": 24,
+      "maximumCells": 4314,
+      "maximumSections": 2,
+      "forceLoads": 0
+    },
+    "climateClockAndPackets": {
+      "acceleratedNativeWeather": true,
+      "seasonMultipliers": [
+        0.5,
+        1.8
+      ],
+      "nativeCodecBytes": 21,
+      "malformedPacketDisabled": true,
+      "clientNetworkDeliveryTested": false,
+      "clientVisualsTested": false
+    },
+    "recipes": {
+      "nativeLogFiles": 1,
+      "errors": []
+    }
+  },
+  "client_visuals_tested": false,
+  "real_ai_inference_in_this_report": false
+}

@@ -1,0 +1,1 @@
+{"ambientocclusion":true,"textures":{"all":"minecraft:blocks/ice","particle":"minecraft:blocks/ice"},"elements":[{"from":[0,0,14],"to":[16,16,16],"faces":{"down":{"texture":"#all"},"up":{"texture":"#all"},"north":{"texture":"#all"},"south":{"texture":"#all"},"west":{"texture":"#all"},"east":{"texture":"#all"}}}]}

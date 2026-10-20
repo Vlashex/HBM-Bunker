@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "product_version": "1.0.0",
+  "passed": true,
+  "coordinator_sha256": "5199e519f971d55eded1dee1ad735ed5afa7050a686bdd07ace441b0b1405c2f",
+  "artifacts": [
+    {
+      "name": "DEAD-EARTH-SRP-1.0.0-Prism.zip",
+      "size": 121365501,
+      "sha256": "f6ae6fb5e01760abeec4d8cb146b955cde32e200e612a4b98687cf64ec887513",
+      "external_mods": 25,
+      "crc_ok": true,
+      "current_coordinator_matches": true,
+      "private_runtime_excluded": true,
+      "java8_classfiles": true
+    },
+    {
+      "name": "DEAD-EARTH-SRP-1.0.0-TLauncher.zip",
+      "size": 125993523,
+      "sha256": "0f55a3a1ee819ddb3b944d5400e91ee0a3ab2fd5d2b6ae873873acb9455a4b49",
+      "external_mods": 25,
+      "crc_ok": true,
+      "current_coordinator_matches": true,
+      "private_runtime_excluded": true,
+      "java8_classfiles": true
+    },
+    {
+      "name": "DEAD-EARTH-SRP-1.0.0-Server-Overlay.zip",
+      "size": 121256027,
+      "sha256": "de43021ddfa52c3013aabd5996a74981f59ef4f14dbfbe6315187e091c42eca5",
+      "external_mods": 23,
+      "crc_ok": true,
+      "current_coordinator_matches": true,
+      "private_runtime_excluded": true,
+      "java8_classfiles": true
+    }
+  ]
+}

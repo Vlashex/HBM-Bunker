@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "captured_at_utc": "2026-10-20T07:30:34.806761+00:00",
+  "policy": "Sanitized saved results and final local artifact/client verification; no secrets, game binaries, accounts or full runtime logs.",
+  "sources": [
+    {
+      "path": "work/legacy-native-20261020T065900066695Z-e682bdad/runner-result.json",
+      "sha256": "8ba89afea3e53b0d8fd6ee459204dfc37d1bba31f40e2ea62da4eb6c1662df07"
+    },
+    {
+      "path": "work/legacy-native-20261020T065900066695Z-e682bdad/bridge-native-checks.json",
+      "sha256": "be3e5e7bc76db3a4ff99a6b8be46984a0d8687c8652b17f4c96ddd7ee9c5c16a"
+    },
+    {
+      "path": "work/legacy-native-20261020T065900066695Z-e682bdad/runner-result-restart.json",
+      "sha256": "4ef72dbc21c38adf3a90efb1009d11427b8fe5905dfdf8622e67a05efb4be128"
+    },
+    {
+      "path": "work/legacy-native-20261020T065900066695Z-e682bdad/real-ai-110d88e9/report.json",
+      "sha256": "315ea4f2b50a389b3896f4076a95b8bff3de7a005b2a1399daad59b4eb6d1d8f"
+    },
+    {
+      "path": "work/legacy-native-20261020T070730274765Z-b961f010/runner-result.json",
+      "sha256": "c6b8453af16bcb77ce14dbba3e059f544b6d43d910d50c8fe783dfa777fb0d47"
+    },
+    {
+      "path": "work/legacy-native-20261020T070730274765Z-b961f010/bridge-native-checks.json",
+      "sha256": "be3e5e7bc76db3a4ff99a6b8be46984a0d8687c8652b17f4c96ddd7ee9c5c16a"
+    },
+    {
+      "path": "work/full-python-tests-final.log",
+      "sha256": "288f1ba8cf9c4122fb7438aae1935cd90a4b859bc24e91bd73ec5d0af6d9aad6"
+    },
+    {
+      "path": "work/full-director-tests.log",
+      "sha256": "c5cf9584a9dd479fdf6a3988bec38ce6f56117c2808fa58f82bb3d6d6560b09c"
+    },
+    {
+      "path": "work/full-java-tests-final.log",
+      "sha256": "e108463ae5e74ce22d1daf97ae0691e39c1f2b8af2d26a5c7182256c4ed44725"
+    },
+    {
+      "path": "work/full-worldgen-final.log",
+      "sha256": "e0f6b544029e68a92163663fc421fbb195910217decd838ba40d5dd75dc25b81"
+    },
+    {
+      "path": "work/legacy-native-20261020T072103201348Z-3d07053e/runner-result.json",
+      "sha256": "b5d662f85f92384aee9126889fcc815f3696712f157e156aaef8e1babf1bef40"
+    },
+    {
+      "path": "work/legacy-native-20261020T072103201348Z-3d07053e/bridge-native-checks.json",
+      "sha256": "be3e5e7bc76db3a4ff99a6b8be46984a0d8687c8652b17f4c96ddd7ee9c5c16a"
+    },
+    {
+      "path": "work/full-python-sieving-final.log",
+      "sha256": "183a94296a9d9581a4b61c77640824044c3ebde4a56894c5b6e638b6c637d26a"
+    },
+    {
+      "path": "work/legacy-native-20261020T072103201348Z-3d07053e/runner-result-restart.json",
+      "sha256": "482c0a9f6272bfdb349cd1b5109d917b26600c6e2b8d2e187b1e46e01da16d41"
+    }
+  ],
+  "files": {
+    "artifacts.json": "3b30862426a188e6115443c5994a6cf298894bc39949fece8f186198bcf34cab",
+    "bridge-latest.json": "92af72d1f5c9fbccd083ee5bfc4f3f61bf5e178f357ee732477786a3d76132a8",
+    "bridge.json": "92af72d1f5c9fbccd083ee5bfc4f3f61bf5e178f357ee732477786a3d76132a8",
+    "client-launch.json": "734a2320d237cd67938c9ced454969b9f77721763906542fe9b1c2ec5cae4d0f",
+    "manual-model-review.md": "2bf16082dc3f5f33666c72c8cd3afc7f054ce1dcd8a0f3c9b62b46f3a319bdf4",
+    "native-full.json": "6700aa3d717ca63a9f0620d228ab7fd596f38bd065aa4cd9cab624c4fc0b00f3",
+    "native-latest.json": "91e1e0a1509867aebb8ea4da2da56bea8be0fdaddf01783121f26bd501a710e2",
+    "readiness.json": "e049cb454875ae2646ea2b23b7203f17531f7a6a1532a5c63c1113943a8c8edc",
+    "README.md": "90adae4822f1ad39faab1a45d0067f1ebc4795fd30121cc4f36613e82d8c4930",
+    "real-ai.json": "c019ade06577ee29a8082041d7d30e69aa83daac8251067a21e31bd3f354e1d9",
+    "restart-latest.json": "b5515d3eaf12325d561810e70138d13764752e4831c32930c3de63b5d6635608",
+    "restart.json": "b8b62c007d9d08c6651b200bbce40d8a160912c3d386f3cf7e53572c68ff20d4",
+    "source-checks.json": "ecc0049561046eadaacf39b85c44717ac46f172c1cd916212e6e8a5b7021f104"
+  }
+}

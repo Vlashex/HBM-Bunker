@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import dev.deadearth.legacy.Campaign;
 import dev.deadearth.legacy.DeadEarthLegacy;
 import dev.deadearth.legacy.JsonFiles;
+import dev.deadearth.legacy.InventoryValuation;
+import dev.deadearth.legacy.gameplay.HbmToolApi;
 import dev.deadearth.legacy.LegacyRuntime;
 import dev.deadearth.legacy.Reflect;
 import dev.deadearth.legacy.kernel.CinematicCatalog;
@@ -28,23 +30,44 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 
 /** Runs only in a fresh, explicitly enabled native integration server. */
-@Mod(modid="deadearth_port_probe",name="Dead Earth SRP Native Port Probe",version="0.2.0",
+@Mod(modid="deadearth_port_probe",name="Dead Earth SRP Native Port Probe",version="1.0.0",
     dependencies="required-after:dead_earth;required-after:srparasites;required-after:epicsiegemod",acceptableRemoteVersions="*")
 public final class PortProbe {
     private final List<Map<String,Object>> checks=new ArrayList<Map<String,Object>>();
     private final Map<String,Object> report=new LinkedHashMap<String,Object>();
     private LegacyRuntime runtime;private Object world,player;private List<Object> playerList;
-    private int baseX,baseY,baseZ;private int failures;
+    private int baseX,baseY,baseZ;private int failures,fullGroupCount,fullAssertionCount;private final Map<String,Object> fullGroups=new LinkedHashMap<String,Object>();
 
+    private int nativeWarmupRemaining;private boolean nativeStarted;private Throwable starterPreparationFailure;
+    private Object originalStarterBlocked,originalStarterSentinel;
     @Mod.EventHandler public void started(FMLServerStartedEvent event) {
-        report.put("schema",1);report.put("probe","native_srp_forge_1_12_2");
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(this);
+        nativeWarmupRemaining=40;
+        try {
+            if(!Boolean.getBoolean("deadearth.testControls")||!Files.isRegularFile(Paths.get(".dead-earth-isolated-native-test")))throw new IllegalStateException("Isolated native controls are absent");
+            runtime=DeadEarthLegacy.runtime;if(runtime==null)throw new IllegalStateException("Coordinator did not start before probe");runtime.requireThread();world=runtime.world.world(0);
+            Object initialSpawn=Reflect.call(world,"getSpawnPoint/func_175694_M");originalStarterBlocked=Reflect.call(world,"getTopSolidOrLiquidBlock/func_175672_r",initialSpawn);
+            placeAt(originalStarterBlocked,"minecraft:chest");originalStarterSentinel=Reflect.call(world,"getTileEntity/func_175625_s",originalStarterBlocked);Reflect.call(originalStarterSentinel,"setInventorySlotContents/func_70299_a",0,itemStack("minecraft:gold_ingot",0));
+        } catch(Throwable failed){starterPreparationFailure=failed;}
+    }
+    @net.minecraftforge.fml.common.eventhandler.SubscribeEvent(priority=net.minecraftforge.fml.common.eventhandler.EventPriority.LOWEST)
+    public void nativeWarmupTick(net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent event) {
+        if(nativeStarted||nativeWarmupRemaining<=0||event.phase!=net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END)return;
+        if(--nativeWarmupRemaining>0)return;
+        nativeStarted=true;runNative();
+    }
+    private void runNative() {
+        report.put("ordinaryWarmupTicks",40);
+        report.put("schema",2);report.put("probe","native_full_srp_forge_1_12_2");report.put("productVersion","1.0.0");report.put("terrain","DEFAULT");report.put("clientVisualsTested",false);report.put("realAiInferenceTested",false);
         try {
             if(!Boolean.getBoolean("deadearth.testControls"))throw new IllegalStateException("Test controls are not enabled");
             if(!Files.exists(Paths.get(".dead-earth-isolated-native-test")))throw new IllegalStateException("Isolated test marker is absent");
             runtime=DeadEarthLegacy.runtime;if(runtime==null)throw new IllegalStateException("Coordinator did not start before probe");
             runtime.requireThread();world=runtime.world.world(0);
+            if(starterPreparationFailure!=null)throw new IllegalStateException("Original spawn sentinel preparation failed",starterPreparationFailure);
             run("native_dependencies",()->dependencies());
             run("no_player_pause_and_native_lock",()->noPlayers());
+            runFull("starter_shelter_once_per_world",()->starterShelter());
             run("transformed_world_write_guard",()->writeGuard());
             run("survival_player_advances_active_clock",()->survivalPlayer());
             run("phase_zero_to_ten_CAS_round_trip",()->phaseRoundTrip());
@@ -54,6 +77,19 @@ public final class PortProbe {
             run("phase_gated_native_wave_emission",()->wave());
             run("typed_queue_replay_and_native_effect",()->queue());
             run("durable_campaign_checkpoint",()->{runtime.checkpoint();require(Files.size(runtime.savePath)>0,"campaign checkpoint exists");Campaign loaded=Campaign.open(runtime.savePath);require(loaded.campaignId.equals(runtime.campaign.campaignId),"campaign restores same identity");CinematicEngine.restore(loaded.cinematic);});
+            runFull("normal_terrain_wasteland",()->{fullGroups.put("worldgen",dev.deadearth.legacyprobe.worldgen.WastelandProbe.verify(world,(baseX>>4)+128,(baseZ>>4)+128));});
+            runFull("native_full_progression_and_raw_emc",()->{dev.deadearth.legacyprobe.progression.ProgressionProbe.run(runtime,world,player);fullGroups.put("progression",JsonFiles.map("nativeRecipes",true,"previousBookNbtRequired",true,"rawOnlyEmc",dev.deadearth.legacy.progression.LegacyProgression.rawOnly(),"sieveProviderRuns",dev.deadearth.legacy.progression.LegacyProgression.sieveProviderRuns()));});
+            runFull("native_connected_sieves_5x5",()->{int x=baseX+40,z=baseZ+80,y=fixtureY(x,z);fullGroups.put("connectedSieves",dev.deadearth.legacyprobe.progression.GroupSieveProbe.run(world,player,x,y,z));});
+            runFull("native_compact_sieve_conservation_and_reload",()->{int x=baseX+40,z=baseZ+96,y=fixtureY(x,z);fullGroups.put("compactSieves",dev.deadearth.legacyprobe.sieving.SievingProbe.run(runtime,world,player,x,y,z));});
+            runFull("native_hbm_tools_and_high_anvil",()->tools());
+            runFull("physical_ae2_cell_zone_valuation",()->ae2Valuation());
+            runFull("physical_native_crop_trays",()->farming());
+            runFull("finite_defense_native_siege_explosion_players",()->{int y=fixtureY(baseX+40,baseZ+40);dev.deadearth.legacyprobe.defense.DefenseProbe.run(runtime,world,player,baseX+40,y,baseZ+40);fullGroups.put("defense",JsonFiles.map("tiers",3,"doorSharedHp",true,"realEsmDig",true,"playerDrops",true,"realOrdinaryExplosion",true));});
+            runFull("physical_charger_and_fortune_processor",()->machinery());
+            runFull("loaded_climate_top_side_thaw_and_quotas",()->{int x=baseX+40,z=baseZ+64;load(x,z,1);int y=fixtureY(x,z);fullGroups.put("climate",dev.deadearth.legacy.climate.ClimateNativeChecks.verify(runtime,world,player,x,y,z));});
+            runFull("native_climate_clock_and_packet_codec",()->climateClockAndPacket());
+            runFull("native_crafttweaker_recipe_errors",()->recipeLog());
+            runFull("durable_full_campaign",()->{runtime.checkpoint();Campaign persisted=Campaign.open(runtime.savePath);require(persisted.campaignId.equals(runtime.campaign.campaignId)&&persisted.starterState.equals("DELIVERED"),"full campaign and shelter receipt persist");});
             report.put("activeTicks",runtime.campaign.activeTicks);report.put("phase",runtime.campaign.phase);
             report.put("nativePhase",runtime.srp.phase(world));report.put("zoneCount",runtime.campaign.zones.size());
             report.put("receiptCount",runtime.campaign.receipts.size());
@@ -78,7 +114,7 @@ public final class PortProbe {
             }
             if(!retained&&playerList!=null&&player!=null)playerList.remove(player);
             report.put("bridgePlayerRetained",retained);
-            report.put("checks",checks);report.put("failures",failures);report.put("passed",failures==0);
+            report.put("checks",checks);report.put("baselineAssertionCount",checks.size()-fullAssertionCount);report.put("fullGroupCount",fullGroupCount);report.put("fullAssertionCount",fullAssertionCount);report.put("fullGroups",fullGroups);report.put("failures",failures);report.put("passed",failures==0);
             try {
                 Path output=Paths.get("port-probe.json"),temporary=Paths.get("port-probe.json.tmp");
                 Files.write(temporary,JsonFiles.JSON.toJson(report).getBytes(StandardCharsets.UTF_8));
@@ -89,8 +125,25 @@ public final class PortProbe {
         // The runner requests a normal stop only after reading the complete report.
     }
 
+    private boolean sentinelsCreated;
+    @net.minecraftforge.fml.common.eventhandler.SubscribeEvent(priority=net.minecraftforge.fml.common.eventhandler.EventPriority.LOWEST)
+    public void persistenceTick(net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent event) {
+        if(sentinelsCreated||event.phase!=net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END||!Files.isRegularFile(Paths.get("create-restart-sentinels.request")))return;
+        sentinelsCreated=true;Map<String,Object> answer=new LinkedHashMap<String,Object>();
+        try {
+            if(!Boolean.getBoolean("deadearth.testControls")||!Files.isRegularFile(Paths.get(".dead-earth-isolated-native-test"))||failures!=0)throw new IllegalStateException("Not a successful isolated native fixture");
+            runtime.requireThread();if(playerList!=null&&player!=null)playerList.remove(player);
+            int x=runtime.campaign.zones.get(0).x-8,z=runtime.campaign.zones.get(0).z-8,y=200;
+            answer.put("sentinels",RestartSentinels.create(runtime,world,player,x,y,z));runtime.checkpoint();answer.put("passed",true);
+        } catch(Throwable failure){answer.put("passed",false);answer.put("error",failure.toString());failure.printStackTrace();}
+        JsonFiles.write(Paths.get("restart-sentinels-created.json"),answer);
+    }
+
     private void dependencies() {
         require(Loader.isModLoaded("dead_earth"),"coordinator loaded");
+        try{JsonObject manifest=JsonFiles.read(Paths.get("full-native-expected-mods.json"),131072);Map<String,String> versions=new LinkedHashMap<String,String>();Object indexed=Reflect.call(Reflect.call(Loader.class,"instance"),"getIndexedModList");for(com.google.gson.JsonElement row:manifest.getAsJsonArray("server_mods")){String id=row.getAsJsonObject().get("mod_id").getAsString();require(Loader.isModLoaded(id),"full native dependency loaded: "+id);Object mod=((Map<?,?>)indexed).get(id);versions.put(id,String.valueOf(Reflect.call(mod,"getVersion")));}report.put("fullLockCount",manifest.get("full_lock_count").getAsInt());report.put("serverNativeCount",versions.size());report.put("nativeVersions",versions);report.put("clientOnlyNotInstalled",manifest.get("client_only"));}catch(Exception ex){throw new IllegalStateException("Full native manifest",ex);}
+        for(String excluded:new String[]{"securitycraft","mutationcraft","overgrown_vegetation","tconstruct"})require(!Loader.isModLoaded(excluded),"excluded mod absent: "+excluded);
+        require(Reflect.call(Reflect.call(Reflect.call(world,"getWorldInfo/func_72912_H"),"getTerrainType/func_76067_t"),"getName/func_77127_a").toString().equals("default"),"native ordinary terrain, no flat fixture");
         require(Loader.isModLoaded("srparasites"),"native SRP loaded");
         require(Loader.isModLoaded("epicsiegemod"),"native Epic Siege loaded");
         require(Loader.isModLoaded("hbm"),"native HBM loaded");
@@ -120,11 +173,12 @@ public final class PortProbe {
         load(x,z,2);
         require(runtime.protectedAt(world,inside)&&runtime.protectedAt(world,edge),"spawn grace includes 16 by 32 boundary");
         require(!runtime.protectedAt(world,outside)&&!runtime.protectedAt(world,Reflect.pos(x,y+33,z)),"spawn grace has finite boundary");
-        placeAt(inside,"minecraft:stone");
+        Object original=Reflect.state(world,inside);placeAt(inside,"minecraft:stone");
         require((Boolean)Reflect.call(world,"setBlockState/func_180501_a",inside,state("minecraft:glass"),3),"player-side world mutation remains available");
         boolean denied=(Boolean)Reflect.call(Reflect.type("com.dhanantry.scapeandrunparasites.legacyprobe.NativeWriter"),"write",world,inside,state("minecraft:obsidian"));
         require(!denied&&Reflect.blockId(world,inside).equals("minecraft:glass"),"actual World write blocks native parasite caller");
-        require((Boolean)Reflect.call(Reflect.type("com.dhanantry.scapeandrunparasites.legacyprobe.NativeWriter"),"write",world,outside,state("minecraft:stone")),"native writer allowed outside grace");
+        placeAt(outside,"minecraft:air");require((Boolean)Reflect.call(Reflect.type("com.dhanantry.scapeandrunparasites.legacyprobe.NativeWriter"),"write",world,outside,state("minecraft:stone")),"native writer allowed outside grace");
+        Reflect.call(world,"setBlockState/func_180501_a",inside,original,3);
     }
 
     @SuppressWarnings("unchecked") private void survivalPlayer() {
@@ -206,17 +260,17 @@ public final class PortProbe {
 
     private void valuation() {
         require(runtime.campaign.zones.size()==6,"anchor prerequisite");Campaign.Zone zone=runtime.campaign.zones.get(0);
+        drain(zone);long baseline=zone.resourceEmc;int ignoredBaseline=zone.ignoredLootContainers;
         Object first=place(baseX+2,baseY,baseZ,"minecraft:chest"),second=place(baseX+5,baseY,baseZ,"minecraft:chest"),unopened=place(baseX+8,baseY,baseZ,"minecraft:chest");
         Object iron=Reflect.registry("ITEMS","minecraft:iron_ingot");
         Reflect.call(first,"setInventorySlotContents/func_70299_a",0,Reflect.make("net.minecraft.item.ItemStack",iron,19,0));
         Reflect.call(second,"setInventorySlotContents/func_70299_a",0,Reflect.make("net.minecraft.item.ItemStack",iron,13,0));
         Reflect.call(unopened,"setLootTable/func_189404_a",Reflect.make("net.minecraft.util.ResourceLocation","minecraft:chests/simple_dungeon"),123L);
         Object loot=Reflect.get(unopened,"lootTable/field_184284_m");require(loot!=null,"unopened chest retains deferred loot");
-        zone.complete=false;zone.scannedAt=runtime.campaign.activeTicks-runtime.settings.scanTicks;
-        for(int i=0;i<128&&!zone.complete;i++)runtime.world.scan();
+        drain(zone);
         Long price=runtime.settings.resourcePrices.get("minecraft:iron_ingot");require(price!=null,"iron resource price configured");
-        require(zone.complete&&zone.resourceEmc==32L*price.longValue(),"bounded zone scan sums two real chests: complete="+zone.complete+", emc="+zone.resourceEmc+", error="+zone.scanError);
-        require(zone.ignoredLootContainers==1,"deferred loot chest counted separately");
+        require(zone.complete&&zone.resourceEmc==baseline+32L*price.longValue(),"bounded zone scan sums two real chests: complete="+zone.complete+", emc="+zone.resourceEmc+", error="+zone.scanError);
+        require(zone.ignoredLootContainers==ignoredBaseline+1,"deferred loot chest counted separately");
         require(Reflect.get(unopened,"lootTable/field_184284_m")!=null,"valuation does not generate deferred loot");
     }
 
@@ -280,6 +334,50 @@ public final class PortProbe {
         if(!runtime.engine.operations().isEmpty())runtime.engine.cancel(first.operationId(),runtime.campaign.activeTicks,runtime.catalog.rules(),runtime.world);
         require(runtime.engine.history().get(runtime.engine.history().size()-1).spent()<=operation.budget(),"native operation never exceeds allocation");
     }
+
+
+    private void starterShelter() {
+        require(runtime.campaign.starterState.equals("NONE"),"fresh full world has no starter claim");
+        Object blocked=originalStarterBlocked,sentinel=originalStarterSentinel;require(blocked!=null&&sentinel!=null&&Reflect.call(world,"getTileEntity/func_175625_s",blocked)==sentinel,"original spawn container remains stable through ordinary startup ticks");Object provider=Reflect.call(world,"getChunkProvider/func_72863_F");int loadedBefore=((Collection<?>)Reflect.call(provider,"getLoadedChunks/func_189548_a")).size();
+        require(dev.deadearth.legacy.defense.LegacyDefense.placeStarterShelter(runtime),"shared starter shelter finds loaded safe site beside blocked initial spawn");
+        Object relocated=Reflect.call(world,"getSpawnPoint/func_175694_M");require(Reflect.x(relocated)!=Reflect.x(blocked)||Reflect.z(relocated)!=Reflect.z(blocked),"blocked initial seven-by-seven triggers deterministic nearby search");require(Math.abs(Reflect.x(relocated)-Reflect.x(blocked))<=64&&Math.abs(Reflect.z(relocated)-Reflect.z(blocked))<=64,"shelter search remains within fixed radius64");require(Reflect.call(world,"getTileEntity/func_175625_s",blocked)==sentinel&&!(Boolean)Reflect.call(Reflect.call(sentinel,"getStackInSlot/func_70301_a",0),"isEmpty/func_190926_b"),"shelter search preserves blocked original container and loot");require(((Collection<?>)Reflect.call(provider,"getLoadedChunks/func_189548_a")).size()==loadedBefore,"shelter search and placement never load chunks");
+        Object spawn=Reflect.call(world,"getSpawnPoint/func_175694_M");int x=Reflect.x(spawn),y=Reflect.y(spawn),z=Reflect.z(spawn);Object floor=Reflect.pos(x,y-1,z),chestPos=Reflect.pos(x-2,y,z-2);
+        require(Reflect.blockId(world,floor).equals("dead_earth:defense_wall_v1"),"physical protected spawn floor");
+        require(runtime.protectedAt(world,floor),"original shelter uses active-clock spawn grace");
+        require(Reflect.blockId(world,Reflect.pos(x,y,z+3)).equals("dead_earth:defense_door_v1")&&Reflect.blockId(world,Reflect.pos(x,y+1,z+3)).equals("dead_earth:defense_door_v1"),"paired native starter door");
+        require(Reflect.blockId(world,Reflect.pos(x+2,y+3,z)).equals("dead_earth:defense_hatch_v1"),"native roof hatch");
+        Object chest=Reflect.call(world,"getTileEntity/func_175625_s",chestPos);require(chest!=null,"shared starter chest exists");
+        String[] ids={"dead_earth:zone_relay","minecraft:dirt","minecraft:sapling"};int[] amounts={6,16,8};for(int i=0;i<ids.length;i++){Object stack=Reflect.call(chest,"getStackInSlot/func_70301_a",i);require(Reflect.call(Reflect.call(stack,"getItem/func_77973_b"),"getRegistryName").toString().equals(ids[i])&&((Number)Reflect.call(stack,"getCount/func_190916_E")).intValue()==amounts[i],"one shared starter allotment "+ids[i]);}
+        Object empty=Reflect.get(Reflect.type("net.minecraft.item.ItemStack"),"EMPTY/field_190927_a");Reflect.call(chest,"setInventorySlotContents/func_70299_a",0,empty);require(dev.deadearth.legacy.defense.LegacyDefense.placeStarterShelter(runtime),"delivered shelter helper is idempotent");require((Boolean)Reflect.call(Reflect.call(chest,"getStackInSlot/func_70301_a",0),"isEmpty/func_190926_b"),"starter relays cannot be reissued");Reflect.call(chest,"setInventorySlotContents/func_70299_a",0,Reflect.make("net.minecraft.item.ItemStack",Reflect.registry("ITEMS",ids[0]),amounts[0],0));
+        fullGroups.put("starter",JsonFiles.map("dimensions","7x7x5","receipt",runtime.campaign.starterState,"relayCount",6,"graceTicks",runtime.settings.bunkerGraceTicks));
+    }
+    private int fixtureY(int x,int z){load(x,z,1);int top=0;for(int dx:new int[]{-12,0,12})for(int dz:new int[]{-12,0,12})top=Math.max(top,Reflect.y(Reflect.call(world,"getTopSolidOrLiquidBlock/func_175672_r",Reflect.pos(x+dx,64,z+dz))));int y=Math.max(90,top+8);require(y<210,"bounded air fixture above ordinary terrain");return y;}
+    private void drain(Campaign.Zone zone){zone.complete=false;zone.scannedAt=runtime.campaign.activeTicks-runtime.settings.scanTicks;for(int n=0;n<4096;n++){runtime.world.scan();if(zone.scannedAt==runtime.campaign.activeTicks)break;}require(zone.complete&&zone.scannedAt==runtime.campaign.activeTicks,"bounded incremental inventory scan finishes: "+zone.scanError);}
+    private Object itemStack(String id,int meta){return Reflect.make("net.minecraft.item.ItemStack",Reflect.registry("ITEMS",id),1,meta);}
+    private Object enchantedBook(String id,int level){Object book=itemStack("minecraft:enchanted_book",0);Object enchantment=Reflect.registry("ENCHANTMENTS",id);Reflect.call(Reflect.type("net.minecraft.item.ItemEnchantedBook"),"addEnchantment/func_92115_a",book,Reflect.make("net.minecraft.enchantment.EnchantmentData",enchantment,level));return book;}
+    private void tools(){
+        Object flat=Reflect.get(Reflect.type("com.hbm.handler.ability.IToolAreaAbility"),"HAMMER_FLAT");int toolCount=0;
+        for(int tier=1;tier<=3;tier++)for(String kind:new String[]{"hammer_v","mining_gadget_v"}){String id="dead_earth:"+kind+tier;Object stack=itemStack(id,0),item=Reflect.call(stack,"getItem/func_77973_b");require(id.equals(String.valueOf(Reflect.call(item,"getRegistryName"))),"own HBM-backed tool registered "+id);dev.deadearth.legacy.gameplay.NativeTools.initialize(stack);Object cfg=HbmToolApi.configuration(item,stack);List<?> presets=(List<?>)Reflect.get(cfg,"presets");int current=((Number)Reflect.get(cfg,"currentPreset")).intValue();Object preset=presets.get(current);require(Reflect.get(preset,"areaAbility")==flat&&((Number)Reflect.get(preset,"areaAbilityLevel")).intValue()==tier-1,"native initial area preset "+(2*tier+1)+" by "+(2*tier+1));if(kind.startsWith("mining")){require(Reflect.is(item,"com.hbm.api.energymk2.IBatteryItem"),"native HBM battery interface "+id);long maximum=HbmToolApi.maximum(item,stack);require(maximum==dev.deadearth.legacy.gameplay.NativeTools.configuration().electricCapacity[tier-1],"native battery capacity "+id);HbmToolApi.setCharge(item,stack,0L);HbmToolApi.accept(item,stack,1024L);require(HbmToolApi.charge(item,stack)==1024L,"native charge method stores energy "+id);}toolCount++;}
+        for(String id:new String[]{"minecraft:efficiency","minecraft:fortune","minecraft:unbreaking"}){int cap=id.endsWith("efficiency")?10:5;Object left=itemStack("dead_earth:hammer_v3",0),right=enchantedBook(id,cap);Object event=Reflect.make("net.minecraftforge.event.AnvilUpdateEvent",left,right,"",0);Reflect.call(Reflect.get(Reflect.type("net.minecraftforge.common.MinecraftForge"),"EVENT_BUS"),"post",event);Object result=Reflect.call(event,"getOutput");require(!(Boolean)Reflect.call(result,"isEmpty/func_190926_b"),"native anvil event returns high book application "+id);Map<?,?> levels=(Map<?,?>)Reflect.call(Reflect.type("net.minecraft.enchantment.EnchantmentHelper"),"getEnchantments/func_82781_a",result);require(((Number)levels.get(Reflect.registry("ENCHANTMENTS",id))).intValue()==cap,"actual high native enchantment output "+id);require(((Number)Reflect.call(event,"getCost")).intValue()<=39&&((Number)Reflect.call(event,"getMaterialCost")).intValue()==1,"survival anvil cost and one book "+id);}
+        fullGroups.put("tools",JsonFiles.map("ownNativeTools",toolCount,"presetAreas",Arrays.asList(3,5,7),"nativeBatteries",3,"highAnvilEventOutputs",3,"anvilUiPickupTested",false));
+    }
+    private void ae2Valuation(){
+        Campaign.Zone zone=runtime.campaign.zones.get(0);drain(zone);long initial=zone.resourceEmc;Object drive=place(baseX+10,baseY,baseZ+4,"appliedenergistics2:drive");require(drive!=null,"physical native ME drive");
+        Object cellStack=itemStack("appliedenergistics2:storage_cell_1k",0),api=Reflect.call(Reflect.type("appeng.api.AEApi"),"instance"),storage=Reflect.call(api,"storage"),channel=Reflect.call(storage,"getStorageChannel",Reflect.type("appeng.api.storage.channels.IItemStorageChannel"));Object cells=Reflect.call(Reflect.call(api,"registries"),"cell"),handler=Reflect.call(cells,"getCellInventory",cellStack,null,channel);require(handler!=null,"native ME item cell inventory");Object nativeStack=Reflect.call(Reflect.type("appeng.util.item.AEItemStack"),"fromItemStack",itemStack("minecraft:iron_ingot",0));Reflect.call(nativeStack,"setStackSize",1234L);Object actionable=Reflect.get(Reflect.type("appeng.api.config.Actionable"),"MODULATE");require(Reflect.call(handler,"injectItems",nativeStack,actionable,null)==null,"native cell accepts long quantity");Reflect.call(Reflect.call(handler,"getCellInv"),"persist");Reflect.call(Reflect.call(drive,"getInternalInventory"),"setStackInSlot",0,cellStack);
+        InventoryValuation.Cursor cursor=InventoryValuation.open(drive,runtime.settings);long raw=0;int steps=0;while(!cursor.done()&&steps++<1024){cursor.verify();InventoryValuation.Entry entry=cursor.next();if(entry!=null&&entry.stack!=null&&entry.count>0&&Reflect.call(Reflect.call(entry.stack,"getItem/func_77973_b"),"getRegistryName").toString().equals("minecraft:iron_ingot"))raw+=entry.count;}require(cursor.done()&&raw==1234L,"incremental native ME cursor counts cell content exactly once");drain(zone);require(zone.resourceEmc==initial+1234L*runtime.settings.resourcePrices.get("minecraft:iron_ingot"),"physical ME drive contents belong to their relay zone");fullGroups.put("ae2",JsonFiles.map("physicalDrive",true,"storedIron",raw,"cursorSteps",steps,"zoneDelta",zone.resourceEmc-initial));
+    }
+    private void farming(){int x=baseX+40,z=baseZ+40,y=fixtureY(x,z);int tested=0;for(String seed:new String[]{"minecraft:wheat_seeds","mysticalagriculture:iron_seeds","xlfoodmod:corn_seeds"}){Object at=Reflect.pos(x+6+tested,y,z);dev.deadearth.legacy.farming.FarmingNativeChecks.nativeCrop(world,at,seed);dev.deadearth.legacy.farming.FarmingNativeChecks.persistedTray(world,at,player,seed);tested++;}fullGroups.put("farming",JsonFiles.map("nativeCropFamilies",tested,"actualHarvest",true,"saveReload",true,"outputOnlyAutomation",true));}
+    private void machinery()throws Exception{int x=baseX+40,z=baseZ+44,y=fixtureY(x,z);Object charger=place(x,y,z,"dead_earth:charger"),processor=place(x+2,y,z,"dead_earth:fortune_processor");fullGroups.put("machinery",dev.deadearth.legacyprobe.machinery.MachineryProbe.verify(charger,processor));}
+    private void climateClockAndPacket(){
+        long saved=runtime.campaign.activeTicks;Object provider=Reflect.call(world,"getChunkProvider/func_72863_F"),info=Reflect.call(world,"getWorldInfo/func_72912_H");int loaded=((Collection<?>)Reflect.call(provider,"getLoadedChunks/func_189548_a")).size();
+        try{runtime.campaign.activeTicks=runtime.settings.seasonTicks*2+1;dev.deadearth.legacy.climate.LegacyClimate.tick(runtime);require((Boolean)Reflect.call(info,"isRaining/func_76059_o"),"accelerated canonical winter drives native weather");require(runtime.settings.seasonMultiplier(runtime.campaign.activeTicks)==1.8,"winter native parasite multiplier1.8");runtime.campaign.activeTicks=runtime.settings.seasonTicks+1;dev.deadearth.legacy.climate.LegacyClimate.tick(runtime);require(!(Boolean)Reflect.call(info,"isRaining/func_76059_o"),"accelerated canonical summer clears native rain");require(runtime.settings.seasonMultiplier(runtime.campaign.activeTicks)==.5,"summer native parasite multiplier0.5");}finally{runtime.campaign.activeTicks=saved;dev.deadearth.legacy.climate.LegacyClimate.tick(runtime);}
+        require(((Collection<?>)Reflect.call(provider,"getLoadedChunks/func_189548_a")).size()==loaded,"production seasonal tick has no forced chunk loads");
+        Object packet=Reflect.make("dev.deadearth.legacy.climate.ClimatePacket");Reflect.set(packet,"season",2);Reflect.set(packet,"enabled",true);Reflect.set(packet,"particles",6);Reflect.set(packet,"radius",24);Reflect.set(packet,"height",12);Reflect.set(packet,"fog",.035f);Reflect.set(packet,"red",.6f);Reflect.set(packet,"green",.6f);Reflect.set(packet,"blue",.6f);Object bytes=Reflect.call(Reflect.type("io.netty.buffer.Unpooled"),"buffer");
+        try{Reflect.call(packet,"toBytes",bytes);require(((Number)Reflect.call(bytes,"readableBytes")).intValue()==21,"native climate presentation payload stays21bytes");Object decoded=Reflect.make("dev.deadearth.legacy.climate.ClimatePacket");Reflect.call(decoded,"fromBytes",bytes);require((Boolean)Reflect.get(decoded,"enabled")&&((Number)Reflect.get(decoded,"season")).intValue()==2&&((Number)Reflect.get(decoded,"particles")).intValue()==6,"native presentation packet round trip");Reflect.call(bytes,"clear");Reflect.set(packet,"fog",Float.NaN);Reflect.call(packet,"toBytes",bytes);Reflect.call(decoded,"fromBytes",bytes);require(!(Boolean)Reflect.get(decoded,"enabled"),"malformed presentation packet disables client effect snapshot");}finally{Reflect.call(bytes,"release");}
+        fullGroups.put("climateClockAndPackets",JsonFiles.map("acceleratedNativeWeather",true,"seasonMultipliers",Arrays.asList(.5,1.8),"nativeCodecBytes",21,"malformedPacketDisabled",true,"clientNetworkDeliveryTested",false,"clientVisualsTested",false));
+    }
+    private void recipeLog()throws Exception{int files=0;List<String> errors=new ArrayList<String>();for(String relative:new String[]{"crafttweaker.log","logs/crafttweaker.log"}){Path path=Paths.get(relative);if(!Files.isRegularFile(path))continue;files++;require(Files.size(path)<=16*1024*1024,"bounded CraftTweaker diagnostic log");for(String line:Files.readAllLines(path,StandardCharsets.UTF_8))if(line.matches("(?i).*(\\[(?:CT )?ERROR(?:\\]|[ :])|Error executing|Could not resolve item|Cannot cast).*")){if(errors.size()<20)errors.add(line.substring(0,Math.min(line.length(),600)));}}require(files>0,"native CraftTweaker log present");require(errors.isEmpty(),"native scripts have no recipe/compiler errors: "+errors);fullGroups.put("recipes",JsonFiles.map("nativeLogFiles",files,"errors",errors));}
+    private void runFull(String name,Checked action){int before=checks.size();run(name,action);fullAssertionCount+=checks.size()-before;fullGroupCount++;}
 
     private Object entity(String id) {
         Object value=Reflect.call(Reflect.type("net.minecraft.entity.EntityList"),"createEntityByIDFromName/func_188429_b",Reflect.make("net.minecraft.util.ResourceLocation",id),world);

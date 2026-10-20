@@ -1,4 +1,4 @@
-"""Run the SRP core-port native probe in a brand-new, isolated Forge 1.12.2 server.
+"""Run the complete SRP 1.0.0 native probe in a brand-new, isolated Forge 1.12.2 server.
 
 Call only during the final verification pass, after compiling the complete port.
 No existing world, live server, or launcher profile is modified.
@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime, timezone
 import json
 import os
+import re
 from pathlib import Path, PurePosixPath
 import shutil
 import socket
@@ -82,14 +83,21 @@ def prepare(fixture, preferred_port):
     shutil.copy2(fixture / MINECRAFT_JAR, target / MINECRAFT_JAR)
     shutil.copytree(fixture / 'libraries', target / 'libraries')
     write_overlay(target)
+    full = legacy_port.full_pins(ROOT)
+    expected = [row for row in full if row['side'] in {'server', 'both'}]
+    (target / 'full-native-expected-mods.json').write_text(json.dumps({
+        'schema': 1, 'product_version': legacy_port.VERSION, 'full_lock_count': len(full),
+        'server_mods': [{'mod_id': row['mod_id'], 'filename': row['filename'],
+                         'version': row['version'], 'sha256': row['sha256']} for row in expected],
+        'client_only': [row['mod_id'] for row in full if row['side'] == 'client'],
+    }, indent=2) + '\n', encoding='utf-8')
     port = free_test_port(preferred_port)
     properties = {
         'server-ip': '127.0.0.1', 'server-port': port,
         'online-mode': 'true', 'enable-rcon': 'false', 'enable-query': 'false',
         'broadcast-rcon-to-ops': 'false', 'view-distance': 3, 'max-players': 2,
-        'level-name': 'probe_world', 'level-type': 'FLAT',
-        'generator-settings': '3;minecraft:bedrock,2*minecraft:dirt,minecraft:grass;1;',
-        'generate-structures': 'false', 'allow-nether': 'false',
+        'level-name': 'probe_world', 'level-type': 'DEFAULT', 'level-seed': '4857102026',
+        'generator-settings': '', 'generate-structures': 'true', 'allow-nether': 'false',
         'spawn-protection': 0, 'spawn-animals': 'false', 'spawn-monsters': 'false',
         'difficulty': 2, 'gamemode': 0, 'allow-flight': 'true',
         'max-tick-time': 60000, 'motd': 'DEAD EARTH SRP isolated native verification',
@@ -108,32 +116,41 @@ def compile_probe(target, javac):
     compiler = javac.resolve(strict=True)
     if not compiler.is_file():
         raise ValueError('--javac must name a JDK 9+ compiler executable supporting --release 8')
-    source = ROOT / 'legacy/coordinator/src/integration/java/dev/deadearth/legacyprobe/PortProbe.java'
-    if not source.is_file():
-        raise ValueError('Native PortProbe source is missing')
+    sources = sorted((ROOT / 'legacy/coordinator/src/integration/java').rglob('*.java'))
+    sources += [ROOT / 'legacy/coordinator/src/test/java/dev/deadearth/legacy/farming/FarmingNativeChecks.java']
+    if any(not source.is_file() for source in sources) or not sources:
+        raise ValueError('Full native probe source is missing')
     generated = target / 'probe-source/com/dhanantry/scapeandrunparasites/legacyprobe/NativeWriter.java'
     generated.parent.mkdir(parents=True)
     generated.write_text(NATIVE_WRITER, encoding='utf-8')
     classes = target / 'probe-classes'; classes.mkdir()
+    # Named Minecraft signatures are compile-only. Never ship these stubs in the test JAR.
+    stubs = sorted((ROOT / 'legacy/coordinator/compile-only-stubs').rglob('*.java'))
     cp = os.pathsep.join(str(path) for path in [own_jar, *legacy_port.forge_classpath(target)])
     arguments = ['--release', '8', '-encoding', 'UTF-8', '-proc:none', '-classpath', cp,
-                 '-d', classes, source, generated]
+                 '-d', classes, *sources, generated, *stubs]
     response = target / 'javac-probe.args'; legacy_port.argfile(response, arguments)
     command = [str(compiler), '-J-Dfile.encoding=UTF-8', '@' + str(response)]
-    print('Compiling isolated probe: ' + subprocess.list2cmdline(command), flush=True)
-    subprocess.run(command, cwd=target, check=True, timeout=60, creationflags=HIDDEN)
+    print('Compiling isolated full probe: ' + subprocess.list2cmdline(command), flush=True)
+    subprocess.run(command, cwd=target, check=True, timeout=90, creationflags=HIDDEN)
     jar = target / 'mods/deadearth-port-probe.jar'
     with zipfile.ZipFile(jar, 'w', zipfile.ZIP_DEFLATED) as archive:
         for path in sorted(classes.rglob('*.class')):
-            archive.write(path, path.relative_to(classes).as_posix())
+            name = path.relative_to(classes).as_posix()
+            if (name.startswith('dev/deadearth/legacyprobe/')
+                    or name.startswith('dev/deadearth/legacy/climate/ClimateNativeChecks')
+                    or name.startswith('dev/deadearth/legacy/farming/FarmingNativeChecks')
+                    or name.startswith('com/dhanantry/scapeandrunparasites/')):
+                archive.write(path, name)
         archive.writestr('mcmod.info', json.dumps([{
-            'modid': 'deadearth_port_probe', 'name': 'DEAD EARTH SRP Native Port Probe',
-            'version': '0.2.0', 'mcversion': '1.12.2', 'clientSideOnly': False,
+            'modid': 'deadearth_port_probe', 'name': 'DEAD EARTH SRP Full Native Probe',
+            'version': legacy_port.VERSION, 'mcversion': '1.12.2', 'clientSideOnly': False,
             'serverSideOnly': True, 'description': 'Isolated verification fixture; never ship.',
         }]))
     (target / 'probe-build.json').write_text(json.dumps({
         'schema': 1, 'command': command, 'coordinator': str(own_jar),
-        'test_fixture_only': True, 'sources': [str(source), str(generated)],
+        'test_fixture_only': True, 'sources': [str(source) for source in sources] + [str(generated)],
+        'compile_only_stub_count': len(stubs), 'java_tests_executed': False,
     }, indent=2) + '\n', encoding='utf-8')
 
 
@@ -308,6 +325,21 @@ def bridge_native_checks(target):
     return result
 
 
+def recipe_errors(target):
+    result = []
+    for relative in ('crafttweaker.log', 'logs/crafttweaker.log'):
+        path = target / relative
+        if not path.is_file():
+            continue
+        if path.stat().st_size > 16 * 1024 * 1024:
+            result.append({'file': relative, 'error': 'oversize CraftTweaker log'})
+            continue
+        for line in path.read_text(encoding='utf-8', errors='replace').splitlines():
+            if re.search(r'\[(?:CT )?ERROR(?:\]|[ :])|Error executing|Could not resolve item|Cannot cast', line, re.I):
+                result.append({'file': relative, 'error': line[:600]})
+    return result
+
+
 def run_server(target, java, timeout, memory_mb):
     report = target / 'port-probe.json'
     log = target / 'native-server.log'
@@ -334,10 +366,24 @@ def run_server(target, java, timeout, memory_mb):
                 if native.get('passed') is True:
                     print('Native probe passed; checking real bridge/director/admin with a fixed selector.', flush=True)
                     bridge_result = bridge_native_checks(target)
+                    if bridge_result.get('passed'):
+                        (target / 'create-restart-sentinels.request').write_text('Create physical sentinels on the owning isolated server thread.\n', encoding='ascii')
+                        deadline = time.monotonic()+20
+                        sentinels = target / 'restart-sentinels-created.json'
+                        while process.poll() is None and not sentinels.is_file() and time.monotonic()<deadline:time.sleep(.1)
+                        sentinel_result = json.loads(sentinels.read_text(encoding='utf-8')) if sentinels.is_file() else {'passed':False,'error':'Sentinel preparation timeout'}
+                        bridge_result['restart_sentinels'] = sentinel_result
+                        bridge_result['passed'] = bridge_result.get('passed') is True and sentinel_result.get('passed') is True
         finally:
             exit_code = stop_with_save(process)
+    script_errors = recipe_errors(target)
+    manifest = json.loads((target / 'full-native-expected-mods.json').read_text(encoding='utf-8'))
     result = {
-        'schema': 1, 'server_directory': str(target), 'log': str(log),
+        'schema': 2, 'product_version': legacy_port.VERSION, 'scope': 'full_fork_server_normal_terrain',
+        'full_lock_count': manifest['full_lock_count'], 'server_native_pin_count': len(manifest['server_mods']),
+        'client_only_not_installed': manifest['client_only'], 'recipe_errors': script_errors[:20],
+        'recipe_error_count': len(script_errors), 'real_ai_inference_tested': False,
+        'client_visuals_tested': False, 'server_directory': str(target), 'log': str(log),
         'report': str(report), 'elapsed_seconds': round(time.monotonic() - started, 2),
         'exit_code': exit_code, 'timed_out': timed_out, 'passed': False,
         'bridge_report': str(target / 'bridge-native-checks.json'),
@@ -346,8 +392,10 @@ def run_server(target, java, timeout, memory_mb):
     if report.is_file():
         probe = json.loads(report.read_text(encoding='utf-8'))
         result.update(passed=probe.get('passed') is True and exit_code == 0 and not timed_out
-                      and bridge_result is not None and bridge_result.get('passed') is True,
+                      and bridge_result is not None and bridge_result.get('passed') is True and not script_errors,
                       assertion_count=len(probe.get('checks', [])),
+                      baseline_assertion_count=probe.get('baselineAssertionCount'),
+                      full_group_count=probe.get('fullGroupCount'), full_groups=probe.get('fullGroups', {}),
                       failures=[item for item in probe.get('checks', []) if item.get('passed') is not True])
     else:
         result['error'] = 'Native probe report missing' + (' after startup timeout' if timed_out else '')
@@ -364,16 +412,21 @@ def main(argv=None):
     parser.add_argument('--javac', type=Path, required=True, help='JDK 9+ javac executable (--release 8)')
     parser.add_argument('--java8', type=Path, help='Java 8 executable/JRE; otherwise use the own-folder supervisor discovery')
     parser.add_argument('--port', type=int, choices=(25585, 25587), default=25585)
-    parser.add_argument('--timeout', type=int, default=180, help='Bounded server startup/report deadline, 30..180 seconds')
+    parser.add_argument('--timeout', type=int, default=300, help='Bounded full-server startup/report deadline, 30..300 seconds')
+    parser.add_argument('--compile-only', action='store_true', help='Prepare and compile the isolated full probe without launching Java/Minecraft')
     parser.add_argument('--memory-mb', type=int, default=4096)
     args = parser.parse_args(argv)
-    if not 30 <= args.timeout <= 180 or not 1024 <= args.memory_mb <= 6144:
-        parser.error('Use timeout 30..180 seconds and memory 1024..6144 MiB')
+    if not 30 <= args.timeout <= 300 or not 1024 <= args.memory_mb <= 6144:
+        parser.error('Use timeout 30..300 seconds and memory 1024..6144 MiB')
     try:
-        java = legacy_server.find_java8(args.java8)
         target, port = prepare(args.fixture, args.port)
         print('Test binding configuration: 127.0.0.1:' + str(port), flush=True)
         compile_probe(target, args.javac)
+        if args.compile_only:
+            print(json.dumps({'state': 'compiled_not_run', 'passed': None, 'server_directory': str(target),
+                              'product_version': legacy_port.VERSION, 'tests_executed': False}, indent=2), flush=True)
+            return 0
+        java = legacy_server.find_java8(args.java8)
         return run_server(target, java, args.timeout, args.memory_mb)
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as failed:
         print('Native verification failed: ' + str(failed), file=sys.stderr, flush=True)

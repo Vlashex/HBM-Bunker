@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "hostileDamage": 100,
+  "cooldownTicks": 20,
+  "explosionDamagePerPower": 250,
+  "maximumDamagedBlocks": 32768,
+  "hostileAnchorsPerTick": 64,
+  "maximumPendingAttacks": 2048
+}

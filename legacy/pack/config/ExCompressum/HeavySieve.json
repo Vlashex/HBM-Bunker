@@ -1,0 +1,82 @@
+{
+  "options": {
+    "loss for default generated rewards (out of 9)": 0
+  },
+  "defaults": {},
+  "custom": {
+    "entries": [
+      {
+        "name": "dead_earth:compressed_red_sand_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:sand",
+        "sourceMetadata": "1",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_crushed_diorite_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "exnihilocreatio:block_diorite_crushed",
+        "sourceMetadata": "0",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_skystone_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "exnihilocreatio:block_skystone_crushed",
+        "sourceMetadata": "0",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_oak_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves",
+        "sourceMetadata": "0",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_spruce_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves",
+        "sourceMetadata": "1",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_birch_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves",
+        "sourceMetadata": "2",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_jungle_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves",
+        "sourceMetadata": "3",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_acacia_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves2",
+        "sourceMetadata": "0",
+        "sourceCount": 9
+      },
+      {
+        "name": "dead_earth:compressed_dark_oak_leaves_1",
+        "metadata": "0",
+        "type": "generate",
+        "sourceName": "minecraft:leaves2",
+        "sourceMetadata": "1",
+        "sourceCount": 9
+      }
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "passed": true,
+  "kind": "two_real_interactive_client_joins",
+  "recorded_at": "2026-10-20T07:27:30.843684+00:00",
+  "usernames": [
+    "Vlashex",
+    "DeadEarthTwo"
+  ],
+  "both_joined_new_server_world": true,
+  "observed_after_join": "First client remains on dedicated server; second user-controlled client opened singleplayer New World and was left untouched.",
+  "server_address": "127.0.0.1:25587",
+  "world": "world-wasteland",
+  "separate_campaign_and_epoch": true,
+  "previous_world_preserved": true,
+  "singleplayer_saves_preserved": true,
+  "admin_http_status": 200,
+  "cpu_model_ready": true,
+  "performance_tests": false,
+  "coordinator_sha256": "5199e519f971d55eded1dee1ad735ed5afa7050a686bdd07ace441b0b1405c2f",
+  "texture_reference_models_checked": 86,
+  "missing_texture_references": 0,
+  "human_visual_acceptance_recorded": false
+}

@@ -1,0 +1,496 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "name": "manual_sieve",
+      "output": "exnihilocreatio:block_sieve",
+      "count": 1,
+      "pattern": [
+        "P P",
+        "ISI",
+        "W W"
+      ],
+      "key": {
+        "P": "ore:plankWood",
+        "I": "hbm:plate_iron",
+        "S": "ore:stickWood",
+        "W": "ore:stickWood"
+      }
+    },
+    {
+      "name": "auto_sieve",
+      "output": "excompressum:auto_sieve",
+      "count": 1,
+      "pattern": [
+        "IGI",
+        "CSC",
+        "IRI"
+      ],
+      "key": {
+        "I": "hbm:plate_iron",
+        "G": "minecraft:glass",
+        "C": "minecraft:glass_pane",
+        "S": "exnihilocreatio:block_sieve",
+        "R": "hbm:circuit:7"
+      }
+    },
+    {
+      "name": "auto_hammer",
+      "output": "excompressum:auto_hammer",
+      "count": 1,
+      "pattern": [
+        "IPI",
+        "RHC",
+        "IPI"
+      ],
+      "key": {
+        "I": "hbm:plate_iron",
+        "P": "minecraft:piston",
+        "R": "minecraft:redstone",
+        "H": "exnihilocreatio:hammer_iron",
+        "C": "hbm:circuit:7"
+      }
+    },
+    {
+      "name": "rf_frame",
+      "output": "rftools:machine_frame",
+      "count": 1,
+      "pattern": [
+        "IGI",
+        "GRG",
+        "IGI"
+      ],
+      "key": {
+        "I": "hbm:plate_iron",
+        "G": "minecraft:glass_pane",
+        "R": "minecraft:redstone"
+      }
+    },
+    {
+      "name": "simple_rf_crafter",
+      "output": "rftools:crafter1",
+      "count": 1,
+      "pattern": [
+        " R ",
+        "TMT",
+        " C "
+      ],
+      "key": {
+        "R": "minecraft:redstone",
+        "T": "minecraft:crafting_table",
+        "M": "rftools:machine_frame",
+        "C": "hbm:circuit:7"
+      }
+    },
+    {
+      "name": "ae_inscriber",
+      "output": "appliedenergistics2:inscriber",
+      "count": 1,
+      "pattern": [
+        "SPS",
+        "RCR",
+        "SPS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "P": "minecraft:piston",
+        "R": "minecraft:redstone",
+        "C": "hbm:circuit:8"
+      }
+    },
+    {
+      "name": "ae_calculation_press",
+      "output": "appliedenergistics2:material:13",
+      "count": 1,
+      "pattern": [
+        " S ",
+        " C ",
+        " S "
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "C": "appliedenergistics2:material:0"
+      }
+    },
+    {
+      "name": "ae_engineering_press",
+      "output": "appliedenergistics2:material:14",
+      "count": 1,
+      "pattern": [
+        " S ",
+        " C ",
+        " S "
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "C": "minecraft:diamond"
+      }
+    },
+    {
+      "name": "ae_logic_press",
+      "output": "appliedenergistics2:material:15",
+      "count": 1,
+      "pattern": [
+        " S ",
+        " C ",
+        " S "
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "C": "minecraft:gold_ingot"
+      }
+    },
+    {
+      "name": "ae_silicon_press",
+      "output": "appliedenergistics2:material:19",
+      "count": 1,
+      "pattern": [
+        " S ",
+        " C ",
+        " S "
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "C": "hbm:ingot_silicon"
+      }
+    },
+    {
+      "name": "me_crafting_unit",
+      "output": "appliedenergistics2:crafting_unit",
+      "count": 1,
+      "pattern": [
+        "SLS",
+        "FCF",
+        "SLS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "L": "appliedenergistics2:material:22",
+        "F": "appliedenergistics2:material:7",
+        "C": "hbm:circuit:9"
+      }
+    },
+    {
+      "name": "me_molecular_assembler",
+      "output": "appliedenergistics2:molecular_assembler",
+      "count": 1,
+      "pattern": [
+        "SGS",
+        "ATF",
+        "SGS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "G": "appliedenergistics2:quartz_glass",
+        "A": "appliedenergistics2:material:44",
+        "T": "minecraft:crafting_table",
+        "F": "appliedenergistics2:material:43"
+      }
+    },
+    {
+      "name": "me_energy_acceptor",
+      "output": "appliedenergistics2:energy_acceptor",
+      "count": 1,
+      "pattern": [
+        "IFI",
+        "GCG",
+        "IFI"
+      ],
+      "key": {
+        "I": "hbm:plate_iron",
+        "F": "appliedenergistics2:material:7",
+        "G": "appliedenergistics2:quartz_glass",
+        "C": "hbm:circuit:8"
+      }
+    },
+    {
+      "name": "me_controller",
+      "output": "appliedenergistics2:controller",
+      "count": 1,
+      "pattern": [
+        "TFT",
+        "FCF",
+        "TFT"
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "F": "appliedenergistics2:material:12",
+        "C": "hbm:circuit:9"
+      }
+    },
+    {
+      "name": "me_blank_pattern",
+      "output": "appliedenergistics2:material:52",
+      "count": 1,
+      "pattern": [
+        "GQG",
+        "QCQ",
+        "GQG"
+      ],
+      "key": {
+        "G": "minecraft:gold_ingot",
+        "Q": "appliedenergistics2:quartz_glass",
+        "C": "hbm:circuit:8"
+      }
+    }
+  ],
+  "books": [
+    {
+      "name": "efficiency_10",
+      "enchantment": 32,
+      "level": 10,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_dura_steel",
+        "B": {
+          "enchantment": 32,
+          "level": 9
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_4",
+      "enchantment": 32,
+      "level": 4,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_steel",
+        "B": "minecraft:book",
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_5",
+      "enchantment": 32,
+      "level": 5,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_steel",
+        "B": {
+          "enchantment": 32,
+          "level": 4
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_6",
+      "enchantment": 32,
+      "level": 6,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_titanium",
+        "B": {
+          "enchantment": 32,
+          "level": 5
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_7",
+      "enchantment": 32,
+      "level": 7,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_titanium",
+        "B": {
+          "enchantment": 32,
+          "level": 6
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_8",
+      "enchantment": 32,
+      "level": 8,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_dura_steel",
+        "B": {
+          "enchantment": 32,
+          "level": 7
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "efficiency_9",
+      "enchantment": 32,
+      "level": 9,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_dura_steel",
+        "B": {
+          "enchantment": 32,
+          "level": 8
+        },
+        "K": "minecraft:redstone_block"
+      }
+    },
+    {
+      "name": "fortune_3",
+      "enchantment": 35,
+      "level": 3,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_steel",
+        "B": "minecraft:book",
+        "K": "minecraft:diamond"
+      }
+    },
+    {
+      "name": "fortune_4",
+      "enchantment": 35,
+      "level": 4,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_titanium",
+        "B": {
+          "enchantment": 35,
+          "level": 3
+        },
+        "K": "minecraft:diamond"
+      }
+    },
+    {
+      "name": "fortune_5",
+      "enchantment": 35,
+      "level": 5,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_dura_steel",
+        "B": {
+          "enchantment": 35,
+          "level": 4
+        },
+        "K": "minecraft:diamond"
+      }
+    },
+    {
+      "name": "silk_touch_1",
+      "enchantment": 33,
+      "level": 1,
+      "pattern": [
+        " L ",
+        "PBP",
+        " S "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_steel",
+        "B": "minecraft:book",
+        "S": "minecraft:slime_ball"
+      }
+    },
+    {
+      "name": "unbreaking_3",
+      "enchantment": 34,
+      "level": 3,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_steel",
+        "B": "minecraft:book",
+        "K": "minecraft:obsidian"
+      }
+    },
+    {
+      "name": "unbreaking_4",
+      "enchantment": 34,
+      "level": 4,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_titanium",
+        "B": {
+          "enchantment": 34,
+          "level": 3
+        },
+        "K": "minecraft:obsidian"
+      }
+    },
+    {
+      "name": "unbreaking_5",
+      "enchantment": 34,
+      "level": 5,
+      "pattern": [
+        " L ",
+        "PBP",
+        " K "
+      ],
+      "key": {
+        "L": "minecraft:lapis_block",
+        "P": "hbm:plate_dura_steel",
+        "B": {
+          "enchantment": 34,
+          "level": 4
+        },
+        "K": "minecraft:obsidian"
+      }
+    }
+  ],
+  "removeRecipeRegex": [
+    "(?i)mysticalagriculture:.*steel.*"
+  ]
+}

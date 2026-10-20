@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "capacityFE": 200000,
+  "maxReceiveFE": 4000,
+  "chargerFEPerTick": 2000,
+  "hePerFE": 1.0,
+  "fortuneLevel": 5,
+  "processorFEPerCycle": 4000,
+  "processorCycleTicks": 40
+}

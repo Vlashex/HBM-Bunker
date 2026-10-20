@@ -1,4 +1,4 @@
-"""Reproducible Minecraft 1.12.2 / Forge 2860 core-port builder (Python 3.11+)."""
+"""Reproducible Minecraft 1.12.2 / Forge 2860 full-fork builder (Python 3.11+)."""
 import argparse
 import hashlib
 import json
@@ -17,7 +17,7 @@ except ImportError:
     import legacy_storage as storage
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '0.2.0'
+VERSION = '1.0.0'
 PACK_NAME = 'DEAD-EARTH-SRP-' + VERSION
 MOD_NAME = 'dead-earth-srp-coordinator-' + VERSION + '.jar'
 FORGE = '1.12.2-14.23.5.2860'
@@ -49,12 +49,50 @@ def combat_pins(root=ROOT):
     return rows
 
 
+def full_pins(root=ROOT):
+    rows = storage.load(root / 'legacy/metadata/full.mods.lock.json')
+    base = {row['mod_id']: row for row in combat_pins(root)}
+    ids, names = set(), set()
+    for row in rows:
+        name = row.get('filename', '')
+        if (Path(name).name != name or any(c in name for c in '/\\:') or not name.endswith('.jar')
+                or name.casefold() in names or row.get('mod_id') in ids):
+            raise ValueError('Unsafe/duplicate full-fork pin: ' + name)
+        if (row.get('minecraft') != '1.12.2' or row.get('loader') != 'forge'
+                or row.get('side') not in {'client','server','both'}
+                or type(row.get('size')) is not int or row['size'] <= 0
+                or not re.fullmatch('[0-9a-f]{64}', row.get('sha256',''))
+                or not row.get('url','').startswith('https://')):
+            raise ValueError('Invalid full-fork pin: ' + name)
+        if row.get('mod_id') in {'overgrown_vegetation','mutationcraft','securitycraft','tconstruct'}:
+            raise ValueError('Excluded full-fork content')
+        if row.get('mod_id') in base and row != base[row['mod_id']]:
+            raise ValueError('Base combat pin changed: ' + name)
+        ids.add(row['mod_id']); names.add(name.casefold())
+    required = set(base) | {'appliedenergistics2','mysticalagriculture','cucumber','projecte','rftools',
+        'rftoolspower','mcjtylib_ng','xnet','exnihilocreatio','excompressum','forgelin',
+        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling'}
+    if ids != required: raise ValueError('Unexpected full-fork composition: ' + str(ids ^ required))
+    return rows
+
+
+def checked_mod(path, row):
+    data = path.read_bytes()
+    if len(data) != row['size'] or hashlib.sha256(data).hexdigest() != row['sha256']:
+        raise ValueError('Full-fork pin mismatch: ' + row['filename'])
+    import io
+    with zipfile.ZipFile(io.BytesIO(data)) as jar:
+        if jar.testzip() is not None or not any(n.endswith('.class') for n in jar.namelist()):
+            raise ValueError('Invalid native mod JAR: ' + row['filename'])
+    return data
+
+
 def fetch(root=ROOT):
     cache = root / '.cache/legacy'; cache.mkdir(parents=True, exist_ok=True)
-    for row in combat_pins(root):
+    for row in full_pins(root):
         target = cache / row['filename']
         if not target.exists():
-            request = urllib.request.Request(row['url'], headers={'User-Agent': 'DeadEarthSrpCorePort/' + VERSION})
+            request = urllib.request.Request(row['url'], headers={'User-Agent': 'DeadEarthSrpFullFork/' + VERSION})
             temp = target.with_suffix('.download')
             try:
                 with urllib.request.urlopen(request, timeout=120) as response:
@@ -64,12 +102,12 @@ def fetch(root=ROOT):
                             part = response.read(min(1048576, remaining))
                             if not part: break
                             output.write(part); remaining -= len(part)
-                storage.checked_bytes(temp, row)
+                checked_mod(temp, row)
                 temp.replace(target)
             finally:
                 temp.unlink(missing_ok=True)
-        storage.checked_bytes(target, row)
-    print('Pinned combat downloads ready; storage lock unchanged.')
+        checked_mod(target, row)
+    print('Pinned full-fork downloads ready; base combat/storage locks unchanged.')
 
 
 def files(base):
@@ -156,7 +194,7 @@ def compile_coordinator(javac, forge_dir, tests=False, root=ROOT):
     entries['META-INF/MANIFEST.MF'] = ("Manifest-Version: 1.0\r\n"
         "FMLCorePlugin: dev.deadearth.legacy.core.LegacyCore\r\n"
         "FMLCorePluginContainsFMLMod: true\r\n"
-        "Implementation-Title: DEAD EARTH SRP Core Port\r\n"
+        "Implementation-Title: DEAD EARTH SRP\r\n"
         "Implementation-Version: " + VERSION + "\r\n\r\n").encode('ascii')
     if source_hash(root) != before:
         raise ValueError('Sources changed during compilation; repeat the complete compile step')
@@ -196,7 +234,7 @@ def compiled_jar(root=ROOT):
 
 
 def relay_script():
-    return ('// DEAD EARTH SRP core port: cheap physical zone anchor.\n'
+    return ('// DEAD EARTH SRP: cheap physical zone anchor.\n'
             'recipes.remove(<dead_earth:zone_relay>);\n'
             'recipes.addShaped("dead_earth_zone_relay", <dead_earth:zone_relay>, '
             '[[null, <minecraft:redstone>, null], [<ore:plankWood>, <hbm:plate_iron>, <ore:plankWood>], '
@@ -209,18 +247,20 @@ def entries(side, root=ROOT):
     prefix = '.minecraft/' if side == 'client' else ''
     for name in list(result):
         if name.startswith(prefix + 'mods/'): del result[name]
-    for row in combat_pins(root):
+    for row in full_pins(root):
         if row['side'] in {'both', side}:
-            result[prefix + 'mods/' + row['filename']] = storage.checked_bytes(root / '.cache/legacy' / row['filename'], row)
+            result[prefix + 'mods/' + row['filename']] = checked_mod(root / '.cache/legacy' / row['filename'], row)
     result[prefix + 'mods/' + MOD_NAME] = compiled_jar(root)
     for path in files(root / 'legacy/pack'):
         result[prefix + path.relative_to(root / 'legacy/pack').as_posix()] = path.read_bytes()
     result[prefix + 'scripts/dead_earth_zone_relay.zs'] = relay_script()
     result['README-PORT.md'] = (root / 'legacy/README-PORT.md').read_bytes()
     result['combat.mods.lock.json'] = (root / 'legacy/metadata/combat.mods.lock.json').read_bytes()
+    result['full.mods.lock.json'] = (root / 'legacy/metadata/full.mods.lock.json').read_bytes()
+    result['mod-map.json'] = (root / 'legacy/metadata/mod-map.json').read_bytes()
     if side == 'client':
         result['instance.cfg'] = ('[General]\nInstanceType=OneSix\n'
-            'name=DEAD EARTH SRP 0.2.0 - Core Port (1.12.2)\nOverrideMemory=true\n'
+            'name=DEAD EARTH SRP 1.0.0 (1.12.2)\nOverrideMemory=true\n'
             'MinMemAlloc=1024\nMaxMemAlloc=4096\n').encode('utf-8')
     else:
         for path in files(root / 'director/dead_earth_director'):
@@ -230,11 +270,14 @@ def entries(side, root=ROOT):
             result['director/dead_earth_director/' + relative.as_posix()] = path.read_bytes()
         for name in ('director.example.toml', 'models.lock.json', 'README.md', 'requirements.in', 'requirements-windows-py312.lock'):
             result['director/' + name] = (root / 'director' / name).read_bytes()
-        for name in ('START-SERVER.bat', 'STOP-SERVER.bat'):
+        for name in ('model.ps1', 'docker-backend.ps1'):
+            result['director/' + name] = (root / 'director' / name).read_bytes()
+        result['director/docker/compose.cpu.yaml'] = (root / 'director/docker/compose.cpu.yaml').read_bytes()
+        for name in ('START-SERVER.bat', 'STOP-SERVER.bat', 'SETUP-AI.bat'):
             result[name] = (root / 'legacy' / name).read_bytes()
         result['tools/legacy_server.py'] = (root / 'tools/legacy_server.py').read_bytes()
         result['legacy-port.json'] = json.dumps({'schema': 1, 'pack': 'DEAD-EARTH-SRP',
-            'version': VERSION, 'runtime': 'forge-' + FORGE, 'kind': 'core-port'}, indent=2).encode('utf-8')
+            'version': VERSION, 'runtime': 'forge-' + FORGE, 'kind': 'full-fork'}, indent=2).encode('utf-8')
         result['server.properties.example'] = ("# Copy to server.properties and review before launch.\n"
             "server-ip=127.0.0.1\nserver-port=25587\nlevel-name=world\n"
             "enable-rcon=false\nrcon.port=25588\nrcon.password=\n"
@@ -245,7 +288,7 @@ def entries(side, root=ROOT):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     actions = parser.add_subparsers(dest='action', required=True)
-    actions.add_parser('fetch', help='Download and verify the exact combat lock')
+    actions.add_parser('fetch', help='Download and verify the exact full-fork lock')
     compiler = actions.add_parser('compile', help='Compile current Java sources; never launch a server')
     compiler.add_argument('--javac', required=True, type=Path, help='Explicit JDK 9+ javac executable supporting --release 8')
     compiler.add_argument('--forge-dir', required=True, type=Path, help='Existing Forge 2860 dedicated-server installation')
@@ -261,6 +304,21 @@ def main(argv=None):
                 output = ROOT / 'dist' / (PACK_NAME + '-' + suffix + '.zip')
                 output.parent.mkdir(parents=True, exist_ok=True); output.write_bytes(data)
                 print(str(output) + '  sha256=' + hashlib.sha256(data).hexdigest())
+                if side == 'client':
+                    client = entries(side)
+                    overlay = {name[len('.minecraft/'):]: value for name,value in client.items() if name.startswith('.minecraft/')}
+                    overlay['README-PORT.md'] = client['README-PORT.md']
+                    overlay['README-TLAUNCHER.txt'] = (ROOT / 'legacy/README-TLAUNCHER.txt').read_bytes()
+                    overlay['INSTALL-FORGE.bat'] = (ROOT / 'legacy/INSTALL-FORGE.bat').read_bytes()
+                    installer = ROOT / '.cache/legacy/forge-1.12.2-14.23.5.2860-installer.jar'
+                    installer_pin = storage.load(ROOT / 'legacy/metadata/runtime.json')['installer']
+                    installer_bytes = installer.read_bytes()
+                    if len(installer_bytes) != installer_pin['size'] or hashlib.sha256(installer_bytes).hexdigest() != installer_pin['sha256']:
+                        raise ValueError('Forge installer pin mismatch')
+                    overlay[installer.name] = installer_bytes
+                    tl = ROOT / 'dist' / (PACK_NAME + '-TLauncher.zip')
+                    tl.write_bytes(storage.zip_bytes(overlay)); print(str(tl) + '  sha256=' + hashlib.sha256(tl.read_bytes()).hexdigest())
+
         return 0
     except (OSError, ValueError, KeyError, zipfile.BadZipFile, subprocess.CalledProcessError) as error:
         print('Legacy port: ' + str(error), file=sys.stderr); return 2

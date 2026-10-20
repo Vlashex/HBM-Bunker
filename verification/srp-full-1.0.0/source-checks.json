@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "passed": true,
+  "python_root": {
+    "tests": 47,
+    "passed": true,
+    "source": "work/full-python-sieving-final.log"
+  },
+  "python_director": {
+    "tests": 154,
+    "passed": true,
+    "source": "work/full-director-tests.log"
+  },
+  "java8": {
+    "groups": [
+      {
+        "group": "kernel.KernelChecks",
+        "exit_code": 0,
+        "result": "KernelChecks: 170 checks passed"
+      },
+      {
+        "group": "RulesChecks",
+        "exit_code": 0,
+        "result": "RulesChecks: 18 checks passed"
+      },
+      {
+        "group": "ReflectChecks",
+        "exit_code": 0,
+        "result": "ReflectChecks passed: SRG precedence, overload identity and1000 cache hits"
+      },
+      {
+        "group": "worldgen.WastelandChecks",
+        "exit_code": 0,
+        "result": "WastelandChecks: 349691 checks passed"
+      },
+      {
+        "group": "climate.ClimateChecks",
+        "exit_code": 0,
+        "result": "ClimateChecks: 789 checks passed"
+      },
+      {
+        "group": "farming.FarmingChecks",
+        "exit_code": 0,
+        "result": "FarmingChecks: 8 checks passed"
+      },
+      {
+        "group": "defense.DefenseChecks",
+        "exit_code": 0,
+        "result": "Defense HP/cooldown/reload/finite bounds assertions passed."
+      }
+    ],
+    "group_count": 7,
+    "passed": true,
+    "source": "work/full-java-tests-final.log"
+  },
+  "latest_worldgen_kernel": {
+    "recorded_assertions": 349699,
+    "passed": true,
+    "source": "work/full-worldgen-final.log",
+    "later_than_native3": true
+  },
+  "dom": {
+    "suite_count": 5,
+    "passed": true,
+    "provenance": "Root-observed result in the current task; no standalone saved DOM log was found at evidence capture.",
+    "suites": [
+      "admin_ui_test.cjs",
+      "ai_mode_ui_test.cjs",
+      "analytics_ui_test.cjs",
+      "authoring_ui_test.cjs",
+      "evolution_ui_test.cjs"
+    ]
+  },
+  "new_tests_builds_or_game_runs_for_evidence": false,
+  "python_root_previous": {
+    "tests": 46,
+    "passed": true,
+    "source": "work/full-python-tests-final.log"
+  }
+}

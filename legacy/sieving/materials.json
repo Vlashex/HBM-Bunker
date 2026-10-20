@@ -1,0 +1,625 @@
+{
+  "schema": 1,
+  "materials": [
+    {
+      "material": "cobblestone",
+      "raw_id": "minecraft:cobblestone",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 1,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_cobblestone_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_cobblestone_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_cobblestone_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": false
+    },
+    {
+      "material": "dirt",
+      "raw_id": "minecraft:dirt",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 4,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_dirt_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_dirt_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_dirt_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "gravel",
+      "raw_id": "minecraft:gravel",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 2,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_gravel_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_gravel_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_gravel_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "sand",
+      "raw_id": "minecraft:sand",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 3,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_sand_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_sand_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_sand_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "dust",
+      "raw_id": "exnihilocreatio:block_dust",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 0,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_dust_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_dust_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_dust_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "nether_gravel",
+      "raw_id": "exnihilocreatio:block_netherrack_crushed",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 6,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_nether_gravel_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_nether_gravel_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_nether_gravel_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "ender_gravel",
+      "raw_id": "exnihilocreatio:block_endstone_crushed",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 7,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_ender_gravel_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_ender_gravel_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_ender_gravel_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "soul_sand",
+      "raw_id": "minecraft:soul_sand",
+      "raw_meta": 0,
+      "native_level1_id": "excompressum:compressed_block",
+      "native_level1_meta": 8,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_soul_sand_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_soul_sand_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_soul_sand_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true
+    },
+    {
+      "material": "red_sand",
+      "raw_id": "minecraft:sand",
+      "raw_meta": 1,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_red_sand_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_red_sand_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_red_sand_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_red_sand_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_red_sand_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "crushed_andesite",
+      "raw_id": "exnihilocreatio:block_andesite_crushed",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_crushed_andesite_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_crushed_andesite_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_crushed_andesite_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_crushed_andesite_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": false,
+      "own_level1_id": "dead_earth:compressed_crushed_andesite_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "crushed_diorite",
+      "raw_id": "exnihilocreatio:block_diorite_crushed",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_crushed_diorite_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_crushed_diorite_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_crushed_diorite_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_crushed_diorite_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_crushed_diorite_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "crushed_granite",
+      "raw_id": "exnihilocreatio:block_granite_crushed",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_crushed_granite_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_crushed_granite_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_crushed_granite_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_crushed_granite_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": false,
+      "own_level1_id": "dead_earth:compressed_crushed_granite_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "skystone",
+      "raw_id": "exnihilocreatio:block_skystone_crushed",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_skystone_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_skystone_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_skystone_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_skystone_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_skystone_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "oak_leaves",
+      "raw_id": "minecraft:leaves",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_oak_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_oak_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_oak_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_oak_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_oak_leaves_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "spruce_leaves",
+      "raw_id": "minecraft:leaves",
+      "raw_meta": 1,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_spruce_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_spruce_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_spruce_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_spruce_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_spruce_leaves_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "birch_leaves",
+      "raw_id": "minecraft:leaves",
+      "raw_meta": 2,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_birch_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_birch_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_birch_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_birch_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_birch_leaves_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "jungle_leaves",
+      "raw_id": "minecraft:leaves",
+      "raw_meta": 3,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_jungle_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_jungle_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_jungle_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_jungle_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_jungle_leaves_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "acacia_leaves",
+      "raw_id": "minecraft:leaves2",
+      "raw_meta": 0,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_acacia_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_acacia_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_acacia_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_acacia_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_acacia_leaves_1",
+      "own_level1_meta": 0
+    },
+    {
+      "material": "dark_oak_leaves",
+      "raw_id": "minecraft:leaves2",
+      "raw_meta": 1,
+      "native_level1_id": null,
+      "native_level1_meta": null,
+      "levels": [
+        {
+          "id": "dead_earth:compressed_dark_oak_leaves_1",
+          "meta": 0,
+          "compression_power": 1,
+          "raw_equivalents": 9
+        },
+        {
+          "id": "dead_earth:compressed_dark_oak_leaves_2",
+          "meta": 0,
+          "compression_power": 2,
+          "raw_equivalents": 81
+        },
+        {
+          "id": "dead_earth:compressed_dark_oak_leaves_3",
+          "meta": 0,
+          "compression_power": 3,
+          "raw_equivalents": 729
+        },
+        {
+          "id": "dead_earth:compressed_dark_oak_leaves_4",
+          "meta": 0,
+          "compression_power": 4,
+          "raw_equivalents": 6561
+        }
+      ],
+      "currently_siftable": true,
+      "own_level1_id": "dead_earth:compressed_dark_oak_leaves_1",
+      "own_level1_meta": 0
+    }
+  ]
+}

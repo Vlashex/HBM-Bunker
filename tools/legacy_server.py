@@ -12,10 +12,12 @@ import sys
 import threading
 import time
 import uuid
+import tomllib
+import urllib.request
 
 HIDDEN = getattr(subprocess, 'CREATE_NO_WINDOW', 0)
-EXPECTED_MARKER = {'schema': 1, 'pack': 'DEAD-EARTH-SRP', 'version': '0.2.0',
-                   'runtime': 'forge-1.12.2-14.23.5.2860', 'kind': 'core-port'}
+EXPECTED_MARKER = {'schema': 1, 'pack': 'DEAD-EARTH-SRP', 'version': '1.0.0',
+                   'runtime': 'forge-1.12.2-14.23.5.2860', 'kind': 'full-fork'}
 CRITICAL_PROPERTIES = frozenset({'server-ip', 'server-port', 'level-name', 'enable-rcon',
     'rcon.port', 'rcon.password', 'online-mode', 'white-list', 'enforce-whitelist'})
 
@@ -28,7 +30,7 @@ def owned_root(value):
         raise ValueError('Use the real, dedicated core-port server directory, without junction aliases')
     marker = root / 'legacy-port.json'
     if marker.is_symlink() or json.loads(marker.read_text(encoding='utf-8')) != EXPECTED_MARKER:
-        raise ValueError('This folder is not a DEAD EARTH SRP 0.2.0 core-port server overlay')
+        raise ValueError('This folder is not a DEAD EARTH SRP 1.0.0 full-fork server overlay')
     for name in ('logs', 'runtime', 'director', 'director/runtime', 'config', 'mods', 'server.properties', 'eula.txt'):
         if not (root / name).resolve().is_relative_to(root):
             raise ValueError('Server inputs and writable directories must remain inside the owned folder')
@@ -174,6 +176,44 @@ def stop_python(processes, stop_files):
                 process.kill(); process.wait(timeout=10)
 
 
+def model_ready(director):
+    # The descriptor and model pins stay backend-only; no proxy or remote endpoint.
+    try:
+        pin = json.loads((director / 'models.lock.json').read_text(encoding='utf-8'))
+        config = tomllib.loads((director / 'director.example.toml').read_text(encoding='utf-8'))['model']
+        if config['url'] != 'http://127.0.0.1:11434' or config['model'] != pin['model'] or config['digest'] != pin['manifest_sha256']:
+            return False
+        class NoRedirect(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self, *args, **kwargs): return None
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
+        with opener.open('http://127.0.0.1:11434/api/tags', timeout=3) as response:
+            data = response.read(1048577)
+        if len(data) > 1048576: return False
+        tags = json.loads(data)
+        return any(row.get('name') == pin['model'] and row.get('digest') == pin['manifest_sha256']
+                   for row in tags.get('models', []))
+    except (OSError, ValueError, KeyError, TypeError): return False
+
+
+def prepare_model(root, args):
+    director = root / 'director'
+    if model_ready(director): return True
+    if not args.no_model_start and os.name == 'nt':
+        script = director / 'model.ps1'
+        if script.is_file():
+            with (root / 'logs/legacy-model-startup.log').open('a', encoding='utf-8') as output:
+                try:
+                    subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
+                        '-File', str(script), '-Action', 'start', '-Backend', args.model_backend], cwd=director,
+                        stdout=output, stderr=subprocess.STDOUT, creationflags=HIDDEN, timeout=150, check=False)
+                except subprocess.TimeoutExpired: output.write('Existing CPU backend startup timed out.\n')
+    ready = model_ready(director)
+    if not ready:
+        if args.require_ai: raise ValueError('Pinned CPU model unavailable; inspect logs/legacy-model-startup.log or run SETUP-AI.bat')
+        print('CPU model unavailable: the server will run with bounded automatic fallback. See logs/legacy-model-startup.log.', flush=True)
+    return ready
+
+
 def run(args, root):
     state_dir = runtime_dir(root)
     with exclusive(state_dir / 'supervisor.lock') as acquired:
@@ -199,11 +239,14 @@ def run(args, root):
         ai_stop, admin_stop = state_dir / 'director.stop', state_dir / 'admin.stop'
         for path in (ai_stop, admin_stop): path.unlink(missing_ok=True)
         receipt = dict(schema=1, root=str(root), run_id=run_id, supervisor_pid=os.getpid(),
-                       started_at=time.time(), state='starting', version='0.2.0')
+                       started_at=time.time(), state='starting', version='1.0.0', model_ready=False)
         def status(state, **values):
             receipt.update(state=state, **values); atomic_json(receipt_path, receipt)
         descriptor = world / 'dead_earth_bridge.json'
         previous = descriptor.stat().st_mtime_ns if descriptor.exists() else None
+        status('preparing_environment')
+        if not args.no_ai:
+            receipt['model_ready'] = prepare_model(root, args)
         status('starting')
         ready = threading.Event()
         children, handles = [], []
@@ -247,7 +290,7 @@ def run(args, root):
                         stdout=output, stderr=subprocess.STDOUT, creationflags=HIDDEN)
                     children.append(admin); receipt['admin_pid'] = admin.pid
                 status('ready', address='127.0.0.1:' + str(port), admin_port=None if args.no_admin else args.admin_port)
-                print('Core-port server ready: 127.0.0.1:' + str(port), flush=True)
+                print('DEAD EARTH SRP server ready: 127.0.0.1:' + str(port), flush=True)
                 if not args.no_admin: print('Admin: http://127.0.0.1:' + str(args.admin_port), flush=True)
                 last_children = None
                 while server.poll() is None and not stop_requested(request_path, run_id):
@@ -316,6 +359,9 @@ def main(argv=None):
     start.add_argument('--admin-port', type=int, default=8766)
     start.add_argument('--startup-timeout', type=int, default=600)
     start.add_argument('--no-ai', action='store_true')
+    start.add_argument('--no-model-start', action='store_true', help='Use an existing CPU backend only')
+    start.add_argument('--require-ai', action='store_true', help='Refuse startup if the pinned CPU model is unavailable')
+    start.add_argument('--model-backend', choices=('auto','wsl','windows'), default='auto')
     start.add_argument('--no-admin', action='store_true')
     stop = actions.add_parser('stop')
     stop.add_argument('--root', type=Path, required=True); stop.add_argument('--timeout', type=int, default=150)

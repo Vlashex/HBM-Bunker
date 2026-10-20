@@ -1,0 +1,149 @@
+{
+  "textures": {
+    "particle": "blocks/leaves_jungle",
+    "all": "blocks/leaves_jungle",
+    "badge": "blocks/stone"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#all",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#all",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#all",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#all",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#all",
+          "cullface": "east"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        6,
+        -0.01
+      ],
+      "to": [
+        10,
+        10,
+        0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#badge"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        6,
+        16
+      ],
+      "to": [
+        10,
+        10,
+        16.01
+      ],
+      "faces": {
+        "south": {
+          "texture": "#badge"
+        }
+      }
+    },
+    {
+      "from": [
+        -0.01,
+        6,
+        6
+      ],
+      "to": [
+        0,
+        10,
+        10
+      ],
+      "faces": {
+        "west": {
+          "texture": "#badge"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        6,
+        6
+      ],
+      "to": [
+        16.01,
+        10,
+        10
+      ],
+      "faces": {
+        "east": {
+          "texture": "#badge"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        16,
+        6
+      ],
+      "to": [
+        10,
+        16.01,
+        10
+      ],
+      "faces": {
+        "up": {
+          "texture": "#badge"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        -0.01,
+        6
+      ],
+      "to": [
+        10,
+        0,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#badge"
+        }
+      }
+    }
+  ]
+}

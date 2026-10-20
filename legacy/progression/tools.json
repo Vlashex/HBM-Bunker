@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "name": "hammer_v1",
+      "output": "dead_earth:hammer_v1",
+      "count": 1,
+      "pattern": [
+        "PPP",
+        " S ",
+        " S "
+      ],
+      "key": {
+        "P": "hbm:plate_iron",
+        "S": "minecraft:stick"
+      }
+    },
+    {
+      "name": "hammer_v2",
+      "output": "dead_earth:hammer_v2",
+      "count": 1,
+      "pattern": [
+        "TTT",
+        "THT",
+        " S "
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "H": "dead_earth:hammer_v1",
+        "S": "minecraft:stick"
+      }
+    },
+    {
+      "name": "hammer_v3",
+      "output": "dead_earth:hammer_v3",
+      "count": 1,
+      "pattern": [
+        "WWW",
+        "WHW",
+        " T "
+      ],
+      "key": {
+        "W": "hbm:ingot_tungsten",
+        "H": "dead_earth:hammer_v2",
+        "T": "hbm:plate_titanium"
+      }
+    },
+    {
+      "name": "mining_gadget_v1",
+      "output": "dead_earth:mining_gadget_v1",
+      "count": 1,
+      "pattern": [
+        "PCP",
+        "BHB",
+        "PPP"
+      ],
+      "key": {
+        "P": "hbm:plate_steel",
+        "C": "hbm:circuit:8",
+        "B": "hbm:battery_generic",
+        "H": "dead_earth:hammer_v1"
+      }
+    },
+    {
+      "name": "mining_gadget_v2",
+      "output": "dead_earth:mining_gadget_v2",
+      "count": 1,
+      "pattern": [
+        "TCT",
+        "THT",
+        "TBT"
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "C": "hbm:circuit:9",
+        "B": "hbm:battery_advanced",
+        "H": "dead_earth:mining_gadget_v1"
+      }
+    },
+    {
+      "name": "mining_gadget_v3",
+      "output": "dead_earth:mining_gadget_v3",
+      "count": 1,
+      "pattern": [
+        "WCW",
+        "WHW",
+        "TBT"
+      ],
+      "key": {
+        "W": "hbm:ingot_tungsten",
+        "T": "hbm:plate_titanium",
+        "C": "hbm:circuit:9",
+        "B": "hbm:battery_advanced",
+        "H": "dead_earth:mining_gadget_v2"
+      }
+    }
+  ]
+}

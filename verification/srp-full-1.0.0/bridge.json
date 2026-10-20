@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "passed": true,
+  "checks": [
+    {
+      "name": "real cached snapshot received",
+      "passed": true
+    },
+    {
+      "name": "real snapshot matches campaign and epoch",
+      "passed": true
+    },
+    {
+      "name": "real snapshot exposes SRP phases zero through ten",
+      "passed": true
+    },
+    {
+      "name": "real snapshot cache age is bounded and current",
+      "passed": true
+    },
+    {
+      "name": "retained survival player remains online",
+      "passed": true
+    },
+    {
+      "name": "real native queue received",
+      "passed": true
+    },
+    {
+      "name": "real native brief is ready for model selection",
+      "passed": true
+    },
+    {
+      "name": "actual director projects native SRP phase into model context",
+      "passed": true
+    },
+    {
+      "name": "actual director passes bounded native options",
+      "passed": true
+    },
+    {
+      "name": "actual native model options contain no forest faction",
+      "passed": true
+    },
+    {
+      "name": "actual director removes credentials and physical allocation from model context",
+      "passed": true
+    },
+    {
+      "name": "mocked selector admits a real native operation through CinematicDirector",
+      "passed": true
+    },
+    {
+      "name": "real director journal records native operation receipt",
+      "passed": true
+    },
+    {
+      "name": "real protocol replay preserves the operation UUID",
+      "passed": true
+    },
+    {
+      "name": "real selected operation appears in native queue or history",
+      "passed": true
+    },
+    {
+      "name": "rejected real protocol request has bounded complete response",
+      "passed": true
+    },
+    {
+      "name": "real socket rejects invalid credentials",
+      "passed": true
+    },
+    {
+      "name": "rejected real protocol request has bounded complete response",
+      "passed": true
+    },
+    {
+      "name": "real socket rejects stale world epoch",
+      "passed": true
+    },
+    {
+      "name": "actual admin observer collects native bridge data",
+      "passed": true
+    },
+    {
+      "name": "actual admin HTTP /api/health succeeds",
+      "passed": true
+    },
+    {
+      "name": "actual admin HTTP response is bounded",
+      "passed": true
+    },
+    {
+      "name": "actual admin health identifies its product",
+      "passed": true
+    },
+    {
+      "name": "actual admin HTTP /api/dashboard succeeds",
+      "passed": true
+    },
+    {
+      "name": "actual admin HTTP response is bounded",
+      "passed": true
+    },
+    {
+      "name": "actual HTTP dashboard exposes the collected native SRP snapshot",
+      "passed": true
+    },
+    {
+      "name": "actual HTTP dashboard exposes native queue",
+      "passed": true
+    }
+  ],
+  "model_kind": "fixed_selection_stub",
+  "real_inference_tested": false,
+  "model_selection_tested": true,
+  "brief_status": "ready",
+  "director_state": "queued"
+}

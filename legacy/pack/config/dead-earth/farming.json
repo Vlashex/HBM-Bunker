@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "requireLight": true,
+  "cycleTicks": 1200,
+  "pollTicks": 20,
+  "minimumLight": 9,
+  "outputSlots": 9,
+  "harvestAttemptsPerTick": 16,
+  "maxNativeDrops": 32,
+  "maxQueuedTrays": 4096
+}

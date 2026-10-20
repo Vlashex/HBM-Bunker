@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.common.MinecraftForge;
-@Mod(modid="deadearth_restore_probe",name="Dead Earth Restore Probe",version="0.2.0",dependencies="required-after:dead_earth",acceptableRemoteVersions="*")
+@Mod(modid="deadearth_restore_probe",name="Dead Earth Restore Probe",version="1.0.0",dependencies="required-after:dead_earth",acceptableRemoteVersions="*")
 public final class RestoreProbe {
  private final Map<String,Object> report=new LinkedHashMap<String,Object>();
  private final List<String> checks=new ArrayList<String>();
@@ -75,7 +75,17 @@ public final class RestoreProbe {
    Campaign saved=Campaign.open(r.savePath);
    require(saved.campaignId.equals(r.campaign.campaignId)&&saved.worldEpoch.equals(r.campaign.worldEpoch),"checkpoint remains valid after restart");
    CinematicEngine.restore(saved.cinematic);require(saved.starterState.equals(r.campaign.starterState),"starter receipt remains durable");
+   report.put("fullPersistence",dev.deadearth.legacyprobe.RestartSentinels.verify(r,r.world.world(0)));require(true,"physical full-fork sentinels survive a different JVM launch");
    report.put("tickets",tickets);report.put("normalServerTicks",normalTicks);report.put("activeTicks",r.campaign.activeTicks);report.put("phase",r.campaign.phase);report.put("operations",r.engine.operations().size());
+   if(Boolean.getBoolean("deadearth.realAiProbe")) {
+    Object world=r.world.world(0);Object profile=Reflect.make("com.mojang.authlib.GameProfile",UUID.fromString("44a86b84-0d55-44de-b7af-e5986274846c"),"DeadEarthProbe");
+    Object player=Reflect.call(Reflect.type("net.minecraftforge.common.util.FakePlayerFactory"),"get",world,profile);
+    Reflect.call(Reflect.get(player,"interactionManager/field_71134_c"),"setGameType/func_73076_a",Reflect.get(Reflect.type("net.minecraft.world.GameType"),"SURVIVAL"));
+    Campaign.Zone first=r.campaign.zones.get(0);Reflect.call(player,"setPosition/func_70107_b",first.x+.5,(double)first.y+1,first.z+.5);
+    @SuppressWarnings("unchecked") List<Object> participants=(List<Object>)Reflect.get(world,"playerEntities/field_73010_i");if(!participants.contains(player))participants.add(player);
+    Reflect.set(r,"observedOnline",1);((List<?>)Reflect.get(r.engine,"history")).clear();Reflect.set(r.engine,"nextDecision",0L);Reflect.set(r.engine,"recoveryUntil",0L);Reflect.set(r.engine,"heavyUntil",0L);Reflect.set(r.engine,"pressuresSinceRest",0);Reflect.set(r.engine,"goal",null);r.checkpoint();Reflect.call(Reflect.get(r,"bridge"),"publish");
+    report.put("realAiFixture",true);
+   }
    report.put("passed",true);
   }catch(Throwable failure){report.put("passed",false);report.put("error",failure.toString());failure.printStackTrace();}
   report.put("schema",1);report.put("checks",checks);
@@ -167,7 +177,7 @@ def prepare(target, javac, retry=False):
     cp = os.pathsep.join(str(path) for path in [coordinator, *legacy_port.forge_classpath(target)])
     response = target / 'javac-restart-probe.args'
     legacy_port.argfile(response, ['--release', '8', '-encoding', 'UTF-8', '-proc:none',
-                                  '-classpath', cp, '-d', classes, source])
+                                  '-classpath', cp, '-d', classes, source, ROOT / 'legacy/coordinator/src/integration/java/dev/deadearth/legacyprobe/RestartSentinels.java'])
     subprocess.run([str(javac.resolve(strict=True)), '-J-Dfile.encoding=UTF-8', '@' + str(response)],
                    cwd=target, check=True, timeout=45, creationflags=HIDDEN)
     # Every move is a non-recursive, exact-name move inside the verified mods folder.
@@ -189,15 +199,16 @@ def prepare(target, javac, retry=False):
         for path in sorted(classes.rglob('*.class')):
             jar.write(path, path.relative_to(classes).as_posix())
         jar.writestr('mcmod.info', json.dumps([dict(modid='deadearth_restore_probe', name='Dead Earth Restore Probe',
-                                                 version='0.2.0', mcversion='1.12.2', serverSideOnly=True)]))
+                                                 version='1.0.0', mcversion='1.12.2', serverSideOnly=True)]))
     return expected
 
 
-def run(target, java):
+def run(target, java, real_ai=False):
     report = target / 'restart-probe.json'; log = target / 'native-restart.log'
     started = time.monotonic()
+    ai_passed = None
     command = [str(java), '-Xms512M', '-Xmx4096M', '-Djava.awt.headless=true',
-               '-Ddeadearth.testControls=true', '-jar', str(target / 'forge-1.12.2-14.23.5.2860.jar'), 'nogui']
+               '-Ddeadearth.testControls=true', '-Ddeadearth.realAiProbe='+str(real_ai).lower(), '-jar', str(target / 'forge-1.12.2-14.23.5.2860.jar'), 'nogui']
     print('Restarting isolated native fixture: ' + str(target), flush=True)
     with log.open('w', encoding='utf-8') as output:
         process = subprocess.Popen(command, cwd=target, stdin=subprocess.PIPE, stdout=output,
@@ -206,6 +217,9 @@ def run(target, java):
             deadline = started + 120
             while process.poll() is None and not report.is_file() and time.monotonic() < deadline:
                 time.sleep(.5)
+            if real_ai and process.poll() is None and report.is_file() and json.loads(report.read_text(encoding='utf-8')).get('passed') is True:
+                tested=subprocess.run([sys.executable,str(ROOT/'tools/verify_legacy_ai.py'),'--server-dir',str(target),'--native-fixture'],cwd=ROOT,timeout=240,creationflags=HIDDEN)
+                ai_passed=tested.returncode==0
         finally:
             if process.poll() is None:
                 try: process.stdin.write('stop\n'); process.stdin.flush()
@@ -214,7 +228,7 @@ def run(target, java):
             except subprocess.TimeoutExpired:
                 raise RuntimeError('Isolated restart server still saving, left running with PID ' + str(process.pid)) from None
     native = json.loads(report.read_text(encoding='utf-8')) if report.is_file() else dict(passed=False, error='restart_report_missing')
-    result = dict(schema=1, passed=native.get('passed') is True and code == 0,
+    result = dict(schema=1, passed=native.get('passed') is True and code == 0 and (not real_ai or ai_passed is True), real_ai_passed=ai_passed,
                   exit_code=code, elapsed_seconds=round(time.monotonic() - started, 2),
                   report=str(report), log=str(log), checks=len(native.get('checks', [])), native=native)
     (target / 'runner-result-restart.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
@@ -228,13 +242,14 @@ def main(argv=None):
     parser.add_argument('--javac', required=True, type=Path)
     parser.add_argument('--java8', required=True, type=Path)
     parser.add_argument('--retry', action='store_true', help='Archive the first stopped attempt and repeat after twenty normal ticks')
+    parser.add_argument('--real-ai',action='store_true',help='After successful restore, run actual pinned CPU primary and critic through the real bridge')
     args = parser.parse_args(argv)
     try:
         target = owned(args.server_dir, args.retry)
         java = legacy_server.find_java8(args.java8)
         expected = prepare(target, args.javac, args.retry)
         print('Expected restart state: ' + json.dumps(expected), flush=True)
-        return run(target, java)
+        return run(target, java, args.real_ai)
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as failed:
         print('Isolated restart verification failed: ' + str(failed), file=sys.stderr, flush=True)
         return 1

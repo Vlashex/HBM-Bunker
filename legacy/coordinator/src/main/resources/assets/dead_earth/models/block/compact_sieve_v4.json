@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "blocks/gold_block",
+    "down": "blocks/gold_block",
+    "up": "excompressum:blocks/iron_mesh",
+    "north": "blocks/dispenser_front_horizontal",
+    "south": "blocks/gold_block",
+    "east": "blocks/gold_block",
+    "west": "blocks/gold_block"
+  }
+}

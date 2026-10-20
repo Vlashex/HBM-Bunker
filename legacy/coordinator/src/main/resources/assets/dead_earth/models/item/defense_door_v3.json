@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dead_earth:item/defense_door_v3"
+  }
+}

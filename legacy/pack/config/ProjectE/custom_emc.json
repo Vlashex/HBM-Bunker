@@ -1,0 +1,733 @@
+{
+  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit.",
+  "entries": [
+    {
+      "item": "appliedenergistics2:material|0",
+      "emc": 256
+    },
+    {
+      "item": "dead_earth:compressed_cobblestone_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_cobblestone_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_cobblestone_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_dirt_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_dirt_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_dirt_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_gravel_2|0",
+      "emc": 324
+    },
+    {
+      "item": "dead_earth:compressed_gravel_3|0",
+      "emc": 2916
+    },
+    {
+      "item": "dead_earth:compressed_gravel_4|0",
+      "emc": 26244
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_sand_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_sand_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_sand_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "excompressum:compressed_block|1",
+      "emc": 9
+    },
+    {
+      "item": "excompressum:compressed_block|2",
+      "emc": 36
+    },
+    {
+      "item": "excompressum:compressed_block|3",
+      "emc": 9
+    },
+    {
+      "item": "excompressum:compressed_block|4",
+      "emc": 9
+    },
+    {
+      "item": "hbm:fluorite|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:ingot_aluminium|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:ingot_beryllium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:ingot_copper|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:ingot_lead|0",
+      "emc": 256
+    },
+    {
+      "item": "hbm:ingot_titanium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:ingot_tungsten|0",
+      "emc": 768
+    },
+    {
+      "item": "hbm:niter|0",
+      "emc": 64
+    },
+    {
+      "item": "hbm:ore_aluminium|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:ore_beryllium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:ore_cobalt|0",
+      "emc": 768
+    },
+    {
+      "item": "hbm:ore_copper|0",
+      "emc": 128
+    },
+    {
+      "item": "hbm:ore_gneiss_lithium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:ore_lead|0",
+      "emc": 256
+    },
+    {
+      "item": "hbm:ore_thorium|0",
+      "emc": 4096
+    },
+    {
+      "item": "hbm:ore_titanium|0",
+      "emc": 512
+    },
+    {
+      "item": "hbm:ore_tungsten|0",
+      "emc": 768
+    },
+    {
+      "item": "hbm:ore_uranium|0",
+      "emc": 4096
+    },
+    {
+      "item": "hbm:sulfur|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:apple|0",
+      "emc": 128
+    },
+    {
+      "item": "minecraft:beef|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:beetroot_seeds|0",
+      "emc": 16
+    },
+    {
+      "item": "minecraft:beetroot|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:cactus|0",
+      "emc": 8
+    },
+    {
+      "item": "minecraft:carrot|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:chicken|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:clay_ball|0",
+      "emc": 16
+    },
+    {
+      "item": "minecraft:coal|0",
+      "emc": 128
+    },
+    {
+      "item": "minecraft:coal|1",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:cobblestone|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:diamond|0",
+      "emc": 8192
+    },
+    {
+      "item": "minecraft:dirt|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:dye|4",
+      "emc": 864
+    },
+    {
+      "item": "minecraft:emerald|0",
+      "emc": 16384
+    },
+    {
+      "item": "minecraft:fish|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:fish|1",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:flint|0",
+      "emc": 4
+    },
+    {
+      "item": "minecraft:glowstone_dust|0",
+      "emc": 384
+    },
+    {
+      "item": "minecraft:gold_ingot|0",
+      "emc": 2048
+    },
+    {
+      "item": "minecraft:grass|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:gravel|0",
+      "emc": 4
+    },
+    {
+      "item": "minecraft:iron_ingot|0",
+      "emc": 256
+    },
+    {
+      "item": "minecraft:log2|0",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:log2|1",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:log|0",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:log|1",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:log|2",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:log|3",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:melon_seeds|0",
+      "emc": 16
+    },
+    {
+      "item": "minecraft:melon|0",
+      "emc": 16
+    },
+    {
+      "item": "minecraft:mutton|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:obsidian|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:porkchop|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:potato|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:pumpkin_seeds|0",
+      "emc": 36
+    },
+    {
+      "item": "minecraft:pumpkin|0",
+      "emc": 144
+    },
+    {
+      "item": "minecraft:quartz|0",
+      "emc": 256
+    },
+    {
+      "item": "minecraft:rabbit|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:redstone|0",
+      "emc": 64
+    },
+    {
+      "item": "minecraft:reeds|0",
+      "emc": 32
+    },
+    {
+      "item": "minecraft:sand|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:sand|1",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:stone|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:wheat_seeds|0",
+      "emc": 16
+    },
+    {
+      "item": "minecraft:wheat|0",
+      "emc": 24
+    },
+    {
+      "item": "xlfoodmod:cucumber|0",
+      "emc": 64
+    },
+    {
+      "item": "xlfoodmod:lettuce|0",
+      "emc": 64
+    },
+    {
+      "item": "xlfoodmod:pepper|0",
+      "emc": 64
+    },
+    {
+      "item": "xlfoodmod:raw_corn|0",
+      "emc": 64
+    },
+    {
+      "item": "xlfoodmod:rice|0",
+      "emc": 24
+    },
+    {
+      "item": "xlfoodmod:strawberry|0",
+      "emc": 64
+    },
+    {
+      "item": "xlfoodmod:tomato|0",
+      "emc": 64
+    },
+    {
+      "item": "appliedenergistics2:controller|0",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:crafting_unit|0",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:energy_acceptor|0",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:inscriber|0",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|1",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|12",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|13",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|14",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|15",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|16",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|17",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|18",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|19",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|20",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|22",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|23",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|24",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|35",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|36",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|37",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|38",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|39",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|43",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|44",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|5",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|52",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|7",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:material|8",
+      "emc": 0
+    },
+    {
+      "item": "appliedenergistics2:molecular_assembler|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_door_v1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_door_v2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_door_v3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_hatch_v1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_hatch_v2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_hatch_v3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_wall_v1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_wall_v2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:defense_wall_v3|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:auto_hammer|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:auto_heavy_sieve|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:auto_sieve|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|1",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|10",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|11",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|12",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|13",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|14",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|15",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|16",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|17",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|18",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|19",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|2",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|20",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|3",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|4",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|5",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|6",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|7",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|8",
+      "emc": 0
+    },
+    {
+      "item": "hbm:circuit|9",
+      "emc": 0
+    },
+    {
+      "item": "hbm:ingot_mox_fuel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:ingot_plutonium_fuel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:ingot_steel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:ingot_uranium_fuel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:plate_copper|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:plate_dura_steel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:plate_iron|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:plate_steel|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:plate_titanium|0",
+      "emc": 0
+    },
+    {
+      "item": "hbm:powder_steel|0",
+      "emc": 0
+    },
+    {
+      "item": "mysticalagriculture:crafting|0",
+      "emc": 0
+    },
+    {
+      "item": "mysticalagriculture:crafting|5",
+      "emc": 0
+    },
+    {
+      "item": "projecte:philosophers_stone|0",
+      "emc": 0
+    },
+    {
+      "item": "projecte:transmutation_tablet|0",
+      "emc": 0
+    },
+    {
+      "item": "projecte:transmutation_table|0",
+      "emc": 0
+    },
+    {
+      "item": "rftools:crafter1|0",
+      "emc": 0
+    },
+    {
+      "item": "rftools:crafter2|0",
+      "emc": 0
+    },
+    {
+      "item": "rftools:crafter3|0",
+      "emc": 0
+    },
+    {
+      "item": "rftools:machine_frame|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:kabel|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:master|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|1",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|2",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:remote|3",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:request|0",
+      "emc": 0
+    },
+    {
+      "item": "storagenetwork:storage_kabel|0",
+      "emc": 0
+    }
+  ]
+}

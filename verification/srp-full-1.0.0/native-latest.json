@@ -1,0 +1,174 @@
+{
+  "schema": 1,
+  "passed": true,
+  "scope": "full_fork_server_normal_terrain",
+  "source_snapshot": "after_vertical_reservation_fix_and_compact_sieve_compressed_block_feature",
+  "coordinator_jar_sha256": "5199e519f971d55eded1dee1ad735ed5afa7050a686bdd07ace441b0b1405c2f",
+  "product_version": "1.0.0",
+  "recorded_check_count": 286,
+  "recorded_checks_include_group_outcomes": true,
+  "full_group_count": 14,
+  "recipe_error_count": 0,
+  "failures": [],
+  "full_groups": {
+    "starter": {
+      "dimensions": "7x7x5",
+      "receipt": "DELIVERED",
+      "relayCount": 6,
+      "graceTicks": 216000
+    },
+    "worldgen": {
+      "nativePass": true,
+      "inertAsh": true,
+      "physicalAshColumns": 2311,
+      "actualDeterministicCuts": 827,
+      "landSearchBiomeOnly": true,
+      "nativeWrites": 16388,
+      "observedPrePassChunks": 25,
+      "preservedVanillaOreSamples": 542,
+      "preservedHbmOreSamples": 0,
+      "nativeVanillaOrePreservationTested": true,
+      "nativeHbmOrePreservationTested": false,
+      "deferredCallbacksNotObserved": true,
+      "deferredHbmOreGenerationTested": false,
+      "observedNativeReservationChunks": 0,
+      "preservedNativeHbmArchitectureSamples": 0,
+      "nativeHbmArchitecturePreservationTested": false,
+      "nativeReservationObserved": false,
+      "existingChunkPreserved": true,
+      "counts": {
+        "generated": 719,
+        "writes": 245747,
+        "new_chunk": 407,
+        "unsafe_rim": 33,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.DepthDeposit": 39,
+        "hbm_footprint": 236,
+        "architecture": 43,
+        "reservation_native_structure_box": 12,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.DepthDeposit": 42,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.OilBubble": 6,
+        "reservation_pending_dynamic_layout:com.hbm.world.OilBubble": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOre": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOilDeposit": 8,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOilDeposit": 64,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOre": 14,
+        "reservation_phased_structure_box": 5,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.MeteoriteStructure": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.MeteoriteStructure": 5,
+        "reservation_pending_validation_layout:com.hbm.world.Satellite": 11,
+        "reservation_pending_origin:com.hbm.world.Satellite": 1,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.LanternBehemoth": 1,
+        "existing_skipped": 1
+      }
+    },
+    "progression": {
+      "nativeRecipes": true,
+      "previousBookNbtRequired": true,
+      "rawOnlyEmc": true,
+      "sieveProviderRuns": 1
+    },
+    "connectedSieves": {
+      "width": 5,
+      "nativeTiles": 25,
+      "rawConsumed": 25,
+      "centerClicks": 2,
+      "advancedTiles": 25,
+      "progressPerTile": 0.1,
+      "outsideRadiusUnchanged": true,
+      "nativeHbmRewardDraw": true,
+      "rewardDrawUsesControlledRng": true,
+      "manualPlayerClass": "net.minecraft.entity.player.EntityPlayerMP",
+      "fullCycleDropsTested": false
+    },
+    "compactSieves": {
+      "cachedHandlerRejectedAfterBreak": true,
+      "emptyFrameUpgradeable": true,
+      "nativeRawDraws": 81,
+      "nativeRewardMatch": true,
+      "hbmProvider": true,
+      "compressedInputConsumedOnce": true,
+      "pendingNbtRoundTrip": true,
+      "meshLockedDuringBatch": true,
+      "packedBreakAndPlace": true,
+      "outputSlots": 27,
+      "globalNativeDrawsInTick": 8
+    },
+    "tools": {
+      "ownNativeTools": 6,
+      "presetAreas": [
+        3,
+        5,
+        7
+      ],
+      "nativeBatteries": 3,
+      "highAnvilEventOutputs": 3,
+      "anvilUiPickupTested": false
+    },
+    "ae2": {
+      "physicalDrive": true,
+      "storedIron": 1234,
+      "cursorSteps": 11,
+      "zoneDelta": 315904
+    },
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "outputOnlyAutomation": true
+    },
+    "defense": {
+      "tiers": 3,
+      "doorSharedHp": true,
+      "realEsmDig": true,
+      "playerDrops": true,
+      "realOrdinaryExplosion": true
+    },
+    "machinery": {
+      "nativeHbmCharging": true,
+      "nativeOreDrops": true,
+      "blockedOutputTransactional": true,
+      "pendingNbtRoundTrip": true
+    },
+    "climate": {
+      "topAndSides": true,
+      "nativeIcePreserved": true,
+      "inventoryOperable": true,
+      "changes": 24,
+      "maximumCells": 4314,
+      "maximumSections": 2,
+      "forceLoads": 0
+    },
+    "climateClockAndPackets": {
+      "acceleratedNativeWeather": true,
+      "seasonMultipliers": [
+        0.5,
+        1.8
+      ],
+      "nativeCodecBytes": 21,
+      "malformedPacketDisabled": true,
+      "clientNetworkDeliveryTested": false,
+      "clientVisualsTested": false
+    },
+    "recipes": {
+      "nativeLogFiles": 1,
+      "errors": []
+    }
+  },
+  "restart_sentinels_prepared": {
+    "sentinels": {
+      "created": true,
+      "manifest": "full-persistence-expected.json",
+      "cropScope": "retained seed and soil",
+      "machineScope": "real produced output, retained input and FE",
+      "coatingScope": "physical own block identities only",
+      "pendingRestartTested": false
+    },
+    "passed": true,
+    "compact_pending_state_prepared": true,
+    "compact_pending_actual_restart_verified_here": false
+  },
+  "actual_restart_in_this_report": false,
+  "client_visuals_tested": false,
+  "new_feature_verification_pending": false,
+  "new_feature_actual_restart_pending": true
+}

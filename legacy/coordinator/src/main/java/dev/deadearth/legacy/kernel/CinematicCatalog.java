@@ -382,7 +382,7 @@ public final class CinematicCatalog extends KernelValue {
     /** The catalogue keeps its own limit; bounded SavedData may use a larger envelope. */
     public static JsonElement strict(String source,int maximumBytes) {return strict(source,maximumBytes,false);}
     public static JsonElement strict(String source,int maximumBytes,boolean allowNull) {
-        if(maximumBytes<1||maximumBytes>8*1024*1024||source==null||source.getBytes(StandardCharsets.UTF_8).length>maximumBytes)throw bad("file size");
+        if(maximumBytes<1||maximumBytes>16*1024*1024||source==null||source.getBytes(StandardCharsets.UTF_8).length>maximumBytes)throw bad("file size");
         try(JsonReader reader=new JsonReader(new StringReader(source))) {
             reader.setLenient(false);JsonElement value=read(reader,0,allowNull);
             if(reader.peek()!=JsonToken.END_DOCUMENT)throw bad("trailing data");return value;

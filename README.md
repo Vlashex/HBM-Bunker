@@ -1,6 +1,4 @@
-> Форк 1.12.2: продолжение SRP / Epic Siege / координатор — `legacy/README-PORT.md`.
-
-> **Локальный SRP-форк 1.12.2:** текущее состояние и отдельная сборка раннего хранения — `legacy/README.md`. Ниже сохранена документация исходной сборки 1.21.1.
+> **DEAD EARTH SRP 1.0.0 / Minecraft 1.12.2:** состав и установка — `legacy/README-PORT.md`; версии — `legacy/metadata/full.mods.lock.json`; карта замен — `legacy/metadata/mod-map.json`. Ниже сохранена документация исходной modern-сборки.
 
 <p align="center">
   <a href="https://vlashex.github.io/HBM-Bunker/"><img src="docs/media/cover.svg" alt="DEAD EARTH — Земля помнит всё" width="100%"></a>

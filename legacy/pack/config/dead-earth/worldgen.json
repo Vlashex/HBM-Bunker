@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "enabled": true,
+  "small": {
+    "spacing": 24,
+    "chance": 0.85,
+    "radiusMin": 3,
+    "radiusMax": 9,
+    "depthMin": 2,
+    "depthMax": 5,
+    "rim": 1
+  },
+  "large": {
+    "spacing": 384,
+    "chance": 0.35,
+    "radiusMin": 32,
+    "radiusMax": 64,
+    "depthMin": 10,
+    "depthMax": 22,
+    "rim": 3
+  },
+  "ashPatches": 0.28,
+  "trunkChance": 0.35,
+  "trunkMin": 3,
+  "trunkMax": 9,
+  "coatingDepth": 3,
+  "maxWrites": 16384,
+  "waterColor": 6447423,
+  "waterFogColor": 3422761,
+  "palette": {
+    "minecraft:stone#0": 38,
+    "dead_earth:ash#0": 22,
+    "minecraft:cobblestone#0": 15,
+    "minecraft:stone#5": 10,
+    "minecraft:gravel#0": 10,
+    "minecraft:stonebrick#2": 5
+  }
+}

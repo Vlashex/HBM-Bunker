@@ -62,6 +62,11 @@ if($wslCommand -and $Backend -ne 'windows') {
   $wslReady=Test-DirectorCommand $wslCommand.Source ("-d $Distribution -u root -- docker info --format {{.ServerVersion}}") 45000
   if($wslReady) { $wslHasModels=Test-DirectorCommand $wslCommand.Source ("-d $Distribution -u root -- docker volume inspect dead-earth-director-models") }
 }
+# A cold WSL daemon can hold the existing pinned cache even when its API is not running.
+if ($Backend -eq 'auto' -and $Action -in @('start','pull') -and -not $windowsReady -and -not $wslReady -and $wslCommand) {
+  try { Start-DirectorWslEngine; $wslReady=$true; $wslHasModels=Test-DirectorCommand $wslCommand.Source ("-d $Distribution -u root -- docker volume inspect dead-earth-director-models") }
+  catch { Write-Output 'The existing Ubuntu Docker service is unavailable; no Docker settings or model cache were changed.' }
+}
 $selectedBackend=Select-DirectorBackend $Backend $windowsReady $wslReady $windowsHasModels $wslHasModels
 Write-Output ('Director Docker backend: '+$selectedBackend)
 if ($selectedBackend -eq 'wsl') {

@@ -1,0 +1,503 @@
+{
+  "schema": 1,
+  "drops": [
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_copper",
+      "chance": 0.055,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_copper",
+      "chance": 0.0743,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_copper",
+      "chance": 0.0935,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_aluminium",
+      "chance": 0.04,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_aluminium",
+      "chance": 0.054,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_aluminium",
+      "chance": 0.068,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_lead",
+      "chance": 0.045,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_lead",
+      "chance": 0.0607,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_titanium",
+      "chance": 0.03,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_tungsten",
+      "chance": 0.025,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_beryllium",
+      "chance": 0.025,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_cobalt",
+      "chance": 0.025,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_uranium",
+      "chance": 0.015,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_thorium",
+      "chance": 0.015,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_gneiss_lithium",
+      "chance": 0.02,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "hbm:ore_gneiss_lithium",
+      "chance": 0.027,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:sulfur",
+      "chance": 0.12,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:sulfur",
+      "chance": 0.162,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:sulfur",
+      "chance": 0.204,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:niter",
+      "chance": 0.1,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:niter",
+      "chance": 0.135,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:niter",
+      "chance": 0.17,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:fluorite",
+      "chance": 0.08,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:fluorite",
+      "chance": 0.108,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "hbm:fluorite",
+      "chance": 0.136,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "mysticalagriculture:crafting:5",
+      "chance": 0.04,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "mysticalagriculture:crafting:5",
+      "chance": 0.054,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "mysticalagriculture:crafting:5",
+      "chance": 0.068,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "mysticalagriculture:crafting:0",
+      "chance": 0.06,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "mysticalagriculture:crafting:0",
+      "chance": 0.081,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "mysticalagriculture:crafting:0",
+      "chance": 0.102,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:wheat_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:wheat_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:wheat_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:wheat_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:carrot",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:carrot",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:carrot",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:carrot",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:potato",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:potato",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:potato",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:potato",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:beetroot_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:beetroot_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:beetroot_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:beetroot_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:pumpkin_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:pumpkin_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:pumpkin_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:pumpkin_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:melon_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:melon_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:melon_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "minecraft:melon_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:corn_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:corn_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:corn_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:corn_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:cucumber_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:cucumber_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:cucumber_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:cucumber_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:lettuce_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:lettuce_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:lettuce_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:lettuce_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:pepper_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:pepper_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:pepper_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:pepper_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:rice_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:rice_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:rice_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:rice_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:strawberry_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:strawberry_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:strawberry_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:strawberry_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:tomato_seeds",
+      "chance": 0.025,
+      "mesh": 1
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:tomato_seeds",
+      "chance": 0.0338,
+      "mesh": 2
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:tomato_seeds",
+      "chance": 0.0425,
+      "mesh": 3
+    },
+    {
+      "input": "minecraft:dirt",
+      "output": "xlfoodmod:tomato_seeds",
+      "chance": 0.0512,
+      "mesh": 4
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "name": "wall_v1",
+      "output": "dead_earth:defense_wall_v1",
+      "shapeless": [
+        "minecraft:iron_block",
+        "hbm:plate_steel",
+        "hbm:screwdriver"
+      ],
+      "reusable": "hbm:screwdriver"
+    },
+    {
+      "name": "wall_v2",
+      "output": "dead_earth:defense_wall_v2",
+      "pattern": [
+        " S ",
+        "TBT",
+        "SSS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "T": "hbm:ingot_titanium",
+        "B": "dead_earth:defense_wall_v1"
+      }
+    },
+    {
+      "name": "wall_v3",
+      "output": "dead_earth:defense_wall_v3",
+      "pattern": [
+        "TWT",
+        "WBW",
+        "TWT"
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "W": "hbm:ingot_tungsten",
+        "B": "dead_earth:defense_wall_v2"
+      }
+    },
+    {
+      "name": "door_v1",
+      "output": "dead_earth:defense_door_v1",
+      "shapeless": [
+        "minecraft:iron_door",
+        "hbm:plate_steel",
+        "hbm:screwdriver"
+      ],
+      "reusable": "hbm:screwdriver"
+    },
+    {
+      "name": "door_v2",
+      "output": "dead_earth:defense_door_v2",
+      "pattern": [
+        " S ",
+        "TBT",
+        "SSS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "T": "hbm:ingot_titanium",
+        "B": "dead_earth:defense_door_v1"
+      }
+    },
+    {
+      "name": "door_v3",
+      "output": "dead_earth:defense_door_v3",
+      "pattern": [
+        "TWT",
+        "WBW",
+        "TWT"
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "W": "hbm:ingot_tungsten",
+        "B": "dead_earth:defense_door_v2"
+      }
+    },
+    {
+      "name": "hatch_v1",
+      "output": "dead_earth:defense_hatch_v1",
+      "shapeless": [
+        "minecraft:iron_trapdoor",
+        "hbm:plate_steel",
+        "hbm:screwdriver"
+      ],
+      "reusable": "hbm:screwdriver"
+    },
+    {
+      "name": "hatch_v2",
+      "output": "dead_earth:defense_hatch_v2",
+      "pattern": [
+        " S ",
+        "TBT",
+        "SSS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "T": "hbm:ingot_titanium",
+        "B": "dead_earth:defense_hatch_v1"
+      }
+    },
+    {
+      "name": "hatch_v3",
+      "output": "dead_earth:defense_hatch_v3",
+      "pattern": [
+        "TWT",
+        "WBW",
+        "TWT"
+      ],
+      "key": {
+        "T": "hbm:plate_titanium",
+        "W": "hbm:ingot_tungsten",
+        "B": "dead_earth:defense_hatch_v2"
+      }
+    }
+  ]
+}

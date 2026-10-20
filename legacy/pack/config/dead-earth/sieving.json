@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "nativeDrawsPerServerTick": 8,
+  "materials": {
+    "cobblestone": "minecraft:cobblestone",
+    "dirt": "minecraft:dirt",
+    "gravel": "minecraft:gravel",
+    "sand": "minecraft:sand",
+    "dust": "exnihilocreatio:block_dust",
+    "nether_gravel": "exnihilocreatio:block_netherrack_crushed",
+    "ender_gravel": "exnihilocreatio:block_endstone_crushed",
+    "soul_sand": "minecraft:soul_sand",
+    "red_sand": "minecraft:sand#1",
+    "crushed_andesite": "exnihilocreatio:block_andesite_crushed",
+    "crushed_diorite": "exnihilocreatio:block_diorite_crushed",
+    "crushed_granite": "exnihilocreatio:block_granite_crushed",
+    "skystone": "exnihilocreatio:block_skystone_crushed",
+    "oak_leaves": "minecraft:leaves",
+    "spruce_leaves": "minecraft:leaves#1",
+    "birch_leaves": "minecraft:leaves#2",
+    "jungle_leaves": "minecraft:leaves#3",
+    "acacia_leaves": "minecraft:leaves2",
+    "dark_oak_leaves": "minecraft:leaves2#1"
+  },
+  "ownFirstCompression": [
+    "red_sand",
+    "crushed_andesite",
+    "crushed_diorite",
+    "crushed_granite",
+    "skystone",
+    "oak_leaves",
+    "spruce_leaves",
+    "birch_leaves",
+    "jungle_leaves",
+    "acacia_leaves",
+    "dark_oak_leaves"
+  ]
+}

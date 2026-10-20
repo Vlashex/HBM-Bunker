@@ -16,6 +16,8 @@ crash-reports/
 assets/
 !mods/dead-earth/src/main/resources/assets/
 !mods/dead-earth/src/main/resources/assets/**
+!legacy/coordinator/src/main/resources/assets/
+!legacy/coordinator/src/main/resources/assets/**
 libraries/
 accounts.json
 usercache.json

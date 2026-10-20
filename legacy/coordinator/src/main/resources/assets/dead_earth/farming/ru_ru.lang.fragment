@@ -1,0 +1,9 @@
+tile.dead_earth.crop_tray.name=Автоматическая грядка
+dead_earth.farming.tooltip=Сохраняет одно семя и землю. Урожай забирают воронки и XNet.
+dead_earth.farming.instructions=Вставьте землю, затем семя культуры. Пустая рука: собрать. Присесть с пустой рукой: вернуть семя и землю.
+dead_earth.farming.inventory_full=В инвентаре не хватает места.
+dead_earth.farming.needs_soil=Вставьте один блок земли.
+dead_earth.farming.needs_seed=Вставьте семя культуры Minecraft, Mystical Agriculture или XL Food.
+dead_earth.farming.output_full=Урожай готов. Освободите выходной инвентарь.
+dead_earth.farming.needs_light=Культуре не хватает света.
+dead_earth.farming.growing=Рост: осталось %s сек.

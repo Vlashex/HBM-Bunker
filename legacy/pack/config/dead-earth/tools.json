@@ -1,0 +1,31 @@
+{
+  "durability": [
+    900,
+    2400,
+    6000
+  ],
+  "miningSpeed": [
+    6,
+    10,
+    15
+  ],
+  "electricCapacity": [
+    250000,
+    1000000,
+    4000000
+  ],
+  "electricChargeRate": [
+    2000,
+    4000,
+    8000
+  ],
+  "electricCostPerBlock": [
+    80,
+    120,
+    180
+  ],
+  "efficiencyMaximum": 10,
+  "fortuneMaximum": 5,
+  "unbreakingMaximum": 5,
+  "maximumAnvilCost": 39
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "dead_earth:block/defense_template_door_top_right",
+  "textures": {
+    "bottom": "dead_earth:block/defense_door_lower_v2",
+    "top": "dead_earth:block/defense_door_upper_v2"
+  }
+}

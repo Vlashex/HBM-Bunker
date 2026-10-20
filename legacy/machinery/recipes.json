@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "name": "charger",
+      "output": "dead_earth:charger",
+      "pattern": [
+        "SIS",
+        "RCR",
+        "SIS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "I": "minecraft:iron_ingot",
+        "R": "minecraft:redstone",
+        "C": "hbm:circuit#8"
+      }
+    },
+    {
+      "name": "fortune_processor",
+      "output": "dead_earth:fortune_processor",
+      "pattern": [
+        "SCS",
+        "DPD",
+        "SCS"
+      ],
+      "key": {
+        "S": "hbm:plate_steel",
+        "C": "hbm:circuit#9",
+        "D": "minecraft:diamond",
+        "P": "minecraft:diamond_pickaxe"
+      }
+    }
+  ]
+}

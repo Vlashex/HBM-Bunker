@@ -1,0 +1,294 @@
+{
+  "schema": 1,
+  "target": "1.12.2 Forge",
+  "mappings": [
+    {
+      "original": "jei-1.21.1-neoforge-19.51.0.418.jar",
+      "status": "native",
+      "legacy_mods": [
+        "jei"
+      ],
+      "reason": "Native JEI4."
+    },
+    {
+      "original": "[1.21.1] SecurityCraft v1.10.2.1.jar",
+      "status": "removed_by_request",
+      "legacy_mods": [
+        "dead_earth"
+      ],
+      "reason": "Own HBM defense replaces security block progression; no SC camera system."
+    },
+    {
+      "original": "appliedenergistics2-19.2.18.jar",
+      "status": "native",
+      "legacy_mods": [
+        "appliedenergistics2"
+      ],
+      "reason": "Native AE2rv6 with ME autocrafting and bounded valuation of physical drive/ME chest storage cells."
+    },
+    {
+      "original": "bookshelf-neoforge-1.21.1-21.1.81.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Modern Botany Pots dependency; focused crop tray has no library dependency."
+    },
+    {
+      "original": "botanypots-neoforge-1.21.1-21.1.44.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth"
+      ],
+      "reason": "Compact automatic crop tray, hopper extraction, no power."
+    },
+    {
+      "original": "botanypotsmystical-neoforge-1.21.1-21.1.12.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth",
+        "mysticalagriculture"
+      ],
+      "reason": "Compact automatic crop tray uses native crop drops."
+    },
+    {
+      "original": "charginggadgets-1.14.1.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth",
+        "hbm"
+      ],
+      "reason": "HBM HE powered tool/charger integration."
+    },
+    {
+      "original": "Cucumber-1.21.1-8.0.16.jar",
+      "status": "native",
+      "legacy_mods": [
+        "cucumber"
+      ],
+      "reason": "Native MA dependency."
+    },
+    {
+      "original": "exdeorum-3.12.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "exnihilocreatio",
+        "excompressum"
+      ],
+      "reason": "Sieves, hammers, auto sieves and auto hammers."
+    },
+    {
+      "original": "geckolib-neoforge-1.21.1-4.9.3.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Dependency of removed modern content."
+    },
+    {
+      "original": "guideme-21.1.19.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Legacy AE2 provides its own interfaces; no modern GuideME dependency."
+    },
+    {
+      "original": "improvedmobs-1.21.1-1.16.0.b-neoforge.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "epicsiegemod"
+      ],
+      "reason": "Original Epic Siege AI with bounded defense handling."
+    },
+    {
+      "original": "just-hammers-neoforge-21.1.4.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth",
+        "hbm"
+      ],
+      "reason": "Own HBM-based flat hammer tiers3/5/7."
+    },
+    {
+      "original": "mcjtylib-1.21-9.0.21.jar",
+      "status": "native",
+      "legacy_mods": [
+        "mcjtylib_ng"
+      ],
+      "reason": "Native shared library."
+    },
+    {
+      "original": "mininggadgets-1.18.8.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth",
+        "hbm"
+      ],
+      "reason": "Own electric HBM tool with area/silk/speed progression; no port of laser animation UI."
+    },
+    {
+      "original": "mutationcraft-legacy-neoforge-1.1-1.21.1.jar",
+      "status": "replaced_by_request",
+      "legacy_mods": [
+        "srparasites"
+      ],
+      "reason": "Original SRP."
+    },
+    {
+      "original": "MysticalAgriculture-1.21.1-8.0.28.jar",
+      "status": "native",
+      "legacy_mods": [
+        "mysticalagriculture"
+      ],
+      "reason": "Native resource crops and watering cans."
+    },
+    {
+      "original": "ntm-decentralized-neoforge-1.21.1-1.0.0-beta.10.jar",
+      "status": "native",
+      "legacy_mods": [
+        "hbm"
+      ],
+      "reason": "HBM Community Edition2.6.1.0, legacy recipes and structures."
+    },
+    {
+      "original": "outpostzero-neoforge-1.21.1-1.0.20.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth",
+        "hbm"
+      ],
+      "reason": "Own starter shelter/walls/doors/hatches; HBM armory and generators."
+    },
+    {
+      "original": "overgrown_vegetation-0.1.9.jar",
+      "status": "removed_by_request",
+      "legacy_mods": [],
+      "reason": "Forest excluded from SRP fork."
+    },
+    {
+      "original": "pipez-neoforge-1.21.1-1.2.31.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "xnet",
+        "hbm"
+      ],
+      "reason": "XNet item/fluid/energy routing plus HBM networks."
+    },
+    {
+      "original": "PlayerAnimationLibNeoforge-1.1.6+mc.1.21.1.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Dependency of removed modern content."
+    },
+    {
+      "original": "prickle-neoforge-1.21.1-21.1.11.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Native RFTools needs only legacy McJtyLib."
+    },
+    {
+      "original": "ProjectE-1.21.1-PE1.1.0.jar",
+      "status": "native",
+      "legacy_mods": [
+        "projecte"
+      ],
+      "reason": "Native exchange; explicit raw-only EMC allowlist."
+    },
+    {
+      "original": "rftoolsbase-1.21-6.0.11.jar",
+      "status": "merged_native",
+      "legacy_mods": [
+        "rftools"
+      ],
+      "reason": "Legacy RFTools includes base/machine frames."
+    },
+    {
+      "original": "rftoolspower-1.21-7.0.6.jar",
+      "status": "native",
+      "legacy_mods": [
+        "rftoolspower"
+      ],
+      "reason": "Native storage/generation."
+    },
+    {
+      "original": "rftoolsutility-1.21-7.0.12.jar",
+      "status": "merged_native",
+      "legacy_mods": [
+        "rftools"
+      ],
+      "reason": "Legacy RFTools includes simple autocrafters/utility."
+    },
+    {
+      "original": "tenshilib-1.21.1-2.3.1-neoforge.jar",
+      "status": "dependency_not_needed",
+      "legacy_mods": [],
+      "reason": "Improved Mobs replaced; dependency removed."
+    },
+    {
+      "original": "inventorysorter-1.21.1-24.0.24.jar",
+      "status": "native",
+      "legacy_mods": [
+        "inventorysorter"
+      ],
+      "reason": "Native middle-click sorting with HBM container safety."
+    },
+    {
+      "original": "sodium-neoforge-0.6.13+mc1.21.1.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "vintagefix",
+        "entityculling"
+      ],
+      "reason": "Legacy memory/model and occlusion optimizations; no Sodium renderer claim."
+    },
+    {
+      "original": "Jade-1.21.1-NeoForge-15.10.6.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "waila"
+      ],
+      "reason": "Native Hwyla target information."
+    },
+    {
+      "original": "ferritecore-7.0.3-neoforge.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "vintagefix"
+      ],
+      "reason": "Native FerriteCore-style memory backport."
+    },
+    {
+      "original": "modernfix-neoforge-5.27.26+mc1.21.1.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "vintagefix"
+      ],
+      "reason": "Native model/memory optimization; no unsupported modern runtime mixins."
+    },
+    {
+      "original": "boc-1.21.1-neoforge-1.4.0.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "dead_earth"
+      ],
+      "reason": "Client colored target outline."
+    },
+    {
+      "original": "ThirstWasReclaimed-1.21.1-3.0.6.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "simpledifficulty"
+      ],
+      "reason": "Native thirst/purification; native temperature disabled in favor of coordinator seasons."
+    },
+    {
+      "original": "FarmersDelight-1.21.1-1.3.4.jar",
+      "status": "replaced",
+      "legacy_mods": [
+        "xlfoodmod"
+      ],
+      "reason": "Lightweight legacy food/crops; recipes differ, no direct Farmer Delight port."
+    }
+  ],
+  "added": [
+    "storagenetwork",
+    "crafttweaker",
+    "mixinbooter",
+    "ctm"
+  ]
+}
