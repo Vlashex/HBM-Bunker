@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "version": "1.0.1",
+  "status": "manual_playtest",
+  "serverPassed": true,
+  "pythonChecks": 56,
+  "javaSuites": 7,
+  "nativeChecks": 290,
+  "bridgeChecks": 27,
+  "sieveWorkTicks": 61,
+  "sieveChatPackets": 0,
+  "unconvertedSurfaceSoil": 0,
+  "coordinatorSha256": "23cb9522af2cfa58c1d6e4a73b95d241722aee6147bf014a10f1be2d7c9f016c",
+  "visualVerificationPassed": false,
+  "visualLimitation": "Isolated showcase packet constructor failed before READY; automatic screenshots, live client names and tints are not confirmed. Fixture-only constructor corrected afterward; not rerun because human requested the playing client.",
+  "clickRules": "deferred; automatic III/IV/V retained",
+  "performanceTested": false,
+  "manualClientsRequested": 1
+}

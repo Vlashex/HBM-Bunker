@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "exnihilocreatio:blocks/blockskystonecrushed",
+    "all": "exnihilocreatio:blocks/blockskystonecrushed"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        8.55,
+        1
+      ],
+      "to": [
+        15,
+        10.95,
+        15
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "tintindex": 1
+        },
+        "up": {
+          "texture": "#all",
+          "tintindex": 1
+        },
+        "north": {
+          "texture": "#all",
+          "tintindex": 1
+        },
+        "south": {
+          "texture": "#all",
+          "tintindex": 1
+        },
+        "west": {
+          "texture": "#all",
+          "tintindex": 1
+        },
+        "east": {
+          "texture": "#all",
+          "tintindex": 1
+        }
+      }
+    }
+  ]
+}

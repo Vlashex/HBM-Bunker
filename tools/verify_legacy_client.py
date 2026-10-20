@@ -188,7 +188,10 @@ def fixture_marker(directory):
     campaign=read_json(world/'data/dead_earth_legacy.json',8*1024*1024)
     if campaign.get('worldEpoch')!=marker['worldEpoch']:raise ValueError('Showcase marker differs from saved campaign world')
     views=marker.get('views',[])
-    if not 3<=len(views)<=24 or {v['season'] for v in views}!={'CALM','HEAT','ASH_WINTER'}:raise ValueError('Showcase views must cover all three native seasons')
+    seasons={v['season'] for v in views}
+    if marker.get('purpose')=='sieve-surface-patch':
+        if not 3<=len(views)<=8 or seasons!={'CALM'}:raise ValueError('Sieve/surface patch showcase requires 3..8 calm views')
+    elif not 3<=len(views)<=24 or seasons!={'CALM','HEAT','ASH_WINTER'}:raise ValueError('Showcase views must cover all three native seasons')
     names=set()
     for view in views:
         if not re.fullmatch('[a-z0-9_-]{1,48}',view['name']) or view['name'] in names:raise ValueError('Unsafe/duplicate view name')
@@ -228,7 +231,7 @@ def prepare(args):
     control=dict(marker,kind='dead-earth-client-probe',serverDirectory=str(server),timeoutSeconds=args.timeout)
     control['requiredMods']=[row['mod_id'] for row in legacy_port.full_pins(ROOT) if row['side'] in {'client','both'}]
     (game/'client-probe.json').write_text(json.dumps(control,indent=2),encoding='utf-8')
-    (game/'options.txt').write_text('fullscreen:false\noverrideWidth:1280\noverrideHeight:720\npauseOnLostFocus:false\nrenderDistance:5\nmaxFps:60\ngamma:0.8\nclouds:false\nenableVsync:false\n',encoding='utf-8')
+    (game/'options.txt').write_text('fullscreen:false\noverrideWidth:1280\noverrideHeight:720\npauseOnLostFocus:false\nlang:ru_ru\nrenderDistance:5\nmaxFps:60\ngamma:0.8\nclouds:false\nenableVsync:false\n',encoding='utf-8')
     data={'schema':1,'kind':'dead-earth-isolated-client','runId':marker['runId'],'worldEpoch':marker['worldEpoch'],'serverDirectory':str(server),'classpath':cp,'assetIndex':index,'timeoutSeconds':args.timeout}
     data['inputHashes']={str(p.resolve()):hashlib.sha256(p.read_bytes()).hexdigest() for p in [*map(Path,cp),*(game/'mods').glob('*.jar'),game/'client-probe.json']}
     (target/'client-runtime.json').write_text(json.dumps(data,indent=2),encoding='utf-8')

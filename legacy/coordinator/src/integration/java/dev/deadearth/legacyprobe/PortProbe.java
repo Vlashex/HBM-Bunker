@@ -38,6 +38,7 @@ public final class PortProbe {
     private LegacyRuntime runtime;private Object world,player;private List<Object> playerList;
     private int baseX,baseY,baseZ;private int failures,fullGroupCount,fullAssertionCount;private final Map<String,Object> fullGroups=new LinkedHashMap<String,Object>();
 
+    private dev.deadearth.legacyprobe.sieving.CompactSieveGameplayProbe.Session sieveGameplay;private boolean nativeFinished;
     private int nativeWarmupRemaining;private boolean nativeStarted;private Throwable starterPreparationFailure;
     private Object originalStarterBlocked,originalStarterSentinel;
     @Mod.EventHandler public void started(FMLServerStartedEvent event) {
@@ -52,13 +53,21 @@ public final class PortProbe {
     }
     @net.minecraftforge.fml.common.eventhandler.SubscribeEvent(priority=net.minecraftforge.fml.common.eventhandler.EventPriority.LOWEST)
     public void nativeWarmupTick(net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent event) {
-        if(nativeStarted||nativeWarmupRemaining<=0||event.phase!=net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END)return;
+        if(event.phase!=net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END||nativeFinished)return;
+        if(sieveGameplay!=null){
+            if(sieveGameplay.poll()){
+                runFull("native_automatic_sieve_gameplay",()->{Map<String,Object> result=sieveGameplay.result();fullGroups.put("compactSieveGameplay",result);require(Boolean.TRUE.equals(result.get("passed")),"actual equipment insertion and normal server ticks: "+result.get("error"));});
+                sieveGameplay=null;finishNative();
+            }
+            return;
+        }
+        if(nativeStarted||nativeWarmupRemaining<=0)return;
         if(--nativeWarmupRemaining>0)return;
         nativeStarted=true;runNative();
     }
     private void runNative() {
         report.put("ordinaryWarmupTicks",40);
-        report.put("schema",2);report.put("probe","native_full_srp_forge_1_12_2");report.put("productVersion","1.0.0");report.put("terrain","DEFAULT");report.put("clientVisualsTested",false);report.put("realAiInferenceTested",false);
+        report.put("schema",2);report.put("probe","native_full_srp_forge_1_12_2");report.put("productVersion","1.0.1");report.put("terrain","DEFAULT");report.put("clientVisualsTested",false);report.put("realAiInferenceTested",false);
         try {
             if(!Boolean.getBoolean("deadearth.testControls"))throw new IllegalStateException("Test controls are not enabled");
             if(!Files.exists(Paths.get(".dead-earth-isolated-native-test")))throw new IllegalStateException("Isolated test marker is absent");
@@ -93,9 +102,17 @@ public final class PortProbe {
             report.put("activeTicks",runtime.campaign.activeTicks);report.put("phase",runtime.campaign.phase);
             report.put("nativePhase",runtime.srp.phase(world));report.put("zoneCount",runtime.campaign.zones.size());
             report.put("receiptCount",runtime.campaign.receipts.size());
+            int sieveX=baseX+40,sieveZ=baseZ+112;load(sieveX,sieveZ,2);int sieveY=fixtureY(sieveX,sieveZ);for(int n=0;n<7;n++)sieveY=Math.max(sieveY,Reflect.y(Reflect.call(world,"getTopSolidOrLiquidBlock/func_175672_r",Reflect.pos(sieveX+n*3,64,sieveZ)))+8);require(sieveY<230,"bounded seven-frame air fixture");
+            sieveGameplay=dev.deadearth.legacyprobe.sieving.CompactSieveGameplayProbe.begin(runtime,world,sieveX,sieveY,sieveZ);
         } catch(Throwable failed) {
             failures++;checks.add(result("probe_setup",false,failed));failed.printStackTrace();
         } finally {
+            if(sieveGameplay==null)finishNative();
+        }
+        // Normal ticking completes the gameplay session before the runner may stop this server.
+    }
+    private void finishNative() {
+            if(nativeFinished)return;nativeFinished=true;
             boolean retained=Boolean.getBoolean("deadearth.bridgeProbe")&&failures==0&&playerList!=null&&player!=null;
             if(retained) {
                 try {
@@ -121,7 +138,6 @@ public final class PortProbe {
                 Files.move(temporary,output,StandardCopyOption.REPLACE_EXISTING,StandardCopyOption.ATOMIC_MOVE);
                 System.out.println("DEAD EARTH native port probe finished: "+(failures==0?"passed":"failed"));
             } catch(Exception failed){failed.printStackTrace();}
-        }
         // The runner requests a normal stop only after reading the complete report.
     }
 

@@ -124,6 +124,15 @@ public final class ClientProbe {
             String id=entry.getAsString();Object item=Reflect.registry("ITEMS",id);if(item==null)throw new IllegalStateException("Missing registered item "+id);
             Object stack=Reflect.make("net.minecraft.item.ItemStack",item,1,0);model(Reflect.call(mesher,"getItemModel/func_178089_a",stack),missing,id);
         }
+        validateNames();
+        Object colors=Reflect.get(client,"itemColors/field_184128_aI");List<Integer> shades=new ArrayList<Integer>();int previous=256;
+        for(int power=2;power<=4;power++){
+            Object stack=Reflect.make("net.minecraft.item.ItemStack",Reflect.registry("ITEMS","dead_earth:compressed_gravel_"+power),1,0);
+            int rgb=((Number)Reflect.call(colors,"colorMultiplier/func_186728_a",stack,0)).intValue();
+            int brightness=rgb&255;if(rgb==-1||brightness>=previous)throw new IllegalStateException("Compressed gravel tint is missing or does not darken: "+power+" = "+rgb);
+            shades.add(rgb);previous=brightness;
+        }
+        report.put("compressedGravelTints",shades);
         List<Object> mods=new ArrayList<Object>();
         for(Object mod:(List<?>)Reflect.call(Reflect.call(Reflect.type("net.minecraftforge.fml.common.Loader"),"instance"),"getModList"))
             mods.add(JsonFiles.map("id",Reflect.call(mod,"getModId"),"version",Reflect.call(mod,"getVersion")));
@@ -138,6 +147,21 @@ public final class ClientProbe {
         }
         Object gl=Reflect.type("org.lwjgl.opengl.GL11");report.put("openGL",JsonFiles.map("vendor",Reflect.call(gl,"glGetString",7936),"renderer",Reflect.call(gl,"glGetString",7937),"version",Reflect.call(gl,"glGetString",7938)));
     }
+    private void validateNames() {
+        List<Object> names=new ArrayList<Object>();
+        Object registry=Reflect.get(Reflect.type("net.minecraft.item.Item"),"REGISTRY/field_150901_e");
+        for(Object key:(Set<?>)Reflect.call(registry,"getKeys/func_148742_b")){
+            String id=key.toString();if(!id.startsWith("dead_earth:"))continue;
+            Object stack=Reflect.make("net.minecraft.item.ItemStack",Reflect.registry("ITEMS",id),1,0);
+            String label=String.valueOf(Reflect.call(stack,"getDisplayName/func_82833_r"));
+            if(label.trim().isEmpty()||label.endsWith(".name")||label.startsWith("tile.")||label.startsWith("item.")||label.contains("dead_earth."))throw new IllegalStateException("Untranslated own item "+id+": "+label);
+            boolean russian=false;for(int i=0;i<label.length();i++)if(label.charAt(i)>='А'&&label.charAt(i)<='я'||label.charAt(i)=='ё'||label.charAt(i)=='Ё')russian=true;
+            if(!russian)throw new IllegalStateException("Own item has no readable Russian name "+id+": "+label);
+            names.add(JsonFiles.map("id",id,"name",label));
+        }
+        if(names.isEmpty())throw new IllegalStateException("No registered own items for localization proof");
+        report.put("localizedItems",names);checks.add(JsonFiles.map("localizedOwnItemCount",names.size(),"language","ru_ru","ok",true));
+    }
     private void model(Object model,Object missing,String id) {
         if(model==missing)throw new IllegalStateException("Missing baked model "+id);
         String texture=(String)Reflect.call(Reflect.call(model,"getParticleTexture/func_177554_e"),"getIconName/func_94215_i");
@@ -150,6 +174,19 @@ public final class ClientProbe {
             JsonObject b=entry.getAsJsonObject();Object at=Reflect.pos(b.get("x").getAsInt(),b.get("y").getAsInt(),b.get("z").getAsInt());
             if(!(Boolean)Reflect.call(world,"isBlockLoaded/func_175667_e",at))throw new IllegalStateException("Showcase assertion chunk is not loaded");
             String actual=Reflect.blockId(world,at);if(!actual.equals(b.get("id").getAsString()))throw new IllegalStateException("Showcase block differs: "+actual);
+            Object state=Reflect.state(world,at),block=Reflect.call(state,"getBlock/func_177230_c");
+            if(b.has("meta")&&((Number)Reflect.call(block,"getMetaFromState/func_176201_c",state)).intValue()!=b.get("meta").getAsInt())throw new IllegalStateException("Showcase metadata differs: "+actual);
+            if(b.has("visualMesh")||b.has("visualFill")||b.has("visualMaterial")){
+                Object actualState=Reflect.call(block,"getActualState/func_176221_a",state,world,at);
+                for(String property:new String[]{"mesh","fill","material"}){
+                    String field="visual"+Character.toUpperCase(property.charAt(0))+property.substring(1);if(!b.has(field))continue;
+                    boolean found=false;for(Object key:(Collection<?>)Reflect.call(actualState,"getPropertyKeys/func_177227_a"))if(property.equals(Reflect.call(key,"getName/func_177701_a"))){
+                        int value=((Number)Reflect.call(actualState,"getValue/func_177229_b",key)).intValue();
+                        if(value!=b.get(field).getAsInt())throw new IllegalStateException("Unsynchronized sieve "+property+": "+value+" != "+b.get(field));found=true;
+                    }
+                    if(!found)throw new IllegalStateException("Missing visible sieve property "+property);
+                }
+            }
             checks.add(JsonFiles.map("scene",view.get("name").getAsString(),"block",actual,"ok",true));
         }
     }

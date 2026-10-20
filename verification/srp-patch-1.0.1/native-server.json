@@ -1,0 +1,1514 @@
+{
+  "ordinaryWarmupTicks": 40,
+  "schema": 2,
+  "probe": "native_full_srp_forge_1_12_2",
+  "productVersion": "1.0.1",
+  "terrain": "DEFAULT",
+  "clientVisualsTested": false,
+  "realAiInferenceTested": false,
+  "fullLockCount": 25,
+  "serverNativeCount": 23,
+  "nativeVersions": {
+    "storagenetwork": "2.0.1",
+    "crafttweaker": "4.1.20",
+    "hbm": "2.6.1.0",
+    "mixinbooter": "11.18",
+    "jei": "4.22.0.1034",
+    "srparasites": "1.9.21",
+    "epicsiegemod": "13.169",
+    "mysticalagriculture": "1.7.5",
+    "cucumber": "1.1.3",
+    "rftools": "7.73",
+    "rftoolspower": "1.2.0",
+    "mcjtylib_ng": "3.5.4",
+    "xnet": "1.8.2",
+    "waila": "1.8.26",
+    "vintagefix": "0.7.2",
+    "appliedenergistics2": "rv6-stable-7",
+    "projecte": "1.12.2-PE1.4.1",
+    "exnihilocreatio": "1.12.2-0.4.7.2",
+    "excompressum": "3.0.32",
+    "forgelin": "1.8.4",
+    "simpledifficulty": "0.3.9",
+    "xlfoodmod": "1.12.2-1.9.2",
+    "inventorysorter": "1.13.3+57"
+  },
+  "clientOnlyNotInstalled": [
+    "ctm",
+    "entityculling"
+  ],
+  "activeTicks": 220,
+  "phase": 0,
+  "nativePhase": 0,
+  "zoneCount": 6,
+  "receiptCount": 23,
+  "bridgeFixtureReset": true,
+  "bridgePlayerRetained": true,
+  "checks": [
+    {
+      "name": "coordinator loaded",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: storagenetwork",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: crafttweaker",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: hbm",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: mixinbooter",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: jei",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: srparasites",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: epicsiegemod",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: mysticalagriculture",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: cucumber",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: rftools",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: rftoolspower",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: mcjtylib_ng",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: xnet",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: waila",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: vintagefix",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: appliedenergistics2",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: projecte",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: exnihilocreatio",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: excompressum",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: forgelin",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: simpledifficulty",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: xlfoodmod",
+      "passed": true
+    },
+    {
+      "name": "full native dependency loaded: inventorysorter",
+      "passed": true
+    },
+    {
+      "name": "excluded mod absent: securitycraft",
+      "passed": true
+    },
+    {
+      "name": "excluded mod absent: mutationcraft",
+      "passed": true
+    },
+    {
+      "name": "excluded mod absent: overgrown_vegetation",
+      "passed": true
+    },
+    {
+      "name": "excluded mod absent: tconstruct",
+      "passed": true
+    },
+    {
+      "name": "native ordinary terrain, no flat fixture",
+      "passed": true
+    },
+    {
+      "name": "native SRP loaded",
+      "passed": true
+    },
+    {
+      "name": "native Epic Siege loaded",
+      "passed": true
+    },
+    {
+      "name": "native HBM loaded",
+      "passed": true
+    },
+    {
+      "name": "own relay registered",
+      "passed": true
+    },
+    {
+      "name": "Epic Siege AI scope preserves native parasites and enables zombies",
+      "passed": true
+    },
+    {
+      "name": "six-anchor configuration",
+      "passed": true
+    },
+    {
+      "name": "native_dependencies",
+      "passed": true
+    },
+    {
+      "name": "fresh test has no survival players",
+      "passed": true
+    },
+    {
+      "name": "offline active clock and evolution pause",
+      "passed": true
+    },
+    {
+      "name": "native gain is locked",
+      "passed": true
+    },
+    {
+      "name": "native kill gain cannot bypass lock",
+      "passed": true
+    },
+    {
+      "name": "no_player_pause_and_native_lock",
+      "passed": true
+    },
+    {
+      "name": "fresh full world has no starter claim",
+      "passed": true
+    },
+    {
+      "name": "original spawn container remains stable through ordinary startup ticks",
+      "passed": true
+    },
+    {
+      "name": "shared starter shelter finds loaded safe site beside blocked initial spawn",
+      "passed": true
+    },
+    {
+      "name": "blocked initial seven-by-seven triggers deterministic nearby search",
+      "passed": true
+    },
+    {
+      "name": "shelter search remains within fixed radius64",
+      "passed": true
+    },
+    {
+      "name": "shelter search preserves blocked original container and loot",
+      "passed": true
+    },
+    {
+      "name": "shelter search and placement never load chunks",
+      "passed": true
+    },
+    {
+      "name": "physical protected spawn floor",
+      "passed": true
+    },
+    {
+      "name": "original shelter uses active-clock spawn grace",
+      "passed": true
+    },
+    {
+      "name": "paired native starter door",
+      "passed": true
+    },
+    {
+      "name": "native roof hatch",
+      "passed": true
+    },
+    {
+      "name": "shared starter chest exists",
+      "passed": true
+    },
+    {
+      "name": "one shared starter allotment dead_earth:zone_relay",
+      "passed": true
+    },
+    {
+      "name": "one shared starter allotment minecraft:dirt",
+      "passed": true
+    },
+    {
+      "name": "one shared starter allotment minecraft:sapling",
+      "passed": true
+    },
+    {
+      "name": "delivered shelter helper is idempotent",
+      "passed": true
+    },
+    {
+      "name": "starter relays cannot be reissued",
+      "passed": true
+    },
+    {
+      "name": "starter_shelter_once_per_world",
+      "passed": true
+    },
+    {
+      "name": "spawn grace includes 16 by 32 boundary",
+      "passed": true
+    },
+    {
+      "name": "spawn grace has finite boundary",
+      "passed": true
+    },
+    {
+      "name": "player-side world mutation remains available",
+      "passed": true
+    },
+    {
+      "name": "actual World write blocks native parasite caller",
+      "passed": true
+    },
+    {
+      "name": "native writer allowed outside grace",
+      "passed": true
+    },
+    {
+      "name": "transformed_world_write_guard",
+      "passed": true
+    },
+    {
+      "name": "in-world fake player is survival",
+      "passed": true
+    },
+    {
+      "name": "online active clock advances exact virtual ticks",
+      "passed": true
+    },
+    {
+      "name": "online survival pressure advances native-backed evolution points",
+      "passed": true
+    },
+    {
+      "name": "native phase synchronized after advancement",
+      "passed": true
+    },
+    {
+      "name": "survival_player_advances_active_clock",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 1",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 2",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 3",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 4",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 5",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 6",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 7",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 8",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 9",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native upward phase 10",
+      "passed": true
+    },
+    {
+      "name": "operator status exposes phase ten",
+      "passed": true
+    },
+    {
+      "name": "stale epoch rejected",
+      "passed": true
+    },
+    {
+      "name": "stale campaign rejected",
+      "passed": true
+    },
+    {
+      "name": "stale revision rejected",
+      "passed": true
+    },
+    {
+      "name": "stale commands have no phase effect",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 9",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 8",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 7",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 6",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 5",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 4",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 3",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 2",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 1",
+      "passed": true
+    },
+    {
+      "name": "phase CAS accepted",
+      "passed": true
+    },
+    {
+      "name": "phase receipt replay is idempotent",
+      "passed": true
+    },
+    {
+      "name": "phase receipt rejects conflicting payload",
+      "passed": true
+    },
+    {
+      "name": "native downward phase 0",
+      "passed": true
+    },
+    {
+      "name": "phase_zero_to_ten_CAS_round_trip",
+      "passed": true
+    },
+    {
+      "name": "unloaded anchor fixture",
+      "passed": true
+    },
+    {
+      "name": "unloaded anchor cannot allocate zone",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 0",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 0",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 0",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 0",
+      "passed": true
+    },
+    {
+      "name": "overlapping anchor rejected before reaching cap",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 1",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 1",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 1",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 1",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 2",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 2",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 2",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 2",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 3",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 3",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 3",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 3",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 4",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 4",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 4",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 4",
+      "passed": true
+    },
+    {
+      "name": "physical relay accepted 5",
+      "passed": true
+    },
+    {
+      "name": "physical relay tile exists 5",
+      "passed": true
+    },
+    {
+      "name": "real Forge chunk ticket allocated 5",
+      "passed": true
+    },
+    {
+      "name": "ticket forces exactly 3 by 3 chunks 5",
+      "passed": true
+    },
+    {
+      "name": "six distinct physical zones",
+      "passed": true
+    },
+    {
+      "name": "seventh anchor cannot exceed cap",
+      "passed": true
+    },
+    {
+      "name": "rejected anchor owns no chunk ticket",
+      "passed": true
+    },
+    {
+      "name": "loaded_relays_six_tickets_no_overlap",
+      "passed": true
+    },
+    {
+      "name": "anchor prerequisite",
+      "passed": true
+    },
+    {
+      "name": "bounded incremental inventory scan finishes: ",
+      "passed": true
+    },
+    {
+      "name": "unopened chest retains deferred loot",
+      "passed": true
+    },
+    {
+      "name": "bounded incremental inventory scan finishes: ",
+      "passed": true
+    },
+    {
+      "name": "iron resource price configured",
+      "passed": true
+    },
+    {
+      "name": "bounded zone scan sums two real chests: complete=true, emc=8192, error=",
+      "passed": true
+    },
+    {
+      "name": "deferred loot chest counted separately",
+      "passed": true
+    },
+    {
+      "name": "valuation does not generate deferred loot",
+      "passed": true
+    },
+    {
+      "name": "two_chests_and_unopened_loot",
+      "passed": true
+    },
+    {
+      "name": "repeated scale preserves native max health",
+      "passed": true
+    },
+    {
+      "name": "repeated scale preserves health fraction",
+      "passed": true
+    },
+    {
+      "name": "health modifier is reused without stacking",
+      "passed": true
+    },
+    {
+      "name": "native_health_scaling_is_idempotent",
+      "passed": true
+    },
+    {
+      "name": "wave anchor prerequisite",
+      "passed": true
+    },
+    {
+      "name": "phase zero rejects locked form and allows scout",
+      "passed": true
+    },
+    {
+      "name": "native wave has safe loaded approach",
+      "passed": true
+    },
+    {
+      "name": "phase-gated wave emits no locked entities",
+      "passed": true
+    },
+    {
+      "name": "phase ten allows configured form",
+      "passed": true
+    },
+    {
+      "name": "real native allowed wave emits exactly once",
+      "passed": true
+    },
+    {
+      "name": "phase downgrade does not erase already emitted entity",
+      "passed": true
+    },
+    {
+      "name": "phase_gated_native_wave_emission",
+      "passed": true
+    },
+    {
+      "name": "physical zone has typed catalogue options",
+      "passed": true
+    },
+    {
+      "name": "finite typed operation admitted",
+      "passed": true
+    },
+    {
+      "name": "native queue request replay shares operation",
+      "passed": true
+    },
+    {
+      "name": "native queue finite head count",
+      "passed": true
+    },
+    {
+      "name": "native world adapter executes first typed effect",
+      "passed": true
+    },
+    {
+      "name": "native operation never exceeds allocation",
+      "passed": true
+    },
+    {
+      "name": "typed_queue_replay_and_native_effect",
+      "passed": true
+    },
+    {
+      "name": "campaign checkpoint exists",
+      "passed": true
+    },
+    {
+      "name": "campaign restores same identity",
+      "passed": true
+    },
+    {
+      "name": "durable_campaign_checkpoint",
+      "passed": true
+    },
+    {
+      "name": "normal_terrain_wasteland",
+      "passed": true
+    },
+    {
+      "name": "native_full_progression_and_raw_emc",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "native_connected_sieves_5x5",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "native_compact_sieve_conservation_and_reload",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:hammer_v1",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 3 by 3",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:mining_gadget_v1",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 3 by 3",
+      "passed": true
+    },
+    {
+      "name": "native HBM battery interface dead_earth:mining_gadget_v1",
+      "passed": true
+    },
+    {
+      "name": "native battery capacity dead_earth:mining_gadget_v1",
+      "passed": true
+    },
+    {
+      "name": "native charge method stores energy dead_earth:mining_gadget_v1",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:hammer_v2",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 5 by 5",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:mining_gadget_v2",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 5 by 5",
+      "passed": true
+    },
+    {
+      "name": "native HBM battery interface dead_earth:mining_gadget_v2",
+      "passed": true
+    },
+    {
+      "name": "native battery capacity dead_earth:mining_gadget_v2",
+      "passed": true
+    },
+    {
+      "name": "native charge method stores energy dead_earth:mining_gadget_v2",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:hammer_v3",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 7 by 7",
+      "passed": true
+    },
+    {
+      "name": "own HBM-backed tool registered dead_earth:mining_gadget_v3",
+      "passed": true
+    },
+    {
+      "name": "native initial area preset 7 by 7",
+      "passed": true
+    },
+    {
+      "name": "native HBM battery interface dead_earth:mining_gadget_v3",
+      "passed": true
+    },
+    {
+      "name": "native battery capacity dead_earth:mining_gadget_v3",
+      "passed": true
+    },
+    {
+      "name": "native charge method stores energy dead_earth:mining_gadget_v3",
+      "passed": true
+    },
+    {
+      "name": "native anvil event returns high book application minecraft:efficiency",
+      "passed": true
+    },
+    {
+      "name": "actual high native enchantment output minecraft:efficiency",
+      "passed": true
+    },
+    {
+      "name": "survival anvil cost and one book minecraft:efficiency",
+      "passed": true
+    },
+    {
+      "name": "native anvil event returns high book application minecraft:fortune",
+      "passed": true
+    },
+    {
+      "name": "actual high native enchantment output minecraft:fortune",
+      "passed": true
+    },
+    {
+      "name": "survival anvil cost and one book minecraft:fortune",
+      "passed": true
+    },
+    {
+      "name": "native anvil event returns high book application minecraft:unbreaking",
+      "passed": true
+    },
+    {
+      "name": "actual high native enchantment output minecraft:unbreaking",
+      "passed": true
+    },
+    {
+      "name": "survival anvil cost and one book minecraft:unbreaking",
+      "passed": true
+    },
+    {
+      "name": "native_hbm_tools_and_high_anvil",
+      "passed": true
+    },
+    {
+      "name": "bounded incremental inventory scan finishes: ",
+      "passed": true
+    },
+    {
+      "name": "physical native ME drive",
+      "passed": true
+    },
+    {
+      "name": "native ME item cell inventory",
+      "passed": true
+    },
+    {
+      "name": "native cell accepts long quantity",
+      "passed": true
+    },
+    {
+      "name": "incremental native ME cursor counts cell content exactly once",
+      "passed": true
+    },
+    {
+      "name": "bounded incremental inventory scan finishes: ",
+      "passed": true
+    },
+    {
+      "name": "physical ME drive contents belong to their relay zone",
+      "passed": true
+    },
+    {
+      "name": "physical_ae2_cell_zone_valuation",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "physical_native_crop_trays",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "finite_defense_native_siege_explosion_players",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "physical_charger_and_fortune_processor",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "loaded_climate_top_side_thaw_and_quotas",
+      "passed": true
+    },
+    {
+      "name": "accelerated canonical winter drives native weather",
+      "passed": true
+    },
+    {
+      "name": "winter native parasite multiplier1.8",
+      "passed": true
+    },
+    {
+      "name": "accelerated canonical summer clears native rain",
+      "passed": true
+    },
+    {
+      "name": "summer native parasite multiplier0.5",
+      "passed": true
+    },
+    {
+      "name": "production seasonal tick has no forced chunk loads",
+      "passed": true
+    },
+    {
+      "name": "native climate presentation payload stays21bytes",
+      "passed": true
+    },
+    {
+      "name": "native presentation packet round trip",
+      "passed": true
+    },
+    {
+      "name": "malformed presentation packet disables client effect snapshot",
+      "passed": true
+    },
+    {
+      "name": "native_climate_clock_and_packet_codec",
+      "passed": true
+    },
+    {
+      "name": "bounded CraftTweaker diagnostic log",
+      "passed": true
+    },
+    {
+      "name": "native CraftTweaker log present",
+      "passed": true
+    },
+    {
+      "name": "native scripts have no recipe/compiler errors: []",
+      "passed": true
+    },
+    {
+      "name": "native_crafttweaker_recipe_errors",
+      "passed": true
+    },
+    {
+      "name": "full campaign and shelter receipt persist",
+      "passed": true
+    },
+    {
+      "name": "durable_full_campaign",
+      "passed": true
+    },
+    {
+      "name": "bounded air fixture above ordinary terrain",
+      "passed": true
+    },
+    {
+      "name": "bounded seven-frame air fixture",
+      "passed": true
+    },
+    {
+      "name": "actual equipment insertion and normal server ticks: null",
+      "passed": true
+    },
+    {
+      "name": "native_automatic_sieve_gameplay",
+      "passed": true
+    }
+  ],
+  "baselineAssertionCount": 202,
+  "fullGroupCount": 15,
+  "fullAssertionCount": 88,
+  "fullGroups": {
+    "starter": {
+      "dimensions": "7x7x5",
+      "receipt": "DELIVERED",
+      "relayCount": 6,
+      "graceTicks": 216000
+    },
+    "worldgen": {
+      "nativePass": true,
+      "inertAsh": true,
+      "physicalAshColumns": 8207,
+      "actualDeterministicCuts": 2158,
+      "selectedChunkX": 149,
+      "selectedChunkZ": 186,
+      "landSearchBiomeOnly": true,
+      "nativeWrites": 56699,
+      "observedPrePassChunks": 75,
+      "preservedVanillaOreSamples": 1617,
+      "preservedHbmOreSamples": 0,
+      "nativeVanillaOrePreservationTested": true,
+      "nativeHbmOrePreservationTested": false,
+      "deferredCallbacksNotObserved": true,
+      "deferredHbmOreGenerationTested": false,
+      "observedNativeReservationChunks": 12,
+      "preservedNativeHbmArchitectureSamples": 2,
+      "nativeHbmArchitecturePreservationTested": true,
+      "nativeReservationObserved": true,
+      "sampledIndependentRegions": 3,
+      "regionsWithAtLeast256PaletteSoilColumns": 3,
+      "paintedSoilChunks": 75,
+      "observedNaturalSoilColumns": 17141,
+      "paletteNaturalSoilColumns": 17104,
+      "nativeFeatureCoveredSoilColumns": 35,
+      "nativeGeologyColumns": 2,
+      "nativeGeologyDetails": [
+        {
+          "x": 2438,
+          "z": 3009,
+          "chunkX": 152,
+          "chunkZ": 188,
+          "site": 0,
+          "originalY": 68,
+          "originalSurface": "minecraft:grass#0",
+          "finalY": 61,
+          "finalSurface": "minecraft:stone#1",
+          "reservation": null,
+          "planReason": "new_chunk",
+          "protectedColumns": 0,
+          "unsafeColumns": 0,
+          "plannedStateAtFinalGround": null
+        },
+        {
+          "x": 2453,
+          "z": 3003,
+          "chunkX": 153,
+          "chunkZ": 187,
+          "site": 0,
+          "originalY": 67,
+          "originalSurface": "minecraft:grass#0",
+          "finalY": 63,
+          "finalSurface": "minecraft:stone#1",
+          "reservation": null,
+          "planReason": "new_chunk",
+          "protectedColumns": 0,
+          "unsafeColumns": 0,
+          "plannedStateAtFinalGround": null
+        }
+      ],
+      "unexpectedNaturalSurfaceColumns": 0,
+      "unconvertedNaturalSoilColumns": 0,
+      "observedReservedSoilColumns": 3069,
+      "reservedPaintedSoilColumns": 3069,
+      "reservedPaintedChunks": 12,
+      "existingChunkPreserved": true,
+      "counts": {
+        "generated": 769,
+        "writes": 379262,
+        "new_chunk": 428,
+        "surface_columns": 121323,
+        "crater_columns": 19826,
+        "protected_columns": 3975,
+        "unsafe_columns": 46,
+        "unsafe_rim": 36,
+        "unsafe_cut": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.DepthDeposit": 39,
+        "hbm_footprint": 248,
+        "architecture": 55,
+        "reservation_native_structure_box": 13,
+        "surface_only_chunks": 109,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.DepthDeposit": 42,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.OilBubble": 6,
+        "reservation_pending_dynamic_layout:com.hbm.world.OilBubble": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOre": 13,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.feature.BedrockOilDeposit": 9,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOilDeposit": 73,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.BedrockOre": 14,
+        "reservation_phased_structure_box": 6,
+        "reservation_native_index_jobsByOriginChunk:com.hbm.world.MeteoriteStructure": 2,
+        "reservation_pending_dynamic_layout:com.hbm.world.MeteoriteStructure": 5,
+        "reservation_pending_validation_layout:com.hbm.world.Satellite": 11,
+        "reservation_pending_origin:com.hbm.world.Satellite": 1,
+        "reservation_pending_dynamic_layout:com.hbm.world.feature.LanternBehemoth": 1,
+        "existing_skipped": 1
+      }
+    },
+    "progression": {
+      "nativeRecipes": true,
+      "previousBookNbtRequired": true,
+      "rawOnlyEmc": true,
+      "sieveProviderRuns": 1
+    },
+    "connectedSieves": {
+      "width": 5,
+      "nativeTiles": 25,
+      "rawConsumed": 25,
+      "centerClicks": 2,
+      "advancedTiles": 25,
+      "progressPerTile": 0.1,
+      "outsideRadiusUnchanged": true,
+      "nativeHbmRewardDraw": true,
+      "rewardDrawUsesControlledRng": true,
+      "manualPlayerClass": "net.minecraft.entity.player.EntityPlayerMP",
+      "fullCycleDropsTested": false
+    },
+    "compactSieves": {
+      "cachedHandlerRejectedAfterBreak": true,
+      "emptyFrameUpgradeable": true,
+      "nativeRawDraws": 81,
+      "nativeRewardMatch": true,
+      "hbmProvider": true,
+      "compressedInputConsumedOnce": true,
+      "pendingNbtRoundTrip": true,
+      "meshLockedDuringBatch": true,
+      "packedBreakAndPlace": true,
+      "outputSlots": 27,
+      "globalNativeDrawsInTick": 160
+    },
+    "tools": {
+      "ownNativeTools": 6,
+      "presetAreas": [
+        3,
+        5,
+        7
+      ],
+      "nativeBatteries": 3,
+      "highAnvilEventOutputs": 3,
+      "anvilUiPickupTested": false
+    },
+    "ae2": {
+      "physicalDrive": true,
+      "storedIron": 1234,
+      "cursorSteps": 11,
+      "zoneDelta": 315904
+    },
+    "farming": {
+      "nativeCropFamilies": 3,
+      "actualHarvest": true,
+      "saveReload": true,
+      "outputOnlyAutomation": true
+    },
+    "defense": {
+      "tiers": 3,
+      "doorSharedHp": true,
+      "realEsmDig": true,
+      "playerDrops": true,
+      "realOrdinaryExplosion": true
+    },
+    "machinery": {
+      "nativeHbmCharging": true,
+      "nativeOreDrops": true,
+      "blockedOutputTransactional": true,
+      "pendingNbtRoundTrip": true
+    },
+    "climate": {
+      "topAndSides": true,
+      "nativeIcePreserved": true,
+      "inventoryOperable": true,
+      "changes": 24,
+      "maximumCells": 4314,
+      "maximumSections": 2,
+      "forceLoads": 0
+    },
+    "climateClockAndPackets": {
+      "acceleratedNativeWeather": true,
+      "seasonMultipliers": [
+        0.5,
+        1.8
+      ],
+      "nativeCodecBytes": 21,
+      "malformedPacketDisabled": true,
+      "clientNetworkDeliveryTested": false,
+      "clientVisualsTested": false
+    },
+    "recipes": {
+      "nativeLogFiles": 1,
+      "errors": []
+    },
+    "compactSieveGameplay": {
+      "lastPlayerInteraction": {
+        "loaded": true,
+        "block": "dead_earth:compact_sieve_v3",
+        "tile": "dev.deadearth.legacy.sieving.SieveTile$III",
+        "heldCountBefore": 0,
+        "sneaking": false,
+        "mode": "SURVIVAL",
+        "collection": true,
+        "result": "PASS",
+        "heldCountAfter": 15
+      },
+      "normalPlacementOnly": true,
+      "manualLifecycleOrProgressCalls": false,
+      "cases": [
+        {
+          "tier": 3,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 3,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 4,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 4,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 729,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 5,
+          "mode": "survival",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 5,
+          "mode": "creative",
+          "naturallyTracked": true,
+          "nativePlainMeshRejected": true,
+          "wrongTierRejected": true,
+          "matchingEquipmentAccepted": true,
+          "normalTickDraws": 6561,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        },
+        {
+          "tier": 3,
+          "mode": "native_hoppers",
+          "naturallyTracked": true,
+          "normalTickDraws": 81,
+          "remainingRawDraws": 0,
+          "completedBatches": 1
+        }
+      ],
+      "observedServerTicks": 61,
+      "maximumGlobalNativeDrawsPerTick": 256,
+      "nativeHopperOutputItems": 6,
+      "emptyHandCollectsNativeReward": true,
+      "handCollectedItemCount": 15,
+      "automaticBatchAfterMeshAndInput": true,
+      "allTierEquivalentCounts": true,
+      "nativeHopperAutomaticInput": true,
+      "idleMeshProtectedFromHopper": true,
+      "chatPackets": 0,
+      "passed": true
+    }
+  },
+  "failures": 0,
+  "passed": true
+}

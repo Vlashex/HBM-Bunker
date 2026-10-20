@@ -1,4 +1,4 @@
-"""Run the complete SRP 1.0.0 native probe in a brand-new, isolated Forge 1.12.2 server.
+"""Run the complete current SRP native probe in a brand-new, isolated Forge 1.12.2 server.
 
 Call only during the final verification pass, after compiling the complete port.
 No existing world, live server, or launcher profile is modified.

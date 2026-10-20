@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "coordinatorSha256": "23cb9522af2cfa58c1d6e4a73b95d241722aee6147bf014a10f1be2d7c9f016c",
+  "checks": [
+    {
+      "class": "dev.deadearth.legacy.RulesChecks",
+      "exitCode": 0,
+      "stdout": "RulesChecks: 18 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.ReflectChecks",
+      "exitCode": 0,
+      "stdout": "ReflectChecks passed: SRG precedence, overload identity and1000 cache hits\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.kernel.KernelChecks",
+      "exitCode": 0,
+      "stdout": "KernelChecks: 170 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.worldgen.WastelandChecks",
+      "exitCode": 0,
+      "stdout": "WastelandChecks: 351288 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.climate.ClimateChecks",
+      "exitCode": 0,
+      "stdout": "ClimateChecks: 789 checks passed\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.defense.DefenseChecks",
+      "exitCode": 0,
+      "stdout": "Defense HP/cooldown/reload/finite bounds assertions passed.\n",
+      "stderr": ""
+    },
+    {
+      "class": "dev.deadearth.legacy.farming.FarmingChecks",
+      "exitCode": 0,
+      "stdout": "FarmingChecks: 8 checks passed\n",
+      "stderr": ""
+    }
+  ]
+}

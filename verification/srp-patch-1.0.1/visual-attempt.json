@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "runId": "7fca161b-d325-4c8a-9b1b-866905f6dcef",
+  "worldEpoch": "ba6dfe09-60d9-44f5-9d19-7edcf773f5f2",
+  "probe": "actual_forge_1_12_2_client",
+  "screenshots": [],
+  "checks": [],
+  "passed": false,
+  "error": "IllegalStateException: Unexpected local/integrated server transport",
+  "readyHandshake": false,
+  "seasonsObserved": [],
+  "clientTicks": 446,
+  "holding": false,
+  "heldSeconds": 0
+}

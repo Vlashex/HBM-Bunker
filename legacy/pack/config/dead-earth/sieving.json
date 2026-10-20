@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "nativeDrawsPerServerTick": 8,
+  "nativeDrawsPerServerTick": 256,
   "materials": {
     "cobblestone": "minecraft:cobblestone",
     "dirt": "minecraft:dirt",

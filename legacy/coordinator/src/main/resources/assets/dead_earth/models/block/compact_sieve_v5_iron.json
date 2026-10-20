@@ -1,0 +1,8 @@
+{
+  "parent": "excompressum:block/heavy_sieve_with_mesh",
+  "textures": {
+    "particle": "minecraft:blocks/log_oak",
+    "texture": "minecraft:blocks/log_oak",
+    "iron_mesh": "excompressum:blocks/iron_mesh"
+  }
+}

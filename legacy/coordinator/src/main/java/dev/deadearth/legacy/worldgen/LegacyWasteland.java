@@ -85,6 +85,9 @@ public final class LegacyWasteland {
             Reflect.call(chunk,"generateSkylightMap/func_76603_b");Reflect.call(chunk,"markDirty/func_76630_e");
         }
         count("generated",1);count("writes",plan.writes.size());count(plan.reason,1);
+        count("surface_columns",plan.surfaceColumns);count("crater_columns",plan.craterColumns);
+        count("protected_columns",plan.protectedColumns);count("unsafe_columns",plan.unsafeColumns);
+        if(!plan.craters&&!plan.writes.isEmpty())count("surface_only_chunks",1);
     }
     private static Object material(String key){
         Object found=paletteStates.get(key);if(found!=null)return found;

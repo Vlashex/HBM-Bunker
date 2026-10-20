@@ -1,6 +1,7 @@
 package dev.deadearth.legacyprobe.worldgen;
 
 import dev.deadearth.legacy.Reflect;
+import dev.deadearth.legacy.JsonFiles;
 import dev.deadearth.legacy.worldgen.LegacyWasteland;
 import dev.deadearth.legacy.worldgen.WastelandField;
 import dev.deadearth.legacy.worldgen.WastelandSettings;
@@ -15,7 +16,8 @@ public final class WastelandProbe {
     private static final class Sample {
         final int cx,cz;final int[] ground=new int[256];final String[] surface=new String[256];
         final Map<Long,String> ores=new LinkedHashMap<Long,String>(),architecture=new LinkedHashMap<Long,String>();
-        boolean reserved;
+        boolean reserved;int site;String reservation,planReason;int protectedColumns,unsafeColumns;
+        final Map<Long,String> planned=new HashMap<Long,String>();
         Sample(int x,int z){cx=x;cz=z;}
     }
     public static Map<String,Object> verify(Object world,int requestedX,int requestedZ)throws Exception{
@@ -23,17 +25,25 @@ public final class WastelandProbe {
         require(Reflect.dimension(world)==0&&!(Boolean)Reflect.get(world,"isRemote/field_72995_K"),"server overworld");
         Object ash=Reflect.registry("BLOCKS","dead_earth:ash");require(ash!=null,"own ash registered");
         require(ash.getClass().getName().equals("dev.deadearth.legacy.worldgen.AshBlock"),"inert own ash class");
-        int[] site=landSite(world,requestedX,requestedZ);final int cx=site[0],cz=site[1];
+        final int[][] sites={landSite(world,requestedX,requestedZ),landSite(world,requestedX+384,requestedZ),landSite(world,requestedX,requestedZ+384)};
+        final int cx=sites[0][0],cz=sites[0][1];
         WastelandSettings settings=(WastelandSettings)Reflect.get(LegacyWasteland.class,"settings");
         long seed=((Number)Reflect.call(world,"getSeed/func_72905_C")).longValue();
         Map<Long,Sample> originals=new LinkedHashMap<Long,Sample>();boolean[] observing={true};
         Class<?> generator=Reflect.type("net.minecraftforge.fml.common.IWorldGenerator");
-        Method reservation=Reflect.type("dev.deadearth.legacy.worldgen.HbmFootprints").getDeclaredMethod("reserved",Object.class,int.class,int.class);reservation.setAccessible(true);
+        Method reservation=Reflect.type("dev.deadearth.legacy.worldgen.HbmFootprints").getDeclaredMethod("reason",Object.class,int.class,int.class);reservation.setAccessible(true);
+        Constructor<?> terrainFactory=Reflect.type("dev.deadearth.legacy.worldgen.LegacyWasteland$NativeTerrain").getDeclaredConstructor(Object.class,int.class,int.class);terrainFactory.setAccessible(true);
         Object observer=Proxy.newProxyInstance(generator.getClassLoader(),new Class<?>[]{generator},(proxy,method,args)->{
             if(method.getName().equals("generate")){
                 int x=((Number)args[1]).intValue(),z=((Number)args[2]).intValue();
-                if(observing[0]&&args[3]==world&&x>=cx&&x<cx+5&&z>=cz&&z<cz+5){
-                    Sample sample=snapshot(world,x,z);sample.reserved=(Boolean)reservation.invoke(null,world,x,z);originals.put(chunkKey(x,z),sample);
+                int site=siteIndex(sites,x,z);
+                if(observing[0]&&args[3]==world&&site>=0){
+                    Sample sample=snapshot(world,x,z);sample.site=site;sample.reservation=(String)reservation.invoke(null,world,x,z);sample.reserved=sample.reservation!=null;
+                    // Read-only diagnostic projection uses the actual product adapter and never applies a write.
+                    WastelandSurface.Plan planned=WastelandSurface.plan((WastelandSurface.Terrain)terrainFactory.newInstance(chunk(world,x,z),x,z),seed,settings,x,z,sample.reserved);
+                    sample.planReason=planned.reason;sample.protectedColumns=planned.protectedColumns;sample.unsafeColumns=planned.unsafeColumns;
+                    for(WastelandSurface.Write w:planned.writes)sample.planned.put(cellKey(w.x,w.y,w.z),w.state);
+                    originals.put(chunkKey(x,z),sample);
                 }return null;
             }
             if(method.getName().equals("toString"))return "DeadEarthReadOnlyPreWastelandProbe";
@@ -43,18 +53,42 @@ public final class WastelandProbe {
         // HBM/native generators run first; the product wasteland generator has Integer.MAX_VALUE priority.
         Reflect.call(Reflect.type("net.minecraftforge.fml.common.registry.GameRegistry"),"registerWorldGenerator",observer,Integer.MAX_VALUE-1);
         Map<String,Long> before=LegacyWasteland.diagnostics();
-        try{for(int dx=0;dx<6;dx++)for(int dz=0;dz<6;dz++)Reflect.call(world,"getChunkFromChunkCoords/func_72964_e",cx+dx,cz+dz);}
+        try{for(int[] site:sites)for(int dx=0;dx<6;dx++)for(int dz=0;dz<6;dz++)Reflect.call(world,"getChunkFromChunkCoords/func_72964_e",site[0]+dx,site[1]+dz);}
         finally{observing[0]=false;}
         Map<String,Long> after=LegacyWasteland.diagnostics();
         require(!originals.isEmpty(),"native pre-pass terrain was actually observed");
         require(value(after,"generated")>value(before,"generated"),"new chunks ran native pass");
         long writes=value(after,"writes")-value(before,"writes");require(writes>0,"native wasteland actually changed terrain, not only protected/empty plans; before="+before+", after="+after);
         int physicalAsh=0,actualCuts=0,vanillaOres=0,hbmOres=0,reservedChunks=0,preservedArchitecture=0;
+        int soilColumns=0,paletteSoilColumns=0,nativeCoveredSoilColumns=0,unconvertedSoilColumns=0,reservedSoilColumns=0,reservedPaintedSoilColumns=0;
+        int nativeGeologyColumns=0,unexpectedSurfaceColumns=0;
+        List<Map<String,Object>> unconvertedDetails=new ArrayList<Map<String,Object>>(),nativeGeologyDetails=new ArrayList<Map<String,Object>>();
+        int[] paintedBySite=new int[sites.length];Set<Long> paintedChunks=new HashSet<Long>(),paintedReservedChunks=new HashSet<Long>();
         for(Sample s:originals.values()){
             Object chunk=chunk(world,s.cx,s.cz);if(s.reserved)reservedChunks++;
             List<WastelandField.Crater> craters=WastelandField.candidates(seed,settings,s.cx,s.cz);
             for(int x=0;x<16;x++)for(int z=0;z<16;z++){
                 int i=x*16+z,g=s.ground[i];if(g<1||!WastelandSurface.natural(s.surface[i]))continue;
+                if(WastelandSurface.surfaceSoil(s.surface[i])){
+                    soilColumns++;if(s.reserved)reservedSoilColumns++;
+                    int finalGround=ground(chunk,s.cx*16+x,s.cz*16+z,x,z);
+                    String finalSurface=state(chunk,s.cx*16+x,finalGround,s.cz*16+z);
+                    if(settings.palette.containsKey(finalSurface)){
+                        paletteSoilColumns++;paintedBySite[s.site]++;paintedChunks.add(chunkKey(s.cx,s.cz));
+                        if(s.reserved){
+                            require(finalGround==g,"reserved natural land is repainted without crater excavation or fill");
+                            reservedPaintedSoilColumns++;paintedReservedChunks.add(chunkKey(s.cx,s.cz));
+                        }
+                    }else if(finalSurface.equals("minecraft:stone#1")||finalSurface.equals("minecraft:stone#3")){
+                        // Adjacent vanilla stone veins can replace newly exposed palette stone after this pass.
+                        // Granite/diorite are inert native rock, not surviving grass/dirt/sand.
+                        nativeGeologyColumns++;if(nativeGeologyDetails.size()<32)nativeGeologyDetails.add(detail(s,x,z,g,finalGround,finalSurface));
+                    }else if(WastelandSurface.architecture(finalSurface)||ore(finalSurface)||WastelandSurface.water(finalSurface))nativeCoveredSoilColumns++;
+                    else{
+                        if(WastelandSurface.surfaceSoil(finalSurface))unconvertedSoilColumns++;else unexpectedSurfaceColumns++;
+                        if(unconvertedDetails.size()<32)unconvertedDetails.add(detail(s,x,z,g,finalGround,finalSurface));
+                    }
+                }
                 int delta=WastelandField.displacement(craters,s.cx*16+x,s.cz*16+z),target=Math.max(settings.coatingDepth+2,Math.min(253,g+delta));
                 String actual=state(chunk,s.cx*16+x,target,s.cz*16+z);
                 if(actual.equals("dead_earth:ash#0"))physicalAsh++;
@@ -71,8 +105,17 @@ public final class WastelandProbe {
                 require(at(chunk,s,block.getKey()).equals(block.getValue()),"actual native HBM architecture survives the surface pass: "+block.getValue());preservedArchitecture++;
             }
         }
+        // Preserve actionable evidence even when this group throws before PortProbe can attach its result.
+        JsonFiles.write(Paths.get("worldgen-probe-diagnostics.json"),JsonFiles.map("schema",1,"sites",sites,"observedPrePassChunks",originals.size(),
+            "observedNaturalSoilColumns",soilColumns,"paletteNaturalSoilColumns",paletteSoilColumns,"unconvertedNaturalSoilColumns",unconvertedSoilColumns,
+            "unexpectedNaturalSurfaceColumns",unexpectedSurfaceColumns,"nativeGeologyColumns",nativeGeologyColumns,"nativeGeologyDetails",nativeGeologyDetails,
+            "unconvertedDetails",unconvertedDetails,"observedReservedSoilColumns",reservedSoilColumns,"reservedPaintedSoilColumns",reservedPaintedSoilColumns,"counts",after));
         require(physicalAsh>0,"physical own ash exists on naturally generated terrain");
         require(actualCuts>0,"physical crater excavation matches the absolute field and pre-pass native surface");
+        int paintedSites=0;for(int n:paintedBySite)if(n>=256)paintedSites++;
+        require(soilColumns>=1024&&paintedChunks.size()>=8&&paintedSites>=2,"positive natural-soil coverage spans multiple independent fresh regions");
+        require(unconvertedSoilColumns==0&&unexpectedSurfaceColumns==0,"all observed natural land becomes inert palette/native granite-diorite or actual native feature, with zero grass/dirt/sand islands; unconvertedSoil="+unconvertedSoilColumns+", unexpectedSurface="+unexpectedSurfaceColumns+", observed="+soilColumns+", details="+unconvertedDetails);
+        require(reservedSoilColumns>0&&reservedPaintedSoilColumns>0,"actual native reserved chunks still repaint exposed natural soil");
         require(vanillaOres>0,"genuine pre-pass vanilla deep ore coordinates were observed and retained");
         // CE schedules ordinary HBM veins after population. This synchronous observer cannot
         // require callbacks that have not run; every HBM ore actually seen above was still compared.
@@ -87,7 +130,23 @@ public final class WastelandProbe {
         report.put("deferredCallbacksNotObserved",hbmOres==0);report.put("deferredHbmOreGenerationTested",false);
         report.put("observedNativeReservationChunks",reservedChunks);report.put("preservedNativeHbmArchitectureSamples",preservedArchitecture);
         report.put("nativeHbmArchitecturePreservationTested",preservedArchitecture>0);report.put("nativeReservationObserved",reservedChunks>0);
+        report.put("sampledIndependentRegions",sites.length);report.put("regionsWithAtLeast256PaletteSoilColumns",paintedSites);report.put("paintedSoilChunks",paintedChunks.size());
+        report.put("observedNaturalSoilColumns",soilColumns);report.put("paletteNaturalSoilColumns",paletteSoilColumns);report.put("nativeFeatureCoveredSoilColumns",nativeCoveredSoilColumns);
+        report.put("nativeGeologyColumns",nativeGeologyColumns);report.put("nativeGeologyDetails",nativeGeologyDetails);report.put("unexpectedNaturalSurfaceColumns",unexpectedSurfaceColumns);
+        report.put("unconvertedNaturalSoilColumns",unconvertedSoilColumns);report.put("observedReservedSoilColumns",reservedSoilColumns);report.put("reservedPaintedSoilColumns",reservedPaintedSoilColumns);report.put("reservedPaintedChunks",paintedReservedChunks.size());
         report.put("existingChunkPreserved",true);report.put("counts",LegacyWasteland.diagnostics());return report;
+    }
+    private static Map<String,Object> detail(Sample s,int x,int z,int originalGround,int finalGround,String finalSurface){
+        return JsonFiles.map("x",s.cx*16+x,"z",s.cz*16+z,"chunkX",s.cx,"chunkZ",s.cz,"site",s.site,"originalY",originalGround,
+            "originalSurface",s.surface[x*16+z],"finalY",finalGround,"finalSurface",finalSurface,"reservation",s.reservation,
+            "planReason",s.planReason,"protectedColumns",s.protectedColumns,"unsafeColumns",s.unsafeColumns,"plannedStateAtFinalGround",s.planned.get(cellKey(x,finalGround,z)));
+    }
+    private static int siteIndex(int[][] sites,int x,int z){
+        for(int i=0;i<sites.length;i++)if(x>=sites[i][0]&&x<sites[i][0]+5&&z>=sites[i][1]&&z<sites[i][1]+5)return i;return -1;
+    }
+    private static int ground(Object chunk,int absoluteX,int absoluteZ,int localX,int localZ){
+        int y=Math.min(254,((Number)Reflect.call(chunk,"getHeightValue/func_76611_b",localX,localZ)).intValue()-1);
+        while(y>0&&plantOrAir(state(chunk,absoluteX,y,absoluteZ)))y--;return Math.max(0,y);
     }
     /** Query only the biome provider before loading any terrain; an ocean is not a crater fixture. */
     private static int[] landSite(Object world,int cx,int cz){
@@ -118,7 +177,8 @@ public final class WastelandProbe {
             for(int y=Math.max(1,g-28);y<=top;y++){String old=state(chunk,cx*16+x,y,cz*16+z);if(old.startsWith("hbm:")&&WastelandSurface.architecture(old))s.architecture.put(cellKey(x,y,z),old);}
         }return s;
     }
-    private static boolean plantOrAir(String state){String id=WastelandSurface.id(state);return id.equals("minecraft:air")||id.equals("minecraft:tallgrass")||id.equals("minecraft:double_plant")||id.equals("minecraft:deadbush")||id.equals("minecraft:snow_layer")||id.equals("minecraft:yellow_flower")||id.equals("minecraft:red_flower");}
+    private static boolean plantOrAir(String state){String id=WastelandSurface.id(state);return id.equals("minecraft:air")||id.equals("minecraft:tallgrass")||id.equals("minecraft:double_plant")||id.equals("minecraft:deadbush")||id.equals("minecraft:snow_layer")||id.equals("minecraft:yellow_flower")||id.equals("minecraft:red_flower")||id.equals("minecraft:reeds")||id.equals("minecraft:waterlily")
+        ||id.equals("minecraft:brown_mushroom")||id.equals("minecraft:red_mushroom")||id.equals("hbm:plant_flower")||id.equals("hbm:plant_tall")||id.equals("hbm:plant_dead")||id.equals("hbm:reeds");}
     private static boolean ore(String state){String id=WastelandSurface.id(state);return id.startsWith("hbm:ore_")||id.equals("minecraft:coal_ore")||id.equals("minecraft:iron_ore")||id.equals("minecraft:gold_ore")||id.equals("minecraft:redstone_ore")||id.equals("minecraft:lapis_ore")||id.equals("minecraft:diamond_ore")||id.equals("minecraft:emerald_ore");}
     private static long chunkKey(int x,int z){return (x&0xffffffffL)|((long)z<<32);}
     private static long cellKey(int x,int y,int z){return ((long)x<<12)|((long)z<<8)|y;}

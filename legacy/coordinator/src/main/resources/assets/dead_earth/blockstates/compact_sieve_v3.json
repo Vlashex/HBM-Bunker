@@ -1,7 +1,728 @@
 {
-  "variants": {
-    "normal": {
-      "model": "dead_earth:compact_sieve_v3"
+  "multipart": [
+    {
+      "when": {
+        "mesh": "0"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_v3"
+      }
+    },
+    {
+      "when": {
+        "mesh": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_v3_string"
+      }
+    },
+    {
+      "when": {
+        "mesh": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_v3_flint"
+      }
+    },
+    {
+      "when": {
+        "mesh": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_v3_iron"
+      }
+    },
+    {
+      "when": {
+        "mesh": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_v3_diamond"
+      }
+    },
+    {
+      "when": {
+        "material": "0",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_cobblestone_1"
+      }
+    },
+    {
+      "when": {
+        "material": "0",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_cobblestone_2"
+      }
+    },
+    {
+      "when": {
+        "material": "0",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_cobblestone_3"
+      }
+    },
+    {
+      "when": {
+        "material": "0",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_cobblestone_4"
+      }
+    },
+    {
+      "when": {
+        "material": "1",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dirt_1"
+      }
+    },
+    {
+      "when": {
+        "material": "1",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dirt_2"
+      }
+    },
+    {
+      "when": {
+        "material": "1",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dirt_3"
+      }
+    },
+    {
+      "when": {
+        "material": "1",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dirt_4"
+      }
+    },
+    {
+      "when": {
+        "material": "2",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_gravel_1"
+      }
+    },
+    {
+      "when": {
+        "material": "2",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_gravel_2"
+      }
+    },
+    {
+      "when": {
+        "material": "2",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_gravel_3"
+      }
+    },
+    {
+      "when": {
+        "material": "2",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_gravel_4"
+      }
+    },
+    {
+      "when": {
+        "material": "3",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_sand_1"
+      }
+    },
+    {
+      "when": {
+        "material": "3",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_sand_2"
+      }
+    },
+    {
+      "when": {
+        "material": "3",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_sand_3"
+      }
+    },
+    {
+      "when": {
+        "material": "3",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_sand_4"
+      }
+    },
+    {
+      "when": {
+        "material": "4",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dust_1"
+      }
+    },
+    {
+      "when": {
+        "material": "4",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dust_2"
+      }
+    },
+    {
+      "when": {
+        "material": "4",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dust_3"
+      }
+    },
+    {
+      "when": {
+        "material": "4",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dust_4"
+      }
+    },
+    {
+      "when": {
+        "material": "5",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_nether_gravel_1"
+      }
+    },
+    {
+      "when": {
+        "material": "5",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_nether_gravel_2"
+      }
+    },
+    {
+      "when": {
+        "material": "5",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_nether_gravel_3"
+      }
+    },
+    {
+      "when": {
+        "material": "5",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_nether_gravel_4"
+      }
+    },
+    {
+      "when": {
+        "material": "6",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_ender_gravel_1"
+      }
+    },
+    {
+      "when": {
+        "material": "6",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_ender_gravel_2"
+      }
+    },
+    {
+      "when": {
+        "material": "6",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_ender_gravel_3"
+      }
+    },
+    {
+      "when": {
+        "material": "6",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_ender_gravel_4"
+      }
+    },
+    {
+      "when": {
+        "material": "7",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_soul_sand_1"
+      }
+    },
+    {
+      "when": {
+        "material": "7",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_soul_sand_2"
+      }
+    },
+    {
+      "when": {
+        "material": "7",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_soul_sand_3"
+      }
+    },
+    {
+      "when": {
+        "material": "7",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_soul_sand_4"
+      }
+    },
+    {
+      "when": {
+        "material": "8",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_red_sand_1"
+      }
+    },
+    {
+      "when": {
+        "material": "8",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_red_sand_2"
+      }
+    },
+    {
+      "when": {
+        "material": "8",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_red_sand_3"
+      }
+    },
+    {
+      "when": {
+        "material": "8",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_red_sand_4"
+      }
+    },
+    {
+      "when": {
+        "material": "9",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_andesite_1"
+      }
+    },
+    {
+      "when": {
+        "material": "9",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_andesite_2"
+      }
+    },
+    {
+      "when": {
+        "material": "9",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_andesite_3"
+      }
+    },
+    {
+      "when": {
+        "material": "9",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_andesite_4"
+      }
+    },
+    {
+      "when": {
+        "material": "10",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_diorite_1"
+      }
+    },
+    {
+      "when": {
+        "material": "10",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_diorite_2"
+      }
+    },
+    {
+      "when": {
+        "material": "10",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_diorite_3"
+      }
+    },
+    {
+      "when": {
+        "material": "10",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_diorite_4"
+      }
+    },
+    {
+      "when": {
+        "material": "11",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_granite_1"
+      }
+    },
+    {
+      "when": {
+        "material": "11",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_granite_2"
+      }
+    },
+    {
+      "when": {
+        "material": "11",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_granite_3"
+      }
+    },
+    {
+      "when": {
+        "material": "11",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_crushed_granite_4"
+      }
+    },
+    {
+      "when": {
+        "material": "12",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_skystone_1"
+      }
+    },
+    {
+      "when": {
+        "material": "12",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_skystone_2"
+      }
+    },
+    {
+      "when": {
+        "material": "12",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_skystone_3"
+      }
+    },
+    {
+      "when": {
+        "material": "12",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_skystone_4"
+      }
+    },
+    {
+      "when": {
+        "material": "13",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_oak_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "13",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_oak_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "13",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_oak_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "13",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_oak_leaves_4"
+      }
+    },
+    {
+      "when": {
+        "material": "14",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_spruce_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "14",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_spruce_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "14",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_spruce_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "14",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_spruce_leaves_4"
+      }
+    },
+    {
+      "when": {
+        "material": "15",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_birch_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "15",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_birch_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "15",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_birch_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "15",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_birch_leaves_4"
+      }
+    },
+    {
+      "when": {
+        "material": "16",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_jungle_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "16",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_jungle_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "16",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_jungle_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "16",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_jungle_leaves_4"
+      }
+    },
+    {
+      "when": {
+        "material": "17",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_acacia_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "17",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_acacia_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "17",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_acacia_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "17",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_acacia_leaves_4"
+      }
+    },
+    {
+      "when": {
+        "material": "18",
+        "fill": "1"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dark_oak_leaves_1"
+      }
+    },
+    {
+      "when": {
+        "material": "18",
+        "fill": "2"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dark_oak_leaves_2"
+      }
+    },
+    {
+      "when": {
+        "material": "18",
+        "fill": "3"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dark_oak_leaves_3"
+      }
+    },
+    {
+      "when": {
+        "material": "18",
+        "fill": "4"
+      },
+      "apply": {
+        "model": "dead_earth:compact_sieve_content_dark_oak_leaves_4"
+      }
     }
-  }
+  ]
 }

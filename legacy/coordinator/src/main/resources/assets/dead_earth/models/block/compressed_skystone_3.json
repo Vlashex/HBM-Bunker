@@ -1,8 +1,8 @@
 {
+  "parent": "minecraft:block/block",
   "textures": {
-    "particle": "appliedenergistics2:blocks/sky_stone_block",
-    "all": "appliedenergistics2:blocks/sky_stone_block",
-    "badge": "blocks/gold_block"
+    "particle": "exnihilocreatio:blocks/blockskystonecrushed",
+    "all": "exnihilocreatio:blocks/blockskystonecrushed"
   },
   "elements": [
     {
@@ -19,129 +19,33 @@
       "faces": {
         "down": {
           "texture": "#all",
-          "cullface": "down"
+          "cullface": "down",
+          "tintindex": 0
         },
         "up": {
           "texture": "#all",
-          "cullface": "up"
+          "cullface": "up",
+          "tintindex": 0
         },
         "north": {
           "texture": "#all",
-          "cullface": "north"
+          "cullface": "north",
+          "tintindex": 0
         },
         "south": {
           "texture": "#all",
-          "cullface": "south"
+          "cullface": "south",
+          "tintindex": 0
         },
         "west": {
           "texture": "#all",
-          "cullface": "west"
+          "cullface": "west",
+          "tintindex": 0
         },
         "east": {
           "texture": "#all",
-          "cullface": "east"
-        }
-      }
-    },
-    {
-      "from": [
-        6,
-        6,
-        -0.01
-      ],
-      "to": [
-        10,
-        10,
-        0
-      ],
-      "faces": {
-        "north": {
-          "texture": "#badge"
-        }
-      }
-    },
-    {
-      "from": [
-        6,
-        6,
-        16
-      ],
-      "to": [
-        10,
-        10,
-        16.01
-      ],
-      "faces": {
-        "south": {
-          "texture": "#badge"
-        }
-      }
-    },
-    {
-      "from": [
-        -0.01,
-        6,
-        6
-      ],
-      "to": [
-        0,
-        10,
-        10
-      ],
-      "faces": {
-        "west": {
-          "texture": "#badge"
-        }
-      }
-    },
-    {
-      "from": [
-        16,
-        6,
-        6
-      ],
-      "to": [
-        16.01,
-        10,
-        10
-      ],
-      "faces": {
-        "east": {
-          "texture": "#badge"
-        }
-      }
-    },
-    {
-      "from": [
-        6,
-        16,
-        6
-      ],
-      "to": [
-        10,
-        16.01,
-        10
-      ],
-      "faces": {
-        "up": {
-          "texture": "#badge"
-        }
-      }
-    },
-    {
-      "from": [
-        6,
-        -0.01,
-        6
-      ],
-      "to": [
-        10,
-        0,
-        10
-      ],
-      "faces": {
-        "down": {
-          "texture": "#badge"
+          "cullface": "east",
+          "tintindex": 0
         }
       }
     }

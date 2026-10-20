@@ -1,0 +1,1 @@
+package net.minecraft.block.properties; public class PropertyInteger implements IProperty<Integer> { public static PropertyInteger func_177719_a(String name,int min,int max){return null;} public static PropertyInteger create(String name,int min,int max){return null;} }
