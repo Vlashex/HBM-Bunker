@@ -290,5 +290,16 @@
     "side": "both",
     "version": "1.13.3+57",
     "source": "https://www.curseforge.com/minecraft/mc-mods/inventory-sorter/files/2546769"
+  },
+  {
+    "filename": "journeymap-1.12.2-5.7.1.jar",
+    "url": "https://edge.forgecdn.net/files/2916/002/journeymap-1.12.2-5.7.1.jar",
+    "version": "1.12.2-5.7.1",
+    "mod_id": "journeymap",
+    "size": 6990968,
+    "sha256": "78b2fc80b91da9cc569153dd651959f1497dcf056e7f0893bb55ab59d5f0dad9",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "client"
   }
 ]

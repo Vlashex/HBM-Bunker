@@ -109,25 +109,46 @@
     "existingWorldRetrogen": false
   },
   "installation": {
-    "state": "ready_awaiting_client_close",
-    "currentVersion": "1.0.3",
-    "preferredClientCount": 1
+    "state": "installed_one_client_joined",
+    "currentVersion": "1.0.4",
+    "preferredClientCount": 1,
+    "clientJoined": true,
+    "mapInitialized": true,
+    "adminHttp": 200,
+    "modelReady": true,
+    "newWorldCreated": true,
+    "previousWorldPreserved": true
   },
   "archives": [
     {
       "name": "DEAD-EARTH-SRP-1.0.4-Prism.zip",
-      "sha256": "5635538424770618b0a0c7762c77789eaebff340df11a360a765d8f2dc9e2f70",
-      "coordinatorMatches": true
+      "sha256": "9e43267c24386a5107a76475df81c69a414290736ddf15cdb7e9ccca2ea31964",
+      "coordinatorMatches": true,
+      "journeyMapIncluded": true
     },
     {
       "name": "DEAD-EARTH-SRP-1.0.4-TLauncher.zip",
-      "sha256": "de5e5e3c636ee29f04b8786de24d2276a284ef615b642fcd9522cd52537bc587",
-      "coordinatorMatches": true
+      "sha256": "7a4db412e46e73c303eac5cac1bb9aaf6e82f2755389d237885c2c71aa2cf778",
+      "coordinatorMatches": true,
+      "journeyMapIncluded": true
     },
     {
       "name": "DEAD-EARTH-SRP-1.0.4-Server-Overlay.zip",
-      "sha256": "cf9df30dbc1c6fce901332d7196f5634fbbc9c6e605c44f7841af2d9ac2e692d",
-      "coordinatorMatches": true
+      "sha256": "c34f06d3e6c5d773cf9874e3631b5cc2a65f5a98752042ece2ff092acf5c7802",
+      "coordinatorMatches": true,
+      "journeyMapIncluded": false
     }
-  ]
+  ],
+  "clientAddition": {
+    "modId": "journeymap",
+    "version": "1.12.2-5.7.1",
+    "size": 6990968,
+    "sha256": "78b2fc80b91da9cc569153dd651959f1497dcf056e7f0893bb55ab59d5f0dad9",
+    "side": "client",
+    "officialFile": "https://www.curseforge.com/minecraft/mc-mods/journeymap/files/2916002",
+    "packagingCheckPassed": true,
+    "totalThirdPartyPins": 26,
+    "serverNativePins": 23,
+    "nativeFullSuiteBeforeClientAddition": true
+  }
 }
