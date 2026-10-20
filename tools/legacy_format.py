@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def source_files(root=ROOT):
     base = root / 'legacy/coordinator/src'
     result = []
-    for group in ('main', 'test', 'integration', 'clientintegration'):
+    for group in ('main', 'test', 'integration', 'clientintegration', 'combattest', 'relaytest'):
         folder = base / group / 'java'
         if not folder.is_dir():
             continue
