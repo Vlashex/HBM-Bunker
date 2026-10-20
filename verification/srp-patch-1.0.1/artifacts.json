@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "status": "manual-playtest",
+  "sourceCommit": "522430b181771bff01038701cda7412c06ac9e21",
+  "artifacts": [
+    {
+      "file": "DEAD-EARTH-SRP-1.0.1-Prism.zip",
+      "size": 121377674,
+      "sha256": "ad9a7d1f4be963bc2b9002ef7ea835f1a31355565e4a3c44a131c1577bf1d7dd"
+    },
+    {
+      "file": "DEAD-EARTH-SRP-1.0.1-Server-Overlay.zip",
+      "size": 121268172,
+      "sha256": "258bd6b5bc93bfc193add8fc7529407140e0d7368492a8da48c5136e052710a7"
+    },
+    {
+      "file": "DEAD-EARTH-SRP-1.0.1-TLauncher.zip",
+      "size": 126005702,
+      "sha256": "28e53c51540527235280bc1593c65f79e688936cd635c6599eb9ee365a032d56"
+    }
+  ]
+}
