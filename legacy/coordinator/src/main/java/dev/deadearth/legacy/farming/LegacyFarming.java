@@ -16,6 +16,14 @@ public final class LegacyFarming {
   private static final Map<Object, LinkedHashSet<CropTrayTile>> QUEUES =
       new WeakHashMap<Object, LinkedHashSet<CropTrayTile>>();
 
+  public static FarmingConfig configuration() {
+    return settings;
+  }
+
+  public static void applyConfiguration(FarmingConfig prepared) {
+    settings = prepared;
+  }
+
   public static void install(Path config) {
     settings = FarmingConfig.load(config.resolve("dead-earth/farming.json"));
     if (!installed) {

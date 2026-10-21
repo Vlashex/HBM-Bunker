@@ -8,7 +8,9 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/** Restart-only, strict and bounded additions to native cached entity senses. */
+/**
+ * Strict and bounded additions to native cached entity senses; prepared snapshots may be swapped.
+ */
 public final class SightSettings {
   public final String mode;
   public final boolean targetCreativePlayers;

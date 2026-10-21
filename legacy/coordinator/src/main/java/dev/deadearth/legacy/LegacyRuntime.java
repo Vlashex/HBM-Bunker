@@ -10,7 +10,7 @@ import java.util.*;
 /** Main-thread coordinator. HTTP/model work has no access to live world state. */
 public final class LegacyRuntime {
   public final Object server;
-  public final Settings settings;
+  public Settings settings;
   public final Campaign campaign;
   public final NativeSrp srp;
   public final GameWorld world;
@@ -22,6 +22,7 @@ public final class LegacyRuntime {
   private final Thread owner;
   private JsonObject catalogDocument;
   private LocalControl bridge;
+  private dev.deadearth.legacy.config.LiveConfiguration configuration;
   private int observedOnline = 0;
   private double pressure = 1;
   private int entityCursor = 0;
@@ -58,6 +59,19 @@ public final class LegacyRuntime {
     for (Object level : world.worlds())
       if (settings.controls(Reflect.dimension(level))) srp.lock(level);
     checkpoint();
+    try {
+      configuration =
+          new dev.deadearth.legacy.config.LiveConfiguration(
+              config,
+              config.toAbsolutePath().getParent(),
+              campaign.worldEpoch,
+              campaign.campaignId,
+              new dev.deadearth.legacy.config.RuntimeConfigurationAdapter(this));
+    } catch (Exception unavailableEditor) {
+      // An unreadable admin journal must not disable the running game or replace its evidence.
+      configuration = null;
+      System.err.println("[DEAD EARTH] Configuration editor unavailable; preserved original state");
+    }
     bridge = new LocalControl(this);
   }
 
@@ -74,6 +88,7 @@ public final class LegacyRuntime {
     requireThread();
     if (closed) return;
     serverTicks++;
+    dev.deadearth.legacy.combat.LegacyPerception.tick(this);
     if (serverTicks % 100 == 0) ZoneRelay.Tickets.reconcile(this);
     combat.flush();
     bridge.drain();
@@ -651,6 +666,48 @@ public final class LegacyRuntime {
     }
   }
 
+  public void applyCatalogConfiguration(CinematicCatalog prepared, JsonObject document) {
+    catalog = prepared;
+    catalogDocument = document;
+  }
+
+  private Object configurationCommand(String[] args) {
+    if (configuration == null)
+      return map(
+          "schema",
+          1,
+          "status",
+          "unknown",
+          "accepted",
+          false,
+          "state",
+          "rejected",
+          "errors",
+          java.util.Collections.singletonList(
+              map(
+                  "section",
+                  "",
+                  "key",
+                  "",
+                  "code",
+                  "unavailable",
+                  "message",
+                  "Configuration editor unavailable")));
+    if (args.length == 2 && args[1].equals("view")) return configuration.view();
+    if (args.length == 3 && args[1].equals("receipt")) return configuration.receipt(args[2]);
+    if (args.length == 5 && (args[1].equals("validate") || args[1].equals("apply")))
+      return configuration.command(args[1], args[2], args[3], args[4]);
+    return map(
+        "schema",
+        1,
+        "accepted",
+        false,
+        "state",
+        "rejected",
+        "errors",
+        java.util.Collections.emptyList());
+  }
+
   public Object operator(String[] args) {
     String action = args[1];
     if (action.equals("status") && args.length == 2)
@@ -720,6 +777,8 @@ public final class LegacyRuntime {
       String request = args[args.length - 1];
       if (!UUID.fromString(request).toString().equals(request))
         throw new IllegalArgumentException("request");
+      if (action.equals("apply") && configuration != null && !configuration.allowsExternalWrite())
+        return map("accepted", false, "code", "restart_pending");
       if (action.equals("apply") && !catalog.revision().equals(args[3]))
         return map("accepted", false, "code", "stale_catalog");
       try {
@@ -734,6 +793,7 @@ public final class LegacyRuntime {
           JsonFiles.write(configDirectory.resolve("dead-earth/director/catalog.json"), document);
           catalog = next;
           catalogDocument = document;
+          if (configuration != null) configuration.catalogChanged(document);
           checkpoint();
           Files.delete(stage);
         }
@@ -755,6 +815,7 @@ public final class LegacyRuntime {
 
   public Object command(String[] args) {
     requireThread();
+    if (args.length >= 1 && args[0].equals("config")) return configurationCommand(args);
     if (args.length == 2 && args[0].equals("evolution") && args[1].equals("status"))
       return evolution();
     if (args.length == 7 && args[0].equals("evolution") && args[1].equals("shift")) {

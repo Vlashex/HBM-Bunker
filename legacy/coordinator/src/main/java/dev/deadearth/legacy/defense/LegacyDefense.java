@@ -37,6 +37,10 @@ public final class LegacyDefense {
       new ThreadLocal<Map<String, Request>>();
   private static final ThreadLocal<Set<String>> BREAK_SCOPE = new ThreadLocal<Set<String>>();
 
+  public static void applyConfiguration(DefenseSettings prepared) {
+    settings = prepared;
+  }
+
   private LegacyDefense() {}
 
   public static void install(Path config) {

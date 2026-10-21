@@ -35,6 +35,13 @@ public final class DeadEarthLegacy {
   @Mod.EventHandler
   public void pre(FMLPreInitializationEvent event) {
     config = event.getModConfigurationDirectory().toPath();
+    try {
+      dev.deadearth.legacy.config.LiveConfiguration.recover(
+          config, config.toAbsolutePath().getParent());
+    } catch (Exception failure) {
+      throw new IllegalStateException(
+          "Configuration transaction recovery required; originals preserved", failure);
+    }
     MinecraftForge.EVENT_BUS.register(this);
     ZoneRelay.Tickets.install();
     LegacyWasteland.install(config);
@@ -89,9 +96,13 @@ public final class DeadEarthLegacy {
                 Object result;
                 try {
                   result =
-                      runtime == null
-                          ? JsonFiles.map("error", "unavailable")
-                          : runtime.command((String[]) a[2]);
+                      ServerCommandDispatch.call(
+                          runtime == null || runtime.onOwnerThread(),
+                          task -> Reflect.call(server, "addScheduledTask/func_152344_a", task),
+                          () ->
+                              runtime == null
+                                  ? JsonFiles.map("error", "unavailable")
+                                  : runtime.command((String[]) a[2]));
                 } catch (RuntimeException invalid) {
                   result = JsonFiles.map("error", "invalid_arguments");
                 }

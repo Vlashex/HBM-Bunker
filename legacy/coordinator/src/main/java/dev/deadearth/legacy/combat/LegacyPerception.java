@@ -12,6 +12,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public final class LegacyPerception {
   private static SightSettings settings;
   private static boolean installed;
+  private static SightSweep<Object> pending;
+  private static final java.util.WeakHashMap<Object, double[]> RANGES =
+      new java.util.WeakHashMap<Object, double[]>();
 
   private LegacyPerception() {}
 
@@ -21,6 +24,67 @@ public final class LegacyPerception {
       MinecraftForge.EVENT_BUS.register(new LegacyPerception());
       installed = true;
     }
+  }
+
+  /** Read-only allocation before disk commit; does not load chunks or retain a live list cursor. */
+  public static SightSweep<Object> prepareConfiguration(Object[] worlds) {
+    java.util.List<Object> loaded = new java.util.ArrayList<Object>();
+    for (Object world : worlds)
+      if (world != null)
+        loaded.addAll(
+            (java.util.Collection<?>) Reflect.get(world, "loadedEntityList/field_72996_f"));
+    return new SightSweep<Object>(loaded);
+  }
+
+  /** Assignment only; the ordinary server tick performs a bounded loaded-entity pass. */
+  public static void applyConfiguration(SightSettings prepared, SightSweep<Object> worklist) {
+    settings = prepared;
+    pending = worklist;
+  }
+
+  public static void tick(LegacyRuntime runtime) {
+    if (pending == null || settings == null) return;
+    runtime.requireThread();
+    int visits = 0;
+    while (pending.hasNext() && visits++ < 64) {
+      Object entity = pending.next();
+      try {
+        Object world = Reflect.world(entity);
+        if (Reflect.call(
+                world,
+                "getEntityByID/func_73045_a",
+                Reflect.call(entity, "getEntityId/func_145782_y"))
+            == entity) updateRange(entity);
+      } catch (RuntimeException unavailableAttribute) {
+        // An unloaded entity or a broken third-party attribute cannot crash an admin change.
+      }
+    }
+    if (!pending.hasNext()) pending = null;
+  }
+
+  private static void updateRange(Object entity) {
+    if (entity == null
+        || !Reflect.is(entity, "net.minecraft.entity.EntityLiving")
+        || (Boolean) Reflect.get(Reflect.world(entity), "isRemote/field_72995_K")) return;
+    boolean enabled =
+        !settings.mode.equals("native")
+            && (!settings.mode.equals("glass")
+                || LegacySiege.configuredEntities().contains(Reflect.entityId(entity)));
+    if (!enabled && !RANGES.containsKey(entity)) return;
+    Object attribute =
+        Reflect.call(
+            entity,
+            "getEntityAttribute/func_110148_a",
+            Reflect.get(
+                Reflect.type("net.minecraft.entity.SharedMonsterAttributes"),
+                "FOLLOW_RANGE/field_111265_b"));
+    if (attribute == null) return;
+    double current = ((Number) Reflect.call(attribute, "getBaseValue/func_111125_b")).doubleValue();
+    double[] next = SightRange.update(RANGES.get(entity), current, enabled, settings.radius);
+    if (Double.compare(current, next[1]) != 0)
+      Reflect.call(attribute, "setBaseValue/func_111128_a", next[1]);
+    if (enabled) RANGES.put(entity, next);
+    else RANGES.remove(entity);
   }
 
   /** Hook applies only on the logical server and only for living mobs looking at players. */
@@ -66,18 +130,6 @@ public final class LegacyPerception {
     Object world = Reflect.call(event, "getWorld"), entity = Reflect.call(event, "getEntity");
     if ((Boolean) Reflect.get(world, "isRemote/field_72995_K")
         || !Reflect.is(entity, "net.minecraft.entity.EntityLiving")) return;
-    if (settings.mode.equals("glass")
-        && !LegacySiege.configuredEntities().contains(Reflect.entityId(entity))) return;
-    Object attribute =
-        Reflect.call(
-            entity,
-            "getEntityAttribute/func_110148_a",
-            Reflect.get(
-                Reflect.type("net.minecraft.entity.SharedMonsterAttributes"),
-                "FOLLOW_RANGE/field_111265_b"));
-    if (attribute == null) return;
-    double base = ((Number) Reflect.call(attribute, "getBaseValue/func_111125_b")).doubleValue();
-    if (base < settings.radius)
-      Reflect.call(attribute, "setBaseValue/func_111128_a", (double) settings.radius);
+    updateRange(entity);
   }
 }

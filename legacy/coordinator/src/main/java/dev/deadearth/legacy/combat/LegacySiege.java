@@ -55,6 +55,17 @@ public final class LegacySiege {
     LegacyPerception.configure(sight);
   }
 
+  /** Prepared snapshot only: listener registration remains a startup responsibility. */
+  public static SightSettings configuration() {
+    return sight;
+  }
+
+  public static void applyConfiguration(SightSettings prepared, SightSweep<Object> worklist) {
+    sight = prepared;
+    SIGHT_CACHE.clear();
+    LegacyPerception.applyConfiguration(prepared, worklist);
+  }
+
   /** Rechecked by the native digging task, including cached targets after replacement. */
   public static boolean allowDig(Object entity, Object pos) {
     Object world = Reflect.world(entity);

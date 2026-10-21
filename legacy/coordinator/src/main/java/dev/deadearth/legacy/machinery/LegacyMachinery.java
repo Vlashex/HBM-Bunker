@@ -14,6 +14,14 @@ public final class LegacyMachinery {
 
   private LegacyMachinery() {}
 
+  public static MachinerySettings configuration() {
+    return settings;
+  }
+
+  public static void applyConfiguration(MachinerySettings prepared) {
+    settings = prepared;
+  }
+
   public static void install(Path config) {
     if (installed) return;
     settings = MachinerySettings.load(config);

@@ -24,6 +24,10 @@ public final class LegacySieving {
 
   private LegacySieving() {}
 
+  public static void applyDrawBudget(int prepared) {
+    drawsPerTick = prepared;
+  }
+
   public static void install(Path config) {
     if (installed) return;
     try {
