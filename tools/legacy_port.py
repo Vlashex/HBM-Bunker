@@ -265,7 +265,7 @@ def entries(side, root=ROOT):
     else:
         for path in files(root / 'legacy/docker'):
             relative = path.relative_to(root / 'legacy/docker').as_posix()
-            if (relative in {'compose.yaml', 'runtime.py', 'model_store.py', 'README.md', 'START.bat', 'STOP.bat', '.env.example', 'secrets.env.example', '.gitignore'}
+            if (relative in {'compose.yaml', 'runtime.py', 'model_store.py', 'README.md', 'START.bat', 'STOP.bat', 'Start-Desktop.ps1', '.env.example', 'secrets.env.example', '.gitignore'}
                     or relative.startswith('Dockerfile.')) and '/' not in relative:
                 result['legacy/docker/' + relative] = path.read_bytes()
         result['tools/legacy_compose.py'] = (root / 'tools/legacy_compose.py').read_bytes()

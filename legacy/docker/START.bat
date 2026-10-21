@@ -1,18 +1,19 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-rem Use the official CLI: the per-user Docker Desktop.exe shortcut is broken.
-docker desktop start --timeout 45
+set "DEAD_EARTH_DOCKER=docker"
+if exist "%LOCALAPPDATA%\Programs\DockerDesktop\resources\bin\docker.exe" set "DEAD_EARTH_DOCKER=%LOCALAPPDATA%\Programs\DockerDesktop\resources\bin\docker.exe"
+powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "%~dp0Start-Desktop.ps1" -Docker "%DEAD_EARTH_DOCKER%"
 set "DEAD_EARTH_EXIT=%ERRORLEVEL%"
 if not "%DEAD_EARTH_EXIT%"=="0" goto failed
-docker --context desktop-linux info --format "{{.ServerVersion}}" >nul 2>nul
+"%DEAD_EARTH_DOCKER%" --context desktop-linux info --format "{{.ServerVersion}}" >nul 2>nul
 set "DEAD_EARTH_EXIT=%ERRORLEVEL%"
 if not "%DEAD_EARTH_EXIT%"=="0" goto failed
 rem Quiet validation resolves secrets locally without printing the configuration.
-docker --context desktop-linux compose --env-file .env -f compose.yaml config --quiet
+"%DEAD_EARTH_DOCKER%" --context desktop-linux compose --env-file .env -f compose.yaml config --quiet
 set "DEAD_EARTH_EXIT=%ERRORLEVEL%"
 if not "%DEAD_EARTH_EXIT%"=="0" goto failed
-docker --context desktop-linux compose --env-file .env -f compose.yaml up -d --build --wait --wait-timeout 240
+"%DEAD_EARTH_DOCKER%" --context desktop-linux compose --env-file .env -f compose.yaml up -d --build --wait --wait-timeout 240
 set "DEAD_EARTH_EXIT=%ERRORLEVEL%"
 if not "%DEAD_EARTH_EXIT%"=="0" goto failed
 exit /b 0

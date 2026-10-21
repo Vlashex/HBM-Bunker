@@ -1,9 +1,13 @@
-param([string]$InstallDirectory=(Join-Path $env:LOCALAPPDATA 'Programs\DockerDesktop'))
+﻿param([string]$InstallDirectory=(Join-Path $env:LOCALAPPDATA 'Programs\DockerDesktop'))
 $ErrorActionPreference='Stop'
 $repository=(Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).ProviderPath
 $install=(Resolve-Path -LiteralPath $InstallDirectory).ProviderPath
 $docker=Join-Path $install 'resources\bin\docker.exe'
 $icon=Join-Path $install 'Docker Desktop.exe'
+$bootstrap=Join-Path $repository 'legacy/docker/Start-Desktop.ps1'
+if(-not (Test-Path -LiteralPath $bootstrap -PathType Leaf)) { throw 'Desktop startup helper is missing.' }
+$launcher=(Get-Command powershell.exe -ErrorAction Stop).Source
+$arguments='-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "'+$bootstrap+'" -Docker "'+$docker+'"'
 foreach($binary in @($docker,$icon)) {
     if(-not (Test-Path -LiteralPath $binary -PathType Leaf)) { throw 'Docker executable is missing.' }
     $signature=Get-AuthenticodeSignature -LiteralPath $binary
@@ -21,17 +25,17 @@ $index=0
 foreach($path in $paths) {
     if(-not (Test-Path -LiteralPath $path -PathType Leaf)) { continue }
     $shortcut=$shell.CreateShortcut($path)
-    if($shortcut.TargetPath -ne $icon -and $shortcut.TargetPath -ne $docker) { throw ('Unrelated shortcut: '+$path) }
+    if($shortcut.TargetPath -ne $icon -and $shortcut.TargetPath -ne $docker -and -not ($shortcut.TargetPath -eq $launcher -and $shortcut.Arguments -eq $arguments)) { throw ('Unrelated shortcut: '+$path) }
     Copy-Item -LiteralPath $path -Destination (Join-Path $backup ($index.ToString()+'-Docker Desktop.lnk'))
-    $shortcut.TargetPath=$docker
-    $shortcut.Arguments='desktop start --detach'
+    $shortcut.TargetPath=$launcher
+    $shortcut.Arguments=$arguments
     $shortcut.WorkingDirectory=$install
     $shortcut.IconLocation=$icon+',0'
-    $shortcut.Description='Start Docker Desktop through its official Desktop CLI.'
+    $shortcut.Description='Start Docker Desktop with verified cold-start recovery.'
     $shortcut.WindowStyle=7
     $shortcut.Save()
     $saved=$shell.CreateShortcut($path)
-    if($saved.TargetPath -ne $docker -or $saved.Arguments -ne 'desktop start --detach') { throw 'Shortcut verification failed.' }
+    if($saved.TargetPath -ne $launcher -or $saved.Arguments -ne $arguments) { throw 'Shortcut verification failed.' }
     $index++
 }
 Write-Host ('Updated '+$index+' Docker Desktop shortcuts; original links saved in '+$backup)
