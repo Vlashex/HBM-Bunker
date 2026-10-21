@@ -92,7 +92,7 @@ docker --context desktop-linux compose --env-file legacy/docker/.env -f legacy/d
 ~~~
 
 Или **legacy/docker/START.bat**. BAT сначала запускает Docker Desktop через
-официальный **docker desktop start --timeout 45**, проверяет движок desktop-linux,
+официальный Desktop CLI, а при сбое холодного запуска — подписанный Docker backend из той же установки. `Start-Desktop.ps1` ждёт готовности движка desktop-linux,
 выполняет config --quiet и поднимает Compose. Неисправный Docker Desktop.exe
 не вызывается; автозагрузки весов нет.
 

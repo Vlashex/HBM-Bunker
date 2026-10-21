@@ -15,6 +15,7 @@ from .admin_store import Telemetry, read_decisions, safe_tree
 from .admin_console import OperatorConsole
 from .admin_authoring import Authoring, AuthoringError, MAX_BODY
 from .admin_evolution import Evolution, EvolutionError
+from .admin_configuration import Configuration, ConfigurationError, MAX_BODY as CONFIG_MAX_BODY
 from .bridge import _json
 from . import admin_analytics
 from .ai_control import ModeControl,ControlError
@@ -84,6 +85,8 @@ class Application:
         self.authoring_nonce=secrets.token_urlsafe(32)
         self.evolution=Evolution(server_root,self.console) if server_root else None
         self.evolution_nonce=secrets.token_urlsafe(32)
+        self.configuration=Configuration(server_root,self.console) if server_root else None
+        self.configuration_nonce=secrets.token_urlsafe(32)
         self.ai_nonce=secrets.token_urlsafe(32)
         try:self.ai_control=ModeControl(self.journal.parent/'ai-control.sqlite3',self.model_config) if self.model_config else None
         except ControlError:self.ai_control=None
@@ -210,6 +213,7 @@ def make_server(app, port=8765):
             routes.update({"/authoring.js":("authoring.js","text/javascript; charset=utf-8"),"/authoring.css":("authoring.css","text/css; charset=utf-8")})
             routes.update({"/evolution.js":("evolution.js","text/javascript; charset=utf-8"),"/evolution.css":("evolution.css","text/css; charset=utf-8")})
             routes['/ai-mode.js']=("ai-mode.js","text/javascript; charset=utf-8")
+            routes.update({"/configuration.js":("configuration.js","text/javascript; charset=utf-8"),"/configuration.css":("configuration.css","text/css; charset=utf-8")})
             if parsed.path in routes:
                 name,kind=routes[parsed.path]
                 try: return self.send_body(200,(STATIC/name).read_bytes(),kind)
@@ -231,6 +235,20 @@ def make_server(app, port=8765):
                     payload=app.event_analytics(operation_id,scope)
                     return self.send_body(200,json.dumps(payload,ensure_ascii=False,allow_nan=False).encode("utf-8"))
                 except (ValueError,TypeError,sqlite3.Error):return self.send_body(400,b'{"error":"invalid_query"}')
+            if parsed.path=="/api/config" and not parsed.query:
+                payload=app.configuration.snapshot() if app.configuration is not None else dict(schema=1,state='offline',server=None)
+                return self.send_body(200,json.dumps(dict(payload,nonce=app.configuration_nonce),ensure_ascii=False,allow_nan=False).encode('utf-8'))
+            if parsed.path=="/api/config/restart" and not parsed.query:
+                payload=app.configuration.restart() if app.configuration is not None else dict(schema=1,state='unknown')
+                return self.send_body(200,json.dumps(payload,allow_nan=False).encode())
+            if parsed.path=="/api/config/receipt":
+                try:
+                    q=parse_qs(parsed.query,keep_blank_values=True,max_num_fields=1)
+                    if set(q)!={'request_id'} or len(q['request_id'])!=1:raise ValueError()
+                    if app.configuration is None:return self.send_body(503,b'{"error":"configuration_unavailable"}')
+                    return self.send_body(200,json.dumps(app.configuration.receipt(q['request_id'][0]),ensure_ascii=False,allow_nan=False).encode('utf-8'))
+                except (ValueError,TypeError):return self.send_body(400,b'{"error":"invalid_query"}')
+                except (OSError,sqlite3.Error):return self.send_body(503,b'{"error":"configuration_unavailable"}')
             if parsed.path=="/api/evolution" and not parsed.query:
                 payload=app.evolution.snapshot() if app.evolution is not None else dict(state='offline',server=None)
                 return self.send_body(200,json.dumps(dict(payload,nonce=app.evolution_nonce),ensure_ascii=False,allow_nan=False).encode('utf-8'))
@@ -266,6 +284,7 @@ def make_server(app, port=8765):
         def do_POST(self):
             if not self.allowed(): return self.send_body(403,b'{"error":"local_only"}')
             if self.path=="/api/ai-mode":return self.ai_mode()
+            if self.path=="/api/config/apply":return self.configuration_apply()
             if self.path=="/api/evolution/shift":
                 return self.evolution_shift()
             if self.path.startswith('/api/authoring/'):
@@ -288,6 +307,24 @@ def make_server(app, port=8765):
                 return self.send_body(200,json.dumps(result,ensure_ascii=False).encode('utf-8'))
             except (ValueError,TypeError,AttributeError,RecursionError): return self.send_body(400,b'{"error":"invalid_command_request"}')
             except (OSError,sqlite3.Error): return self.send_body(503,b'{"error":"console_unavailable_outcome_unknown"}')
+        def configuration_apply(self):
+            origin='http://127.0.0.1:'+str(self.server.server_address[1])
+            if self.headers.get_all('Origin')!=[origin] or self.headers.get_all('X-Dead-Earth-Operator')!=[app.configuration_nonce]:
+                return self.send_body(403,b'{"error":"operator_session_required"}')
+            try:
+                if self.headers.get_all('Content-Type')!=['application/json'] or self.headers.get_all('Transfer-Encoding') is not None:raise ValueError()
+                lengths=self.headers.get_all('Content-Length') or []
+                if len(lengths)!=1:raise ValueError()
+                length=int(lengths[0])
+                if not 1<=length<=CONFIG_MAX_BODY:raise ValueError()
+                payload=_json(self.rfile.read(length).decode('utf-8'))
+                if app.configuration is None:return self.send_body(503,b'{"error":"configuration_unavailable"}')
+                result=app.configuration.apply(payload)
+                return self.send_body(200,json.dumps(result,ensure_ascii=False,allow_nan=False).encode('utf-8'))
+            except ConfigurationError as error:
+                return self.send_body(409 if error.code in {'conflicting_request','busy'} else 400,json.dumps(dict(error=error.code)).encode())
+            except (ValueError,TypeError,UnicodeError,RecursionError,BridgeError):return self.send_body(400,b'{"error":"invalid_configuration_request"}')
+            except (OSError,sqlite3.Error):return self.send_body(503,b'{"error":"configuration_unavailable_outcome_unknown"}')
         def ai_mode(self):
             origin='http://127.0.0.1:'+str(self.server.server_address[1])
             if self.headers.get_all('Origin')!=[origin] or self.headers.get_all('X-Dead-Earth-Operator')!=[app.ai_nonce]:

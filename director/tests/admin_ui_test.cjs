@@ -20,7 +20,7 @@ const html=fs.readFileSync(path.join(__dirname,'../dead_earth_director/admin_web
 assert.match(html,/id="console-command"/,'Operator console input is missing');
 for(const match of html.matchAll(/id="([^"]+)"/g))ids.set(match[1],new Element());
 ids.get('range').value='6';
-const views=['overview','decisions','scenarios','zones','catalog','console','evolution'];
+const views=['overview','decisions','scenarios','zones','catalog','console','evolution','configuration'];
 const nav=views.map(v=>{const e=new Element('button');e.dataset.view=v;return e;});
 const note=new Element();
 const document={getElementById:id=>{assert(ids.has(id),'Unknown element '+id);return ids.get(id);},
@@ -60,6 +60,17 @@ assert.match(ids.get('observations').textContent,/<img src=x onerror=attack\(\)>
 vm.runInContext('setView("zones");setView("catalog")',context);
 assert.equal(ids.get('catalog-list').children.length,15);
 assert.match(ids.get('event-detail').textContent,/Окно реакции/);
+let configurationRenders=0;
+context.window={DeadEarthConfiguration:{render:()=>configurationRenders++}};
+vm.runInContext('setView("configuration")',context);
+assert.equal(configurationRenders,1,'Configuration navigation must render the typed live editor');
+assert.equal(ids.get('configuration').hidden,false);
+assert.match(ids.get('page-title').textContent,/настройки/i);
+vm.runInContext('setView("catalog")',context);
+const configurationLink=ids.get('rules').children.find(c=>c.tagName==='a');
+assert.ok(configurationLink,'Catalog parameters must lead to the typed live editor');
+configurationLink.listeners.click({preventDefault:()=>{}});
+assert.equal(configurationRenders,2);
 vm.runInContext('fixture.connection.state="offline";render()',context);
 assert.match(ids.get('notice').textContent,/Свежих данных нет/);
 let evolutionRenders=0;context.window={DeadEarthEvolution:{render:()=>evolutionRenders++}};
@@ -91,6 +102,6 @@ async function consoleChecks(){
  await vm.runInContext('sendConsole()',context);
  assert.match(ids.get('console-result').textContent,/могла выполниться/);
  assert.equal(ids.get('console-send').disabled,true);
- console.log('Admin UI DOM checks passed: six screens, literal log/output, console single send, disabled state, uncertain delivery, existing charts/history/catalog.');
+ console.log('Admin UI DOM checks passed: configuration navigation/catalog link, literal log/output, console single send, disabled state, uncertain delivery, existing charts/history/catalog.');
 }
 consoleChecks().catch(error=>{console.error(error);process.exitCode=1;});

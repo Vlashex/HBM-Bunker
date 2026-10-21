@@ -1,7 +1,8 @@
 """Cold Docker Desktop bootstrap regression without starting real processes."""
-import subprocess, tempfile, unittest
+import os, subprocess, unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+@unittest.skipUnless(os.name == "nt", "Windows Docker Desktop launcher")
 class DesktopBootstrap(unittest.TestCase):
  def run_ps(self,script):
   result=subprocess.run(['powershell.exe','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-Command',"$ErrorActionPreference='Stop'; try {"+script+"; exit 0} catch {Write-Error $_.Exception.Message; exit 1}"],capture_output=True,text=True,timeout=20)
