@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "status": "internal_checks_passed_waiting_for_user_admin_review",
+  "release_packaged": false,
+  "published": false,
+  "artifact_sha256": "59e7e2ab1d904ca39b6fa06b1ab0dc7861ee920fc1f1b5fd633e519f87f75472",
+  "checks": {
+    "director_python": {
+      "count": 172,
+      "passed": true
+    },
+    "legacy_python": {
+      "count": 109,
+      "passed": true
+    },
+    "java_configuration": {
+      "count": 49,
+      "passed": true
+    },
+    "java_command_dispatch": {
+      "count": 7,
+      "passed": true
+    },
+    "js_suites": {
+      "count": 6,
+      "passed": true
+    },
+    "configuration_e2e": {
+      "count": 29,
+      "passed": true
+    }
+  },
+  "native_baseline": {
+    "count": 309,
+    "passed": true,
+    "scope": "Full isolated game regression before the RCON dispatch correction. Final artifact subsequently exercised by configuration E2E including real queued RCON, hot apply and saved restart."
+  },
+  "review": "Independent full-change review and focused RCON dispatch review approved; findings fixed with regressions.",
+  "limits": [
+    "No client visuals or performance test in this UI/server configuration change.",
+    "User must try deployed admin before any release packaging/publication."
+  ]
+}

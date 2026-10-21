@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "scope": "isolated native world copy, real admin HTTP, real RCON, same-container saved restart",
+  "passed": true,
+  "checks": [
+    {
+      "name": "live native-backed config snapshot",
+      "passed": true
+    },
+    {
+      "name": "own config sections exposed",
+      "passed": true
+    },
+    {
+      "name": "initial native detection radius64",
+      "passed": true
+    },
+    {
+      "name": "wrong Origin cannot mutate configs",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "radius above native bound rejected without crash",
+      "passed": true
+    },
+    {
+      "name": "live native-backed config snapshot",
+      "passed": true
+    },
+    {
+      "name": "invalid draft preserves native config",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "multi-section hot apply succeeds",
+      "passed": true
+    },
+    {
+      "name": "live native-backed config snapshot",
+      "passed": true
+    },
+    {
+      "name": "native active values changed together",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "same UUID returns receipt without repeat apply",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "stale editor revision rejected",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "hot request containing restart field rejected atomically",
+      "passed": true
+    },
+    {
+      "name": "live native-backed config snapshot",
+      "passed": true
+    },
+    {
+      "name": "mixed rejection keeps both values unchanged",
+      "passed": true
+    },
+    {
+      "name": "operator request gets determinate native receipt",
+      "passed": true
+    },
+    {
+      "name": "restart apply queued with durable native receipt",
+      "passed": true
+    },
+    {
+      "name": "actual saved restart acknowledges requested native revision",
+      "passed": true
+    },
+    {
+      "name": "live native-backed config snapshot",
+      "passed": true
+    },
+    {
+      "name": "new JVM loads hot and restart-only values",
+      "passed": true
+    },
+    {
+      "name": "world epoch and campaign identity preserved",
+      "passed": true
+    },
+    {
+      "name": "Minecraft container/network namespace preserved",
+      "passed": true
+    },
+    {
+      "name": "Java process actually restarted",
+      "passed": true
+    },
+    {
+      "name": "real world-save markers present",
+      "passed": true
+    }
+  ],
+  "jar_sha256": "59e7e2ab1d904ca39b6fa06b1ab0dc7861ee920fc1f1b5fd633e519f87f75472",
+  "snapshotStatus": {
+    "http": 200,
+    "state": "ready"
+  },
+  "fieldCount": 209,
+  "sectionCount": 13,
+  "restartStates": [
+    "ready",
+    "starting",
+    "stopping"
+  ],
+  "revision": "9e006d6c5d8cb1ff7205caed256f6d294b35b10b9e7045fd15df3abb4323d20d",
+  "campaignId": "bb4416c4-dedc-46cb-a7d1-82e905aa58de",
+  "worldEpoch": "7a3b32f5-aa42-46e3-bbc5-b82158dcd989",
+  "stopped": true,
+  "fixture": "work/config-e2e-20261021T101233Z-3f86bec9"
+}
