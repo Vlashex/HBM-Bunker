@@ -48,4 +48,4 @@ Interfaces: HTTP DTO exactly in spec. Fields refresh on Edit, three exact button
 - [x] Back up and update local server/admin, safely restart if needed, verify real HTTP/config/console status.
 - [ ] Open http://127.0.0.1:8766/#configuration for user; report ready for hands-on review and STOP before packaging.
 
-Deployment: all five canonical Compose services healthy; live config HTTP ready13/209, console ready, installed JAR matches final tested artifact. Browser open is queued. Screenshots/human visual handoff remain pending because computer-use inventory has zero apps/browsers; asked user to open the task on PC. No release archives/tags/push.
+Deployment: all five canonical Compose services running; four configured service health checks healthy; live config HTTP ready13/209, console ready, installed JAR matches final tested artifact. Browser open is queued. Screenshots/human visual handoff remain pending because computer-use inventory has zero apps/browsers; asked user to open the task on PC. No release archives/tags/push.
