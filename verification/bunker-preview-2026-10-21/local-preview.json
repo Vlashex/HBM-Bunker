@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "purpose": "User review of local-only single-player bunker prototypes",
+  "state": "ready",
+  "variants": [
+    {
+      "id": "A",
+      "name": "КПП-17",
+      "centerX": -56,
+      "upper": "7 x 7",
+      "lower": "15 x 16",
+      "entrance": [
+        -56,
+        64,
+        -12
+      ],
+      "landing": [
+        -56,
+        56,
+        7
+      ],
+      "description": "Компактный входной пост; общий зал с жилой и рабочей сторонами."
+    },
+    {
+      "id": "B",
+      "name": "Узел-6",
+      "centerX": 0,
+      "upper": "9 x 7",
+      "lower": "18 x 20 (Г-образный)",
+      "entrance": [
+        0,
+        64,
+        -13
+      ],
+      "landing": [
+        0,
+        56,
+        7
+      ],
+      "description": "Павильон с широким входом, жилым крылом и техническим карманом."
+    },
+    {
+      "id": "C",
+      "name": "Редут",
+      "centerX": 56,
+      "upper": "11 x 9 (полузаглублённый)",
+      "lower": "15 x 15",
+      "entrance": [
+        56,
+        64,
+        -13
+      ],
+      "landing": [
+        56,
+        55,
+        7
+      ],
+      "description": "Низкий силуэт с земляными бортами, входным спуском и нижним убежищем."
+    }
+  ],
+  "walkability": {
+    "A": 410,
+    "B": 403,
+    "C": 387
+  },
+  "nativePlacement": {
+    "runId": "ff1c4fc7-7710-4c89-9272-88fc4fdaac9e",
+    "blocks": 50037,
+    "verified": 86,
+    "variants": 3
+  },
+  "previewExcludedFromServerPackage": true,
+  "liveServerCoordinatorUnchanged": true,
+  "clientWindowsRequested": 1,
+  "autoQuit": false,
+  "clientRenderCapture": false
+}
