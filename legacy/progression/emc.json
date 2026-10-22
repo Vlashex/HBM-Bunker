@@ -165,5 +165,6 @@
     "trashcans:liquid_trash_can|0",
     "trashcans:ultimate_trash_can|0"
   ],
-  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Gravel, both sands and Ex Nihilo dust use derived sieve-pricing.json values; baseline target 1.5% gross return without enchantments or advanced HBM processing."
+  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. All siftable feedstocks and their compressed forms have no EMC (sieveInputEmc=false); cobblestone and its compression retain EMC. Sieve yield reference values remain available only for zone valuation; reward EMC is unchanged.",
+  "sieveInputEmc": false
 }

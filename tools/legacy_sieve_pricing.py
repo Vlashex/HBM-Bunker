@@ -1,7 +1,8 @@
-"""Derive substrate EMC from the pinned native sieve plus our additive HBM rewards.
+"""Derive reference substrate value from the native sieve plus additive HBM rewards.
 
 This is an offline build calculation, not a runtime simulation or an EMC recipe mapper.
 Ore pieces are valued through their explicit four-pieces -> one-smelted-ingot path.
+The EMC policy can prohibit buying feedstock while retaining its value for zone scoring.
 """
 import json
 from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING

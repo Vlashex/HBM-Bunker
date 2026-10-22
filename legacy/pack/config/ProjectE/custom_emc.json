@@ -1,5 +1,5 @@
 {
-  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Gravel, both sands and Ex Nihilo dust use derived sieve-pricing.json values; baseline target 1.5% gross return without enchantments or advanced HBM processing.",
+  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. All siftable feedstocks and their compressed forms have no EMC (sieveInputEmc=false); cobblestone and its compression retain EMC. Sieve yield reference values remain available only for zone valuation; reward EMC is unchanged.",
   "entries": [
     {
       "item": "appliedenergistics2:material|0",
@@ -18,92 +18,8 @@
       "emc": 6561
     },
     {
-      "item": "dead_earth:compressed_dirt_2|0",
-      "emc": 81
-    },
-    {
-      "item": "dead_earth:compressed_dirt_3|0",
-      "emc": 729
-    },
-    {
-      "item": "dead_earth:compressed_dirt_4|0",
-      "emc": 6561
-    },
-    {
-      "item": "dead_earth:compressed_dust_2|0",
-      "emc": 2511
-    },
-    {
-      "item": "dead_earth:compressed_dust_3|0",
-      "emc": 22599
-    },
-    {
-      "item": "dead_earth:compressed_dust_4|0",
-      "emc": 203391
-    },
-    {
-      "item": "dead_earth:compressed_gravel_2|0",
-      "emc": 57915
-    },
-    {
-      "item": "dead_earth:compressed_gravel_3|0",
-      "emc": 521235
-    },
-    {
-      "item": "dead_earth:compressed_gravel_4|0",
-      "emc": 4691115
-    },
-    {
-      "item": "dead_earth:compressed_red_sand_1|0",
-      "emc": 279
-    },
-    {
-      "item": "dead_earth:compressed_red_sand_2|0",
-      "emc": 2511
-    },
-    {
-      "item": "dead_earth:compressed_red_sand_3|0",
-      "emc": 22599
-    },
-    {
-      "item": "dead_earth:compressed_red_sand_4|0",
-      "emc": 203391
-    },
-    {
-      "item": "dead_earth:compressed_sand_2|0",
-      "emc": 5832
-    },
-    {
-      "item": "dead_earth:compressed_sand_3|0",
-      "emc": 52488
-    },
-    {
-      "item": "dead_earth:compressed_sand_4|0",
-      "emc": 472392
-    },
-    {
-      "item": "excompressum:compressed_block|0",
-      "emc": 279
-    },
-    {
       "item": "excompressum:compressed_block|1",
       "emc": 9
-    },
-    {
-      "item": "excompressum:compressed_block|2",
-      "emc": 6435
-    },
-    {
-      "item": "excompressum:compressed_block|3",
-      "emc": 648
-    },
-    {
-      "item": "excompressum:compressed_block|4",
-      "emc": 9
-    },
-    {
-      "item": "exnihilocreatio:block_dust|0",
-      "emc": 31
     },
     {
       "item": "hbm:fluorite|0",
@@ -262,10 +178,6 @@
       "emc": 8192
     },
     {
-      "item": "minecraft:dirt|0",
-      "emc": 1
-    },
-    {
       "item": "minecraft:dye|4",
       "emc": 864
     },
@@ -296,10 +208,6 @@
     {
       "item": "minecraft:grass|0",
       "emc": 1
-    },
-    {
-      "item": "minecraft:gravel|0",
-      "emc": 715
     },
     {
       "item": "minecraft:iron_ingot|0",
@@ -376,14 +284,6 @@
     {
       "item": "minecraft:reeds|0",
       "emc": 32
-    },
-    {
-      "item": "minecraft:sand|0",
-      "emc": 72
-    },
-    {
-      "item": "minecraft:sand|1",
-      "emc": 31
     },
     {
       "item": "minecraft:stone|0",
@@ -542,6 +442,234 @@
       "emc": 0
     },
     {
+      "item": "dead_earth:compressed_acacia_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dirt_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dirt_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dirt_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_jungle_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_jungle_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_jungle_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_jungle_leaves_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_oak_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_oak_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_oak_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_oak_leaves_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_4|0",
+      "emc": 0
+    },
+    {
       "item": "dead_earth:defense_door_v1|0",
       "emc": 0
     },
@@ -587,6 +715,54 @@
     },
     {
       "item": "excompressum:auto_sieve|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|2",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|3",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|4",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|6",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|7",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|8",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_diorite_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_dust|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_endstone_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_netherrack_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_skystone_crushed|0",
       "emc": 0
     },
     {
@@ -711,6 +887,50 @@
     },
     {
       "item": "hbm:powder_steel|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:dirt|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:gravel|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves2|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves2|1",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves|1",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves|2",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:leaves|3",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:sand|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:sand|1",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:soul_sand|0",
       "emc": 0
     },
     {

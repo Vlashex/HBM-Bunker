@@ -103,7 +103,7 @@ class MaterialUnificationTests(unittest.TestCase):
         self.assertIn('legacy/pack/scripts/dead_earth_materials.zs', products)
         data = json.loads(products['legacy/pack/config/dead-earth/progression.json'])
         self.assertEqual(data['rawEmc']['hbm:powder_copper|0'], 128)
-        self.assertEqual(data['rawEmc']['dead_earth:compressed_gravel_4|0'], 715 * 6561)
+        self.assertNotIn('dead_earth:compressed_gravel_4|0', data['rawEmc'])
         self.assertNotIn('hbm:powder_steel|0', data['rawEmc'])
         self.assertNotIn('hbm:plate_copper|0', data['rawEmc'])
         self.assertIn('hbm:powder_copper:0', data['requiredItems'])

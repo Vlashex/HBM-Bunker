@@ -63,29 +63,40 @@ class SievePricingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unvalued sieve reward'):
             self.report(drops=drops)
 
-    def test_all_compressions_and_zone_metadata_share_the_derived_prices(self):
+    def test_sieve_inputs_have_no_emc_but_keep_zone_resource_value(self):
         outputs = legacy_full_recipes.products()
         raw = json.loads(outputs['legacy/pack/config/dead-earth/progression.json'])['rawEmc']
         zone = json.loads(outputs['legacy/pack/config/dead-earth/coordinator.json'])['resourcePrices']
         emc = {r['item']: r['emc'] for r in json.loads(
             outputs['legacy/pack/config/ProjectE/custom_emc.json'])['entries']}
         for token, price in pricing.prices(ROOT, self.raw).items():
-            self.assertEqual(raw[token], price)
-            self.assertEqual(emc[token], price)
+            self.assertNotIn(token, raw)
+            self.assertEqual(emc[token], 0)
             self.assertEqual(zone[token.replace('|', ':')], price)
         catalog = json.loads((ROOT / 'legacy/sieving/materials.json').read_text())
         for material in catalog['materials']:
             base = material['raw_id'] + '|' + str(material['raw_meta'])
-            if base not in pricing.prices(ROOT, self.raw):
+            if not material['currently_siftable']:
                 continue
+            self.assertNotIn(base, raw)
+            self.assertEqual(emc[base], 0)
+            native = material.get('native_level1_id')
+            if native:
+                token = native + '|' + str(material['native_level1_meta'])
+                self.assertNotIn(token, raw)
+                self.assertEqual(emc[token], 0)
             for level in material['levels']:
                 item = level['id'] + '|' + str(level['meta'])
-                self.assertEqual(raw[item], raw[base] * level['raw_equivalents'])
-                self.assertEqual(emc[item], raw[item])
-                self.assertEqual(zone[item.replace('|', ':')], raw[item])
-        self.assertEqual(raw['excompressum:compressed_block|2'], 9 * 715)
-        self.assertEqual(raw['dead_earth:compressed_gravel_4|0'], 6561 * 715)
-        self.assertEqual(raw['dead_earth:compressed_dust_4|0'], 6561 * 31)
+                self.assertNotIn(item, raw)
+                self.assertEqual(emc[item], 0)
+                if base in pricing.prices(ROOT, self.raw):
+                    self.assertEqual(zone[item.replace('|', ':')],
+                                     pricing.prices(ROOT, self.raw)[base] * level['raw_equivalents'])
+        self.assertEqual(raw['minecraft:cobblestone|0'], 1)
+        self.assertEqual(raw['excompressum:compressed_block|1'], 9)
+        self.assertEqual(raw['dead_earth:compressed_cobblestone_4|0'], 6561)
+        self.assertEqual(raw['minecraft:iron_ingot|0'], 256)
+        self.assertEqual(raw['minecraft:diamond|0'], 8192)
         self.assertNotIn('dead_earth:compact_mesh_diamond_v5|0', raw)
 
 

@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "policy": "no direct EMC for siftable feedstocks",
+  "unitChecksPassed": 23,
+  "worldPreserved": true,
+  "runtimeModJarChanged": false,
+  "blockedInputAndCompressionCount": 80,
+  "cobblestoneProductionChainRetained": true,
+  "/api/health": {
+    "http": 200,
+    "state": null
+  },
+  "/api/config": {
+    "http": 200,
+    "state": "ready"
+  },
+  "activeServerRawAllowlistVerified": true,
+  "zoneValuationPreserved": true,
+  "/api/evolution": {
+    "http": 200,
+    "state": "ready"
+  },
+  "sourceHashes": {
+    "legacy/progression/emc.json": "bedbb778528d4881d6b7f6ef1d7e150382f4439db5cc7514e74c35470d7432fe",
+    "legacy/progression/sieve-pricing-report.json": "d831c1db265d19f9f472b8396aa410438e714ca019e3375d704f1a6aafc8c196",
+    "tools/legacy_full_recipes.py": "dd3cd017724715a38d6b9088f39b46a97931fed6139e21cf76844b1525f17480"
+  },
+  "craftTweakerErrorCount": 0,
+  "nativeServerDone": true
+}
