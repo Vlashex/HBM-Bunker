@@ -6,6 +6,8 @@ package dev.deadearth.legacy;
  */
 public final class MutationGuard {
   public static boolean allow(Object world, Object pos, Object proposedState) {
+    if (!dev.deadearth.legacy.defense.MaterialHp.allowChange(world, pos, proposedState))
+      return false;
     if (!dev.deadearth.legacy.defense.LegacyDefense.allowChange(world, pos, proposedState))
       return false;
     LegacyRuntime r = DeadEarthLegacy.runtime;

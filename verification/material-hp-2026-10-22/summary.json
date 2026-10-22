@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "version": "1.1.2",
+  "date": "2026-10-22",
+  "coordinatorSha256": "e18ae2f67d9e881084ec3af9363a03600048f862eea0189d4c21c2aa646c9f82",
+  "native": {
+    "passed": true,
+    "elapsed_seconds": 197.91,
+    "assertion_count": 318,
+    "full_group_count": 23,
+    "recipe_error_count": 0,
+    "exit_code": 0,
+    "timed_out": false
+  },
+  "ordinaryMaterials": {
+    "cobblestoneHp": 300,
+    "realHostileWorldWrites": true,
+    "sameTickCooldown": true,
+    "actualDiskReload": true,
+    "hbmConcreteHp": 4000,
+    "containersExcluded": true
+  },
+  "defense": {
+    "tiers": 3,
+    "doorSharedHp": true,
+    "realEsmDig": true,
+    "playerDrops": true,
+    "realOrdinaryExplosion": true
+  },
+  "bridge": {
+    "passed": true,
+    "checks": 27,
+    "realInference": false
+  },
+  "unit": {
+    "targeted": 18,
+    "passed": true,
+    "includes": [
+      "material ledger disk reload and validation",
+      "old bunker journal migration",
+      "worldgen beneath parasite pathfinding classification",
+      "legacy packaging and install merge"
+    ]
+  },
+  "bunkerHp": {
+    "v1": 6000,
+    "v2": 12000,
+    "v3": 48000,
+    "wallsDoorsHatches": true,
+    "proportionalMigration": true
+  },
+  "installed": {
+    "server": true,
+    "existingPrismInstance": true,
+    "interactiveClient": true,
+    "sameCoordinatorSha256": true,
+    "worldPreserved": true,
+    "worldBackupTaken": true,
+    "liveRconList": true,
+    "adminHealthHttp": 200
+  },
+  "limitations": [
+    "Epic Siege remains installed; full replacement is pending",
+    "phase/species DPS and complete ESM animation binding are pending",
+    "mining and placing again still resets HP",
+    "client visuals and real AI inference were not repeated"
+  ],
+  "broaderUnitBaseline": {
+    "tests": 139,
+    "passed": 137,
+    "knownModernPackagingFailures": [
+      "test_admin_html_scripts_and_styles_are_included_in_release",
+      "test_release_docs_include_local_markdown_link_targets"
+    ],
+    "scope": "Earlier full Python suite; unrelated modern packaging failures are not claimed fixed"
+  }
+}

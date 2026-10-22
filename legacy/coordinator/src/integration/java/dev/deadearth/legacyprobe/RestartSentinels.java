@@ -176,10 +176,10 @@ public final class RestartSentinels {
       place(world, positions.get(i), IDS[i]);
     }
     int full = LegacyDefense.remaining(world, positions.get(0));
-    require(full == 2000, "V2 starting HP");
+    require(full == 12000, "V2 starting HP");
     LegacyDefense.damage(world, positions.get(0), 250, false);
     require(
-        LegacyDefense.remaining(world, positions.get(0)) == 1750,
+        LegacyDefense.remaining(world, positions.get(0)) == 11750,
         "real defense damage did not persist");
     Object tray = tile(world, positions.get(1)),
         hand = Reflect.get(Reflect.type("net.minecraft.util.EnumHand"), "MAIN_HAND"),

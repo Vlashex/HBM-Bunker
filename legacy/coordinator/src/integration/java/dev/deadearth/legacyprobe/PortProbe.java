@@ -156,7 +156,7 @@ public final class PortProbe {
     report.put("ordinaryWarmupTicks", 40);
     report.put("schema", 2);
     report.put("probe", "native_full_srp_forge_1_12_2");
-    report.put("productVersion", "1.1.1");
+    report.put("productVersion", "1.1.2");
     report.put("terrain", "DEFAULT");
     report.put("clientVisualsTested", false);
     report.put("realAiInferenceTested", false);
@@ -288,6 +288,12 @@ public final class PortProbe {
                     true));
           });
       runFull("physical_charger_and_fortune_processor", () -> machinery());
+      runFull("ordinary_building_hp_and_native_writes", () -> {
+        int x = baseX + 128, z = baseZ + 160;
+        load(x, z, 1);
+        fullGroups.put("materialHp", dev.deadearth.legacyprobe.defense.MaterialHpProbe.run(
+            runtime, world, x, fixtureY(x, z) + 12, z));
+      });
       runFull(
           "loaded_climate_top_side_thaw_and_quotas",
           () -> {

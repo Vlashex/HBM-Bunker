@@ -76,7 +76,8 @@ public final class LegacySiege {
       return false;
     if (!NativeSiegePermissions.mobGriefing(world, entity)) return false;
     String block = Reflect.blockId(world, pos);
-    if (block.startsWith("hbm:") || Reflect.call(world, "getTileEntity/func_175625_s", pos) != null)
+    if (block.startsWith("hbm:") && !dev.deadearth.legacy.defense.MaterialHp.configured(block)
+        || Reflect.call(world, "getTileEntity/func_175625_s", pos) != null)
       return false;
     Class<?> props = Reflect.type("funwayguy.epicsiegemod.config.props.CfgProps");
     if (!(Boolean) Reflect.call(Reflect.get(props, "DIGGING"), "get", entity)) return false;

@@ -176,13 +176,13 @@ public final class DefenseProbe {
     put(world, top, LegacyDefense.id("door", 3), 8);
     LegacyDefense.damage(world, top, 100, false);
     require(
-        LegacyDefense.remaining(world, p) == 7900 && LegacyDefense.remaining(world, top) == 7900,
+        LegacyDefense.remaining(world, p) == 47900 && LegacyDefense.remaining(world, top) == 47900,
         "door halves share one HP anchor");
     Object door = Reflect.state(world, p),
         open = Reflect.get(Reflect.type("net.minecraft.block.BlockDoor"), "OPEN/field_176519_b");
     Object opened = Reflect.call(door, "withProperty/func_177226_a", open, true);
     require(
-        DefenseWrite.replace(world, p, opened) && LegacyDefense.remaining(world, p) == 7900,
+        DefenseWrite.replace(world, p, opened) && LegacyDefense.remaining(world, p) == 47900,
         "native hostile open-state update is free");
     LegacyDefense.damage(world, top, 100000, false);
     require(
@@ -191,7 +191,7 @@ public final class DefenseProbe {
         "terminal door damage removes both halves");
     put(world, p, LegacyDefense.id("hatch", 2), 0);
     LegacyDefense.damage(world, p, 250, false);
-    require(LegacyDefense.remaining(world, p) == 1750, "trapdoor finite damage");
+    require(LegacyDefense.remaining(world, p) == 11750, "trapdoor finite damage");
     put(world, p, "minecraft:air", 0);
     targetSelection(world, player, x + 6, y, z);
     // Invoke the real ESM dig task, including its unsafe harvest-after-failed-destroy native path.
@@ -212,7 +212,7 @@ public final class DefenseProbe {
     Reflect.call(ai, "updateTask/func_75246_d");
     LegacyDefense.flush(r);
     require(
-        Reflect.blockId(world, p).equals(wall) && LegacyDefense.remaining(world, p) == 7900,
+        Reflect.blockId(world, p).equals(wall) && LegacyDefense.remaining(world, p) == 47900,
         "real native ESM dig cannot bypass V3 HP");
     require(dropped(world, wall) == before, "blocked ESM harvest cannot duplicate defense drops");
     Reflect.call(
@@ -253,7 +253,7 @@ public final class DefenseProbe {
         blast);
     for (Object at : batch)
       require(
-          LegacyDefense.remaining(world, at) == 7000,
+          LegacyDefense.remaining(world, at) == 47000,
           "every affected defense gets finite batch HP");
     require(
         data.checkpoints() == snapshots + 1,
@@ -263,7 +263,7 @@ public final class DefenseProbe {
     put(world, p, wall, 0);
     Reflect.call(world, "newExplosion/func_72885_a", null, x + .5, y + .5, z + .5, 4f, false, true);
     require(
-        Reflect.blockId(world, p).equals(wall) && LegacyDefense.remaining(world, p) == 7000,
+        Reflect.blockId(world, p).equals(wall) && LegacyDefense.remaining(world, p) == 47000,
         "real ordinary TNT-strength explosion consumes finite V3 HP");
   }
 }

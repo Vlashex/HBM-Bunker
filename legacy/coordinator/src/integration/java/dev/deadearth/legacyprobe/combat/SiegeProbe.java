@@ -592,7 +592,7 @@ public final class SiegeProbe {
       Reflect.call(nativeDig, "updateTask/func_75246_d");
       LegacyDefense.flush(runtime);
       check(
-          Reflect.blockId(world, pos).equals(wall) && LegacyDefense.remaining(world, pos) == 7900,
+          Reflect.blockId(world, pos).equals(wall) && LegacyDefense.remaining(world, pos) == 47900,
           "live parasite ESM cannot bypass V3 finite HP");
       rows.add(
           JsonFiles.map(
@@ -601,7 +601,7 @@ public final class SiegeProbe {
               "passed",
               true,
               "remainingHp",
-              7900,
+              47900,
               "forcedCompletionOnlyForDefenseBoundary",
               true));
     }

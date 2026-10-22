@@ -73,7 +73,17 @@
       "dead_earth:defense_hatch_v1",
       "dead_earth:defense_hatch_v2",
       "dead_earth:defense_hatch_v3",
-      "dead_earth:ash"
+      "dead_earth:ash",
+      "minecraft:obsidian",
+      "excompressum:compressed_block",
+      "dead_earth:compressed_cobblestone_2",
+      "dead_earth:compressed_cobblestone_3",
+      "dead_earth:compressed_cobblestone_4",
+      "hbm:concrete",
+      "hbm:concrete_smooth",
+      "hbm:brick_concrete",
+      "hbm:reinforced_stone",
+      "hbm:concrete_rebar"
     ],
     "Invert Blacklist": true,
     "Requires Tools": false,

@@ -17,7 +17,7 @@ except ImportError:
     import legacy_storage as storage
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.1.1'
+VERSION = '1.1.2'
 PACK_NAME = 'DEAD-EARTH-SRP-' + VERSION
 MOD_NAME = 'dead-earth-srp-coordinator-' + VERSION + '.jar'
 FORGE = '1.12.2-14.23.5.2860'

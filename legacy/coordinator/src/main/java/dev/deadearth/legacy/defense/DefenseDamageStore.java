@@ -7,14 +7,23 @@ import java.util.*;
 
 /** Sparse bounded HP, checkpointed before the corresponding physical attack is accepted. */
 public final class DefenseDamageStore {
+  private static volatile int[] maximumHp = {6000, 12000, 48000};
+
+  public static void configure(int v1, int v2, int v3) {
+    for (int value : new int[] {v1, v2, v3})
+      if (value < 1 || value > 1000000) throw new IllegalArgumentException("Defense HP bounds");
+    maximumHp = new int[] {v1, v2, v3};
+  }
   public static final class Entry {
     public String block;
     public int remaining;
+    public int maximum;
     public long lastHostileTick;
 
     Entry(String b, int hp, long tick) {
       block = b;
       remaining = hp;
+      maximum = hp;
       lastHostileTick = tick;
     }
   }
@@ -53,7 +62,7 @@ public final class DefenseDamageStore {
 
   public static int hp(int tier) {
     if (tier < 1 || tier > 3) throw new IllegalArgumentException("tier");
-    return tier == 1 ? 1000 : tier == 2 ? 2000 : 8000;
+    return maximumHp[tier - 1];
   }
 
   public int size() {
@@ -129,7 +138,8 @@ public final class DefenseDamageStore {
     if (!Files.exists(path)) return;
     try {
       JsonObject data = JsonFiles.read(path, 16 * 1024 * 1024);
-      if (data.get("schema").getAsInt() != 1)
+      int schema = data.get("schema").getAsInt();
+      if (schema != 1 && schema != 2)
         throw new IllegalArgumentException("Unknown defense HP schema");
       JsonObject rows = data.getAsJsonObject("blocks");
       if (rows.entrySet().size() > maximum)
@@ -143,8 +153,19 @@ public final class DefenseDamageStore {
           throw new IllegalArgumentException("Defense block");
         int tier = Integer.parseInt(b.substring(b.length() - 1));
         int remaining = j.get("remaining").getAsInt();
-        if (remaining < 0 || remaining > hp(tier)) throw new IllegalArgumentException("Defense HP");
-        entries.put(row.getKey(), new Entry(b, remaining, j.get("lastHostileTick").getAsLong()));
+        int oldMaximum = schema == 1 ? (tier == 1 ? 1000 : tier == 2 ? 2000 : 8000)
+            : j.get("maximum").getAsInt();
+        if (oldMaximum < 1 || oldMaximum > 1000000 || remaining < 0 || remaining > oldMaximum)
+          throw new IllegalArgumentException("Defense HP");
+        int remapped = (int) ((remaining * (long) hp(tier) + oldMaximum - 1) / oldMaximum);
+        Entry entry = new Entry(b, hp(tier), j.get("lastHostileTick").getAsLong());
+        entry.remaining = remapped;
+        entries.put(row.getKey(), entry);
+      }
+      if (schema == 1) {
+        Path backup = path.resolveSibling(path.getFileName().toString() + ".schema1.bak");
+        if (!Files.exists(backup)) Files.copy(path, backup);
+        save();
       }
     } catch (Exception ex) {
       throw new IllegalStateException("Unreadable defense HP; original file preserved", ex);
@@ -152,7 +173,7 @@ public final class DefenseDamageStore {
   }
 
   private void save() {
-    JsonFiles.write(path, JsonFiles.map("schema", 1, "blocks", entries));
+    JsonFiles.write(path, JsonFiles.map("schema", 2, "blocks", entries));
     checkpoints++;
   }
 }

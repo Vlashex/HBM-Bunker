@@ -523,6 +523,11 @@ public final class RelaySiege {
         if (LegacyDefense.damage(world, pos, settings.damagePerHit, true)) runner.defenseHits++;
         return;
       }
+      if (dev.deadearth.legacy.defense.MaterialHp.maximum(world, pos) > 0) {
+        dev.deadearth.legacy.defense.MaterialHp.damage(world, pos, settings.damagePerHit, true);
+        if (!Reflect.blockId(world, pos).equals(id)) runner.ordinaryBreaks++;
+        return;
+      }
       if (id.equals("dead_earth:zone_relay")) {
         Object tile = Reflect.call(world, "getTileEntity/func_175625_s", pos);
         if (!(tile instanceof ZoneRelay.RelayTile)) return;
@@ -583,7 +588,7 @@ public final class RelaySiege {
           block = Reflect.call(state, "getBlock/func_177230_c");
       String id = Reflect.call(block, "getRegistryName").toString();
       if (id.equals("minecraft:air")
-          || id.startsWith("hbm:")
+          || id.startsWith("hbm:") && !dev.deadearth.legacy.defense.MaterialHp.configured(id)
           || id.equals("minecraft:bedrock")
           || ((Number) Reflect.call(state, "getBlockHardness/func_185887_b", world, pos))
                   .doubleValue()

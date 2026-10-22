@@ -817,6 +817,21 @@ public final class LegacyRuntime {
 
   public Object command(String[] args) {
     requireThread();
+    if (args.length == 5 && args[0].equals("blockhp")) {
+      Object level = world.world(Integer.parseInt(args[1]));
+      Object pos = Reflect.pos(Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+      if (level == null || !Reflect.loaded(level, pos)) return map("error", "unloaded");
+      Object block = Reflect.call(Reflect.state(level, pos), "getBlock/func_177230_c");
+      if (dev.deadearth.legacy.defense.LegacyDefense.isDefense(block)) {
+        int tier = ((dev.deadearth.legacy.defense.DefenseMaterial) block).tier();
+        return map("block", Reflect.blockId(level, pos), "remaining",
+            dev.deadearth.legacy.defense.LegacyDefense.remaining(level, pos), "maximum",
+            dev.deadearth.legacy.defense.DefenseDamageStore.hp(tier));
+      }
+      return map("block", Reflect.blockId(level, pos), "remaining",
+          dev.deadearth.legacy.defense.MaterialHp.remaining(level, pos), "maximum",
+          dev.deadearth.legacy.defense.MaterialHp.maximum(level, pos));
+    }
     if (args.length >= 1 && args[0].equals("bunker")) return bunkerCommand(args);
     if (args.length >= 1 && args[0].equals("config")) return configurationCommand(args);
     if (args.length == 2 && args[0].equals("evolution") && args[1].equals("status"))

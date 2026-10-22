@@ -246,8 +246,8 @@ public final class RelaySiegeProbe {
       defenseWorkInterval = ((Number) Reflect.get(policy, "workIntervalTicks")).intValue();
       defenseDamage = ((Number) Reflect.get(policy, "damagePerHit")).intValue();
       check(
-          LegacyDefense.remaining(world, Reflect.pos(x + 3, y + 1, z)) == 8000,
-          "V3 fixture starts at native full8000HP");
+          LegacyDefense.remaining(world, Reflect.pos(x + 3, y + 1, z)) == 48000,
+          "V3 fixture starts at native full48000HP");
       diagnose("defense_acquisition_setup");
     }
 
@@ -278,13 +278,13 @@ public final class RelaySiegeProbe {
       if (workTicks < 100) return;
       int hp = LegacyDefense.remaining(world, middle), hpLost = 0;
       for (int dy = 0; dy < 3; dy++)
-        hpLost += 8000 - LegacyDefense.remaining(world, Reflect.pos(x + 3, y + dy, z));
+        hpLost += 48000 - LegacyDefense.remaining(world, Reflect.pos(x + 3, y + dy, z));
       long nativeHits = counter("defenseHits") - defenseHitsBefore;
       int maximumHits = 100 / defenseWorkInterval + 1;
       check(
           acquired
               && nativeHits > 0
-              && hp < 8000
+              && hp < 48000
               && hpLost > 0
               && hpLost % defenseDamage == 0
               && hpLost <= (long) maximumHits * defenseDamage,
@@ -306,7 +306,7 @@ public final class RelaySiegeProbe {
               "acquisitionBudget",
               defenseAcquisitionBudget,
               "startingHp",
-              8000,
+              48000,
               "remainingHp",
               hp,
               "totalWallHpLost",

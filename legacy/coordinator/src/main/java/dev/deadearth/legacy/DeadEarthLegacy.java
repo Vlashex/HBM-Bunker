@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 @Mod(
     modid = "dead_earth",
     name = "DEAD EARTH SRP",
-    version = "1.1.1",
+    version = "1.1.2",
     dependencies =
         "required-after:srparasites@[1.9.21];required-after:epicsiegemod@[13.169];required-after:hbm;after:appliedenergistics2;after:mysticalagriculture;after:exnihilocreatio;after:projecte;after:xlfoodmod;after:rftools;after:inventorysorter",
     acceptedMinecraftVersions = "[1.12.2]")
@@ -47,6 +47,7 @@ public final class DeadEarthLegacy {
     LegacyWasteland.install(config);
     LegacyClimate.install(config);
     LegacyDefense.install(config);
+    dev.deadearth.legacy.defense.MaterialHp.install(config);
     LegacyFarming.install(config);
     LegacyMachinery.install(config);
     LegacySieving.install(config);
@@ -82,7 +83,7 @@ public final class DeadEarthLegacy {
               String n = m.getName();
               if (n.equals("getName") || n.equals("func_71517_b")) return "deadearth";
               if (n.equals("getUsage") || n.equals("func_71518_a"))
-                return "/deadearth status | bunker status | bunker extend 1h";
+                return "/deadearth status | bunker status | bunker extend 1h | blockhp <dim> <x> <y> <z>";
               if (n.equals("getAliases")
                   || n.equals("func_71514_a")
                   || n.equals("getTabCompletions")
