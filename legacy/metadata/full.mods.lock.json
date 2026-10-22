@@ -313,5 +313,17 @@
     "loader": "forge",
     "side": "both",
     "source": "https://www.curseforge.com/minecraft/mc-mods/bonsai-trees/files/2846217"
+  },
+  {
+    "filename": "jehighlights-1.0.jar",
+    "url": "https://cdn.modrinth.com/data/Ek9Iuslc/versions/z2PrI62F/jehighlights-1.0.jar",
+    "version": "1.0",
+    "mod_id": "jehighlights",
+    "size": 19987,
+    "sha256": "4c3b9c3200a683b402ad20c237e4360fed56c824e67174424a25237e46c45e2e",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "client",
+    "source": "https://modrinth.com/mod/just-enough-highlights/version/z2PrI62F"
   }
 ]
