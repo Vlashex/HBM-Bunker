@@ -156,7 +156,7 @@ public final class PortProbe {
     report.put("ordinaryWarmupTicks", 40);
     report.put("schema", 2);
     report.put("probe", "native_full_srp_forge_1_12_2");
-    report.put("productVersion", "1.1.0");
+    report.put("productVersion", "1.1.1");
     report.put("terrain", "DEFAULT");
     report.put("clientVisualsTested", false);
     report.put("realAiInferenceTested", false);

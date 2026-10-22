@@ -52,7 +52,7 @@ class Installer(unittest.TestCase):
         self.server.mkdir(parents=True)
         (self.client / 'game').mkdir(parents=True)
         self.old_name = 'dead-earth-srp-coordinator-1.0.4.jar'
-        self.new_name = 'dead-earth-srp-coordinator-1.1.0.jar'
+        self.new_name = install.legacy_port.MOD_NAME
         self.old = b'old coordinator fixture'
         self.new = b'new coordinator fixture'
         for base in (self.server, self.client / 'game'):

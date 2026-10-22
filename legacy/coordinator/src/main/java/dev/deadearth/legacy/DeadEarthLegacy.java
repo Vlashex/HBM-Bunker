@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 @Mod(
     modid = "dead_earth",
     name = "DEAD EARTH SRP",
-    version = "1.1.0",
+    version = "1.1.1",
     dependencies =
         "required-after:srparasites@[1.9.21];required-after:epicsiegemod@[13.169];required-after:hbm;after:appliedenergistics2;after:mysticalagriculture;after:exnihilocreatio;after:projecte;after:xlfoodmod;after:rftools;after:inventorysorter",
     acceptedMinecraftVersions = "[1.12.2]")
