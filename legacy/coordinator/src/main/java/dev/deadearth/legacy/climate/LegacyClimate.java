@@ -287,7 +287,7 @@ public final class LegacyClimate {
     Object potion =
         Reflect.call(
             Reflect.type("net.minecraft.potion.Potion"),
-            "getPotionFromResourceLocation/func_180142_c",
+            "getPotionFromResourceLocation/func_180142_b",
             id);
     Reflect.call(
         player,
