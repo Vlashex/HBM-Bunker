@@ -28,6 +28,16 @@ def number(value,low=0,high=1e300):
     return type(value) in (int,float) and low<=value<=high and math.isfinite(value)
 
 
+def history_integer(value,high):
+    # Gson restores numbers in Map<String,Object> history rows as doubles.
+    # Accept exact, safely representable whole numbers only in this legacy data.
+    if type(value) is float:
+        require(math.isfinite(value) and value.is_integer() and abs(value)<=9007199254740991)
+        value=int(value)
+    require(type(value) is int and 0<=value<=high)
+    return value
+
+
 def native_json(raw):
     require(type(raw) is str)
     raw=re.sub(r'\u00a7[0-9A-FK-ORa-fk-or]','',raw).strip()
@@ -63,8 +73,8 @@ def evolution_dto(value):
     for row in value['history']:
         require(type(row) is dict and all(key in row for key in ('atTick','from','to','source')))
         row=dict(row);row.setdefault('requestId',None)
-        require(type(row['atTick']) is int and 0<=row['atTick']<=LONG_MAX)
-        require(all(type(row[key]) is int and 0<=row[key]<=phase_maximum for key in ('from','to')))
+        row['atTick']=history_integer(row['atTick'],LONG_MAX)
+        for key in ('from','to'):row[key]=history_integer(row[key],phase_maximum)
         require(type(row['source']) is str and len(row['source'])<=128)
         require(row['requestId'] is None or canonical_uuid(row['requestId']))
         history.append({key:row[key] for key in ('atTick','from','to','source','requestId')})

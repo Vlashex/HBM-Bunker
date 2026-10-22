@@ -76,6 +76,38 @@ class EvolutionTests(unittest.TestCase):
             result=service.snapshot();self.assertEqual(result['state'],'ready')
             self.assertFalse(result['server']['enabled']);self.assertEqual(result['server']['status'],'disabled')
 
+    def test_saved_srp_history_with_gson_doubles_keeps_status_and_shift_supported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            native=status()
+            native.update(parasiteSystem='srp',phaseMaximum=10,phase=3)
+            native['history']=[dict(atTick=53500.0,**{'from':0.0,'to':1.0},source='automatic',requestId=None),
+                               dict(atTick=258460,**{'from':2,'to':3},source='automatic',requestId=None)]
+            service,_=self.service(Path(tmp),lambda _:json.dumps(native))
+            result=service.snapshot()
+            self.assertEqual(result['state'],'ready')
+            self.assertEqual(result['server']['history'][0],dict(atTick=53500,**{'from':0,'to':1},source='automatic',requestId=None))
+            for row in result['server']['history']:
+                for key in ('atTick','from','to'): self.assertIs(type(row[key]),int)
+            service.console.execute=lambda *_:dict(state='completed',output=json.dumps(dict(
+                accepted=True,code='shifted',evolution=dict(native,phase=4,revision=8))))
+            shifted=service.shift(payload())
+            self.assertEqual(shifted['state'],'completed')
+            self.assertTrue(shifted['result']['accepted'])
+            self.assertEqual(shifted['result']['evolution']['phase'],4)
+
+    def test_history_numeric_compatibility_rejects_fractional_unsafe_or_non_numbers(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for key,bad in [('atTick',120.5),('atTick','120'),('atTick',True),
+                            ('atTick',-1.0),('atTick',float(2**53)),
+                            ('from',1.5),('from',False),('to',6.0)]:
+                native=status();native['history'][0][key]=bad
+                service,_=self.service(Path(tmp),lambda _,native=native:json.dumps(native))
+                self.assertEqual(service.snapshot()['state'],'unsupported',(key,bad))
+            for key in ('phase','revision'):
+                native=status();native[key]=float(native[key])
+                service,_=self.service(Path(tmp),lambda _,native=native:json.dumps(native))
+                self.assertEqual(service.snapshot()['state'],'unsupported',key)
+
     def test_shift_uses_durable_console_receipt_and_replay_never_sends_twice(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);service,console=self.service(root);calls=[]
