@@ -50,6 +50,15 @@ recipes.addShaped("dead_earth_progression_me_controller", <appliedenergistics2:c
 recipes.remove(<appliedenergistics2:material:52>);
 recipes.addShaped("dead_earth_progression_me_blank_pattern", <appliedenergistics2:material:52>, [[<minecraft:gold_ingot>, <appliedenergistics2:quartz_glass>, <minecraft:gold_ingot>], [<appliedenergistics2:quartz_glass>, <hbm:circuit:8>, <appliedenergistics2:quartz_glass>], [<minecraft:gold_ingot>, <appliedenergistics2:quartz_glass>, <minecraft:gold_ingot>]]);
 
+recipes.remove(<simplemagnets:basicmagnet>);
+recipes.addShaped("dead_earth_progression_basic_magnet", <simplemagnets:basicmagnet>, [[<minecraft:iron_ingot>, <minecraft:redstone>, <minecraft:iron_ingot>], [<hbm:plate_iron>, <hbm:circuit:7>, <hbm:plate_iron>], [null, null, null]]);
+
+recipes.remove(<simplemagnets:advancedmagnet>);
+recipes.addShaped("dead_earth_progression_advanced_magnet", <simplemagnets:advancedmagnet>, [[null, <minecraft:gold_ingot>, null], [<minecraft:redstone>, <simplemagnets:basicmagnet>, <hbm:circuit:8>], [null, <minecraft:diamond>, null]]);
+
+recipes.remove(<trashcans:item_trash_can>);
+recipes.addShaped("dead_earth_progression_item_trash_can", <trashcans:item_trash_can>, [[null, <hbm:plate_iron>, null], [<minecraft:cobblestone>, <minecraft:chest>, <minecraft:cobblestone>], [<minecraft:cobblestone>, <minecraft:cobblestone>, <minecraft:cobblestone>]]);
+
 recipes.addShaped("dead_earth_progression_efficiency_10", <minecraft:enchanted_book>.withTag({StoredEnchantments: [{id: 32 as short, lvl: 10 as short}]}), [[null, <minecraft:lapis_block>, null], [<hbm:plate_dura_steel>, <minecraft:enchanted_book>.onlyWithTag({StoredEnchantments: [{id: 32 as short, lvl: 9 as short}]}), <hbm:plate_dura_steel>], [null, <minecraft:redstone_block>, null]]);
 
 recipes.addShaped("dead_earth_progression_efficiency_4", <minecraft:enchanted_book>.withTag({StoredEnchantments: [{id: 32 as short, lvl: 4 as short}]}), [[null, <minecraft:lapis_block>, null], [<hbm:plate_steel>, <minecraft:book>, <hbm:plate_steel>], [null, <minecraft:redstone_block>, null]]);

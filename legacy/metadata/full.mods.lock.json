@@ -325,5 +325,60 @@
     "loader": "forge",
     "side": "client",
     "source": "https://modrinth.com/mod/just-enough-highlights/version/z2PrI62F"
+  },
+  {
+    "filename": "simplemagnets-1.1.12-forge-mc1.12.jar",
+    "url": "https://cdn.modrinth.com/data/YyNQVpOu/versions/jvqx9L3y/simplemagnets-1.1.12-forge-mc1.12.jar",
+    "version": "1.1.12-forge-mc1.12",
+    "mod_id": "simplemagnets",
+    "size": 138497,
+    "sha256": "afae94d9c0b8e36658e2e586b74850482b716a86a5911ffbacc94c8faab5e935",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "trashcans-1.1.1-forge-mc1.12.jar",
+    "url": "https://cdn.modrinth.com/data/4QrnfueM/versions/Sq5RGRxd/trashcans-1.1.1-forge-mc1.12.jar",
+    "version": "1.1.1-forge-mc1.12",
+    "mod_id": "trashcans",
+    "size": 164120,
+    "sha256": "67be65029fe10e3e6442599688a9b081cbe858c270600b747343fb91c2e42c5b",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "_supermartijn642corelib-1.1.25-forge-mc1.12.jar",
+    "url": "https://cdn.modrinth.com/data/rOUBggPv/versions/koYVoHm6/_supermartijn642corelib-1.1.25-forge-mc1.12.jar",
+    "version": "1.1.25-forge-mc1.12",
+    "mod_id": "supermartijn642corelib",
+    "size": 1527922,
+    "sha256": "05bcab591dbbe6e40c706cbf24298097894b96ff167340e11d9dea74cb37a6ba",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "supermartijn642configlib-1.1.8-forge-mc1.12.jar",
+    "url": "https://cdn.modrinth.com/data/LN9BxssP/versions/IJL4TGRd/supermartijn642configlib-1.1.8-forge-mc1.12.jar",
+    "version": "1.1.8-forge-mc1.12",
+    "mod_id": "supermartijn642configlib",
+    "size": 204829,
+    "sha256": "9f15755020a966023eae8e9d1446441d175a88c09b1e458a47fcb3024d5e57f8",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "simplybackpacks-1.4.9.jar",
+    "url": "https://edge.forgecdn.net/files/3028/832/simplybackpacks-1.4.9.jar",
+    "version": "1.4.9",
+    "mod_id": "simplybackpacks",
+    "size": 129190,
+    "sha256": "1c0e8cac846875a0f5f4a9e5ade6a302c12a643bac89b667815901eda1a38ca9",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
   }
 ]

@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "newModCount": 5,
+  "newModTotalBytes": 2164558,
+  "unitChecksPassed": 23,
+  "nativeItemRegistryVerified": [
+    "simplybackpacks:commonbackpack",
+    "simplybackpacks:uncommonbackpack",
+    "simplybackpacks:rarebackpack",
+    "simplybackpacks:epicbackpack",
+    "simplemagnets:basicmagnet",
+    "simplemagnets:advancedmagnet",
+    "trashcans:item_trash_can"
+  ],
+  "craftTweakerErrorCount": 0,
+  "serverStarted": true,
+  "adminHttp": 200,
+  "clientInstalled": [
+    "existing Prism instance",
+    "owned interactive client"
+  ],
+  "clientLaunchTested": false,
+  "gameplayInteractionsTested": false,
+  "worldPreserved": true,
+  "newMods": [
+    "simplemagnets",
+    "trashcans",
+    "supermartijn642corelib",
+    "supermartijn642configlib",
+    "simplybackpacks"
+  ]
+}

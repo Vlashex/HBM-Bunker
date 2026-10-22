@@ -22,7 +22,7 @@
       "exnihilocreatio:item_ore_gold",
       "exnihilocreatio:item_ore_iron"
     ],
-    "note": "Pinned full-pack item registry (saved FML registry, 2026-10-22) contains only iron/gold ExN ores. HBM ore drops come from progression/sieve.json; do not invent optional ExN ores. Native sand ore-dictionary recipes cover both colors; explicit iron drop uses sand metadata 1. isSkyWorld=true, normalDropPercent=100. Enchanted meshes and advanced HBM processing are additional farm profit, not the baseline.",
+    "note": "Pinned full-pack item registry (saved FML registry, 2026-10-22) contains only iron/gold ExN ores. HBM ore drops come from progression/sieve.json; do not invent optional ExN ores. Native sand ore-dictionary recipes cover both colors; explicit iron drop uses sand metadata 1. isSkyWorld=true, normalDropPercent=100. Enchanted meshes and advanced HBM processing are additional farm profit, not the baseline. Inventory QoL additions audited 2026-10-22: Simply Backpacks, Simple Magnets, Trash Cans and shared core/config libraries introduce no ores or sieve providers; existing native yield snapshot remains valid.",
     "serverModPins": {
       "storagenetwork": "41caa348d9810bea1811b043e2075263206f8b1b4b35f085d5cc7ca479b08bdd",
       "crafttweaker": "b2e5e443f18d0d5bcfd1364f9ec89565e6a1e2ad4568b899c590aa5507978b27",
@@ -47,7 +47,12 @@
       "simpledifficulty": "4c7f92455aae62e7dbc4171aad609c34983243c90d72add5a12ece1613fd1b4b",
       "xlfoodmod": "94cd0ecbabc102d3ee2103ebef9dcff418e11a3e5f42441dd31a1cc14c3d0366",
       "inventorysorter": "24616b78ba3f2fbf2ed77e6ff5121712c8cf35288dbbf3199a2304547bd4bfc9",
-      "bonsaitrees": "c56c407c3e157f2e2d831d415938b0393d7d11aa5248bdbe584847d98b9d2a30"
+      "bonsaitrees": "c56c407c3e157f2e2d831d415938b0393d7d11aa5248bdbe584847d98b9d2a30",
+      "simplemagnets": "afae94d9c0b8e36658e2e586b74850482b716a86a5911ffbacc94c8faab5e935",
+      "trashcans": "67be65029fe10e3e6442599688a9b081cbe858c270600b747343fb91c2e42c5b",
+      "supermartijn642corelib": "05bcab591dbbe6e40c706cbf24298097894b96ff167340e11d9dea74cb37a6ba",
+      "supermartijn642configlib": "9f15755020a966023eae8e9d1446441d175a88c09b1e458a47fcb3024d5e57f8",
+      "simplybackpacks": "1c0e8cac846875a0f5f4a9e5ade6a302c12a643bac89b667815901eda1a38ca9"
     }
   },
   "conversions": {

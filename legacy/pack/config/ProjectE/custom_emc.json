@@ -750,6 +750,38 @@
       "emc": 0
     },
     {
+      "item": "simplemagnets:advanced_demagnetization_coil|0",
+      "emc": 0
+    },
+    {
+      "item": "simplemagnets:advancedmagnet|0",
+      "emc": 0
+    },
+    {
+      "item": "simplemagnets:basic_demagnetization_coil|0",
+      "emc": 0
+    },
+    {
+      "item": "simplemagnets:basicmagnet|0",
+      "emc": 0
+    },
+    {
+      "item": "simplybackpacks:commonbackpack|0",
+      "emc": 0
+    },
+    {
+      "item": "simplybackpacks:epicbackpack|0",
+      "emc": 0
+    },
+    {
+      "item": "simplybackpacks:rarebackpack|0",
+      "emc": 0
+    },
+    {
+      "item": "simplybackpacks:uncommonbackpack|0",
+      "emc": 0
+    },
+    {
       "item": "storagenetwork:kabel|0",
       "emc": 0
     },
@@ -779,6 +811,22 @@
     },
     {
       "item": "storagenetwork:storage_kabel|0",
+      "emc": 0
+    },
+    {
+      "item": "trashcans:energy_trash_can|0",
+      "emc": 0
+    },
+    {
+      "item": "trashcans:item_trash_can|0",
+      "emc": 0
+    },
+    {
+      "item": "trashcans:liquid_trash_can|0",
+      "emc": 0
+    },
+    {
+      "item": "trashcans:ultimate_trash_can|0",
       "emc": 0
     }
   ]

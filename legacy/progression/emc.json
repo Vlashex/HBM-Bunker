@@ -144,6 +144,14 @@
     "rftools:crafter2|0",
     "rftools:crafter3|0",
     "rftools:machine_frame|0",
+    "simplemagnets:advanced_demagnetization_coil|0",
+    "simplemagnets:advancedmagnet|0",
+    "simplemagnets:basic_demagnetization_coil|0",
+    "simplemagnets:basicmagnet|0",
+    "simplybackpacks:commonbackpack|0",
+    "simplybackpacks:epicbackpack|0",
+    "simplybackpacks:rarebackpack|0",
+    "simplybackpacks:uncommonbackpack|0",
     "storagenetwork:kabel|0",
     "storagenetwork:master|0",
     "storagenetwork:remote|0",
@@ -151,7 +159,11 @@
     "storagenetwork:remote|2",
     "storagenetwork:remote|3",
     "storagenetwork:request|0",
-    "storagenetwork:storage_kabel|0"
+    "storagenetwork:storage_kabel|0",
+    "trashcans:energy_trash_can|0",
+    "trashcans:item_trash_can|0",
+    "trashcans:liquid_trash_can|0",
+    "trashcans:ultimate_trash_can|0"
   ],
   "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Gravel, both sands and Ex Nihilo dust use derived sieve-pricing.json values; baseline target 1.5% gross return without enchantments or advanced HBM processing."
 }

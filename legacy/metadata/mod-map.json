@@ -291,6 +291,11 @@
     "mixinbooter",
     "ctm",
     "journeymap",
-    "bonsaitrees"
+    "bonsaitrees",
+    "simplemagnets",
+    "trashcans",
+    "supermartijn642corelib",
+    "supermartijn642configlib",
+    "simplybackpacks"
   ]
 }

@@ -232,6 +232,54 @@
         "Q": "appliedenergistics2:quartz_glass",
         "C": "hbm:circuit:8"
       }
+    },
+    {
+      "name": "basic_magnet",
+      "output": "simplemagnets:basicmagnet",
+      "count": 1,
+      "pattern": [
+        "IRI",
+        "PCP",
+        "   "
+      ],
+      "key": {
+        "I": "minecraft:iron_ingot",
+        "R": "minecraft:redstone",
+        "P": "hbm:plate_iron",
+        "C": "hbm:circuit:7"
+      }
+    },
+    {
+      "name": "advanced_magnet",
+      "output": "simplemagnets:advancedmagnet",
+      "count": 1,
+      "pattern": [
+        " G ",
+        "RMC",
+        " D "
+      ],
+      "key": {
+        "G": "minecraft:gold_ingot",
+        "R": "minecraft:redstone",
+        "M": "simplemagnets:basicmagnet",
+        "C": "hbm:circuit:8",
+        "D": "minecraft:diamond"
+      }
+    },
+    {
+      "name": "item_trash_can",
+      "output": "trashcans:item_trash_can",
+      "count": 1,
+      "pattern": [
+        " P ",
+        "SCS",
+        "SSS"
+      ],
+      "key": {
+        "P": "hbm:plate_iron",
+        "S": "minecraft:cobblestone",
+        "C": "minecraft:chest"
+      }
     }
   ],
   "books": [

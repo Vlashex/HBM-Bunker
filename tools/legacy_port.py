@@ -71,7 +71,8 @@ def full_pins(root=ROOT):
         ids.add(row['mod_id']); names.add(name.casefold())
     required = set(base) | {'appliedenergistics2','mysticalagriculture','cucumber','projecte','rftools',
         'rftoolspower','mcjtylib_ng','xnet','exnihilocreatio','excompressum','forgelin',
-        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap','bonsaitrees','jehighlights'}
+        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap','bonsaitrees','jehighlights',
+        'simplybackpacks','simplemagnets','trashcans','supermartijn642corelib','supermartijn642configlib'}
     if ids != required: raise ValueError('Unexpected full-fork composition: ' + str(ids ^ required))
     return rows
 
