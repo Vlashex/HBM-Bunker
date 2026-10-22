@@ -236,7 +236,7 @@ def check_evidence(root):
 def release_documents(root):
     paths = [root / name for name in ["README.md", "CHANGELOG.md", "CONTRIBUTING.md", "THIRD-PARTY.md"]]
     allowed = {".md", ".json", ".toml", ".png", ".jpg", ".jpeg", ".svg", ".webp"}
-    for folder in [root / "docs", root / "verification"]:
+    for folder in [root / "docs", root / "verification", root / "legacy"]:
         paths += sorted(path for path in folder.rglob("*") if path.is_file() and path.suffix.lower() in allowed)
     documents = {}
     for path in paths:

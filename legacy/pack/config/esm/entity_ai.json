@@ -1,6 +1,6 @@
 {
   "default": {
-    "Awareness Radius": 32,
+    "Awareness Radius": 16,
     "Xray Distance": 0,
     "Attack Everything": false,
     "Attack Pets": false,
@@ -101,7 +101,7 @@
   },
   "entities": {
     "minecraft:zombie": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -201,7 +201,7 @@
       "Debug Targets": false
     },
     "minecraft:husk": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -301,7 +301,7 @@
       "Debug Targets": false
     },
     "minecraft:chicken": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -401,7 +401,7 @@
       "Debug Targets": false
     },
     "minecraft:cow": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -501,7 +501,7 @@
       "Debug Targets": false
     },
     "minecraft:pig": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -601,7 +601,7 @@
       "Debug Targets": false
     },
     "minecraft:sheep": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -701,7 +701,7 @@
       "Debug Targets": false
     },
     "minecraft:rabbit": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -801,7 +801,7 @@
       "Debug Targets": false
     },
     "minecraft:mooshroom": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -901,7 +901,7 @@
       "Debug Targets": false
     },
     "minecraft:horse": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1001,7 +1001,7 @@
       "Debug Targets": false
     },
     "minecraft:donkey": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1101,7 +1101,7 @@
       "Debug Targets": false
     },
     "minecraft:mule": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1201,7 +1201,7 @@
       "Debug Targets": false
     },
     "minecraft:llama": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1301,7 +1301,7 @@
       "Debug Targets": false
     },
     "minecraft:ocelot": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1401,7 +1401,7 @@
       "Debug Targets": false
     },
     "minecraft:polar_bear": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1501,7 +1501,7 @@
       "Debug Targets": false
     },
     "minecraft:wolf": {
-      "Awareness Radius": 24,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1601,7 +1601,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_adventurer": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1701,7 +1701,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_bear": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1801,7 +1801,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_cow": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -1901,7 +1901,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_horse": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2001,7 +2001,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_human": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2101,7 +2101,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_pig": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2201,7 +2201,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_sheep": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2301,7 +2301,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_villager": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2401,7 +2401,7 @@
       "Debug Targets": false
     },
     "srparasites:sim_wolf": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2501,7 +2501,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_bear": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2601,7 +2601,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_cow": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2701,7 +2701,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_horse": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2801,7 +2801,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_human": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -2901,7 +2901,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_pig": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3001,7 +3001,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_sheep": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3101,7 +3101,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_villager": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3201,7 +3201,7 @@
       "Debug Targets": false
     },
     "srparasites:fer_wolf": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3301,7 +3301,7 @@
       "Debug Targets": false
     },
     "srparasites:pri_arachnida": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3401,7 +3401,7 @@
       "Debug Targets": false
     },
     "srparasites:pri_longarms": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3501,7 +3501,7 @@
       "Debug Targets": false
     },
     "srparasites:pri_manducater": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3601,7 +3601,7 @@
       "Debug Targets": false
     },
     "srparasites:pri_reeker": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3701,7 +3701,7 @@
       "Debug Targets": false
     },
     "srparasites:ada_arachnida": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3801,7 +3801,7 @@
       "Debug Targets": false
     },
     "srparasites:ada_longarms": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -3901,7 +3901,7 @@
       "Debug Targets": false
     },
     "srparasites:ada_manducater": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,
@@ -4001,7 +4001,7 @@
       "Debug Targets": false
     },
     "srparasites:ada_reeker": {
-      "Awareness Radius": 48,
+      "Awareness Radius": 16,
       "Xray Distance": 0,
       "Attack Everything": false,
       "Attack Pets": false,

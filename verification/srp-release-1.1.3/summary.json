@@ -1,0 +1,71 @@
+{
+  "version": "1.1.3",
+  "basis": "srp-v1.1.0 plus verified deployed fixes; unstable siege/HP changes excluded",
+  "rootUnitTests": 115,
+  "backpackUnitTests": 4,
+  "directorTests": 159,
+  "adminUi": "passed",
+  "modernBaselinePackagingCheck": "passed",
+  "nativeServer": {
+    "passed": true,
+    "groups": 22,
+    "fullAssertions": 102,
+    "baselineAssertions": 211,
+    "exitCode": 0,
+    "recipeErrors": 0,
+    "elapsedSeconds": 236.52,
+    "bridgeDirectorAdmin": true
+  },
+  "clientGL": {
+    "passed": true,
+    "registeredBlocks": 214,
+    "registeredItems": 103,
+    "blockStatesChecked": 1870,
+    "inventoryStackCases": 109,
+    "quadSpritesChecked": 166836,
+    "errors": []
+  },
+  "watchdogInvestigation": {
+    "firstRun": "all functional checks passed, but aggregated test preparation exceeded watchdog tick budget",
+    "resolution": "test-only preparation groups now yield across native ticks; no production code or watchdog threshold changed",
+    "repeatRun": "passed and normal saved exit 0"
+  },
+  "archiveAudit": {
+    "passed": true,
+    "assets": [
+      {
+        "name": "DEAD-EARTH-SRP-1.1.3-Prism.zip",
+        "size": 128770337,
+        "sha256": "6c091960f42565372aacf3d5d9dc240003e2485f00439ed78d54ef255a8d9f01"
+      },
+      {
+        "name": "DEAD-EARTH-SRP-1.1.3-TLauncher.zip",
+        "size": 133397247,
+        "sha256": "94d7ee13c124d8e4a35e2aacaf21f305a9c58b1b13040da09be3a3b06a6b5381"
+      },
+      {
+        "name": "DEAD-EARTH-SRP-1.1.3-Server-Overlay.zip",
+        "size": 122374573,
+        "sha256": "0d87a9044ce923c85a7f7162860897ba87f0584691b87d0b258a35d8057ebb7b"
+      }
+    ],
+    "checks": [
+      "ZIP CRC",
+      "pinned client/server separation",
+      "no worlds/accounts/runtime secrets",
+      "no unstable QoL mods",
+      "exact coordinator version"
+    ]
+  },
+  "restart": {
+    "passed": true,
+    "exit_code": 0,
+    "elapsed_seconds": 87.23
+  },
+  "performanceTests": false,
+  "limitations": [
+    "No extended human cooperative playtest or performance benchmark.",
+    "Local CPU model weights unchanged; bridge execution uses a fixed selector, not a new model evaluation."
+  ],
+  "criticalErrorsInPassingRuns": 0
+}

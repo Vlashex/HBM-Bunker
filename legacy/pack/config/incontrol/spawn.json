@@ -1,0 +1,30 @@
+[
+  {
+    "mod": "srparasites",
+    "hostile": true,
+    "random": 0.25,
+    "result": "deny"
+  },
+  {
+    "mod": "srparasites"
+  },
+  {
+    "hostile": true,
+    "minlight": 8,
+    "result": "deny"
+  },
+  {
+    "hostile": true,
+    "mincount": {
+      "amount": 35,
+      "hostile": true,
+      "perchunk": true
+    },
+    "result": "deny"
+  },
+  {
+    "hostile": true,
+    "random": 0.25,
+    "result": "deny"
+  }
+]

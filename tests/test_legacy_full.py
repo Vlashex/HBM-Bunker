@@ -23,7 +23,8 @@ class FullForkTests(unittest.TestCase):
     def test_client_only_mods_do_not_enter_dedicated_server(self):
         server_files=port.entries('server');client_files=port.entries('client')
         for row in port.full_pins():
-            self.assertIn('.minecraft/mods/'+row['filename'],client_files)
+            if row['side'] == 'server': self.assertNotIn('.minecraft/mods/'+row['filename'],client_files.keys())
+            else: self.assertIn('.minecraft/mods/'+row['filename'],client_files.keys())
             if row['side']=='client':self.assertNotIn('mods/'+row['filename'],server_files)
             else:self.assertIn('mods/'+row['filename'],server_files)
         self.assertIn('director/model.ps1',server_files)
@@ -35,8 +36,8 @@ class FullForkTests(unittest.TestCase):
         products=legacy_full_recipes.products()
         progression=json.loads(products['legacy/pack/config/dead-earth/progression.json'])
         values=progression['rawEmc']
-        self.assertEqual(values['dead_earth:compressed_gravel_4|0'],4*6561)
-        self.assertEqual(values['excompressum:compressed_block|2'],4*9)
+        self.assertNotIn('dead_earth:compressed_gravel_4|0',values)
+        self.assertNotIn('excompressum:compressed_block|2',values)
         self.assertNotIn('dead_earth:compact_sieve_v5|0',values)
         self.assertNotIn('dead_earth:compact_mesh_diamond_v5|0',values)
         self.assertFalse(any('plate_' in token or 'circuit' in token for token in values))

@@ -310,7 +310,7 @@ public final class SiegeProbe {
       arena(false);
       for (int dy = 0; dy < 3; dy++)
         for (int dz = -1; dz <= 1; dz++) put(Reflect.pos(x + 2, y + dy, z + dz), "hbm:block_steel");
-      position(player, x + 40.5, y, z + .5);
+      position(player, x + 12.5, y, z + .5);
       List<String> observed = new ArrayList<String>();
       for (String id :
           new String[] {
@@ -319,7 +319,7 @@ public final class SiegeProbe {
         Object mob = create(id, x + .5, y, z + .5, true);
         check(
             (Boolean) Reflect.call(mob, "canEntityBeSeen/func_70685_l", player),
-            "real mob sees player through opaque HBM at40 blocks: " + id);
+            "real mob sees player through opaque HBM at12 blocks: " + id);
         observed.add(id);
       }
       Object mob = actors.get(0), caps = Reflect.get(player, "capabilities/field_71075_bZ");
@@ -332,6 +332,8 @@ public final class SiegeProbe {
       } finally {
         Reflect.set(caps, "isCreativeMode/field_75098_d", creative);
       }
+      position(player, x + 17.5, y, z + .5);
+      check(!(Boolean)Reflect.call(mob,"canEntityBeSeen/func_70685_l",player),"sight stops beyond configured 16 blocks");
       Object provider = Reflect.call(world, "getChunkProvider/func_72863_F");
       int loaded = ((Collection<?>) Reflect.call(provider, "getLoadedChunks/func_189548_a")).size();
       position(player, x + 10000.5, y, z + .5);
@@ -640,8 +642,8 @@ public final class SiegeProbe {
                     Reflect.type("net.minecraft.entity.SharedMonsterAttributes"),
                     "FOLLOW_RANGE/field_111265_b"));
         check(
-            ((Number) Reflect.call(follow, "getAttributeValue/func_111126_e")).doubleValue() >= 64,
-            "global native FOLLOW_RANGE is increased: " + id);
+            ((Number) Reflect.call(follow, "getAttributeValue/func_111126_e")).doubleValue() >= 16,
+            "native FOLLOW_RANGE supports configured 16-block sight: " + id);
         if (id.startsWith("srparasites:")) {
           check(
               !nativeTasks.isEmpty() && customTasks(entity).containsAll(nativeTasks),

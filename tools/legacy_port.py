@@ -17,7 +17,7 @@ except ImportError:
     import legacy_storage as storage
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = '1.1.0'
+VERSION = '1.1.3'
 PACK_NAME = 'DEAD-EARTH-SRP-' + VERSION
 MOD_NAME = 'dead-earth-srp-coordinator-' + VERSION + '.jar'
 FORGE = '1.12.2-14.23.5.2860'
@@ -71,7 +71,7 @@ def full_pins(root=ROOT):
         ids.add(row['mod_id']); names.add(name.casefold())
     required = set(base) | {'appliedenergistics2','mysticalagriculture','cucumber','projecte','rftools',
         'rftoolspower','mcjtylib_ng','xnet','exnihilocreatio','excompressum','forgelin',
-        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap','bonsaitrees'}
+        'simpledifficulty','xlfoodmod','inventorysorter','waila','vintagefix','entityculling','journeymap','bonsaitrees','v0idssmartbackpacks','incontrol'}
     if ids != required: raise ValueError('Unexpected full-fork composition: ' + str(ids ^ required))
     return rows
 

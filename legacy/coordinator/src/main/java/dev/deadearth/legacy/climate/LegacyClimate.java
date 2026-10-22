@@ -22,6 +22,15 @@ public final class LegacyClimate {
 
   private LegacyClimate() {}
 
+  public static ClimateConfig configuration() {
+    return config;
+  }
+
+  /** Replace only a prepared policy snapshot. Engine geometry and queued columns remain intact. */
+  public static void applyConfiguration(ClimateConfig prepared) {
+    config = prepared;
+  }
+
   public static void install(Path directory) {
     config = ClimateConfig.load(directory.resolve("dead-earth/climate.json"));
     engine = new CoatingEngine(config);
@@ -278,7 +287,7 @@ public final class LegacyClimate {
     Object potion =
         Reflect.call(
             Reflect.type("net.minecraft.potion.Potion"),
-            "getPotionFromResourceLocation/func_180142_c",
+            "getPotionFromResourceLocation/func_180142_b",
             id);
     Reflect.call(
         player,

@@ -1,9 +1,41 @@
 {
-  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json.",
+  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Siftable feedstocks and their compressed forms have no EMC (sieveInputEmc=false), except explicitly approved dirt and leaves at 1 EMC per raw block; cobblestone and its compression retain EMC. Sieve yield reference values remain available only for zone valuation; reward EMC is unchanged.",
   "entries": [
     {
       "item": "appliedenergistics2:material|0",
       "emc": 256
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_acacia_leaves_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_birch_leaves_4|0",
+      "emc": 6561
     },
     {
       "item": "dead_earth:compressed_cobblestone_2|0",
@@ -15,6 +47,22 @@
     },
     {
       "item": "dead_earth:compressed_cobblestone_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_dark_oak_leaves_4|0",
       "emc": 6561
     },
     {
@@ -30,55 +78,55 @@
       "emc": 6561
     },
     {
-      "item": "dead_earth:compressed_gravel_2|0",
-      "emc": 324
-    },
-    {
-      "item": "dead_earth:compressed_gravel_3|0",
-      "emc": 2916
-    },
-    {
-      "item": "dead_earth:compressed_gravel_4|0",
-      "emc": 26244
-    },
-    {
-      "item": "dead_earth:compressed_red_sand_1|0",
+      "item": "dead_earth:compressed_jungle_leaves_1|0",
       "emc": 9
     },
     {
-      "item": "dead_earth:compressed_red_sand_2|0",
+      "item": "dead_earth:compressed_jungle_leaves_2|0",
       "emc": 81
     },
     {
-      "item": "dead_earth:compressed_red_sand_3|0",
+      "item": "dead_earth:compressed_jungle_leaves_3|0",
       "emc": 729
     },
     {
-      "item": "dead_earth:compressed_red_sand_4|0",
+      "item": "dead_earth:compressed_jungle_leaves_4|0",
       "emc": 6561
     },
     {
-      "item": "dead_earth:compressed_sand_2|0",
+      "item": "dead_earth:compressed_oak_leaves_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_oak_leaves_2|0",
       "emc": 81
     },
     {
-      "item": "dead_earth:compressed_sand_3|0",
+      "item": "dead_earth:compressed_oak_leaves_3|0",
       "emc": 729
     },
     {
-      "item": "dead_earth:compressed_sand_4|0",
+      "item": "dead_earth:compressed_oak_leaves_4|0",
+      "emc": 6561
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_1|0",
+      "emc": 9
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_2|0",
+      "emc": 81
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_3|0",
+      "emc": 729
+    },
+    {
+      "item": "dead_earth:compressed_spruce_leaves_4|0",
       "emc": 6561
     },
     {
       "item": "excompressum:compressed_block|1",
-      "emc": 9
-    },
-    {
-      "item": "excompressum:compressed_block|2",
-      "emc": 36
-    },
-    {
-      "item": "excompressum:compressed_block|3",
       "emc": 9
     },
     {
@@ -278,12 +326,32 @@
       "emc": 1
     },
     {
-      "item": "minecraft:gravel|0",
-      "emc": 4
-    },
-    {
       "item": "minecraft:iron_ingot|0",
       "emc": 256
+    },
+    {
+      "item": "minecraft:leaves2|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:leaves2|1",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:leaves|0",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:leaves|1",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:leaves|2",
+      "emc": 1
+    },
+    {
+      "item": "minecraft:leaves|3",
+      "emc": 1
     },
     {
       "item": "minecraft:log2|0",
@@ -356,14 +424,6 @@
     {
       "item": "minecraft:reeds|0",
       "emc": 32
-    },
-    {
-      "item": "minecraft:sand|0",
-      "emc": 1
-    },
-    {
-      "item": "minecraft:sand|1",
-      "emc": 1
     },
     {
       "item": "minecraft:stone|0",
@@ -522,6 +582,126 @@
       "emc": 0
     },
     {
+      "item": "dead_earth:compressed_crushed_diorite_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_crushed_diorite_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_dust_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_ender_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_nether_gravel_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_red_sand_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_sand_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_1|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_skystone_4|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_2|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_3|0",
+      "emc": 0
+    },
+    {
+      "item": "dead_earth:compressed_soul_sand_4|0",
+      "emc": 0
+    },
+    {
       "item": "dead_earth:defense_door_v1|0",
       "emc": 0
     },
@@ -567,6 +747,50 @@
     },
     {
       "item": "excompressum:auto_sieve|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|0",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|2",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|3",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|6",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|7",
+      "emc": 0
+    },
+    {
+      "item": "excompressum:compressed_block|8",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_diorite_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_dust|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_endstone_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_netherrack_crushed|0",
+      "emc": 0
+    },
+    {
+      "item": "exnihilocreatio:block_skystone_crushed|0",
       "emc": 0
     },
     {
@@ -694,6 +918,22 @@
       "emc": 0
     },
     {
+      "item": "minecraft:gravel|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:sand|0",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:sand|1",
+      "emc": 0
+    },
+    {
+      "item": "minecraft:soul_sand|0",
+      "emc": 0
+    },
+    {
       "item": "mysticalagriculture:crafting|0",
       "emc": 0
     },
@@ -759,6 +999,190 @@
     },
     {
       "item": "storagenetwork:storage_kabel|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:backpack_advanced|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:backpack_reinforced|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:backpack_ultimate|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:backpack|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:dragon_scales|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:reinforced_leather|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_air_bags|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_base|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_charging|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_compressor|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_crafting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_damage_bar|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_depositing|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_ender_chest|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_ender_storage|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_energy_advanced|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_energy_basic|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_energy_creative|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_energy_ultimate|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_experience|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_feeding|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_filter_regex|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_filter|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_em|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_furnace|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_kinetic|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_nuclear|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_solar|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_generator_wind|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_grinding|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_hotbar|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_induction_coil|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_lighting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_limiting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_magnet|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_mending|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_nesting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_pulling|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_pushing|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_quiver|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_sharing|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_smelting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_sorting|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_soulbound|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_void|0",
+      "emc": 0
+    },
+    {
+      "item": "v0idssmartbackpacks:upgrade_water_spring|0",
       "emc": 0
     }
   ]

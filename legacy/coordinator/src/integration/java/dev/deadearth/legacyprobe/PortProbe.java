@@ -50,6 +50,8 @@ public final class PortProbe {
   private dev.deadearth.legacyprobe.sieving.CompactSieveGameplayProbe.Session sieveGameplay;
   private dev.deadearth.legacyprobe.combat.SiegeProbe.Session siegeGameplay;
   private dev.deadearth.legacyprobe.combat.RelaySiegeProbe.Session relayGameplay;
+  private final java.util.ArrayDeque<Checked> preparationSteps = new java.util.ArrayDeque<Checked>();
+  private boolean collectingPreparations;
   private boolean nativeFinished;
   private int nativeWarmupRemaining;
   private boolean nativeStarted;
@@ -91,6 +93,12 @@ public final class PortProbe {
       net.minecraftforge.fml.common.gameevent.TickEvent.ServerTickEvent event) {
     if (event.phase != net.minecraftforge.fml.common.gameevent.TickEvent.Phase.END
         || nativeFinished) return;
+    if (!preparationSteps.isEmpty()) {
+      try { preparationSteps.removeFirst().run(); }
+      catch (Throwable failed) { failures++; checks.add(result("queued_preparation",false,failed)); }
+      if (preparationSteps.isEmpty()) startNativeGameplay();
+      return;
+    }
     if (siegeGameplay != null) {
       if (siegeGameplay.poll()) {
         runFull(
@@ -156,7 +164,7 @@ public final class PortProbe {
     report.put("ordinaryWarmupTicks", 40);
     report.put("schema", 2);
     report.put("probe", "native_full_srp_forge_1_12_2");
-    report.put("productVersion", "1.1.0");
+    report.put("productVersion", "1.1.3");
     report.put("terrain", "DEFAULT");
     report.put("clientVisualsTested", false);
     report.put("realAiInferenceTested", false);
@@ -173,6 +181,7 @@ public final class PortProbe {
       if (starterPreparationFailure != null)
         throw new IllegalStateException(
             "Original spawn sentinel preparation failed", starterPreparationFailure);
+      collectingPreparations = true;
       run("native_dependencies", () -> dependencies());
       run("no_player_pause_and_native_lock", () -> noPlayers());
       runFull("starter_shelter_once_per_world", () -> starterShelter());
@@ -244,6 +253,11 @@ public final class PortProbe {
                     runtime, world, player, x, y, z));
           });
       runFull("native_hbm_tools_and_high_anvil", () -> tools());
+      runFull("native_hammer_walking_tunnels", () -> {
+        int x=baseX+96,z=baseZ+144;load(x,z,2);
+        try {fullGroups.put("hammerTunnels",dev.deadearth.legacyprobe.gameplay.HammerMiningProbe.run(world,player,x,fixtureY(x,z)+12,z));}
+        catch(Throwable failure){throw new RuntimeException("Native hammer tunnel check",failure);}
+      });
       runFull("physical_ae2_cell_zone_valuation", () -> ae2Valuation());
       runFull("physical_native_crop_trays", () -> farming());
       runFull(
@@ -300,6 +314,18 @@ public final class PortProbe {
                     && persisted.starterState.equals("DELIVERED"),
                 "full campaign and shelter receipt persist");
           });
+    } catch (Throwable failed) {
+      failures++;
+      checks.add(result("probe_setup", false, failed));
+      failed.printStackTrace();
+    } finally {
+      collectingPreparations = false;
+      if (preparationSteps.isEmpty() && sieveGameplay == null && siegeGameplay == null && relayGameplay == null) finishNative();
+    }
+  }
+
+  private void startNativeGameplay() {
+    try {
       report.put("activeTicks", runtime.campaign.activeTicks);
       report.put("phase", runtime.campaign.phase);
       report.put("nativePhase", runtime.srp.phase(world));
@@ -312,13 +338,10 @@ public final class PortProbe {
           dev.deadearth.legacyprobe.combat.SiegeProbe.begin(
               runtime, world, player, siegeX, siegeY, siegeZ);
     } catch (Throwable failed) {
-      failures++;
-      checks.add(result("probe_setup", false, failed));
-      failed.printStackTrace();
+      failures++; checks.add(result("gameplay_setup",false,failed)); failed.printStackTrace();
     } finally {
       if (sieveGameplay == null && siegeGameplay == null && relayGameplay == null) finishNative();
     }
-    // Normal ticking completes the gameplay session before the runner may stop this server.
   }
 
   private void startRelayGameplay() {
@@ -1346,6 +1369,7 @@ public final class PortProbe {
   }
 
   private void runFull(String name, Checked action) {
+    if (collectingPreparations) { preparationSteps.addLast(() -> runFull(name, action)); return; }
     int before = checks.size();
     run(name, action);
     fullAssertionCount += checks.size() - before;
@@ -1395,6 +1419,7 @@ public final class PortProbe {
   }
 
   private void run(String name, Checked action) {
+    if (collectingPreparations) { preparationSteps.addLast(() -> run(name, action)); return; }
     try {
       action.run();
       checks.add(result(name, true, null));

@@ -134,6 +134,19 @@ public final class NativeTools {
     return config;
   }
 
+  /** Called from the native HBM plane loop; only our larger manual hammers opt in. */
+  public static int wallBottom(int y, int radius, Object player, Object tool) {
+    boolean walking = radius == 2 && tool == ITEMS.get("dead_earth:hammer_v2")
+        || radius == 3 && tool == ITEMS.get("dead_earth:hammer_v3");
+    if (!walking) return y - radius;
+    double feet = ((Number) Reflect.get(player, "posY/field_70163_u")).doubleValue();
+    return HammerPlane.bottom(y, radius, feet, true);
+  }
+
+  public static int wallTop(int y, int radius, Object player, Object tool) {
+    return wallBottom(y, radius, player, tool) + 2 * radius;
+  }
+
   public static boolean isTool(Object stack) {
     return stack != null && TIERS.containsKey(itemId(stack));
   }

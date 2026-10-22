@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "mode": "xray",
-  "sightRadius": 64,
+  "sightRadius": 16,
   "targetCreativePlayers": false,
   "maximumRayCells": 128,
   "maximumTransparentCells": 16,

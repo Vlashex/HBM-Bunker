@@ -54,3 +54,7 @@ mods/dead-earth/run-gametest-*/
 # Isolated normal-server and rendered-client verification
 mods/dead-earth/run-server-*/
 mods/dead-earth/run-client-*/
+
+# Compile-only Minecraft API is source, not a saved world.
+!legacy/coordinator/compile-only-stubs/net/minecraft/world/
+!legacy/coordinator/compile-only-stubs/net/minecraft/world/**

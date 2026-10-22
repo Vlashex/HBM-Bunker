@@ -18,6 +18,9 @@ import org.objectweb.asm.tree.VarInsnNode;
 public final class LegacyTransformer implements IClassTransformer {
   public byte[] transform(String name, String transformedName, byte[] bytes) {
     if (bytes == null) return null;
+    if ("net.minecraft.item.ItemPotion".equals(transformedName) || "v0id.vsb.item.ItemBackpack".equals(transformedName)) return ConvenienceTransformer.transform(transformedName, bytes);
+    if ("com.hbm.handler.ability.IToolAreaAbility$4".equals(transformedName))
+      return HammerPlaneTransformer.transform(bytes);
     boolean world = "net.minecraft.world.World".equals(transformedName);
     boolean digging = "funwayguy.epicsiegemod.ai.ESM_EntityAIDigging".equals(transformedName);
     boolean livingSight = "net.minecraft.entity.EntityLivingBase".equals(transformedName);

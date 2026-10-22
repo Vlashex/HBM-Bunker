@@ -313,5 +313,27 @@
     "loader": "forge",
     "side": "both",
     "source": "https://www.curseforge.com/minecraft/mc-mods/bonsai-trees/files/2846217"
+  },
+  {
+    "filename": "V0ids-Smart-Backpacks-1.0.6.jar",
+    "url": "https://edge.forgecdn.net/files/2618/300/V0id%27s%20Smart%20Backpacks-1.0.6.jar",
+    "version": "1.0.6",
+    "mod_id": "v0idssmartbackpacks",
+    "size": 462490,
+    "sha256": "aeeae6b248eaa94f4876bccbc6039b67fff11382aaf9c73a64a788cc25f95e87",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "both"
+  },
+  {
+    "filename": "incontrol-1.12-3.9.18.jar",
+    "url": "https://cdn.modrinth.com/data/KpICtuVx/versions/X5YFoHxO/incontrol-1.12-3.9.18.jar",
+    "version": "1.12-3.9.18",
+    "mod_id": "incontrol",
+    "size": 152687,
+    "sha256": "b249e9e59a20549fc7080108629f0089cab7f3f16241fea8f5070bb8178f83c3",
+    "minecraft": "1.12.2",
+    "loader": "forge",
+    "side": "server"
   }
 ]

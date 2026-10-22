@@ -1,0 +1,1 @@
+package net.minecraft.world.gen.structure; public class WoodlandMansion { public WoodlandMansion(net.minecraft.world.gen.ChunkGeneratorOverworld generator){} protected boolean func_75047_a(int x,int z){return false;} }
