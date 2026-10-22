@@ -4,9 +4,9 @@ import json
 import re
 from pathlib import Path
 try:
-    from tools import legacy_materials
+    from tools import legacy_materials, legacy_sieve_pricing
 except ModuleNotFoundError:
-    import legacy_materials
+    import legacy_materials, legacy_sieve_pricing
 
 ROOT = Path(__file__).resolve().parents[1]
 ITEM = re.compile(r'[a-z0-9_]+:[a-z0-9_./]+(?::[0-9]+)?\Z')
@@ -103,6 +103,9 @@ def products(root=ROOT):
         required.update((drop['input'], drop['output']))
     positives = dict(emc['allowlist'])
     positives.update(legacy_materials.raw_values(root))
+    sieve_prices = legacy_sieve_pricing.prices(root, positives)
+    sieve_report = legacy_sieve_pricing.report(root, positives)
+    positives.update(sieve_prices)
     compressed = compressed_raw_values(root, positives)
     positives.update(compressed)
     for item, value in positives.items():
@@ -126,6 +129,7 @@ def products(root=ROOT):
     result = {'legacy/pack/scripts/dead_earth_progression.zs': ('\n'.join(lines)).encode(),
               'legacy/pack/config/ProjectE/mapping.cfg': ('\n'.join(mapping)).encode(),
               'legacy/pack/config/exnihilocreatio/ExNihiloCreatio.cfg': ('\n'.join(native_sieve)).encode()}
+    result['legacy/progression/sieve-pricing-report.json'] = (json.dumps(sieve_report, indent=2) + '\n').encode()
     for path, value in {'legacy/pack/config/ProjectE/custom_emc.json': {'__comment': emc['policy'], 'entries': entries},
                         'legacy/pack/config/dead-earth/progression.json': {'schema': 1, 'requiredItems': sorted(required), 'sieve': sieve['drops'], 'rawEmc': positives}}.items():
         result[path] = (json.dumps(value, indent=2) + '\n').encode()
@@ -136,6 +140,10 @@ def products(root=ROOT):
     # Canonical entries and legacy same-form aliases share zone prices.
     coordinator = json.loads((root / 'legacy/pack/config/dead-earth/coordinator.json').read_text(encoding='utf-8'))
     coordinator['resourcePrices'].update(legacy_materials.zone_values(root))
+    for item, value in sieve_prices.items():
+        coordinator['resourcePrices'][item.replace('|', ':')] = value
+        if item.endswith('|0'):
+            coordinator['resourcePrices'][item[:-2]] = value
     for item, value in compressed.items(): coordinator['resourcePrices'][item.replace('|', ':')] = value
     result['legacy/pack/config/dead-earth/coordinator.json'] = (json.dumps(coordinator, indent=2) + '\n').encode()
     generated_progression = json.loads(result['legacy/pack/config/dead-earth/progression.json'])

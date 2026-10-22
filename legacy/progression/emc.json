@@ -5,9 +5,6 @@
     "minecraft:stone|0": 1,
     "minecraft:dirt|0": 1,
     "minecraft:grass|0": 1,
-    "minecraft:sand|0": 1,
-    "minecraft:sand|1": 1,
-    "minecraft:gravel|0": 4,
     "minecraft:clay_ball|0": 16,
     "minecraft:flint|0": 4,
     "minecraft:obsidian|0": 64,
@@ -156,5 +153,5 @@
     "storagenetwork:request|0",
     "storagenetwork:storage_kabel|0"
   ],
-  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json."
+  "policy": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Gravel, both sands and Ex Nihilo dust use derived sieve-pricing.json values; baseline target 1.5% gross return without enchantments or advanced HBM processing."
 }

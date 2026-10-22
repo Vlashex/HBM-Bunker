@@ -1,0 +1,231 @@
+{
+  "schema": 1,
+  "targetReturnPercent": 1.5,
+  "fortuneLevel": 0,
+  "flattenSieveRecipes": false,
+  "inputs": [
+    "minecraft:gravel|0",
+    "minecraft:sand|0",
+    "minecraft:sand|1",
+    "exnihilocreatio:block_dust|0"
+  ],
+  "nativeSource": {
+    "modId": "exnihilocreatio",
+    "sha256": "5b60df51d7d83e495af8d063fd0328b09cc78db87d4e53ba8fc828e869975a27",
+    "classes": [
+      "exnihilocreatio.recipes.defaults.ExNihilo#registerSieve",
+      "exnihilocreatio.registries.registries.SieveRegistry#getRewardDrops",
+      "exnihilocreatio.registries.registries.SieveRegistry#canSieve",
+      "exnihilocreatio.registries.registries.OreRegistry#doRecipes"
+    ],
+    "registeredOrePieces": [
+      "exnihilocreatio:item_ore_gold",
+      "exnihilocreatio:item_ore_iron"
+    ],
+    "note": "Pinned full-pack item registry (saved FML registry, 2026-10-22) contains only iron/gold ExN ores. HBM ore drops come from progression/sieve.json; do not invent optional ExN ores. Native sand ore-dictionary recipes cover both colors; explicit iron drop uses sand metadata 1. isSkyWorld=true, normalDropPercent=100. Enchanted meshes and advanced HBM processing are additional farm profit, not the baseline.",
+    "serverModPins": {
+      "storagenetwork": "41caa348d9810bea1811b043e2075263206f8b1b4b35f085d5cc7ca479b08bdd",
+      "crafttweaker": "b2e5e443f18d0d5bcfd1364f9ec89565e6a1e2ad4568b899c590aa5507978b27",
+      "hbm": "43b0a3f71e58cca548d3ff1aa01faf45ad2eaa5477adfcaa9d161300b589266d",
+      "mixinbooter": "ac6779132ca4df1a4f6319f3edc605c9d9b6c8ff6889e851472e2b41ecce273e",
+      "jei": "e069347966155efd050fe18f060162a0406c194528c7c16974263c8879c3a8a2",
+      "srparasites": "f803ab3882bc8047858a23e2376aaa8fb87d7e54a324b9183b4a033ee076ddea",
+      "epicsiegemod": "398b7558dce5bf903df4afc6c143347d3245959f19c98d23f2f0312fb0a9c127",
+      "mysticalagriculture": "e84a70bbcb5dc559d28c7bc65f1ef1af512485097ad89c6748249b173019975c",
+      "cucumber": "0475ba0f0964c4a56afd1c2765b7063849ca2b77a91d80d7f612fb15354c27e5",
+      "rftools": "558c38d0f7852d17a03aef81e4bd6cc2f28e60db8a8749c710c9ee829f2de0a4",
+      "rftoolspower": "bf678ca007953e8d5aee96f29aeefd88120485a988a05b7ec6d37663bb824891",
+      "mcjtylib_ng": "af7d2b3c421329e7b97202302a072867e7c9bd73c5b8fab9bdb3a76fbfe474e3",
+      "xnet": "37b39fb2e10bf3a991952317d68cf137c7470060197ce74a5826699fac0326fc",
+      "waila": "e9ddecd4920ee9a57e11e4b43fb1dd395bbf37e276be726a99a2590272304124",
+      "vintagefix": "33a16df8fe94bb625a41bc20d7d3d4629b63c6a53e95119715db5e969982b65b",
+      "appliedenergistics2": "e7f7fbf6caaf6206dbd958fb8f9185f874a405289e62ae3e97209b455a89fb1a",
+      "projecte": "9a46c66e95487bcfb7d715650817a9c30df5c759013bb6cb0d3290b261212595",
+      "exnihilocreatio": "5b60df51d7d83e495af8d063fd0328b09cc78db87d4e53ba8fc828e869975a27",
+      "excompressum": "421ed0d7eeb31c9208fc641219b9f8c1544aae640a020779a5641ad8a47a66a1",
+      "forgelin": "ccfcad80ef73ab815875a91979128ed58c262c479c7c0e5da65b225954bee197",
+      "simpledifficulty": "4c7f92455aae62e7dbc4171aad609c34983243c90d72add5a12ece1613fd1b4b",
+      "xlfoodmod": "94cd0ecbabc102d3ee2103ebef9dcff418e11a3e5f42441dd31a1cc14c3d0366",
+      "inventorysorter": "24616b78ba3f2fbf2ed77e6ff5121712c8cf35288dbbf3199a2304547bd4bfc9",
+      "bonsaitrees": "c56c407c3e157f2e2d831d415938b0393d7d11aa5248bdbe584847d98b9d2a30"
+    }
+  },
+  "conversions": {
+    "exnihilocreatio:item_ore_iron|0": {
+      "output": "minecraft:iron_ingot|0",
+      "inputCount": 4,
+      "outputCount": 1
+    },
+    "exnihilocreatio:item_ore_gold|0": {
+      "output": "minecraft:gold_ingot|0",
+      "inputCount": 4,
+      "outputCount": 1
+    }
+  },
+  "unpricedRewards": {
+    "minecraft:dye|3": "Cocoa is not in the raw EMC allowlist.",
+    "minecraft:dye|15": "Bone meal is not in the raw EMC allowlist.",
+    "minecraft:prismarine_shard|0": "No raw EMC.",
+    "minecraft:gunpowder|0": "No raw EMC.",
+    "minecraft:blaze_powder|0": "No raw EMC.",
+    "mysticalagriculture:crafting|5": "Prosperity is progression, no EMC."
+  },
+  "nativeDrops": [
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:flint",
+      "mesh": 1,
+      "chance": 0.25
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:flint",
+      "mesh": 2,
+      "chance": 0.25
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:coal",
+      "mesh": 2,
+      "chance": 0.125
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:dye:4",
+      "mesh": 2,
+      "chance": 0.05
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:diamond",
+      "mesh": 3,
+      "chance": 0.008
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:diamond",
+      "mesh": 4,
+      "chance": 0.016
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:emerald",
+      "mesh": 3,
+      "chance": 0.008
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "minecraft:emerald",
+      "mesh": 4,
+      "chance": 0.016
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_iron",
+      "mesh": 2,
+      "chance": 0.1
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_iron",
+      "mesh": 3,
+      "chance": 0.15
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_iron",
+      "mesh": 4,
+      "chance": 0.25
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_gold",
+      "mesh": 2,
+      "chance": 0.05
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_gold",
+      "mesh": 3,
+      "chance": 0.075
+    },
+    {
+      "input": "minecraft:gravel",
+      "output": "exnihilocreatio:item_ore_gold",
+      "mesh": 4,
+      "chance": 0.15
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "minecraft:dye:3",
+      "mesh": 1,
+      "chance": 0.03
+    },
+    {
+      "input": "minecraft:sand:1",
+      "output": "minecraft:dye:3",
+      "mesh": 1,
+      "chance": 0.03
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "minecraft:prismarine_shard",
+      "mesh": 4,
+      "chance": 0.02
+    },
+    {
+      "input": "minecraft:sand:1",
+      "output": "minecraft:prismarine_shard",
+      "mesh": 4,
+      "chance": 0.02
+    },
+    {
+      "input": "minecraft:sand",
+      "output": "exnihilocreatio:item_ore_iron",
+      "mesh": 4,
+      "chance": 0.5
+    },
+    {
+      "input": "minecraft:sand:1",
+      "output": "exnihilocreatio:item_ore_iron",
+      "mesh": 4,
+      "chance": 0.5
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:dye:15",
+      "mesh": 1,
+      "chance": 0.2
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:gunpowder",
+      "mesh": 1,
+      "chance": 0.07
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:redstone",
+      "mesh": 3,
+      "chance": 0.125
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:redstone",
+      "mesh": 4,
+      "chance": 0.25
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:glowstone_dust",
+      "mesh": 3,
+      "chance": 0.0625
+    },
+    {
+      "input": "exnihilocreatio:block_dust",
+      "output": "minecraft:blaze_powder",
+      "mesh": 3,
+      "chance": 0.05
+    }
+  ]
+}

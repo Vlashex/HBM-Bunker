@@ -1,5 +1,5 @@
 {
-  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json.",
+  "__comment": "Only explicitly listed raw resources have EMC; all recipe/API/ore/smelting propagation is disabled. All unlisted items have no EMC, including nuclear fuel, SRP trophies, plates and technology. Raw resource farms retain profit. Canonical full material forms and their single price are defined in legacy/materials/catalog.json. Gravel, both sands and Ex Nihilo dust use derived sieve-pricing.json values; baseline target 1.5% gross return without enchantments or advanced HBM processing.",
   "entries": [
     {
       "item": "appliedenergistics2:material|0",
@@ -30,44 +30,60 @@
       "emc": 6561
     },
     {
+      "item": "dead_earth:compressed_dust_2|0",
+      "emc": 2511
+    },
+    {
+      "item": "dead_earth:compressed_dust_3|0",
+      "emc": 22599
+    },
+    {
+      "item": "dead_earth:compressed_dust_4|0",
+      "emc": 203391
+    },
+    {
       "item": "dead_earth:compressed_gravel_2|0",
-      "emc": 324
+      "emc": 57915
     },
     {
       "item": "dead_earth:compressed_gravel_3|0",
-      "emc": 2916
+      "emc": 521235
     },
     {
       "item": "dead_earth:compressed_gravel_4|0",
-      "emc": 26244
+      "emc": 4691115
     },
     {
       "item": "dead_earth:compressed_red_sand_1|0",
-      "emc": 9
+      "emc": 279
     },
     {
       "item": "dead_earth:compressed_red_sand_2|0",
-      "emc": 81
+      "emc": 2511
     },
     {
       "item": "dead_earth:compressed_red_sand_3|0",
-      "emc": 729
+      "emc": 22599
     },
     {
       "item": "dead_earth:compressed_red_sand_4|0",
-      "emc": 6561
+      "emc": 203391
     },
     {
       "item": "dead_earth:compressed_sand_2|0",
-      "emc": 81
+      "emc": 5832
     },
     {
       "item": "dead_earth:compressed_sand_3|0",
-      "emc": 729
+      "emc": 52488
     },
     {
       "item": "dead_earth:compressed_sand_4|0",
-      "emc": 6561
+      "emc": 472392
+    },
+    {
+      "item": "excompressum:compressed_block|0",
+      "emc": 279
     },
     {
       "item": "excompressum:compressed_block|1",
@@ -75,15 +91,19 @@
     },
     {
       "item": "excompressum:compressed_block|2",
-      "emc": 36
+      "emc": 6435
     },
     {
       "item": "excompressum:compressed_block|3",
-      "emc": 9
+      "emc": 648
     },
     {
       "item": "excompressum:compressed_block|4",
       "emc": 9
+    },
+    {
+      "item": "exnihilocreatio:block_dust|0",
+      "emc": 31
     },
     {
       "item": "hbm:fluorite|0",
@@ -279,7 +299,7 @@
     },
     {
       "item": "minecraft:gravel|0",
-      "emc": 4
+      "emc": 715
     },
     {
       "item": "minecraft:iron_ingot|0",
@@ -359,11 +379,11 @@
     },
     {
       "item": "minecraft:sand|0",
-      "emc": 1
+      "emc": 72
     },
     {
       "item": "minecraft:sand|1",
-      "emc": 1
+      "emc": 31
     },
     {
       "item": "minecraft:stone|0",

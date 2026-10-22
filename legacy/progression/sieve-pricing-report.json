@@ -1,0 +1,545 @@
+{
+  "schema": 1,
+  "fortuneLevel": 0,
+  "targetReturnPercent": 1.5,
+  "materials": {
+    "minecraft:gravel|0": {
+      "bestMesh": 4,
+      "emc": 715,
+      "expectedByMesh": {
+        "1": "1.0000",
+        "2": "104.3600",
+        "3": "282.7904",
+        "4": "725.4912"
+      },
+      "grossReturnPercent": "1.467",
+      "breakdown": [
+        {
+          "source": "native",
+          "output": "minecraft:flint|0",
+          "mesh": 1,
+          "chance": "0.25",
+          "valuePerItem": "4",
+          "expectedEmc": "1.00",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:flint|0",
+          "mesh": 2,
+          "chance": "0.25",
+          "valuePerItem": "4",
+          "expectedEmc": "1.00",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:coal|0",
+          "mesh": 2,
+          "chance": "0.125",
+          "valuePerItem": "128",
+          "expectedEmc": "16.000",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:dye|4",
+          "mesh": 2,
+          "chance": "0.05",
+          "valuePerItem": "864",
+          "expectedEmc": "43.20",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:diamond|0",
+          "mesh": 3,
+          "chance": "0.008",
+          "valuePerItem": "8192",
+          "expectedEmc": "65.536",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:diamond|0",
+          "mesh": 4,
+          "chance": "0.016",
+          "valuePerItem": "8192",
+          "expectedEmc": "131.072",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:emerald|0",
+          "mesh": 3,
+          "chance": "0.008",
+          "valuePerItem": "16384",
+          "expectedEmc": "131.072",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:emerald|0",
+          "mesh": 4,
+          "chance": "0.016",
+          "valuePerItem": "16384",
+          "expectedEmc": "262.144",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_iron|0",
+          "mesh": 2,
+          "chance": "0.1",
+          "valuePerItem": "64",
+          "expectedEmc": "6.4",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_iron|0",
+          "mesh": 3,
+          "chance": "0.15",
+          "valuePerItem": "64",
+          "expectedEmc": "9.60",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_iron|0",
+          "mesh": 4,
+          "chance": "0.25",
+          "valuePerItem": "64",
+          "expectedEmc": "16.00",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_gold|0",
+          "mesh": 2,
+          "chance": "0.05",
+          "valuePerItem": "512",
+          "expectedEmc": "25.60",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_gold|0",
+          "mesh": 3,
+          "chance": "0.075",
+          "valuePerItem": "512",
+          "expectedEmc": "38.400",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_gold|0",
+          "mesh": 4,
+          "chance": "0.15",
+          "valuePerItem": "512",
+          "expectedEmc": "76.80",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_copper|0",
+          "mesh": 2,
+          "chance": "0.055",
+          "valuePerItem": "128",
+          "expectedEmc": "7.040",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_copper|0",
+          "mesh": 3,
+          "chance": "0.0743",
+          "valuePerItem": "128",
+          "expectedEmc": "9.5104",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_copper|0",
+          "mesh": 4,
+          "chance": "0.0935",
+          "valuePerItem": "128",
+          "expectedEmc": "11.9680",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_aluminium|0",
+          "mesh": 2,
+          "chance": "0.04",
+          "valuePerItem": "128",
+          "expectedEmc": "5.12",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_aluminium|0",
+          "mesh": 3,
+          "chance": "0.054",
+          "valuePerItem": "128",
+          "expectedEmc": "6.912",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_aluminium|0",
+          "mesh": 4,
+          "chance": "0.068",
+          "valuePerItem": "128",
+          "expectedEmc": "8.704",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_lead|0",
+          "mesh": 3,
+          "chance": "0.045",
+          "valuePerItem": "256",
+          "expectedEmc": "11.520",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_lead|0",
+          "mesh": 4,
+          "chance": "0.0607",
+          "valuePerItem": "256",
+          "expectedEmc": "15.5392",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_titanium|0",
+          "mesh": 4,
+          "chance": "0.03",
+          "valuePerItem": "512",
+          "expectedEmc": "15.36",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_tungsten|0",
+          "mesh": 4,
+          "chance": "0.025",
+          "valuePerItem": "768",
+          "expectedEmc": "19.200",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_beryllium|0",
+          "mesh": 4,
+          "chance": "0.025",
+          "valuePerItem": "512",
+          "expectedEmc": "12.800",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_cobalt|0",
+          "mesh": 4,
+          "chance": "0.025",
+          "valuePerItem": "768",
+          "expectedEmc": "19.200",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_uranium|0",
+          "mesh": 4,
+          "chance": "0.015",
+          "valuePerItem": "4096",
+          "expectedEmc": "61.440",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_thorium|0",
+          "mesh": 4,
+          "chance": "0.015",
+          "valuePerItem": "4096",
+          "expectedEmc": "61.440",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_gneiss_lithium|0",
+          "mesh": 3,
+          "chance": "0.02",
+          "valuePerItem": "512",
+          "expectedEmc": "10.24",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:ore_gneiss_lithium|0",
+          "mesh": 4,
+          "chance": "0.027",
+          "valuePerItem": "512",
+          "expectedEmc": "13.824",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "mysticalagriculture:crafting|5",
+          "mesh": 2,
+          "chance": "0.04",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "Prosperity is progression, no EMC."
+        },
+        {
+          "source": "HBM provider",
+          "output": "mysticalagriculture:crafting|5",
+          "mesh": 3,
+          "chance": "0.054",
+          "valuePerItem": "0",
+          "expectedEmc": "0.000",
+          "route": "Prosperity is progression, no EMC."
+        },
+        {
+          "source": "HBM provider",
+          "output": "mysticalagriculture:crafting|5",
+          "mesh": 4,
+          "chance": "0.068",
+          "valuePerItem": "0",
+          "expectedEmc": "0.000",
+          "route": "Prosperity is progression, no EMC."
+        }
+      ]
+    },
+    "minecraft:sand|0": {
+      "bestMesh": 4,
+      "emc": 72,
+      "expectedByMesh": {
+        "1": "0.0000",
+        "2": "24.3200",
+        "3": "32.8320",
+        "4": "73.3440"
+      },
+      "grossReturnPercent": "1.867",
+      "breakdown": [
+        {
+          "source": "native",
+          "output": "minecraft:dye|3",
+          "mesh": 1,
+          "chance": "0.03",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "Cocoa is not in the raw EMC allowlist."
+        },
+        {
+          "source": "native",
+          "output": "minecraft:prismarine_shard|0",
+          "mesh": 4,
+          "chance": "0.02",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "No raw EMC."
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_iron|0",
+          "mesh": 4,
+          "chance": "0.5",
+          "valuePerItem": "64",
+          "expectedEmc": "32.0",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:sulfur|0",
+          "mesh": 2,
+          "chance": "0.12",
+          "valuePerItem": "64",
+          "expectedEmc": "7.68",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:sulfur|0",
+          "mesh": 3,
+          "chance": "0.162",
+          "valuePerItem": "64",
+          "expectedEmc": "10.368",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:sulfur|0",
+          "mesh": 4,
+          "chance": "0.204",
+          "valuePerItem": "64",
+          "expectedEmc": "13.056",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:niter|0",
+          "mesh": 2,
+          "chance": "0.1",
+          "valuePerItem": "64",
+          "expectedEmc": "6.4",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:niter|0",
+          "mesh": 3,
+          "chance": "0.135",
+          "valuePerItem": "64",
+          "expectedEmc": "8.640",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:niter|0",
+          "mesh": 4,
+          "chance": "0.17",
+          "valuePerItem": "64",
+          "expectedEmc": "10.88",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:fluorite|0",
+          "mesh": 2,
+          "chance": "0.08",
+          "valuePerItem": "128",
+          "expectedEmc": "10.24",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:fluorite|0",
+          "mesh": 3,
+          "chance": "0.108",
+          "valuePerItem": "128",
+          "expectedEmc": "13.824",
+          "route": "raw EMC"
+        },
+        {
+          "source": "HBM provider",
+          "output": "hbm:fluorite|0",
+          "mesh": 4,
+          "chance": "0.136",
+          "valuePerItem": "128",
+          "expectedEmc": "17.408",
+          "route": "raw EMC"
+        }
+      ]
+    },
+    "minecraft:sand|1": {
+      "bestMesh": 4,
+      "emc": 31,
+      "expectedByMesh": {
+        "1": "0.0000",
+        "2": "0.0000",
+        "3": "0.0000",
+        "4": "32.0000"
+      },
+      "grossReturnPercent": "3.226",
+      "breakdown": [
+        {
+          "source": "native",
+          "output": "minecraft:dye|3",
+          "mesh": 1,
+          "chance": "0.03",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "Cocoa is not in the raw EMC allowlist."
+        },
+        {
+          "source": "native",
+          "output": "minecraft:prismarine_shard|0",
+          "mesh": 4,
+          "chance": "0.02",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "No raw EMC."
+        },
+        {
+          "source": "native",
+          "output": "exnihilocreatio:item_ore_iron|0",
+          "mesh": 4,
+          "chance": "0.5",
+          "valuePerItem": "64",
+          "expectedEmc": "32.0",
+          "route": "4 pieces -> chunk -> furnace ingot"
+        }
+      ]
+    },
+    "exnihilocreatio:block_dust|0": {
+      "bestMesh": 3,
+      "emc": 31,
+      "expectedByMesh": {
+        "1": "0.0000",
+        "2": "0.0000",
+        "3": "32.0000",
+        "4": "16.0000"
+      },
+      "grossReturnPercent": "3.226",
+      "breakdown": [
+        {
+          "source": "native",
+          "output": "minecraft:dye|15",
+          "mesh": 1,
+          "chance": "0.2",
+          "valuePerItem": "0",
+          "expectedEmc": "0.0",
+          "route": "Bone meal is not in the raw EMC allowlist."
+        },
+        {
+          "source": "native",
+          "output": "minecraft:gunpowder|0",
+          "mesh": 1,
+          "chance": "0.07",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "No raw EMC."
+        },
+        {
+          "source": "native",
+          "output": "minecraft:redstone|0",
+          "mesh": 3,
+          "chance": "0.125",
+          "valuePerItem": "64",
+          "expectedEmc": "8.000",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:redstone|0",
+          "mesh": 4,
+          "chance": "0.25",
+          "valuePerItem": "64",
+          "expectedEmc": "16.00",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:glowstone_dust|0",
+          "mesh": 3,
+          "chance": "0.0625",
+          "valuePerItem": "384",
+          "expectedEmc": "24.0000",
+          "route": "raw EMC"
+        },
+        {
+          "source": "native",
+          "output": "minecraft:blaze_powder|0",
+          "mesh": 3,
+          "chance": "0.05",
+          "valuePerItem": "0",
+          "expectedEmc": "0.00",
+          "route": "No raw EMC."
+        }
+      ]
+    }
+  }
+}

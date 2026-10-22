@@ -1,0 +1,21 @@
+{
+  "/api/health": {
+    "http": 200,
+    "state": null
+  },
+  "/api/config": {
+    "http": 200,
+    "state": "ready"
+  },
+  "activePrices": {
+    "minecraft:gravel|0": 715,
+    "minecraft:sand|0": 72,
+    "minecraft:sand|1": 31,
+    "exnihilocreatio:block_dust|0": 31
+  },
+  "/api/evolution": {
+    "http": 200,
+    "state": "ready"
+  },
+  "unrelatedSettingsPreserved": true
+}

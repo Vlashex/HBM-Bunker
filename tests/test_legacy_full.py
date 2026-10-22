@@ -35,8 +35,8 @@ class FullForkTests(unittest.TestCase):
         products=legacy_full_recipes.products()
         progression=json.loads(products['legacy/pack/config/dead-earth/progression.json'])
         values=progression['rawEmc']
-        self.assertEqual(values['dead_earth:compressed_gravel_4|0'],4*6561)
-        self.assertEqual(values['excompressum:compressed_block|2'],4*9)
+        self.assertEqual(values['dead_earth:compressed_gravel_4|0'],715*6561)
+        self.assertEqual(values['excompressum:compressed_block|2'],715*9)
         self.assertNotIn('dead_earth:compact_sieve_v5|0',values)
         self.assertNotIn('dead_earth:compact_mesh_diamond_v5|0',values)
         self.assertFalse(any('plate_' in token or 'circuit' in token for token in values))

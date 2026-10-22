@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "kind": "configuration-only-sieve-economy",
+  "targetReturnPercent": 1.5,
+  "tests": {
+    "command": "python -m unittest tests.test_legacy_sieve_pricing tests.test_legacy_materials tests.test_legacy_full -v",
+    "count": 20
+  },
+  "runtimeWorldPreserved": true,
+  "modJarChanged": false,
+  "enchantmentBonusIncluded": false,
+  "advancedHbmProcessingIncluded": false,
+  "verifiedConfigFiles": [
+    {
+      "installation": "server",
+      "file": "config/ProjectE/custom_emc.json",
+      "sha256": "6661b73c4f1aa222dc8ca16851e99780fb7192843235154dbc634fc7d1ba2d02"
+    },
+    {
+      "installation": "server",
+      "file": "config/dead-earth/progression.json",
+      "sha256": "e51eb8e367a0fe1768786bb3f8460ae49b0a105353462d61cd018fc0826eea89"
+    },
+    {
+      "installation": "server",
+      "file": "config/dead-earth/coordinator.json",
+      "sha256": "8194203743fa145e08609727243683b1b00ca0356f8d252e9b59566c6eb48bd3"
+    },
+    {
+      "installation": "prism",
+      "file": "config/ProjectE/custom_emc.json",
+      "sha256": "6661b73c4f1aa222dc8ca16851e99780fb7192843235154dbc634fc7d1ba2d02"
+    },
+    {
+      "installation": "prism",
+      "file": "config/dead-earth/progression.json",
+      "sha256": "e51eb8e367a0fe1768786bb3f8460ae49b0a105353462d61cd018fc0826eea89"
+    },
+    {
+      "installation": "prism",
+      "file": "config/dead-earth/coordinator.json",
+      "sha256": "f517d94f5a19cbbedc6a1cb880a292beb688657dcfa323459a815fa364f7660d"
+    },
+    {
+      "installation": "interactive",
+      "file": "config/ProjectE/custom_emc.json",
+      "sha256": "6661b73c4f1aa222dc8ca16851e99780fb7192843235154dbc634fc7d1ba2d02"
+    },
+    {
+      "installation": "interactive",
+      "file": "config/dead-earth/progression.json",
+      "sha256": "e51eb8e367a0fe1768786bb3f8460ae49b0a105353462d61cd018fc0826eea89"
+    },
+    {
+      "installation": "interactive",
+      "file": "config/dead-earth/coordinator.json",
+      "sha256": "ea54bd54a8663740efcfa6008536b5b12fa4f57c16d7d67ced5e09db6d1be1a6"
+    }
+  ],
+  "sourceHashes": {
+    "legacy/progression/sieve.json": "63e04a9b7cc9073f0e199292ddc38b1f76c36882949b163ee5e6007966905e28",
+    "legacy/progression/sieve-pricing.json": "e6020e08f55d07cfc3cd8f28aecc3d4947e50d7ba69155205b1c1e3157da1f68",
+    "legacy/materials/catalog.json": "e6d55dd6dd7db0992da293b510b61b1eb2dbb903c5e8418311be29176ddd9ea6",
+    "legacy/progression/emc.json": "a97900f2b3c65e37b4affeb0193a8a7c5b58d6db281959a8c9b2e62258302094"
+  }
+}
