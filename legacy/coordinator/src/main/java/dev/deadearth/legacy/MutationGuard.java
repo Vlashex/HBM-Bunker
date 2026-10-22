@@ -9,8 +9,7 @@ public final class MutationGuard {
     if (!dev.deadearth.legacy.defense.LegacyDefense.allowChange(world, pos, proposedState))
       return false;
     LegacyRuntime r = DeadEarthLegacy.runtime;
-    if (r == null || !r.onOwnerThread() || r.campaign.activeTicks >= r.settings.bunkerGraceTicks)
-      return true;
+    if (r == null || !r.onOwnerThread()) return true;
     if (!r.protectedAt(world, pos)) return true;
     if (dev.deadearth.legacy.combat.RelaySiege.hostileWriteActive()) return false;
     for (StackTraceElement frame : Thread.currentThread().getStackTrace()) {

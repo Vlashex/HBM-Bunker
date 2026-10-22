@@ -81,7 +81,8 @@ public final class DeadEarthLegacy {
             (o, m, a) -> {
               String n = m.getName();
               if (n.equals("getName") || n.equals("func_71517_b")) return "deadearth";
-              if (n.equals("getUsage") || n.equals("func_71518_a")) return "/deadearth status";
+              if (n.equals("getUsage") || n.equals("func_71518_a"))
+                return "/deadearth status | bunker status | bunker extend 1h";
               if (n.equals("getAliases")
                   || n.equals("func_71514_a")
                   || n.equals("getTabCompletions")
@@ -109,7 +110,11 @@ public final class DeadEarthLegacy {
                 Object text =
                     Reflect.make(
                         "net.minecraft.util.text.TextComponentString",
-                        JsonFiles.JSON.toJson(result));
+                        ((String[]) a[2]).length > 0
+                                && ((String[]) a[2])[0].equals("bunker")
+                                && result instanceof Map && ((Map<?, ?>) result).containsKey("message")
+                            ? String.valueOf(((Map<?, ?>) result).get("message"))
+                            : JsonFiles.JSON.toJson(result));
                 Reflect.call(a[1], "sendMessage/func_145747_a", text);
                 return null;
               }

@@ -13,6 +13,7 @@ public final class Campaign {
   public String campaignId = UUID.randomUUID().toString(),
       worldEpoch = UUID.randomUUID().toString();
   public long activeTicks = 0, revision = 0;
+  public long bunkerProtectionUntilTicks = 0;
   public double points = 0;
   public int phase = 0;
   public boolean paused = false;
@@ -106,9 +107,19 @@ public final class Campaign {
           }
         }
     }
+    // Optional in schema 1: pre-command worlds keep their configured grace deadline.
+    if (raw.has("bunkerProtectionUntilTicks")) {
+      com.google.gson.JsonElement deadline = raw.get("bunkerProtectionUntilTicks");
+      if (!deadline.isJsonPrimitive()
+          || !deadline.getAsJsonPrimitive().isNumber()
+          || !deadline.getAsString().matches("[0-9]{1,19}"))
+        throw new IllegalStateException("Invalid bunker protection deadline");
+      Long.parseLong(deadline.getAsString());
+    }
     Campaign c = JsonFiles.JSON.fromJson(raw, Campaign.class);
     if (c.schema != 1
         || c.activeTicks < 0
+        || c.bunkerProtectionUntilTicks < 0
         || c.revision < 0
         || !Settings.finite(c.points, 0, Integer.MAX_VALUE)
         || c.phase < 0

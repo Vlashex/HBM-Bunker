@@ -583,7 +583,9 @@ public final class LegacyRuntime {
   }
 
   public boolean protectedAt(Object w, Object pos) {
-    if (campaign.activeTicks >= settings.bunkerGraceTicks || Reflect.dimension(w) != 0)
+    if (campaign.activeTicks >= dev.deadearth.legacy.defense.BunkerProtection.deadline(
+            settings.bunkerGraceTicks, campaign.bunkerProtectionUntilTicks)
+        || Reflect.dimension(w) != 0)
       return false;
     Object spawn = Reflect.call(w, "getSpawnPoint/func_175694_M");
     return Math.abs(Reflect.x(pos) - Reflect.x(spawn)) <= 16
@@ -815,6 +817,7 @@ public final class LegacyRuntime {
 
   public Object command(String[] args) {
     requireThread();
+    if (args.length >= 1 && args[0].equals("bunker")) return bunkerCommand(args);
     if (args.length >= 1 && args[0].equals("config")) return configurationCommand(args);
     if (args.length == 2 && args[0].equals("evolution") && args[1].equals("status"))
       return evolution();
@@ -868,7 +871,43 @@ public final class LegacyRuntime {
         "error",
         "usage",
         "usage",
-        "deadearth status | evolution status | evolution shift <campaign> <epoch> <revision>"
+        "deadearth status | bunker status | bunker extend [1h|30m|60s|1d] | evolution status | evolution shift <campaign> <epoch> <revision>"
             + " <request> <-1|1> | event <request> <event> <zone>");
+  }
+
+  private Object bunkerCommand(String[] args) {
+    requireThread();
+    boolean extend = args.length >= 2 && args[1].equals("extend");
+    if (!(args.length == 1 || (args.length == 2 && args[1].equals("status"))
+        || (extend && (args.length == 2 || args.length == 3))))
+      return map("accepted", false, "message", "Команды: /deadearth bunker status; /deadearth bunker extend 1h (также 30m, 60s, 1d; максимум 30 дней).");
+    long before = campaign.bunkerProtectionUntilTicks;
+    if (extend) {
+      final long until;
+      try {
+        long duration = dev.deadearth.legacy.defense.BunkerProtection.durationTicks(
+            args.length == 3 ? args[2] : "1h");
+        until = dev.deadearth.legacy.defense.BunkerProtection.extendFromNow(
+            campaign.activeTicks, settings.bunkerGraceTicks, before, duration);
+      } catch (RuntimeException invalid) {
+        return map("accepted", false, "message", "Неверный срок. Пример: /deadearth bunker extend 1h; доступны s, m, h, d, максимум 30 дней.");
+      }
+      campaign.bunkerProtectionUntilTicks = until;
+      try { checkpoint(); }
+      catch (RuntimeException failedSave) {
+        campaign.bunkerProtectionUntilTicks = before;
+        return map("accepted", false, "message", "Не удалось сохранить продление защиты; срок не изменён.");
+      }
+    }
+    long remaining = dev.deadearth.legacy.defense.BunkerProtection.remaining(
+        campaign.activeTicks, settings.bunkerGraceTicks, campaign.bunkerProtectionUntilTicks);
+    return map("accepted", true, "protected", remaining > 0,
+        "untilTicks", dev.deadearth.legacy.defense.BunkerProtection.deadline(
+            settings.bunkerGraceTicks, campaign.bunkerProtectionUntilTicks),
+        "remainingTicks", remaining,
+        "message", remaining == 0 ? "Защита бункера неактивна. Продлить: /deadearth bunker extend 1h"
+            : "Защита бункера активна. Осталось "
+                + dev.deadearth.legacy.defense.BunkerProtection.describe(remaining)
+                + " игрового времени. Без игроков таймер остановлен.");
   }
 }
