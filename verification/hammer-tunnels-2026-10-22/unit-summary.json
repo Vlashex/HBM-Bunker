@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "command": "python -m unittest discover -s tests -v",
+  "total": 137,
+  "passed": 135,
+  "failed": 2,
+  "errors": 0,
+  "legacyCases": 119,
+  "legacyPassed": 119,
+  "allGreen": false,
+  "failures": [
+    {
+      "test": "test_release.ReleaseTests.test_admin_html_scripts_and_styles_are_included_in_release",
+      "detail": "Historical modern packager omits configuration.css referenced by admin HTML"
+    },
+    {
+      "test": "test_release.ReleaseTests.test_release_docs_include_local_markdown_link_targets",
+      "detail": "Historical modern documentation package omits legacy/README-PORT.md linked by README.md"
+    }
+  ],
+  "failedComponentChangedByPatch": false,
+  "legacyGeneratedValidationPassed": true,
+  "logSha256": "8763f06d47e6286278eb8ebe06a011c0056aad53024d51571bb45170c93214e3"
+}

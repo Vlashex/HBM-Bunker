@@ -244,6 +244,17 @@ public final class PortProbe {
                     runtime, world, player, x, y, z));
           });
       runFull("native_hbm_tools_and_high_anvil", () -> tools());
+      runFull("native_hammer_walking_tunnels", () -> {
+        int x = baseX + 96, z = baseZ + 144;
+        load(x, z, 2);
+        try {
+          fullGroups.put("hammerTunnels",
+              dev.deadearth.legacyprobe.gameplay.HammerMiningProbe.run(
+                  world, player, x, fixtureY(x, z) + 12, z));
+        } catch (Throwable failure) {
+          throw new RuntimeException("Native hammer tunnel check", failure);
+        }
+      });
       runFull("physical_ae2_cell_zone_valuation", () -> ae2Valuation());
       runFull("physical_native_crop_trays", () -> farming());
       runFull(
